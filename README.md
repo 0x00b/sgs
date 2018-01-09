@@ -1,2 +1,2 @@
 # sgs
-三国杀
+Legends of the Three Kingdoms
