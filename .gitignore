@@ -35,3 +35,7 @@
 *.user
 *.sln
 /sgs/server/sgs_server/.vs/sgs_server/v15
+*.log
+*.tlog
+*.idb
+*.pdb
