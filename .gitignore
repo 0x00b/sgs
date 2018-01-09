@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+*.vcxproj
+*.filters
+*.user
+*.sln
+/sgs/server/sgs_server/.vs/sgs_server/v15

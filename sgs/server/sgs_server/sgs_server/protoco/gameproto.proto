@@ -1,0 +1,16 @@
+
+//package com.sgs.network.protobuf;
+package proto.game;
+
+enum Code
+{
+	CHOU_CODE_NULL		= 0; //无
+	CHOU_CODE_PENG		= 1; //碰臭
+	CHOU_CODE_CHI		= 2; //吃臭
+	CHOU_CODE_CHIPENG	= 3; //吃碰臭
+}
+
+message tagCards
+{
+	repeated int32 card_list = 4;			//牌列表
+}
