@@ -32,7 +32,7 @@ char *log_type_str[] = { "panic", "fatal", "error", "warn", "info", "debug" };
 	va_end(argptr);\
 	cnt += len;\
 
-Log::Log() {
+SGSLog::SGSLog() {
 	_level = LEVEL_DEBUG;
 	_fd = -1;
 	_console = CONSOLE_OFF;
@@ -52,14 +52,14 @@ Log::Log() {
 #endif
 }
 
-Log::~Log() {
+SGSLog::~SGSLog() {
 #ifdef POSIX_PTHREAD
 	pthread_mutex_destroy(&_mutex);
 #endif
 }
 
 /*
- void Log::start(string log_file, int level, int console, int rotate, int64_t max_size = 1073741824, int max_file = 50)
+ void SGSLog::start(string log_file, int level, int console, int rotate, int64_t max_size = 1073741824, int max_file = 50)
  {
  struct stat64 st;
 
@@ -85,7 +85,7 @@ Log::~Log() {
  }
  */
 
-void Log::start(std::string log_file, int level, int console, int rotate,
+void SGSLog::start(std::string log_file, int level, int console, int rotate,
 		int64_t max_size = 1073741824, int max_file = 50) {
 	struct stat st;
 
@@ -110,14 +110,14 @@ void Log::start(std::string log_file, int level, int console, int rotate,
 	_max_file = max_file;
 }
 
-void Log::stop() {
+void SGSLog::stop() {
 	if (_fd != -1) {
 		close(_fd);
 		_fd = -1;
 	}
 }
 
-void Log::output(char *buf, int cnt) {
+void SGSLog::output(char *buf, int cnt) {
 	if (_console == CONSOLE_ON) {
 		printf("%s", buf);
 		return;
@@ -139,7 +139,7 @@ void Log::output(char *buf, int cnt) {
 		int ret = write(_fd, buf, cnt);
 		if (ret < 0) {
 			// todo
-			perror("Log~write");
+			perror("SGSLog~write");
 		}
 		_current_size += cnt;
 	} else {
@@ -150,7 +150,7 @@ void Log::output(char *buf, int cnt) {
 #endif
 }
 
-void Log::rotate() {
+void SGSLog::rotate() {
 	char src[1024];
 	char dst[1024];
 
@@ -177,7 +177,7 @@ void Log::rotate() {
 	}
 }
 
-void Log::rotate_day() {
+void SGSLog::rotate_day() {
 	char src[1024];
 	char dst[1024];
 
@@ -200,7 +200,7 @@ void Log::rotate_day() {
 	_day = _curr_day->tm_mday;
 }
 
-void Log::panic(char *fmt, ...) {
+void SGSLog::panic(char *fmt, ...) {
 	if (_level < LEVEL_PANIC)
 		return;
 	int log_type = PANIC_TYPE;
@@ -211,7 +211,7 @@ void Log::panic(char *fmt, ...) {
 	exit(1);
 }
 
-void Log::fatal(char *fmt, ...) {
+void SGSLog::fatal(char *fmt, ...) {
 	if (_level < LEVEL_FATAL)
 		return;
 	int log_type = FATAL_TYPE;
@@ -220,7 +220,7 @@ void Log::fatal(char *fmt, ...) {
 	output(buf, cnt);
 }
 
-void Log::error(char *fmt, ...) {
+void SGSLog::error(char *fmt, ...) {
 	if (_level < LEVEL_ERROR)
 		return;
 	int log_type = ERROR_TYPE;
@@ -229,7 +229,7 @@ void Log::error(char *fmt, ...) {
 	output(buf, cnt);
 }
 
-void Log::warn(char *fmt, ...) {
+void SGSLog::warn(char *fmt, ...) {
 	if (_level < LEVEL_WARN)
 		return;
 	int log_type = WARN_TYPE;
@@ -238,7 +238,7 @@ void Log::warn(char *fmt, ...) {
 	output(buf, cnt);
 }
 
-void Log::info(char *fmt, ...) {
+void SGSLog::info(char *fmt, ...) {
 	if (_level < LEVEL_INFO)
 		return;
 	int log_type = INFO_TYPE;
@@ -247,7 +247,7 @@ void Log::info(char *fmt, ...) {
 	output(buf, cnt);
 }
 
-void Log::debug(char *fmt, ...) {
+void SGSLog::debug(char *fmt, ...) {
 	if (_level < LEVEL_DEBUG)
 		return;
 	int log_type = DEBUG_TYPE;
@@ -256,7 +256,7 @@ void Log::debug(char *fmt, ...) {
 	output(buf, cnt);
 }
 
-bool Log::check_day_changed() {
+bool SGSLog::check_day_changed() {
 	time_t timep;
 	time(&timep);
 	localtime(&timep);
@@ -276,7 +276,7 @@ bool Log::check_day_changed() {
 #ifdef LOG_DEBUG
 int main()
 {
-	Log log;
+	SGSLog log;
 	log.warn("%s\n", "if is good.");
 	log.start("a.log", LEVEL_DEBUG, CONSOLE_OFF, ROTATE_ON, 100, 30);
 	log.fatal("%s\n", "if is good.");

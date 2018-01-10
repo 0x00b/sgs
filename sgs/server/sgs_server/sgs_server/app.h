@@ -25,7 +25,7 @@ public:
 	std::string		m_stConf_File;
 	Json::Value		m_iConf;
 	struct ev_loop*	m_iLoop;
-	Log				m_iLog;
+	SGSLog			m_iLog;
 	bool			m_bDaemonize;
 protected:
 

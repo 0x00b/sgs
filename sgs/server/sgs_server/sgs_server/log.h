@@ -30,10 +30,10 @@ enum ROTATE {
 	ROTATE_ON,
 };
 
-class Log {
+class SGSLog {
 public:
-    Log();
-    virtual ~Log();
+    SGSLog();
+    virtual ~SGSLog();
     void start(std::string log_file, int level, int console, int rotate, int64_t max_size, int max_file);
     void stop();
     void panic(char *fmt, ...);
