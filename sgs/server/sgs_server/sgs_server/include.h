@@ -34,6 +34,5 @@ Description : include some usage header that don't change
 #include "app.h"
 
 /* global variables*/
-extern App g_app;
 
 #endif // !_SGS_INCLUDE_H_
