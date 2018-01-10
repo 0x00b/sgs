@@ -85,7 +85,7 @@ Log::~Log() {
  }
  */
 
-void Log::start(string log_file, int level, int console, int rotate,
+void Log::start(std::string log_file, int level, int console, int rotate,
 		int64_t max_size = 1073741824, int max_file = 50) {
 	struct stat st;
 

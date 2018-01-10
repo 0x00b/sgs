@@ -9,6 +9,8 @@ Description : log
 
 #include "include.h"
 
+typedef long long int64_t;
+
 enum LEVEL {
     LEVEL_PANIC = 0,
     LEVEL_FATAL,
