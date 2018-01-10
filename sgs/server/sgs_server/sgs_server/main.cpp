@@ -65,7 +65,7 @@ int main(int argc, char** argv)
 			break;
 		}
 
-		log.fatal.start(g_app.m_iConf["log"].get("log_file", "log/sgs_server.log").asString(),
+		log.start(g_app.m_iConf["log"].get("log_file", "log/sgs_server.log").asString(),
 			g_app.m_iConf["log"].get("level", 4).asInt(),
 			g_app.m_iConf["log"].get("console", 0).asInt(),
 			g_app.m_iConf["log"].get("rotate", 1).asInt(),
@@ -188,6 +188,32 @@ int set_rlimit(int n)
 }
 
 /*************************************************
+* Function		: lock_file
+* Description	:
+* Author		: lijun
+* Create Date	: 2018.1.10
+* Calls			:
+* Called by		:
+* Inputs		:
+
+* Output		:
+* Return		: -1/failure 0/succ
+* Others		:
+**************************************************/
+static int lock_file(int fd)
+{
+	struct flock fl;
+
+	fl.l_type = F_WRLCK;
+	fl.l_start = 0;
+	fl.l_whence = SEEK_SET;
+	fl.l_len = 0;
+	return (fcntl(fd, F_SETLK, &fl));
+}
+
+
+
+/*************************************************
 * Function		: single_instance_running
 * Description	: 
 * Author		: lijun
@@ -285,28 +311,3 @@ int daemonize()
 
 	return 0;
 }
-
-/*************************************************
-* Function		: lock_file
-* Description	: 
-* Author		: lijun
-* Create Date	: 2018.1.10
-* Calls			:
-* Called by		:
-* Inputs		:
-
-* Output		:
-* Return		: -1/failure 0/succ
-* Others		:
-**************************************************/
-static int lock_file(int fd)
-{
-	struct flock fl;
-
-	fl.l_type = F_WRLCK;
-	fl.l_start = 0;
-	fl.l_whence = SEEK_SET;
-	fl.l_len = 0;
-	return (fcntl(fd, F_SETLK, &fl));
-}
-
