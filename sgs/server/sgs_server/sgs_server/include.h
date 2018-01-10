@@ -10,13 +10,18 @@ Description : include some usage header that don't change
 
 /* system or c headers*/
 #include <stdio.h>
-#include <sys/types.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/time.h>
+#include <errno.h>
 #include <unistd.h> //getopt
 #include <sys/resource.h>//rlimit
+#include <stdarg.h> //va_start
 #ifdef POSIX_PTHREAD
 #include <pthread.h>
 #endif

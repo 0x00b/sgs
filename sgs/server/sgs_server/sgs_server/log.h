@@ -4,8 +4,8 @@ Author      : lijun
 Date        : 2018.01.10
 Description : log
 **************************************************/
-#ifndef _LOG_H_
-#define _LOG_H_
+#ifndef _SGS_LOG_H_
+#define _SGS_LOG_H_
 
 #include "include.h"
 
