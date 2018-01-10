@@ -1,6 +1,3 @@
-#ifndef  _SGS_APP_H_
-#define  _SGS_APP_H_
-
 /*************************************************
 Copyright   : sgs
 Author      : lijun
@@ -8,6 +5,8 @@ Date        : 2018.01.9
 Description : 
 **************************************************/
 
+#ifndef  _SGS_APP_H_
+#define  _SGS_APP_H_
 #include "include.h"
 
 /*************************************************

@@ -1,12 +1,12 @@
-#ifndef _SGS_INCLUDE_H_
-#define _SGS_INCLUDE_H_
-
 /*************************************************
 Copyright   : sgs
 Author      : lijun
 Date        : 2018.01.9
 Description : include some usage header that don't change
 **************************************************/
+
+#ifndef _SGS_INCLUDE_H_
+#define _SGS_INCLUDE_H_
 
 /* system or c headers*/
 #include <stdio.h>

@@ -1,0 +1,8 @@
+
+problem:
+ $ git add .
+git: pathspec.c:317: prefix_pathspec: Assertion `item->nowildcard_len <= item->len && item->prefix <= item->len' failed.
+Aborted (core dumped)
+
+ git rm --cached directory
+ git add directory
