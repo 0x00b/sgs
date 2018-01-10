@@ -9,6 +9,7 @@
 //http://www.cplusplus.com/
 
 #include "include.h"
+#include "app.h"
 
 /* some function for init or config*/
 

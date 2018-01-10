@@ -7,7 +7,7 @@ Description :
 
 #ifndef  _SGS_APP_H_
 #define  _SGS_APP_H_
-#include "include.h"
+
 #include "log.h"
 
 /*************************************************
