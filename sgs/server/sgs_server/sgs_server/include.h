@@ -27,9 +27,9 @@ Description : include some usage header that don't change
 
 /* other headers*/
 #include "zlib/zlib.h"
-#include "include\libev-master\ev++.h"
-#include "libs\base64.h"
-#include "libs\json\json.h"
+#include "include/libev-master/ev++.h"
+#include "libs/base64.h"
+#include "libs/json/json.h"
 
 #include "app.h"
 
