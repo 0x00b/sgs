@@ -35,7 +35,6 @@ $(APP):$(objs)
 	$(CC) $(CFLAGS) $(inc) -c $^
 
 %.o:%.cpp
-	echo $(inc)
 	$(CXX) $(CXXFLAGS) $(inc) -c $^
 
 

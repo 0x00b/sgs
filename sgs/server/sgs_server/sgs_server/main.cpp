@@ -297,7 +297,7 @@ int daemonize()
 	signal(SIGTERM, SIG_DFL); /* Die on SIGTERM */
 	signal(SIGPIPE, SIG_IGN);
 
-	/* become session leader */
+	/* become session leader https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/*/
 	if (setsid() < 0)
 		exit(1);
 
