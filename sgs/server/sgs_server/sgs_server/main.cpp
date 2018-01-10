@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 			log.fatal("set_rlimit err!\n");
 			break;
 		}
-		if ((nRet = single_instance_running(g_app.m_iConf["app"]["pidfile"].asCString())) < 0)
+		if ((nRet = single_instance_running(g_app.m_iConf["app"]["pid_file"].asCString())) < 0)
 		{
 			log.fatal("single_instance_running err!\n");
 			break;
@@ -81,7 +81,13 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 
+	struct ev_loop *loop = ev_default_loop(0);
+	g_app.m_iLoop = loop;
 
+	g_app.m_iGame = new (std::nothrow) Game();
+	//g_app.m_iGame->start();
+
+	ev_loop(loop, 0);
 
 	return 0;
 }

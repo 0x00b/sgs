@@ -9,6 +9,7 @@ Description :
 #define  _SGS_APP_H_
 
 #include "log.h"
+#include "game.h"
 
 /*************************************************
 * Class			: App
@@ -26,6 +27,7 @@ public:
 	Json::Value		m_iConf;
 	struct ev_loop*	m_iLoop;
 	SGSLog			m_iLog;
+	Game*			m_iGame;
 	bool			m_bDaemonize;
 protected:
 
