@@ -37,6 +37,7 @@ Description : include some usage header that don't change
 #include "libs/json/json.h"
 
 #include "app.h"
+#include "log.h"
 
 /* global variables*/
 
