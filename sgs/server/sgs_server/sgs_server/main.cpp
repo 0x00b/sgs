@@ -6,6 +6,8 @@
 * Update Date	:
 **************************************************/
 
+//http://www.cplusplus.com/
+
 #include "include.h"
 
 /* some function for init or config*/
@@ -87,6 +89,12 @@ App g_app;
 **************************************************/
 int main(int argc, char** argv)
 {
+	/* 获取初始化参数*/
+	int nRet = 0;
+	if (parse_args(argc, argv) < 0)
+	{
+		exit(1);
+	}
 
 	return 0;
 }
@@ -103,10 +111,33 @@ int main(int argc, char** argv)
 
 * Output		:
 * Return		: -1/失败 0/成功
-* Others		:
+* Others		: getopt说明/https://www.ibm.com/developerworks/cn/aix/library/au-unix-getopt.html
 **************************************************/
 int parse_args(int argc, char** argv)
 {
+	char ch;
+	while ((ch = getopt(argc, argv, "Df:")) != -1)
+	{
+		switch (ch)
+		{
+		case 'D':
+			g_app.m_bDaemonize = true;
+			break;
+		case 'f':
+			g_app.m_stConf_File = std::string(optarg);
+			break;
+		case '?':
+			//invalid opt
+			printf("invalid opt:%d\n", optopt);
+			break;
+		case ':':
+			//lack of 
+			break;
+		default:
+			break;
+		}
+	}
+	return 0;
 }
 
 /*************************************************
@@ -119,11 +150,28 @@ int parse_args(int argc, char** argv)
 * Inputs		: path 配置文件路径
 
 * Output		: 配置项
-* Return		:  -1/失败 0/成功
+* Return		: -2/打开文件失败 -1/解析失败 0/成功
 * Others		:
 **************************************************/
 int init_conf(std::string path)
 {
+	std::ifstream in(g_app.m_stConf_File.c_str(), std::ifstream::binary);
+
+	if (!in)
+	{
+		std::cout << "open file:" << g_app.m_stConf_File.c_str() << "failed!\n";
+		return -2;
+	}
+
+	Json::Reader reader;
+	bool bRet = reader.parse(in, g_app.m_iConf);
+	in.close();
+	if (bRet)
+	{
+		return 0;
+	}
+	std::cout << "parse:" << g_app.m_stConf_File.c_str() << "failed!\n";
+	return -1;
 }
 
 /*************************************************
@@ -141,6 +189,8 @@ int init_conf(std::string path)
 **************************************************/
 int set_rlimit(int n)
 {
+	struct rlimit rt;
+	
 }
 
 /*************************************************

@@ -15,6 +15,7 @@ Description : include some usage header that don't change
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <unistd.h> //getopt
 
 /* c++ headers*/
 #include <iostream>

@@ -19,7 +19,9 @@ Description :
 class App
 {
 	/*varibles*/
-private:
+
+//private:
+public:
 	std::string		m_stConf_File;
 	bool			m_bDaemonize;
 	Json::Value		m_iConf;
