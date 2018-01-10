@@ -17,6 +17,10 @@ Description : include some usage header that don't change
 #include <fcntl.h>
 #include <unistd.h> //getopt
 #include <sys/resource.h>//rlimit
+#ifdef POSIX_PTHREAD
+#include <pthread.h>
+#endif
+
 
 /* c++ headers*/
 #include <iostream>
@@ -35,5 +39,8 @@ Description : include some usage header that don't change
 #include "app.h"
 
 /* global variables*/
+
+
+#define log g_app.m_iLog
 
 #endif // !_SGS_INCLUDE_H_

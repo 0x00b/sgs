@@ -15,7 +15,7 @@
 int parse_args(int argc, char** argv);
 int init_conf();
 int set_rlimit(int n);
-int single_instance_running();
+int single_instance_running(const char* pid_file);
 int daemonize();
 
 App g_app;
@@ -34,37 +34,43 @@ App g_app;
 **************************************************/
 int main(int argc, char** argv)
 {
-	/* ��ȡ��ʼ������*/
 	int nRet = 0;
 	do{
 		if ((nRet = parse_args(argc, argv)) < 0)
 		{
-			printf("parse args err!\n");
+			log.fatal("parse args err!\n");
 			break;
 		}
 		//todo
 		if ((nRet = init_conf()) < 0)
 		{
-			printf("init_conf err!\n");
+			log.fatal("init_conf err!\n");
 			break;
 		}
 		//todo
 		if ((nRet = set_rlimit(1024)) < 0)
 		{
-			printf("set_rlimit err!\n");
+			log.fatal("set_rlimit err!\n");
 			break;
 		}
-		if ((nRet = single_instance_running()) < 0)
+		if ((nRet = single_instance_running(g_app.m_iConf["app"]["pidfile"].asCString())) < 0)
 		{
-			printf("single_instance_running err!\n");
+			log.fatal("single_instance_running err!\n");
 			break;
 		}
 
 		if(g_app.m_bDaemonize && daemonize() < 0)
 		{
-			printf("daemonize err!\n");
+			log.fatal("daemonize err!\n");
 			break;
 		}
+
+		log.fatal.start(g_app.m_iConf["log"].get("log_file", "log/sgs_server.log").asString(),
+			g_app.m_iConf["log"].get("level", 4).asInt(),
+			g_app.m_iConf["log"].get("console", 0).asInt(),
+			g_app.m_iConf["log"].get("rotate", 1).asInt(),
+			g_app.m_iConf["log"].get("max_size", 1073741824).asInt(),
+			g_app.m_iConf["log"].get("max_file", 50).asInt());
 
 		//todo
 	}while(0);
@@ -81,17 +87,17 @@ int main(int argc, char** argv)
 
 /*************************************************
 * Function		: parse_args
-* Description	: ����������ʱ����Ĳ���
+* Description	: 
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
 * Called by		:
-* Inputs		: argc ����������
-*				: argv ��������
+* Inputs		: argc 
+*				: argv  
 
 * Output		:
-* Return		: -1/ʧ�� 0/�ɹ�
-* Others		: getopt˵��/https://www.ibm.com/developerworks/cn/aix/library/au-unix-getopt.html
+* Return		: -1/f 0/s
+* Others		: getopt/https://www.ibm.com/developerworks/cn/aix/library/au-unix-getopt.html
 **************************************************/
 int parse_args(int argc, char** argv)
 {
@@ -108,7 +114,7 @@ int parse_args(int argc, char** argv)
 			break;
 		case '?':
 			//invalid opt
-			printf("invalid opt:%d\n", optopt);
+			log.info("invalid opt:%d\n", optopt);
 			break;
 		case ':':
 			//lack of 
@@ -122,15 +128,15 @@ int parse_args(int argc, char** argv)
 
 /*************************************************
 * Function		: init_conf
-* Description	: ��ʼ�����ã��������ļ��ж�ȡ������
+* Description	: 
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
 * Called by		:
 * Inputs		: 
 
-* Output		: ������
-* Return		: -2/���ļ�ʧ�� -1/����ʧ�� 0/�ɹ�
+* Output		: 
+* Return		: -2/  -1/  0/s
 * Others		:
 **************************************************/																																																																																																																																																																																																																																																																																																	
 int init_conf()
@@ -156,15 +162,15 @@ int init_conf()
 
 /*************************************************
 * Function		: set_rlimit
-* Description	: ���ô򿪵��ļ����������������
+* Description	: 
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
 * Called by		:
-* Inputs		: n �ļ����������������
+* Inputs		: n
 
 * Output		:
-* Return		: -1/����ʧ�� other/�ɹ�
+* Return		: -1/  other/
 * Others		:
 **************************************************/
 int set_rlimit(int n)
@@ -174,7 +180,7 @@ int set_rlimit(int n)
 
 	if(setrlimit(RLIMIT_NOFILE, &rt) == -1)
 	{
-		printf("setrlimit err!\n");
+		log.fatal("setrlimit err!\n");
 		return -1;
 	}
 	
@@ -183,7 +189,7 @@ int set_rlimit(int n)
 
 /*************************************************
 * Function		: single_instance_running
-* Description	: ��֤����������
+* Description	: 
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
@@ -191,11 +197,31 @@ int set_rlimit(int n)
 * Inputs		:
 
 * Output		:
-* Return		: -1/�Ѿ����� 0/û������
+* Return		: -1/  0/s
 * Others		:
 **************************************************/
-int single_instance_running()
+#define LOCKMODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+int single_instance_running(const char* pid_file)
 {
+	int     fd;
+	char    buf[16];
+
+	fd = open(pid_file, O_RDWR | O_CREAT, LOCKMODE);
+	if (fd < 0) {
+		return -1;
+	}
+
+	if (lock_file(fd) < 0) {
+		if (errno == EACCES || errno == EAGAIN) {
+			close(fd);
+			return -1;
+		}
+		close(fd);
+		return -1;
+	}
+	ftruncate(fd, 0);
+	snprintf(buf, sizeof(buf), "%ld", (long)getpid());
+	write(fd, buf, strlen(buf) + 1);
 
 	return 0;
 }
@@ -205,7 +231,7 @@ int single_instance_running()
 * Function		: daemonize
 * Description	: backend
 * Author		: lijun
-* Create Date	: 2018.1.9
+* Create Date	: 2018.1.10
 * Calls			:
 * Called by		:
 * Inputs		:
@@ -216,6 +242,71 @@ int single_instance_running()
 **************************************************/
 int daemonize()
 {
-	
+	pid_t pid;
+	int fd = -1;
+
+	/* already a daemon */
+	if (getppid() == 1)
+		exit(1);
+
+	pid = fork();
+	if (pid < 0)
+		exit(1);
+	else if (pid != 0)
+		exit(0);
+
+	/* Cancel certain signals */
+	signal(SIGCHLD, SIG_DFL); /* A child process dies */
+	signal(SIGTSTP, SIG_IGN); /* Various TTY signals */
+	signal(SIGTTOU, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGHUP, SIG_IGN); /* Ignore hangup signal */
+	signal(SIGTERM, SIG_DFL); /* Die on SIGTERM */
+	signal(SIGPIPE, SIG_IGN);
+
+	/* become session leader */
+	if (setsid() < 0)
+		exit(1);
+
+	/* change working directory */
+	//if (chdir("/") < 0)
+	//    exit(1);
+
+	/* clear our file mode creation mask */
+	umask(0);
+
+	for (fd = getdtablesize(); fd >= 0; fd--)
+		close(fd);
+
+	/* handle standart I/O */
+	fd = open("/dev/null", O_RDWR);
+	fd = dup(0);
+	fd = dup(0);
+
 	return 0;
 }
+
+/*************************************************
+* Function		: lock_file
+* Description	: 
+* Author		: lijun
+* Create Date	: 2018.1.10
+* Calls			:
+* Called by		:
+* Inputs		:
+
+* Output		:
+* Return		: -1/failure 0/succ
+* Others		:
+**************************************************/
+static int lock_file(int fd)
+{
+	struct flock fl;
+
+	fl.l_type = F_WRLCK;
+	fl.l_start = 0;
+	fl.l_whence = SEEK_SET;
+	fl.l_len = 0;
+	return (fcntl(fd, F_SETLK, &fl));
+}
+

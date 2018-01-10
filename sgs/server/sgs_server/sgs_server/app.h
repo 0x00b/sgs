@@ -8,12 +8,13 @@ Description :
 #ifndef  _SGS_APP_H_
 #define  _SGS_APP_H_
 #include "include.h"
+#include "log.h"
 
 /*************************************************
 * Class			: App
 * Author		: lijun
 * Create Date	: 2018.1.9
-* Description	: �����һЩ�������õ�
+* Description	: 
 **************************************************/
 class App
 {
@@ -24,8 +25,8 @@ public:
 	std::string		m_stConf_File;
 	Json::Value		m_iConf;
 	struct ev_loop*	m_iLoop;
+	Log				m_iLog;
 	bool			m_bDaemonize;
-
 protected:
 
 public:
