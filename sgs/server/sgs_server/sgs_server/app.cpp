@@ -3,9 +3,9 @@
 
 
 App::App():
-	m_bDaemonize(false),
+	m_stConf_File("/conf/game.conf"),
 	m_iLoop(NULL),
-	m_stConf_File("/conf/game.conf")
+	m_bDaemonize(false)
 {
 }
 

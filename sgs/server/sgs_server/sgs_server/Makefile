@@ -4,29 +4,39 @@
 #
 #VPATH=.:src  #make find file in this directory,use : depart,or use vpath 
 
-vpath %.h   src/includes # .h at src/includes
-vpath %.hpp src/includes # .hpp at src/includes
-vpath %.c   src/src      # .c at src/src
-vpath %.cpp src/src      # .cpp at src/src
-  
-APP = tst.bin
+vpath %.h include/google/protobuf		# .h at include/google/protobuf
+vpath %.h include/libev	# .h at 
+vpath %.h libs					# .h at 
+vpath %.h libs/json				# .h at 
+vpath %.h zlib					# .h at 
+#vpath %.c include/libev	# .h at 
+vpath %.cpp libs				# .cpp at 
 
-inc = -Isrc/includes # or use C_INCLUDE_PATH ,CPLUS_INCLUDE_PATH envir_path
-inc += -Isrc/src	 # += 
+CC = gcc
+CXX = g++
 
-targ := $(shell ls ./src/src)
+CFLAGS = -O0 -Wall
+CXXFLAGS = -std=c++11 -g -O0 -fno-strict-aliasing -Wno-write-strings -frtti -fexceptions -Wall -DDEBUG
+LIBS = -L./zlib -L./libs -lprotobuf -lstdc++
+
+APP = sgs_server
+
+inc = -I./ -Iinclude/google/protobuf -Iinclude/libev -Ilibs -Ilibs/json -Izlib # or use C_INCLUDE_PATH ,CPLUS_INCLUDE_PATH envir_path
+#inc += -Isrc/src	 # +=
+
+targ := $(shell ls|grep '\.cpp';ls libs|grep '\.cpp')
 objs_:= $(patsubst %.c,%.o,$(targ))
-objs := $(patsubst %.cpp,%.o,$(objs_)) 
+objs := $(patsubst %.cpp,%.o,$(objs_))
 
 $(APP):$(objs)
-	g++ -o $@ $(objs) -lm #maybe use gcc -Istdc++ 
+	$(CXX) $(CXXFLAGS) $(inc) -o $@ $(objs) $(LIBS) -lm
 
 %.o:%.c
-	echo $(inc)
-	gcc $(inc) -c $^
+	$(CC) $(CFLAGS) $(inc) -c $^
 
 %.o:%.cpp
-	g++ $(inc) -c $^
+	echo $(inc)
+	$(CXX) $(CXXFLAGS) $(inc) -c $^
 
 
 .PHONY:clean

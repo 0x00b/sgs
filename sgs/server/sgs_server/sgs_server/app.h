@@ -14,7 +14,7 @@ Description :
 * Class			: App
 * Author		: lijun
 * Create Date	: 2018.1.9
-* Description	: ³ÌÐòµÄÒ»Ð©ÊôÐÔÅäÖÃµÈ
+* Description	: ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
 **************************************************/
 class App
 {
@@ -23,9 +23,9 @@ class App
 //private:
 public:
 	std::string		m_stConf_File;
-	bool			m_bDaemonize;
 	Json::Value		m_iConf;
 	struct ev_loop*	m_iLoop;
+	bool			m_bDaemonize;
 
 protected:
 

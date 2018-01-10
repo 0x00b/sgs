@@ -14,53 +14,53 @@
 
 /*************************************************
 * Function		: parse_args
-* Description	: ½âÎöÀ´×ÔÆô¶¯Ê±´«ÈëµÄ²ÎÊý
+* Description	: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			: 
 * Called by		: 
-* Inputs		: argc ²ÎÊýµÄÊýÁ¿
-*				: argv ²ÎÊýÊý×é
+* Inputs		: argc ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*				: argv ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 * Output		: 
-* Return		: -1/Ê§°Ü 0/³É¹¦
+* Return		: -1/Ê§ï¿½ï¿½ 0/ï¿½É¹ï¿½
 * Others		:  
 **************************************************/
 int parse_args(int argc, char** argv);
 
 /*************************************************
 * Function		: init_conf
-* Description	: ³õÊ¼»¯ÅäÖÃ£¬´ÓÅäÖÃÎÄ¼þÖÐ¶ÁÈ¡ÅäÖÃÏî
+* Description	: ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
 * Called by		:
-* Inputs		: path ÅäÖÃÎÄ¼þÂ·¾¶
+* Inputs		: path ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 
-* Output		: ÅäÖÃÏî
-* Return		:  -1/Ê§°Ü 0/³É¹¦
+* Output		: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* Return		:  -1/Ê§ï¿½ï¿½ 0/ï¿½É¹ï¿½
 * Others		:
 **************************************************/
 int init_conf(std::string path);
 
 /*************************************************
 * Function		: set_rlimit
-* Description	: ÉèÖÃ´ò¿ªµÄÎÄ¼þÃèÊö·ûµÄ×î´óÏÞÖÆ
+* Description	: ï¿½ï¿½ï¿½Ã´ò¿ªµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
 * Called by		:
-* Inputs		: n ÎÄ¼þÃèÊö·ûµÄ×î´óÊýÁ¿
+* Inputs		: n ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 * Output		: 
-* Return		: -1/ÉèÖÃÊ§°Ü other/³É¹¦
+* Return		: -1/ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ other/ï¿½É¹ï¿½
 * Others		:
 **************************************************/
 int set_rlimit(int n);
 
 /*************************************************
 * Function		: single_instance_running
-* Description	: ±£Ö¤³ÌÐòµ¥ÀýÔËÐÐ
+* Description	: ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
@@ -68,7 +68,7 @@ int set_rlimit(int n);
 * Inputs		: 
 
 * Output		: 
-* Return		: -1/ÒÑ¾­ÔËÐÐ 0/Ã»ÓÐÔËÐÐ
+* Return		: -1/ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ 0/Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * Others		:
 **************************************************/
 int single_instance_running();
@@ -89,7 +89,7 @@ App g_app;
 **************************************************/
 int main(int argc, char** argv)
 {
-	/* »ñÈ¡³õÊ¼»¯²ÎÊý*/
+	/* ï¿½ï¿½È¡ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	int nRet = 0;
 	if (parse_args(argc, argv) < 0)
 	{
@@ -101,17 +101,17 @@ int main(int argc, char** argv)
 
 /*************************************************
 * Function		: parse_args
-* Description	: ½âÎöÀ´×ÔÆô¶¯Ê±´«ÈëµÄ²ÎÊý
+* Description	: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
 * Called by		:
-* Inputs		: argc ²ÎÊýµÄÊýÁ¿
-*				: argv ²ÎÊýÊý×é
+* Inputs		: argc ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*				: argv ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 * Output		:
-* Return		: -1/Ê§°Ü 0/³É¹¦
-* Others		: getoptËµÃ÷/https://www.ibm.com/developerworks/cn/aix/library/au-unix-getopt.html
+* Return		: -1/Ê§ï¿½ï¿½ 0/ï¿½É¹ï¿½
+* Others		: getoptËµï¿½ï¿½/https://www.ibm.com/developerworks/cn/aix/library/au-unix-getopt.html
 **************************************************/
 int parse_args(int argc, char** argv)
 {
@@ -142,17 +142,17 @@ int parse_args(int argc, char** argv)
 
 /*************************************************
 * Function		: init_conf
-* Description	: ³õÊ¼»¯ÅäÖÃ£¬´ÓÅäÖÃÎÄ¼þÖÐ¶ÁÈ¡ÅäÖÃÏî
+* Description	: ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
 * Called by		:
-* Inputs		: path ÅäÖÃÎÄ¼þÂ·¾¶
+* Inputs		: path ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 
-* Output		: ÅäÖÃÏî
-* Return		: -2/´ò¿ªÎÄ¼þÊ§°Ü -1/½âÎöÊ§°Ü 0/³É¹¦
+* Output		: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* Return		: -2/ï¿½ï¿½ï¿½Ä¼ï¿½Ê§ï¿½ï¿½ -1/ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ 0/ï¿½É¹ï¿½
 * Others		:
-**************************************************/
+**************************************************/																																																																																																																																																																																																																																																																																																	
 int init_conf(std::string path)
 {
 	std::ifstream in(g_app.m_stConf_File.c_str(), std::ifstream::binary);
@@ -163,7 +163,7 @@ int init_conf(std::string path)
 		return -2;
 	}
 
-	Json::Reader reader;
+	Json::Reader reader;																																																																																																																																																																																																																																																																																																																																																																																																																																																										
 	bool bRet = reader.parse(in, g_app.m_iConf);
 	in.close();
 	if (bRet)
@@ -176,26 +176,27 @@ int init_conf(std::string path)
 
 /*************************************************
 * Function		: set_rlimit
-* Description	: ÉèÖÃ´ò¿ªµÄÎÄ¼þÃèÊö·ûµÄ×î´óÏÞÖÆ
+* Description	: ï¿½ï¿½ï¿½Ã´ò¿ªµï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
 * Called by		:
-* Inputs		: n ÎÄ¼þÃèÊö·ûµÄ×î´óÊýÁ¿
+* Inputs		: n ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 * Output		:
-* Return		: -1/ÉèÖÃÊ§°Ü other/³É¹¦
+* Return		: -1/ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ other/ï¿½É¹ï¿½
 * Others		:
 **************************************************/
 int set_rlimit(int n)
 {
 	struct rlimit rt;
 	
+	return -1;
 }
 
 /*************************************************
 * Function		: single_instance_running
-* Description	: ±£Ö¤³ÌÐòµ¥ÀýÔËÐÐ
+* Description	: ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * Author		: lijun
 * Create Date	: 2018.1.9
 * Calls			:
@@ -203,10 +204,10 @@ int set_rlimit(int n)
 * Inputs		:
 
 * Output		:
-* Return		: -1/ÒÑ¾­ÔËÐÐ 0/Ã»ÓÐÔËÐÐ
+* Return		: -1/ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ 0/Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * Others		:
 **************************************************/
 int single_instance_running()
 {
-
+	return -1;
 }
