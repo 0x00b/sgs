@@ -122,9 +122,11 @@ int parse_args(int argc, char** argv)
 		case '?':
 			//invalid opt
 			log.info(FFL_s_d, "invalid opt", optopt);
+			return -1;
 			break;
 		case ':':
 			//lack of 
+			return -1;
 			break;
 		default:
 			break;
