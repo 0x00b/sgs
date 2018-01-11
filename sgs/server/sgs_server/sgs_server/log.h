@@ -65,4 +65,21 @@ private:
 #endif
 };
 
+#define log g_app.m_iLog
+
+#define FFL __FILE__,__FUNCTION__,__LINE__
+
+#define FFL_s "[%s:%s:%d:[%s]]",FFL
+#define FFL_s_s "[%s:%s:%d:[%s] [%s]]",FFL
+#define FFL_s_d "[%s:%s:%d:[%s] [%d]]",FFL
+
+
+// dont recommand
+#define FFLF(fmts, fmt) (sprintf(fmts,"[%s:%s:%d:[%s]]",__FILE__,__FUNCTION__,__LINE__,(fmt)),fmts)
+#define log_fatal(fmt, ...)					\
+{											\
+	char fmts[512];							\
+	log.fatal(FFLF(fmts, fmt), __VA_ARGS__);	\
+}
+
 #endif

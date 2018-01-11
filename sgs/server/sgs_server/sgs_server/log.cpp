@@ -31,6 +31,9 @@ char *log_type_str[] = { "panic", "fatal", "error", "warn", "info", "debug" };
 	cnt = vsprintf(buf + len, fmt, argptr);\
 	va_end(argptr);\
 	cnt += len;\
+	buf[cnt] = '\n';\
+	cnt += 1;\
+	buf[cnt] = 0;\
 
 SGSLog::SGSLog() {
 	_level = LEVEL_DEBUG;

@@ -39,30 +39,30 @@ int main(int argc, char** argv)
 	do{
 		if ((nRet = parse_args(argc, argv)) < 0)
 		{
-			log.fatal("parse args err!\n");
+			log.fatal(FFL_s, "parse args err!");
 			break;
 		}
 		//todo
 		if ((nRet = init_conf()) < 0)
 		{
-			log.fatal("init_conf err!\n");
+			log.fatal(FFL_s, "init_conf err!");
 			break;
 		}
 		//todo
 		if ((nRet = set_rlimit(1024)) < 0)
 		{
-			log.fatal("set_rlimit err!\n");
+			log.fatal(FFL_s, "set_rlimit err!");
 			break;
 		}
 		if ((nRet = single_instance_running(g_app.m_iConf["app"]["pid_file"].asCString())) < 0)
 		{
-			log.fatal("single_instance_running err!\n");
+			log.fatal(FFL_s, "single_instance_running err!");
 			break;
 		}
 
 		if(g_app.m_bDaemonize && daemonize() < 0)
 		{
-			log.fatal("daemonize err!\n");
+			log.fatal(FFL_s, "daemonize err!");
 			break;
 		}
 
@@ -121,7 +121,7 @@ int parse_args(int argc, char** argv)
 			break;
 		case '?':
 			//invalid opt
-			log.info("invalid opt:%d\n", optopt);
+			log.info(FFL_s_d, "invalid opt", optopt);
 			break;
 		case ':':
 			//lack of 
@@ -187,7 +187,7 @@ int set_rlimit(int n)
 
 	if(setrlimit(RLIMIT_NOFILE, &rt) == -1)
 	{
-		log.fatal("setrlimit err!\n");
+		log.fatal(FFL_s, "setrlimit err!");
 		return -1;
 	}
 	

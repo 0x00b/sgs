@@ -41,8 +41,4 @@ Description : include some usage header that don't change
 #include "libs/base64.h"
 #include "libs/json/json.h"
 
-/* global variables*/
-
-#define log g_app.m_iLog
-
 #endif // !_SGS_INCLUDE_H_
