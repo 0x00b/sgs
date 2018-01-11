@@ -38,7 +38,7 @@ char *log_type_str[] = { "panic", "fatal", "error", "warn", "info", "debug" };
 SGSLog::SGSLog() {
 	_level = LEVEL_DEBUG;
 	_fd = -1;
-	_console = CONSOLE_OFF;
+	_console = CONSOLE_ON;
 	_rotate = ROTATE_OFF;
 	_max_size = 0;
 	_current_size = 0;
