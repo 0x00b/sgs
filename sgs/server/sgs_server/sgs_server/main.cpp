@@ -66,7 +66,7 @@ int main(int argc, char** argv)
 			break;
 		}
 
-		log.start(g_app.m_iConf["log"].get("log_file", "log/sgs_server.log").asString(),
+		log.start(g_app.m_iConf["log"].get("log_file", "./log/sgs_server.log").asString(),
 			g_app.m_iConf["log"].get("level", 4).asInt(),
 			g_app.m_iConf["log"].get("console", 0).asInt(),
 			g_app.m_iConf["log"].get("rotate", 1).asInt(),
