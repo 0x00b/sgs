@@ -8,6 +8,7 @@ Description :
 #define _SGS_ROOM_H_
 
 #include "include.h"
+#include "libgamelogic\gamelogic.h"
 
 class Player;
 
@@ -15,8 +16,11 @@ class Room
 {
 	//variables
 private:
-	std::list<Player*> m_iPlayers;	//players in the room
+	std::list<Player*> m_lstPlayers;	//players in the room
 	std::string	m_stName;			//room's name
+
+	GameLogic* m_pGmLgic;
+	
 	int m_nMaxPlayerCnt;			//max player cnt
 	int m_nPlayerCnt;				//current player cnt
 	int m_nMatchSeatWay;			//random or by order to give seat number
@@ -28,7 +32,7 @@ public:
 	//functions
 public:
 	Room();
-	~Room();
+	virtual ~Room();
 /*
 random cards
 dispatch card
@@ -38,7 +42,7 @@ start game
 	int QuitRoom();
 	int Broadcast();
 	int Unicast();
-
+	int Ready();
 protected:
 
 private:

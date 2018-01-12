@@ -8,6 +8,7 @@ Description :
 #define _SGS_GAME_H_
 
 #include "include.h"
+#include "app.h"
 
 class Player;
 class Room;
@@ -16,9 +17,14 @@ class Game
 {
 //variables
 private:
-	std::list<Player*> m_iPlayers;
-	std::list<Room*>   m_iTables;
+	std::map<int, Player*> m_mPlayers;
+	std::map<int, Room*>   m_mTables;
+	
+	ev_io* m_pAccept;
+
+	int m_nListenfd;
 	int m_nStatus;
+
 protected:
 
 public:
@@ -26,26 +32,27 @@ public:
 //functions
 public:
 	Game();
-	~Game();
+	virtual ~Game();
 	int StartUp();
 
 	int UserRegist();
 	int UserLogin();
-	int UserQuit();
+	int UserQuit(Player* player);
 
-	int MatchRoom();
+	int MatchRoom(Player* player);
 	int SelectGameMode();
 	int GetGameMode();
 	int CreateRoom();
-	int EnterRoom();
+	int EnterRoom(int roomId);
 	int EnterRoomFast();
-	int SearchRoom();
+	int SearchRoom(int roomId);
 
-	int Broadcast();
+	int Broadcast(std::string stMsg);
 protected:
 	
 private:
-
+	int Listen();
+	int Accept();
 };
 
 #endif

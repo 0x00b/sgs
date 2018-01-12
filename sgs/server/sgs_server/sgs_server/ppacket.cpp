@@ -35,7 +35,7 @@ void PPacket::pack(unsigned int cmd, unsigned int uid, unsigned short svrid)
 	data.append(body);
 }
 
-void PPacket::save(std::string str)
+int PPacket::save(std::string str)
 {
 	body = str;
 }

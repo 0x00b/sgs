@@ -4,10 +4,7 @@ package proto.game;
 
 enum Code
 {
-	CHOU_CODE_NULL		= 0; //无
-	CHOU_CODE_PENG		= 1; //碰臭
-	CHOU_CODE_CHI		= 2; //吃臭
-	CHOU_CODE_CHIPENG	= 3; //吃碰臭
+	CODE_NULL		= 0; //无
 }
 
 message tagCards

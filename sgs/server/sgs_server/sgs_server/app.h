@@ -23,11 +23,12 @@ class App
 
 //private:
 public:
+	SGSLog			m_iLog;
 	std::string		m_stConf_File;
 	Json::Value		m_iConf;
-	SGSLog			m_iLog;
-	struct ev_loop*	m_iLoop;
-	Game*			m_iGame;
+	struct ev_loop*	m_pLoop;
+	Game*			m_pGame;
+	int				m_nSvrid;
 	bool			m_bDaemonize;
 protected:
 
@@ -44,6 +45,7 @@ private:
 
 };
 
+extern App g_app;
 
 #endif // ! _APP_H_
 

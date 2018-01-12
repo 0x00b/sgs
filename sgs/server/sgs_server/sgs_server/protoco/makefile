@@ -1,7 +1,7 @@
 cc:
-	protoc --cpp_out=../ *.proto
+	protoc --cpp_out=./ *.proto
 java:
-	protoc --java_out=../ *.proto
+	protoc --java_out=./ *.proto
 all:
 
 clean:

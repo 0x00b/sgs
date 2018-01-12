@@ -38,7 +38,7 @@ public:
 	~PPacket();
 
 	void pack(unsigned int cmd = 0, unsigned int uid = 0, unsigned short svrid = 0);
-	void save(std::string str);
+	int save(std::string str);
 	int check();
 
 protected:

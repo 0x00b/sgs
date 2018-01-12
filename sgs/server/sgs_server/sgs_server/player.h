@@ -11,6 +11,8 @@ Description :
 #include "include.h"
 #include "client.h"
 
+class Room;
+
 class Player
 {
 	//variables
@@ -20,7 +22,8 @@ private:
 	cards cnt
 	*/
 	//objects
-	Client m_iClient;			
+	Client m_iClient;		
+	Room*  m_pRoom;						//entered room
 
 	std::string m_stAccount;			//account
 	std::string m_stPasswd;				//password
@@ -42,13 +45,14 @@ public:
 	//functions
 public:
 	Player();
-	~Player();
+	virtual ~Player();
 
 	int GetFriends();
 	int AddFriends();
 	int DeleteFriends();
-	int DoOperation();
+	int QuitRoom();
 
+	virtual int DoOperation();
 protected:
 
 private:

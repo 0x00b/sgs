@@ -82,10 +82,10 @@ int main(int argc, char** argv)
 	}
 
 	struct ev_loop *loop = ev_default_loop(0);
-	g_app.m_iLoop = loop;
+	g_app.m_pLoop = loop;
 
-	g_app.m_iGame = new (std::nothrow) Game();
-	//g_app.m_iGame->start();
+	g_app.m_pGame = new (std::nothrow) Game();
+	g_app.m_pGame->StartUp();
 
 	ev_loop(loop, 0);
 
@@ -290,6 +290,16 @@ int daemonize()
 	else if (pid != 0)
 		exit(0);
 
+	/* become session leader https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/*/
+	if (setsid() < 0)
+		exit(1);
+
+	pid = fork();
+	if (pid < 0)
+		exit(1);
+	else if (pid != 0)
+		exit(0);
+
 	/* Cancel certain signals */
 	signal(SIGCHLD, SIG_DFL); /* A child process dies */
 	signal(SIGTSTP, SIG_IGN); /* Various TTY signals */
@@ -298,10 +308,6 @@ int daemonize()
 	signal(SIGHUP, SIG_IGN); /* Ignore hangup signal */
 	signal(SIGTERM, SIG_DFL); /* Die on SIGTERM */
 	signal(SIGPIPE, SIG_IGN);
-
-	/* become session leader https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/*/
-	if (setsid() < 0)
-		exit(1);
 
 	/* change working directory */
 	//if (chdir("/") < 0)

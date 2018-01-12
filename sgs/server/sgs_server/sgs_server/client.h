@@ -8,12 +8,28 @@ Description :
 #define _SGS_CLIENT_H_
 
 #include "include.h"
+#include "ppacket.h"
 
 class Client
 {
+	/*varibles*/
+
+private:
+	PPacket m_iPacket;
+	int m_nfd;
+protected:
+
+public:
+
+	/*functions*/
 public:
 	Client();
 	~Client();
+
+protected:
+
+private:
+
 };
 
 #endif // ! _SGS_CLIENT_H_
