@@ -1,4 +1,5 @@
 #include "app.h"
+#include "game.h"
 
 App::App():
 	m_stConf_File("./conf/game.conf"),

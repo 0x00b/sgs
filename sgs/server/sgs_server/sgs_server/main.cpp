@@ -10,6 +10,7 @@
 
 #include "include.h"
 #include "app.h"
+#include "game.h"
 
 /* some function for init or config*/
 
