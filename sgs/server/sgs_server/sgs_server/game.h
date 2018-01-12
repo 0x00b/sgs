@@ -8,7 +8,6 @@ Description :
 #define _SGS_GAME_H_
 
 #include "include.h"
-#include "app.h"
 
 class Player;
 class Room;

@@ -9,7 +9,8 @@ Description :
 #define  _SGS_APP_H_
 
 #include "log.h"
-#include "game.h"
+
+class Game;
 
 /*************************************************
 * Class			: App

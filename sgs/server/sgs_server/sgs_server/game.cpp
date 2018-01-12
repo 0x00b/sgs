@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include "app.h"
 
 
 Game::Game() :m_nStatus(0)
