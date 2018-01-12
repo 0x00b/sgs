@@ -7,6 +7,8 @@ Description :
 #ifndef _SGS_CLIENT_H_
 #define _SGS_CLIENT_H_
 
+#include "include.h"
+
 class Client
 {
 public:

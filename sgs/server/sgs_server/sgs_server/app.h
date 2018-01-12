@@ -25,8 +25,8 @@ class App
 public:
 	std::string		m_stConf_File;
 	Json::Value		m_iConf;
-	struct ev_loop*	m_iLoop;
 	SGSLog			m_iLog;
+	struct ev_loop*	m_iLoop;
 	Game*			m_iGame;
 	bool			m_bDaemonize;
 protected:

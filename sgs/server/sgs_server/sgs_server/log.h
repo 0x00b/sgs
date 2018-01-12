@@ -69,6 +69,7 @@ private:
 
 #define FFL __FILE__,__FUNCTION__,__LINE__
 
+//add if you need new format
 #define FFL_s "[%s:%s:%d:[%s]]",FFL
 #define FFL_s_s "[%s:%s:%d:[%s] [%s]]",FFL
 #define FFL_s_d "[%s:%s:%d:[%s] [%d]]",FFL
@@ -79,7 +80,7 @@ private:
 #define log_fatal(fmt, ...)					\
 {											\
 	char fmts[512];							\
-	log.fatal(FFLF(fmts, fmt), __VA_ARGS__);	\
+	log.fatal(FFLF(fmts, fmt), __VA_ARGS__);\
 }
 
 #endif

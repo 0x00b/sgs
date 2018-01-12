@@ -14,6 +14,7 @@ Description : include some usage header that don't change
 #include <string.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -25,7 +26,6 @@ Description : include some usage header that don't change
 #ifdef POSIX_PTHREAD
 #include <pthread.h>
 #endif
-
 
 /* c++ headers*/
 #include <iostream>
