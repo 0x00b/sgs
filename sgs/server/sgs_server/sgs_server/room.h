@@ -8,7 +8,7 @@ Description :
 #define _SGS_ROOM_H_
 
 #include "include.h"
-#include "libgamelogic\gamelogic.h"
+#include "libgamelogic/gamelogic.h"
 
 class Player;
 
