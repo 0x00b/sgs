@@ -41,10 +41,10 @@ void PPacket::pack(unsigned int cmd, unsigned int uid, unsigned short svrid)
 
 int PPacket::save()
 {
-	cmd = ntohl(cmd);
-	uid = ntohl(uid);
-	len = ntohs(len);
-	svrid = ntohs(svrid);
+	header.cmd = ntohl(header.cmd);
+	header.uid = ntohl(header.uid);
+	header.len = ntohs(header.len);
+	header.svrid = ntohs(header.svrid);
 	return 0;
 }
 

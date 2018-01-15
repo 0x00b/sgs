@@ -28,5 +28,10 @@ int Player::Do()
 int Player::AfterDo()
 {
 	log.info(FFLs);
+
+	m_iClient.m_iPacket.body.clear();
+	m_iClient.m_iPacket.m_nCurLen = 0;
+	m_iClient.m_iPacket.m_eStatus = STAT_HEADER;
+
 	return 0;
 }

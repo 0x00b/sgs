@@ -79,10 +79,9 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 			{
 				self->m_iPacket.body.append(self->m_pRecvBuf, nRet);
 				self->m_iPacket.m_nCurLen += nRet;
-				if (len == self->m_iPacket.body.length())
+				if (len == self->m_iPacket.m_nCurLen)
 				{
 					self->m_iPacket.m_eStatus = STAT_END;
-					self->m_iPacket.m_nCurLen = 0;
 					bEnd = true;
 				}
 			}
@@ -95,8 +94,6 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 			self->m_pPlayer->BeforeDo();
 			self->m_pPlayer->Do();
 			self->m_pPlayer->AfterDo();
-
-			self->m_iPacket.m_eStatus = STAT_HEADER;
 			
 			if (time(NULL) - start > 1)
 			{
