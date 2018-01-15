@@ -81,8 +81,8 @@ int Game::Broadcast(std::string stMsg)
 int Game::Listen()
 {
 	log.info(FFL_s_s_d,"Listening on:",
-		g_app.m_iConf["game"]["host"].asString().c_str(),
-		g_app.m_iConf["game"]["port"].asInt());
+		g_app.m_iConf["app"]["host"].asString().c_str(),
+		g_app.m_iConf["app"]["port"].asInt());
 
 	struct sockaddr_in addr;
 
@@ -92,8 +92,8 @@ int Game::Listen()
 	}
 
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(g_app.m_iConf["game"]["port"].asInt());
-	addr.sin_addr.s_addr = inet_addr(g_app.m_iConf["game"]["host"].asString().c_str());
+	addr.sin_port = htons(g_app.m_iConf["app"]["port"].asInt());
+	addr.sin_addr.s_addr = inet_addr(g_app.m_iConf["app"]["host"].asString().c_str());
 	if (addr.sin_addr.s_addr == INADDR_NONE) {
 		log.error(FFL_s,"Incorrect ip address!");
 		close(m_nListenfd);
