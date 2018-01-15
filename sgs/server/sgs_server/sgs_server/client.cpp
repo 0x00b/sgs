@@ -1,5 +1,6 @@
 #include "client.h"
 #include "app.h"
+#include "player.h"
 
 
 Client::Client(Player* p):m_pPlayer(p)

@@ -9,7 +9,8 @@ Description :
 
 #include "include.h"
 #include "ppacket.h"
-#include "player.h"
+
+class Player;
 
 class Client
 {
