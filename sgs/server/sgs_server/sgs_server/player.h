@@ -52,7 +52,9 @@ public:
 	int DeleteFriends();
 	int QuitRoom();
 
-	virtual int DoOperation();
+	virtual int BeforeDo();
+	virtual int Do();
+	virtual int AfterDo();
 protected:
 
 private:

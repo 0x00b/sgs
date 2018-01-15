@@ -21,6 +21,7 @@ private:
 protected:
 
 public:
+	static const int MAX_RECV_BUF_SIZE = 1024;
 	ev_io	m_ev_write;
 	ev_io	m_ev_read;
 
@@ -28,6 +29,8 @@ public:
 	std::string m_stIP;
 
 	int m_nfd;
+
+	char m_pRecvBuf[MAX_RECV_BUF_SIZE];
 
 	/*functions*/
 public:

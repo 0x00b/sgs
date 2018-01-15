@@ -1,5 +1,4 @@
 #include "player.h"
-
 #include "app.h"
 
 Player::Player(int fd, std::string stIP):m_iClient(this)
@@ -13,7 +12,21 @@ Player::~Player()
 {
 }
 
-int Player::DoOperation()
+int Player::BeforeDo()
 {
+	log.info(FFLs);
+	return 0;
+}
+
+int Player::Do()
+{
+	log.info(FFLs);
+
+	return 0;
+}
+
+int Player::AfterDo()
+{
+	log.info(FFLs);
 	return 0;
 }

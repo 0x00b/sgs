@@ -20,6 +20,13 @@ struct PHeader
 	std::string& toNetStr(std::string& str);
 };
 
+enum PKT_STATUS
+{
+	STAT_HEADER = 1,
+	STAT_BODY,
+	STAT_END,
+};
+
 class PPacket
 {
 	//variables
@@ -28,9 +35,14 @@ private:
 protected:
 
 public:
+
 	PHeader header;
 	std::string body;
 	std::string data;
+
+	PKT_STATUS m_eStatus;
+
+	int m_nCurLen; //recv length
 
 	//functions
 public:
@@ -38,7 +50,7 @@ public:
 	~PPacket();
 
 	void pack(unsigned int cmd = 0, unsigned int uid = 0, unsigned short svrid = 0);
-	int save(std::string str);
+	int save();
 	int check();
 
 protected:

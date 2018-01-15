@@ -23,7 +23,64 @@ int Game::StartUp()
 	return -1;
 }
 
+int Game::UserRegist(Player * player)
+{
+	return 0;
+}
+
+int Game::UserLogin(Player * player)
+{
+	return 0;
+}
+
+int Game::UserQuit(Player * player)
+{
+	m_mPlayers.erase(player->m_iClient.m_nfd);
+	delete player;
+	return 0;
+}
+
+int Game::ReqMatchRoom(Player * player)
+{
+	return 0;
+}
+
+int Game::ReqSelectGameMode(Player * player)
+{
+	return 0;
+}
+
+int Game::ReqGetGameMode(Player * player)
+{
+	return 0;
+}
+
+int Game::ReqCreateRoom(Player * player)
+{
+	return 0;
+}
+
+int Game::ReqEnterRoom(Player * player, int roomId)
+{
+	return 0;
+}
+
+int Game::ReqEnterRoomFast(Player * player)
+{
+	return 0;
+}
+
+int Game::ReqSearchRoom(Player * player, int roomId)
+{
+	return 0;
+}
+
 int Game::Broadcast(std::string stMsg)
+{
+	return 0;
+}
+
+int Game::Unicast(Player * player, std::string stMsg)
 {
 	return 0;
 }

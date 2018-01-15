@@ -74,6 +74,7 @@ private:
 #define FFL_s "[%s:%s:%d:%s]",FFL
 #define FFL_s_s "[%s:%s:%d:%s %s]",FFL
 #define FFL_s_d "[%s:%s:%d:%s %d]",FFL
+#define FFL_s_u "[%s:%s:%d:%s %u]",FFL
 #define FFL_s_s_d "[%s:%s:%d:%s %s %d]",FFL
 
 

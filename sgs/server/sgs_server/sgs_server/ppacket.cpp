@@ -15,7 +15,11 @@ std::string& PHeader::toNetStr(std::string& str)
 }
 
 
-PPacket::PPacket() :body(""), data("")
+PPacket::PPacket() :
+	body(""), 
+	data(""),
+	m_eStatus(STAT_HEADER),
+	m_nCurLen(0)
 {
 }
 
@@ -35,9 +39,13 @@ void PPacket::pack(unsigned int cmd, unsigned int uid, unsigned short svrid)
 	data.append(body);
 }
 
-int PPacket::save(std::string str)
+int PPacket::save()
 {
-	body = str;
+	cmd = ntohl(cmd);
+	uid = ntohl(uid);
+	len = ntohs(len);
+	svrid = ntohs(svrid);
+	return 0;
 }
 
 int PPacket::check()
