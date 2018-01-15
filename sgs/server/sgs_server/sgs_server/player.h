@@ -44,7 +44,7 @@ public:
 
 	//functions
 public:
-	Player(int fd);
+	Player(int fd, std::string stIP);
 	virtual ~Player();
 
 	int GetFriends();

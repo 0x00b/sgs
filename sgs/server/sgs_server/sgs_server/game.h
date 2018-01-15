@@ -34,17 +34,17 @@ public:
 	virtual ~Game();
 	int StartUp();
 
-	int UserRegist();
-	int UserLogin();
+	int UserRegist(Player* player);
+	int UserLogin(Player* player);
 	int UserQuit(Player* player);
 
-	int MatchRoom(Player* player);
-	int SelectGameMode();
-	int GetGameMode();
-	int CreateRoom();
-	int EnterRoom(int roomId);
-	int EnterRoomFast();
-	int SearchRoom(int roomId);
+	int ReqMatchRoom(Player* player);
+	int ReqSelectGameMode(Player* player);
+	int ReqGetGameMode(Player* player);
+	int ReqCreateRoom(Player* player);
+	int	ReqEnterRoom(Player* player, int roomId);
+	int ReqEnterRoomFast(Player* player);
+	int ReqSearchRoom(Player* player, int roomId);
 
 	int Broadcast(std::string stMsg);
 	int Unicast(Player* player,std::string stMsg);

@@ -23,56 +23,6 @@ int Game::StartUp()
 	return -1;
 }
 
-int Game::UserRegist()
-{
-	return 0;
-}
-
-int Game::UserLogin()
-{
-	return 0;
-}
-
-int Game::UserQuit(Player * player)
-{
-	return 0;
-}
-
-int Game::MatchRoom(Player * player)
-{
-	return 0;
-}
-
-int Game::SelectGameMode()
-{
-	return 0;
-}
-
-int Game::GetGameMode()
-{
-	return 0;
-}
-
-int Game::CreateRoom()
-{
-	return 0;
-}
-
-int Game::EnterRoom(int roomId)
-{
-	return 0;
-}
-
-int Game::EnterRoomFast()
-{
-	return 0;
-}
-
-int Game::SearchRoom(int roomId)
-{
-	return 0;
-}
-
 int Game::Broadcast(std::string stMsg)
 {
 	return 0;
@@ -143,10 +93,10 @@ void Game::Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents)
 
 	fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) | O_NONBLOCK);
 
-	Player *player = new (std::nothrow) Player(fd);
+	Player *player = new (std::nothrow) Player(fd, inet_ntoa(client_addr.sin_addr));
 	if (player)
 	{
-		player->m_iClient.m_stIP = inet_ntoa(client_addr.sin_addr);
+		player->m_iClient.Active();
 		game->m_mPlayers[fd] = player;
 	}
 	else

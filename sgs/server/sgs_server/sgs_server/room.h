@@ -38,11 +38,11 @@ random cards
 dispatch card
 start game
 */
-	int EnterRoom();
-	int QuitRoom();
+	int EnterRoom(Player* player);
+	int QuitRoom(Player* player);
 	int Broadcast();
 	int Unicast(Player* player);
-	int Ready();
+	int Ready(Player* player);
 protected:
 
 private:
