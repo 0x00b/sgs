@@ -8,6 +8,9 @@ Description : GameLogic
 #ifndef _SGS_GAMELOGIC_H_
 #define _SGS_GAMELOGIC_H_
 
+#include <map>
+
+class Player;
 
 static const short g_cbCards[108] = {
 //  A      2      3      4      5      6      7      8      9      10     J      Q		K      --
@@ -26,9 +29,8 @@ static const short g_cbCards[108] = {
 class GameLogic
 {
 	/*varibles*/
-	//private:
-public:
-
+private:
+	std::map<Player*, int> m_mPlayer;
 protected:
 
 public:
@@ -39,7 +41,7 @@ public:
 	virtual ~GameLogic();
 
 	virtual int RandCards() = 0;
-	virtual int DoOperation(void* pOrder) = 0;
+	virtual int Do(Player* player) = 0;
 
 protected:
 

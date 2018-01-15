@@ -30,7 +30,6 @@ int Client::Active()
 void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 {
 	Client* self = (Client*)w->data;
-	self->m_iPacket;
 
 	/* recv header*/
 	int   len;
@@ -72,7 +71,7 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 				}
 			}
 		}
-		else
+		else if (STAT_BODY == self->m_iPacket.m_eStatus)
 		{
 			/* recv body*/
 			if(self->m_iPacket.header.len > 0)
@@ -90,11 +89,26 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 		{
 			//to do
 			int start = time(NULL);
+			do 
+			{
+				if (self->m_pPlayer->BeforeDo() < 0)
+				{
+					log.error(FFL_s, "before err!");
+					break;
+				}
+				if (self->m_pPlayer->Do() < 0)
+				{
+					log.error(FFL_s, "do err!");
+					break;
+				}
 
-			self->m_pPlayer->BeforeDo();
-			self->m_pPlayer->Do();
-			self->m_pPlayer->AfterDo();
-			
+				if (self->m_pPlayer->AfterDo() < 0)
+				{
+					log.error(FFL_s, "after err!");
+					break;
+				}
+			} while (0);
+
 			if (time(NULL) - start > 1)
 			{
 				log.warn(FFL_s_u, "slow cmd:", self->m_iPacket.header.cmd);

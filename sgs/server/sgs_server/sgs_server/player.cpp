@@ -1,5 +1,6 @@
 #include "player.h"
 #include "app.h"
+#include "room.h"
 
 Player::Player(int fd, std::string stIP):m_iClient(this)
 {
@@ -12,17 +13,41 @@ Player::~Player()
 {
 }
 
+int Player::GetFriends()
+{
+	return 0;
+}
+
+int Player::AddFriends()
+{
+	return 0;
+}
+
+int Player::DeleteFriends()
+{
+	return 0;
+}
+
+int Player::QuitRoom()
+{
+	return 0;
+}
+
 int Player::BeforeDo()
 {
 	log.info(FFLs);
-	return 0;
+
+	if (m_iClient.m_iPacket.check())
+	{
+		return 0;
+	}
+	return -1;
 }
 
 int Player::Do()
 {
 	log.info(FFLs);
-
-	return 0;
+	return m_pRoom->m_pGmLgic->Do(this);
 }
 
 int Player::AfterDo()

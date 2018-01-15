@@ -16,11 +16,9 @@ class Room
 {
 	//variables
 private:
-	std::list<Player*> m_lstPlayers;	//players in the room
+	std::list<Player*> m_lstPlayers;//players in the room
 	std::string	m_stName;			//room's name
 
-	GameLogic* m_pGmLgic;
-	
 	int m_nMaxPlayerCnt;			//max player cnt
 	int m_nPlayerCnt;				//current player cnt
 	int m_nMatchSeatWay;			//random or by order to give seat number
@@ -28,16 +26,13 @@ private:
 protected:
 
 public:
+	GameLogic* m_pGmLgic;
 
 	//functions
 public:
 	Room();
 	virtual ~Room();
-/*
-random cards
-dispatch card
-start game
-*/
+
 	int EnterRoom(Player* player);
 	int QuitRoom(Player* player);
 	int Broadcast();
