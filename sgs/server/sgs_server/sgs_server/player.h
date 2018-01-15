@@ -22,7 +22,6 @@ private:
 	cards cnt
 	*/
 	//objects
-	Client m_iClient;		
 	Room*  m_pRoom;						//entered room
 
 	std::string m_stAccount;			//account
@@ -41,10 +40,11 @@ private:
 protected:
 
 public:
+	Client m_iClient;		
 
 	//functions
 public:
-	Player();
+	Player(int fd);
 	virtual ~Player();
 
 	int GetFriends();

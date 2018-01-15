@@ -19,7 +19,7 @@ private:
 	std::map<int, Player*> m_mPlayers;
 	std::map<int, Room*>   m_mTables;
 	
-	ev_io* m_pAccept;
+	ev_io m_iAccept;
 
 	int m_nListenfd;
 	int m_nStatus;
@@ -47,11 +47,12 @@ public:
 	int SearchRoom(int roomId);
 
 	int Broadcast(std::string stMsg);
+	int Unicast(Player* player,std::string stMsg);
 protected:
 	
 private:
 	int Listen();
-	int Accept();
+	static void Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents);
 };
 
 #endif

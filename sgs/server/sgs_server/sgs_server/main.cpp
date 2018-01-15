@@ -86,6 +86,10 @@ int main(int argc, char** argv)
 	g_app.m_pLoop = loop;
 
 	g_app.m_pGame = new (std::nothrow) Game();
+	if (NULL == g_app.m_pGame)
+	{
+		exit(1);
+	}
 	g_app.m_pGame->StartUp();
 
 	ev_loop(loop, 0);

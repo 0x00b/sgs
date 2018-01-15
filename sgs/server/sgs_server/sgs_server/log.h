@@ -70,9 +70,11 @@ private:
 #define FFL __FILE__,__FUNCTION__,__LINE__
 
 //add if you need new format
-#define FFL_s "[%s:%s:%d:[%s]]",FFL
-#define FFL_s_s "[%s:%s:%d:[%s] [%s]]",FFL
-#define FFL_s_d "[%s:%s:%d:[%s] [%d]]",FFL
+#define FFLs "[%s:%s:%d]",FFL
+#define FFL_s "[%s:%s:%d:%s]",FFL
+#define FFL_s_s "[%s:%s:%d:%s %s]",FFL
+#define FFL_s_d "[%s:%s:%d:%s %d]",FFL
+#define FFL_s_s_d "[%s:%s:%d:%s %s %d]",FFL
 
 
 // dont recommand

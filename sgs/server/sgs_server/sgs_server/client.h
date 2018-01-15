@@ -15,11 +15,12 @@ class Client
 	/*varibles*/
 
 private:
-	PPacket m_iPacket;
-	int m_nfd;
 protected:
 
 public:
+	PPacket m_iPacket;
+	std::string m_stIP;
+	int m_nfd;
 
 	/*functions*/
 public:

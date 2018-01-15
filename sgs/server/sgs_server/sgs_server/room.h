@@ -41,7 +41,7 @@ start game
 	int EnterRoom();
 	int QuitRoom();
 	int Broadcast();
-	int Unicast();
+	int Unicast(Player* player);
 	int Ready();
 protected:
 

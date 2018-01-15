@@ -2,8 +2,9 @@
 
 
 
-Player::Player()
+Player::Player(int fd)
 {
+	m_iClient.m_nfd = fd;
 }
 
 
