@@ -13,7 +13,7 @@ Description :
 class MySqlUtil
 {
 public:
-	MYSQL m_con;
+	static MYSQL m_con;
 
 public:
 	MySqlUtil();

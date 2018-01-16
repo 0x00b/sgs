@@ -1,6 +1,6 @@
 #include "mysqlutil.h"
 
-
+MYSQL MySqlUtil::m_con;
 
 MySqlUtil::MySqlUtil()
 {
