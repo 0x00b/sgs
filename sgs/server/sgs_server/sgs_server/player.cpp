@@ -24,7 +24,7 @@ int Player::GetFriends()
 	if (res)
 	{
 		int j = mysql_num_fields(res);
-		while (row = mysql_fetch_row(res))//获取具体的数据
+		while (row = mysql_fetch_row(res))
 		{
 			for (int i = 0; i < j; i++)
 			{

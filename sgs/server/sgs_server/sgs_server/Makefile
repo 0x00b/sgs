@@ -17,7 +17,7 @@ CXX = g++
 
 CFLAGS = -O0 -Wall
 CXXFLAGS = -std=c++11 -g -O0 -fno-strict-aliasing -Wno-write-strings -frtti -fexceptions -Wall -DDEBUG
-LIBS = -L./zlib -L./libs -lprotobuf -lev -lstdc++
+LIBS = -L./zlib -L./libs -lprotobuf -lev -lstdc++ -lmysqlclient
 
 APP = sgs_server
 
