@@ -83,7 +83,7 @@ private:
 #define log_fatal(fmt, ...)					\
 {											\
 	char fmts[512];							\
-	log.fatal(FFLF(fmts, fmt), __VA_ARGS__);\
+	log.fatal(FFLF(fmts, fmt), ##__VA_ARGS__);\
 }
 
 #endif

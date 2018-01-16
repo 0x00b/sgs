@@ -12,7 +12,10 @@ Description :
 #include "client.h"
 
 class Room;
-
+/*INSERT INTO `sgs_db`.`player` 
+(`account`, `passwd`, `sex`, `level`, `exp`, `status`, `regist_date`, `remark`)
+VALUES ('admin', 'YWRtaW4=', '0', '100', '0', '1', '2018-01-16', 'admin');
+*/
 class Player
 {
 	//variables
@@ -28,7 +31,10 @@ private:
 	std::string m_stPasswd;				//password
 	std::string m_stName;				//player's name
 	std::string m_stAvatar;				//head picture
+	std::string m_stRegistDate;			//
+	std::string m_stRemark;				//
 	//ints
+	int m_nID;
 	int m_sExp;							//experience
 	//
 	short m_sLevel;						//level

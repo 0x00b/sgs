@@ -35,3 +35,12 @@ int Room::Ready(Player * player)
 {
 	return 0;
 }
+
+int Room::Do(Player* player)
+{
+	if (NULL != m_pGmLgic)
+	{
+		return m_pGmLgic->Do(player);
+	}
+	return -1;
+}

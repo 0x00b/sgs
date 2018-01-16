@@ -60,7 +60,7 @@ int Game::ReqCreateRoom(Player * player)
 	return 0;
 }
 
-int Game::ReqEnterRoom(Player * player, int roomId)
+int Game::ReqEnterRoom(Player * player)
 {
 	return 0;
 }
@@ -70,7 +70,7 @@ int Game::ReqEnterRoomFast(Player * player)
 	return 0;
 }
 
-int Game::ReqSearchRoom(Player * player, int roomId)
+int Game::ReqSearchRoom(Player * player)
 {
 	return 0;
 }

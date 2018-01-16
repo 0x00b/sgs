@@ -42,9 +42,9 @@ public:
 	int ReqSelectGameMode(Player* player);
 	int ReqGetGameMode(Player* player);
 	int ReqCreateRoom(Player* player);
-	int	ReqEnterRoom(Player* player, int roomId);
+	int	ReqEnterRoom(Player* player);
 	int ReqEnterRoomFast(Player* player);
-	int ReqSearchRoom(Player* player, int roomId);
+	int ReqSearchRoom(Player* player);
 
 	int Broadcast(std::string stMsg);
 	int Unicast(Player* player,std::string stMsg);

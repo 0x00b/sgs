@@ -27,6 +27,8 @@ Description : include some usage header that don't change
 #include <pthread.h>
 #endif
 
+#include <mysql/mysql.h>
+
 /* c++ headers*/
 #include <iostream>
 #include <fstream>
