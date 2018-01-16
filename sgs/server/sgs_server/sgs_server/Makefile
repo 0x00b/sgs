@@ -9,8 +9,10 @@ vpath %.h include/libev	# .h at
 vpath %.h libs					# .h at 
 vpath %.h libs/json				# .h at 
 vpath %.h zlib					# .h at 
+vpath %.h mysqlutil				# .h at 
 #vpath %.c include/libev	# .h at 
 vpath %.cpp libs				# .cpp at 
+vpath %.cpp mysqlutil			# .cpp at 
 
 CC = gcc
 CXX = g++
@@ -21,10 +23,10 @@ LIBS = -L./zlib -L./libs -lprotobuf -lev -lstdc++ -lmysqlclient
 
 APP = sgs_server
 
-inc = -I./ -Iinclude/google/protobuf -Iinclude/libev -Ilibs -Ilibs/json -Izlib # or use C_INCLUDE_PATH ,CPLUS_INCLUDE_PATH envir_path
+inc = -I./ -Iinclude/google/protobuf -Iinclude/libev -Ilibs -Ilibs/json -Izlib -Imysqlutil # or use C_INCLUDE_PATH ,CPLUS_INCLUDE_PATH envir_path
 #inc += -Isrc/src	 # +=
 
-targ := $(shell ls|grep '\.cpp';ls libs|grep '\.cpp')
+targ := $(shell ls|grep '\.cpp';ls libs|grep '\.cpp';ls mysqlutil|grep '\.cpp')
 objs_:= $(patsubst %.c,%.o,$(targ))
 objs := $(patsubst %.cpp,%.o,$(objs_))
 
