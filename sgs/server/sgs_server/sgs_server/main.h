@@ -19,6 +19,7 @@ enum SGSCMD
 	PLAYER_START = 0,		
 	PLAYER_REGIST,			//player regist
 	PLAYER_LOGIN,			//player login
+	PLAYER_UPDATE_PWD,		//player update password
 	PLAYER_QUIT,			//player quit game
 	PLAYER_GET_FRIENDS,		//player get his friends
 	PLAYER_DELETE_FRIENDS,	//delete his friend

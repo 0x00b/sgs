@@ -14,6 +14,7 @@ Client::~Client()
 	ev_io_stop(g_app.m_pLoop, &m_ev_read);
 	ev_io_stop(g_app.m_pLoop, &m_ev_write);
 	close(m_nfd);
+	m_nfd = -1;
 }
 
 int Client::Active()
@@ -136,5 +137,28 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 
 void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 {
+	Client *self = (Client*)w->data;
+	if (self->m_lstWrite.empty()) {
+		//log.debug("stop write event\n");
+		ev_io_stop(EV_A_ w);
+		return;
+	}
+	PPacket& pkt = self->m_lstWrite.front();
+	size_t written = write(self->m_nfd, pkt.data.c_str() + pkt.m_nCurLen, pkt.header.len - pkt.m_nCurLen);
+	if (written < 0) {
+		if (errno == EAGAIN || errno == EINPROGRESS || errno == EINTR) {
+			log.warn(FFL_s_s,"write failed", strerror(errno));
+			return;
+		}
+		/* todo close this client */
+		log.error(FFL_s_d, "unknow err in written:\n", self->m_nfd);
+		//Client::destroy(self);
+		return;
+	}
+
+	pkt.m_nCurLen += written;
+	if (pkt.m_nCurLen == pkt.header.len) {
+		self->m_lstWrite.pop_front();
+	}
 	return;
 }

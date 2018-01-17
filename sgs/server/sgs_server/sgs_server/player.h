@@ -51,13 +51,16 @@ public:
 	Player(int fd, std::string stIP);
 	virtual ~Player();
 
-	int Regist();
-	int Login();
-	int GetInfo();
-	int GetFriends();
-	int AddFriends();
-	int DeleteFriends();
-	int QuitRoom();
+	int ReqRegist();
+	int ReqLogin();
+	int ReqUpdatePwd();
+	int ReqGetInfo();
+	int ReqGetFriends();
+	int ReqAddFriends();
+	int ReqDeleteFriends();
+	int ReqQuitRoom();
+	int GetInfoByID();
+	int Send(PPacket& pkt);
 
 	virtual int BeforeDo();
 	virtual int Do();
@@ -65,7 +68,11 @@ public:
 protected:
 
 private:
-
+	int Regist();
+	int Login();
+	int GetFriends();
+	int AddFriends();
+	int DeleteFriends();
 };
 
 #endif
