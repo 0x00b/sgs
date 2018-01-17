@@ -18,8 +18,8 @@ public:
 public:
 	MySqlUtil();
 	~MySqlUtil();
-	static int ConnMysql(char* ip, char* usr, char* pwd, char* dbname, int port);
-	static MYSQL_RES* MysqlQuery(char* sql);
+	static int ConnMysql(const char* ip,const char* usr,const char* pwd,const char* dbname, int port);
+	static MYSQL_RES* MysqlQuery(const char* sql);
 	static void CloseMysql();
 
 };

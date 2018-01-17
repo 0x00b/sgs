@@ -12,9 +12,7 @@ Description :
 #include "client.h"
 
 class Room;
-/*INSERT INTO `sgs_db`.`player` 
-(`account`, `passwd`, `sex`, `level`, `exp`, `status`, `regist_date`, `remark`)
-VALUES ('admin', 'YWRtaW4=', '0', '100', '0', '1', '2018-01-16', 'admin');
+/*
 */
 class Player
 {
@@ -53,6 +51,9 @@ public:
 	Player(int fd, std::string stIP);
 	virtual ~Player();
 
+	int Regist();
+	int Login();
+	int GetInfo();
 	int GetFriends();
 	int AddFriends();
 	int DeleteFriends();

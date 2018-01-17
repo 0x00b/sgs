@@ -11,7 +11,8 @@ MySqlUtil::~MySqlUtil()
 {
 }
 
-int MySqlUtil::ConnMysql(char* ip, char* usr, char* pwd, char* dbname, int port) {
+int MySqlUtil::ConnMysql(const char* ip, const char* usr, const char* pwd, const char* dbname, int port)
+{
 	if (ip == NULL || usr == NULL || pwd == NULL || dbname == NULL)
 	{
 		return -1;
@@ -25,7 +26,7 @@ int MySqlUtil::ConnMysql(char* ip, char* usr, char* pwd, char* dbname, int port)
 	return -1;
 }
 
-MYSQL_RES* MySqlUtil::MysqlQuery(char* sql) {
+MYSQL_RES* MySqlUtil::MysqlQuery(const char* sql) {
 	if (NULL == sql)
 	{
 		return NULL;

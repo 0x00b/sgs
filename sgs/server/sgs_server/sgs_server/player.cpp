@@ -16,13 +16,56 @@ Player::~Player()
 {
 }
 
-int Player::GetFriends()
+int Player::Regist()
 {
 	MYSQL_RES* res;
 	MYSQL_ROW row;
-	res = MySqlUtil::MysqlQuery("select * from user where `user`.usr_delete != 1 or ISNULL( `user`.usr_delete )");
+	std::string sql = "INSERT INTO `sgs_db`.`player` \
+		(`account`, `passwd`, `sex`, `level`, `exp`, `status`, `regist_date`, `remark`) VALUES('";
+	sql.append(m_stAccount).append("','").
+		append(m_stPasswd).append("',");
+	sql += m_chSex;
+	sql.append(",");
+	sql += m_sLevel;
+	sql.append(",");
+	sql += m_sExp;
+	sql.append(",");
+	sql += m_nStatus;
+	sql.append(",'").
+		append(m_stRegistDate).append("','").
+		append(m_stRemark).append("');");
+
+	res = MySqlUtil::MysqlQuery(sql.c_str());
 	if (res)
 	{
+		mysql_free_result(res);
+		return 0;
+	}
+	return -1;
+}
+
+int Player::Login()
+{
+	MYSQL_RES* res;
+	MYSQL_ROW row;
+	std::string sql = "SELECT `player`.`idplayer`,\
+		`player`.`passwd`,\
+		`player`.`sex`,\
+		`player`.`avatar`,\
+		`player`.`level`,\
+		`player`.`exp`,\
+		`player`.`status`,\
+		`player`.`regist_date`,\
+		`player`.`remark`\
+		FROM `sgs_db`.`player` WHERE 1=1 \
+		";
+	sql.append(" and `player`.`account` = '").append(m_stAccount + "';");
+
+	res = MySqlUtil::MysqlQuery(sql.c_str());
+	int nRet = 0;
+	if (res)
+	{
+		std::string pwd("");
 		int j = mysql_num_fields(res);
 		while (row = mysql_fetch_row(res))
 		{
@@ -31,31 +74,47 @@ int Player::GetFriends()
 				if (row[i] == NULL)
 				{
 					continue;
-				}/*
-				switch (i)
-				{
-				case 0:
-					usr->id = atoi(row[i]); break;
-				case 1:
-					strcpy_s(usr->account, row[i]); break;
-				case 2:
-					strcpy_s(usr->name, row[i]); break;
-				case 3:
-					strcpy_s(usr->pwd, row[i]); break;
-				case 4:
-					strcpy_s(usr->ip, row[i]); break;
-				case 5:
-					usr->port = atoi(row[i]); break;
-				case 6:
-					usr->online = atoi(row[i]); break;
-				case 7:break;
-				default:
-					break;
-				}*/
+				}
+				 switch (i)
+				 {
+				 case 0:
+					 m_nID = atoi(row[i]); break;
+				 case 1:
+					 pwd = row[i];break;
+				 case 2:
+					 m_chSex = atoi(row[i]); break;
+				 case 3:
+					 m_stAvatar = row[i]; break;
+				 case 4:
+					 m_sLevel = atoi(row[i]); break;
+				 case 5:
+					 m_sExp = atoi(row[i]); break;
+				 case 6:
+					m_nStatus= atoi(row[i]); break;
+				 case 7:
+					 m_stRegistDate = row[i]; break;
+				 case 8:
+					 m_stRemark = row[i]; break;
+				 default:
+				 break;
+				 }
 			}
 		}
+		if (m_stPasswd != pwd)
+		{
+			nRet = -2;
+		}
+	}
+	else
+	{
+		nRet = -1;
 	}
 	mysql_free_result(res);
+	return nRet;
+}
+
+int Player::GetFriends()
+{
 	return 0;
 }
 

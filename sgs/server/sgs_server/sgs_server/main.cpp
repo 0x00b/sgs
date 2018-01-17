@@ -11,6 +11,7 @@
 #include "include.h"
 #include "app.h"
 #include "game.h"
+#include "mysqlutil/mysqlutil.h"
 
 /* some function for init or config*/
 
@@ -19,6 +20,7 @@ int init_conf();
 int set_rlimit(int n);
 int single_instance_running(const char* pid_file);
 int daemonize();
+int db_init();
 
 App g_app;
 
@@ -61,9 +63,14 @@ int main(int argc, char** argv)
 			break;
 		}
 
-		if(g_app.m_bDaemonize && daemonize() < 0)
+		if (g_app.m_bDaemonize && (nRet = daemonize()) < 0)
 		{
 			log.fatal(FFL_s, "daemonize err!");
+			break;
+		}
+		if ((nRet = db_init()) < 0)
+		{
+			log.fatal(FFL_s, "db init err!");
 			break;
 		}
 
@@ -330,4 +337,28 @@ int daemonize()
 	fd = dup(0);
 
 	return 0;
+}
+
+
+/*************************************************
+* Function		: db_init
+* Description	: init database con
+* Author		: lijun
+* Create Date	: 2018.1.17
+* Calls			:
+* Called by		:
+* Inputs		:
+
+* Output		:
+* Return		: -1/failure 0/succ
+* Others		:
+**************************************************/
+int db_init()
+{
+	return MySqlUtil::ConnMysql(g_app.m_iConf["db"]["ip"].asCString(),
+		g_app.m_iConf["db"]["usr"].asCString(),
+		g_app.m_iConf["db"]["pwd"].asCString(),
+		g_app.m_iConf["db"]["dbname"].asCString(),
+		g_app.m_iConf["db"]["port"].asInt()
+		);
 }
