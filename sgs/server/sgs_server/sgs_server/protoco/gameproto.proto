@@ -12,5 +12,5 @@ enum Code
 
 message tagCards
 {
-	int32 card_list[] = 1;			//牌列表
+	repeated int32 card_list = 1;			//牌列表
 }
