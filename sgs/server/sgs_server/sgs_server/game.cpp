@@ -3,6 +3,7 @@
 #include "app.h"
 
 
+
 Game::Game() :m_nStatus(0)
 {
 	m_mPlayers.clear();
@@ -89,9 +90,9 @@ const Player * Game::GetOLPlayer(int playerid)
 {
 	for (std::map<int, Player*>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); player++)
 	{
-		if (playerid == (*player).second->m_nID)
+		if (playerid == player->second->m_nID)
 		{
-			return *player;
+			return player->second;
 		}
 	}
 
