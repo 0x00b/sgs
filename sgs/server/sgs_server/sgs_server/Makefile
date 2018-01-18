@@ -29,8 +29,9 @@ inc = -I./ -Iinclude/google/protobuf -Iinclude/libev -Ilibs -Ilibs/json -Izlib -
 #inc += -Isrc/src	 # +=
 
 targ := $(shell ls|grep '\.cpp';ls libs|grep '\.cpp';ls mysqlutil|grep '\.cpp';ls protoco|grep '\.cc')
-objs_:= $(patsubst %.c,%.o,$(targ))
-objs := $(patsubst %.cpp,%.o,$(objs_))
+objs_c:= $(patsubst %.c,%.o,$(targ))
+objs_cc:= $(patsubst %.cc,%.o,$(objs_c))
+objs := $(patsubst %.cpp,%.o,$(objs_cc))
 
 $(APP):$(objs)
 	$(CXX) $(CXXFLAGS) $(inc) -o $@ $(objs) $(LIBS) -lm
