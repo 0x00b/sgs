@@ -39,7 +39,7 @@ int Player::Send(PPacket & pkt)
 
 int Player::BeforeDo()
 {
-	log.info(FFLs);
+	sgslog.info(FFLs);
 
 	if (m_iClient.m_iPacket.check())
 	{
@@ -50,7 +50,7 @@ int Player::BeforeDo()
 
 int Player::Do()
 {
-	log.info(FFLs);
+	sgslog.info(FFLs);
 	int nRet = 0;
 	if (m_iClient.m_iPacket.header.cmd > GAME_START && m_pRoom)
 	{
@@ -120,7 +120,7 @@ int Player::Do()
 
 int Player::AfterDo()
 {
-	log.info(FFLs);
+	sgslog.info(FFLs);
 
 	m_iClient.m_iPacket.body.clear();
 	m_iClient.m_iPacket.m_nCurLen = 0;

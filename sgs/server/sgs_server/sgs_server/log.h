@@ -65,7 +65,7 @@ private:
 #endif
 };
 
-#define log g_app.m_iLog
+#define sgslog g_app.m_iLog
 
 #define FFL __FILE__,__FUNCTION__,__LINE__
 
@@ -83,7 +83,7 @@ private:
 #define log_fatal(fmt, ...)					\
 {											\
 	char fmts[512];							\
-	log.fatal(FFLF(fmts, fmt), ##__VA_ARGS__);\
+	sgslog.fatal(FFLF(fmts, fmt), ##__VA_ARGS__);\
 }
 
 #endif

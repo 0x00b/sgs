@@ -95,32 +95,32 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 			{
 				if (self->m_pPlayer->BeforeDo() < 0)
 				{
-					log.error(FFL_s, "before err!");
+					sgslog.error(FFL_s, "before err!");
 					break;
 				}
 				if (self->m_pPlayer->Do() < 0)
 				{
-					log.error(FFL_s, "do err!");
+					sgslog.error(FFL_s, "do err!");
 					break;
 				}
 
 				if (self->m_pPlayer->AfterDo() < 0)
 				{
-					log.error(FFL_s, "after err!");
+					sgslog.error(FFL_s, "after err!");
 					break;
 				}
 			} while (0);
 
 			if (time(NULL) - start > 1)
 			{
-				log.warn(FFL_s_u, "slow cmd:", self->m_iPacket.header.cmd);
+				sgslog.warn(FFL_s_u, "slow cmd:", self->m_iPacket.header.cmd);
 			}
 
 		}
 	}
 	else if (0 == nRet)
 	{
-		log.warn(FFL_s, "fd closed!");
+		sgslog.warn(FFL_s, "fd closed!");
 		//destory
 		g_app.m_pGame->UserQuit(self->m_pPlayer);
 	}
@@ -128,7 +128,7 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 	{
 		if (!(errno == EAGAIN || errno == EINPROGRESS || errno == EINTR || errno == EWOULDBLOCK))
 		{
-			log.warn(FFL_s, strerror(errno));
+			sgslog.warn(FFL_s, strerror(errno));
 			//destory
 			g_app.m_pGame->UserQuit(self->m_pPlayer);
 		}
@@ -140,7 +140,7 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 {
 	Client *self = (Client*)w->data;
 	if (self->m_lstWrite.empty()) {
-		//log.debug("stop write event\n");
+		//sgslog.debug("stop write event\n");
 		ev_io_stop(EV_A_ w);
 		return;
 	}
@@ -148,11 +148,11 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 	size_t written = write(self->m_nfd, pkt.data.c_str() + pkt.m_nCurLen, pkt.header.len - pkt.m_nCurLen);
 	if (written < 0) {
 		if (errno == EAGAIN || errno == EINPROGRESS || errno == EINTR) {
-			log.warn(FFL_s_s,"write failed", strerror(errno));
+			sgslog.warn(FFL_s_s,"write failed", strerror(errno));
 			return;
 		}
 		/* todo close this client */
-		log.error(FFL_s_d, "unknow err in written:\n", self->m_nfd);
+		sgslog.error(FFL_s_d, "unknow err in written:\n", self->m_nfd);
 		//Client::destroy(self);
 		return;
 	}

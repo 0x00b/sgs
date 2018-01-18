@@ -42,39 +42,39 @@ int main(int argc, char** argv)
 	do{
 		if ((nRet = parse_args(argc, argv)) < 0)
 		{
-			log.fatal(FFL_s, "parse args err!");
+			sgslog.fatal(FFL_s, "parse args err!");
 			break;
 		}
 		//todo
 		if ((nRet = init_conf()) < 0)
 		{
-			log.fatal(FFL_s, "init_conf err!");
+			sgslog.fatal(FFL_s, "init_conf err!");
 			break;
 		}
 		//todo
 		if ((nRet = set_rlimit(1024)) < 0)
 		{
-			log.fatal(FFL_s, "set_rlimit err!");
+			sgslog.fatal(FFL_s, "set_rlimit err!");
 			break;
 		}
 		if ((nRet = single_instance_running(g_app.m_iConf["app"]["pid_file"].asCString())) < 0)
 		{
-			log.fatal(FFL_s, "single_instance_running err!");
+			sgslog.fatal(FFL_s, "single_instance_running err!");
 			break;
 		}
 
 		if (g_app.m_bDaemonize && (nRet = daemonize()) < 0)
 		{
-			log.fatal(FFL_s, "daemonize err!");
+			sgslog.fatal(FFL_s, "daemonize err!");
 			break;
 		}
 		if ((nRet = db_init()) < 0)
 		{
-			log.fatal(FFL_s, "db init err!");
+			sgslog.fatal(FFL_s, "db init err!");
 			break;
 		}
 
-		log.start(g_app.m_iConf["log"].get("log_file", "./log/sgs_server.log").asString(),
+		sgslog.start(g_app.m_iConf["log"].get("log_file", "./log/sgs_server.log").asString(),
 			g_app.m_iConf["log"].get("level", 4).asInt(),
 			g_app.m_iConf["log"].get("console", 0).asInt(),
 			g_app.m_iConf["log"].get("rotate", 1).asInt(),
@@ -133,7 +133,7 @@ int parse_args(int argc, char** argv)
 			break;
 		case '?':
 			//invalid opt
-			log.info(FFL_s_d, "invalid opt", optopt);
+			sgslog.info(FFL_s_d, "invalid opt", optopt);
 			return -1;
 			break;
 		case ':':
@@ -201,7 +201,7 @@ int set_rlimit(int n)
 
 	if(setrlimit(RLIMIT_NOFILE, &rt) == -1)
 	{
-		log.fatal(FFL_s, "setrlimit err!");
+		sgslog.fatal(FFL_s, "setrlimit err!");
 		return -1;
 	}
 	

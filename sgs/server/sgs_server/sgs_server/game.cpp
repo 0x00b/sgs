@@ -101,7 +101,7 @@ const Player * Game::GetOLPlayer(int playerid)
 
 int Game::Listen()
 {
-	log.info(FFL_s_s_d,"Listening on:",
+	sgslog.info(FFL_s_s_d,"Listening on:",
 		g_app.m_iConf["app"]["host"].asString().c_str(),
 		g_app.m_iConf["app"]["port"].asInt());
 
@@ -109,14 +109,14 @@ int Game::Listen()
 
 	m_nListenfd = socket(PF_INET, SOCK_STREAM, 0);
 	if (m_nListenfd < 0) {
-		log.error(FFL_s, strerror(errno));
+		sgslog.error(FFL_s, strerror(errno));
 	}
 
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(g_app.m_iConf["app"]["port"].asInt());
 	addr.sin_addr.s_addr = inet_addr(g_app.m_iConf["app"]["host"].asString().c_str());
 	if (addr.sin_addr.s_addr == INADDR_NONE) {
-		log.error(FFL_s,"Incorrect ip address!");
+		sgslog.error(FFL_s,"Incorrect ip address!");
 		close(m_nListenfd);
 		m_nListenfd = -1;
 		return -1;
@@ -124,13 +124,13 @@ int Game::Listen()
 
 	int on = 1;
 	if (setsockopt(m_nListenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
-		log.error(FFL_s_s,"setsockopt failed:", strerror(errno));
+		sgslog.error(FFL_s_s,"setsockopt failed:", strerror(errno));
 		close(m_nListenfd);
 		return -1;
 	}
 
 	if (bind(m_nListenfd, (struct sockaddr *) &addr, sizeof(addr)) < 0) {
-		log.error(FFL_s,"bind failed:", strerror(errno));
+		sgslog.error(FFL_s,"bind failed:", strerror(errno));
 		close(m_nListenfd);
 		return -1;
 	}
@@ -141,14 +141,14 @@ int Game::Listen()
 	m_iAccept.data = this;
 	ev_io_init(&m_iAccept, Game::Accept_cb, m_nListenfd, EV_READ);
 	ev_io_start(g_app.m_pLoop, &m_iAccept);
-	log.info(FFL_s,"listen ok");
+	sgslog.info(FFL_s,"listen ok");
 	return 0;
 }
 
 void Game::Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents)
 {
 	if (EV_ERROR & revents) {
-		log.error(FFL_s, "got invalid event");
+		sgslog.error(FFL_s, "got invalid event");
 		return;
 	}
 
@@ -157,7 +157,7 @@ void Game::Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents)
 
 	int fd = accept(w->fd, (struct sockaddr *) &client_addr, &client_len);
 	if (fd < 0) {
-		log.error(FFL_s_s, "accept error:", strerror(errno));
+		sgslog.error(FFL_s_s, "accept error:", strerror(errno));
 		return;
 	}
 	Game *game = (Game*)(w->data);
