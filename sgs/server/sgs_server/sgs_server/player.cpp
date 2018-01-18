@@ -4,6 +4,7 @@
 #include "main.h"
 #include "game.h"
 #include "mysqlutil/mysqlutil.h"
+#include "protoco/appproto.pb.h"
 
 Player::Player(int fd, std::string stIP):m_iClient(this)
 {
