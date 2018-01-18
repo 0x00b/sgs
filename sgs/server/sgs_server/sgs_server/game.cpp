@@ -85,6 +85,19 @@ int Game::Unicast(Player * player, std::string stMsg)
 	return 0;
 }
 
+const Player * Game::GetOLPlayer(int playerid)
+{
+	for (std::map<int, Player*>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); player++)
+	{
+		if (playerid == (*player).second->m_nID)
+		{
+			return *player;
+		}
+	}
+
+	return NULL;
+}
+
 int Game::Listen()
 {
 	log.info(FFL_s_s_d,"Listening on:",

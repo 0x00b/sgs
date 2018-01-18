@@ -22,6 +22,12 @@ private:
 	cards
 	cards cnt
 	*/
+
+protected:
+
+public:
+	Client m_iClient;		
+
 	//objects
 	Room*  m_pRoom;						//entered room
 
@@ -31,20 +37,15 @@ private:
 	std::string m_stAvatar;				//head picture
 	std::string m_stRegistDate;			//
 	std::string m_stRemark;				//
-	//ints
+										//ints
 	int m_nID;
 	int m_sExp;							//experience
-	//
+										//
 	short m_sLevel;						//level
-	//
+										//
 	char m_chSex;						//sex
 	char m_nStatus;						//player's status
 	char m_nGameStatus;					//player's gaming status
-
-protected:
-
-public:
-	Client m_iClient;		
 
 	//functions
 public:
@@ -70,7 +71,7 @@ protected:
 private:
 	int Regist();
 	int Login();
-	int GetFriends();
+	int GetFriends(std::list<Player*>& list);
 	int AddFriends();
 	int DeleteFriends();
 };

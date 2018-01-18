@@ -2,6 +2,8 @@
 //package com.sgs.network.protobuf;
 package proto.game;
 
+syntax = "proto3";
+
 //客户端上行结构体
 //请求登陆
 message ReqLogin

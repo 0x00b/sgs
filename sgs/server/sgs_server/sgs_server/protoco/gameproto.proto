@@ -2,6 +2,8 @@
 //package com.sgs.network.protobuf;
 package proto.game;
 
+syntax = "proto3";
+
 enum Code
 {
 	CODE_NULL		= 0; //无

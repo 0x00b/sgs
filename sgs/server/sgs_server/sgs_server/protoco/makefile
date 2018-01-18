@@ -5,4 +5,4 @@ java:
 all:
 
 clean:
-	rm -rf ../*.pb.*
+	rm -rf ./*.pb.*

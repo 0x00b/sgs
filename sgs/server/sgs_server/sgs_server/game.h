@@ -48,6 +48,8 @@ public:
 
 	int Broadcast(std::string stMsg);
 	int Unicast(Player* player,std::string stMsg);
+
+	const Player* GetOLPlayer(int playerid);
 protected:
 	
 private:

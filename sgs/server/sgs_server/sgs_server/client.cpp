@@ -6,6 +6,7 @@
 
 Client::Client(Player* p):m_pPlayer(p)
 {
+
 }
 
 
