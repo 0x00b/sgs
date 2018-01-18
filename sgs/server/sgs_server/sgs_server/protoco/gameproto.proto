@@ -7,10 +7,10 @@ package proto.game;
 
 enum Code
 {
-	CODE_NULL		= 0; //无
+	CODE_NULL = 0; //无
 }
 
 message tagCards
 {
-	repeated int32 card_list = 4;			//牌列表
+	int32 card_list[] = 1;			//牌列表
 }
