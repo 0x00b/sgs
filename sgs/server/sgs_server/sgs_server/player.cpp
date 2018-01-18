@@ -171,7 +171,7 @@ int Player::ReqDeleteFriends()
 int Player::Regist()
 {
 	MYSQL_RES* res;
-	MYSQL_ROW row;
+	//MYSQL_ROW row;
 	std::string sql = "INSERT INTO `sgs_db`.`player` \
 		(`account`, `passwd`, `sex`, `level`, `exp`, `status`, `regist_date`, `remark`) VALUES('";
 	sql.append(m_stAccount).append("','").
@@ -265,7 +265,7 @@ int Player::Login()
 	return nRet;
 }
 
-int Player::GetFriends()
+int Player::GetFriends(std::list<Player*>& list)
 {
 	return 0;
 }
