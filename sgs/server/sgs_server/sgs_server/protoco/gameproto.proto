@@ -1,8 +1,9 @@
 
+syntax = "proto3";
+
 //package com.sgs.network.protobuf;
 package proto.game;
 
-syntax = "proto3";
 
 enum Code
 {

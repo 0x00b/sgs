@@ -1,17 +1,18 @@
 
+syntax = "proto3";
+
 //package com.sgs.network.protobuf;
 package proto.game;
 
-syntax = "proto3";
 
 //客户端上行结构体
 //请求登陆
 message ReqLogin
 {
 	required int32 uid      = 1; 		//uid
-	optional string skey     = 2;
-	optional string roomid   = 3;
-	optional int32 req_count = 4;		
+	string skey     = 2;
+	string roomid   = 3;
+	int32 req_count = 4;		
 }
 
 //请求退出房间
@@ -25,74 +26,74 @@ message ReqLogout
 message AckLoginSuccessUc
 {
 	required int32 seatid = 1; 		
-	optional string avatar = 2;
-	optional int32 exp = 3;
-	optional int32 money = 4;			
-	optional string name = 5;
-	optional int32 ready = 6;			
-	optional int32 rmb = 7;
-	optional int32 see = 8;			
-	optional int32 sex = 9;
-	optional int32 uid = 10;			
+	string avatar = 2;
+	int32 exp = 3;
+	int32 money = 4;			
+	string name = 5;
+	int32 ready = 6;			
+	int32 rmb = 7;
+	int32 see = 8;			
+	int32 sex = 9;
+	int32 uid = 10;			
 }
 //登录成功返回（广播）
 message AckLoginSuccessBc
 {
 	required int32 seatid = 1; 		//
-	optional int32 uid = 2;
-	optional int32 money = 3;
-	optional string name = 4;			//
-	optional string avatar = 5;//头像
-	optional int32 sex = 6;	
+	int32 uid = 2;
+	int32 money = 3;
+	string name = 4;			//
+	string avatar = 5;//头像
+	int32 sex = 6;	
 }
 //登陆错误
 message AckLoginError
 {
 	required int32 uid       = 1;
-	optional int32 code      = 2;
+	int32 code      = 2;
 }
 
 //玩家退出房间请求返回(广播)
 message AckLogoutBc
 {
 	required int32 seatid = 1; 		//桌子id
-	optional int32 uid = 2;
-	optional int32 type = 3;	//
+	int32 uid = 2;
+	int32 type = 3;	//
 }
 //上桌成功
 message  AckUpTableSuccess
 {
     required int32 uid = 1;
-	optional int32 seatid = 2;
-	optional int32 ready = 3;
-	optional string name = 4;
-	optional int32 sex = 5;
-	optional string avatar = 6;
-	optional int32 money = 7;
-	optional int32 exp = 8;
+	int32 seatid = 2;
+	int32 ready = 3;
+	string name = 4;
+	int32 sex = 5;
+	string avatar = 6;
+	int32 money = 7;
+	int32 exp = 8;
 }
 //上桌失败
 message AckUpTableErrorUc
 {
     required int32 uid = 1;
-	optional int32 money = 2;
-	optional int32 code = 3;
+	int32 money = 2;
+	int32 code = 3;
 }
 
 //游戏过程中选择下桌返回
 message AckAheadDownTable
 {
     required int32 uid = 1;
-	optional int32 seatid = 2;
-	optional int32 down_tag = 3; //1：游戏结束自动下桌
+	int32 seatid = 2;
+	int32 down_tag = 3; //1：游戏结束自动下桌
 }
 
 //下桌成功返回
 message AckDownTableSuccess
 {
     required int32 uid = 1;
-	optional int32 seatid = 2;
-	optional int32 money = 3;
+	int32 seatid = 2;
+	int32 money = 3;
 }
 
 //广播下一局开赛
@@ -104,10 +105,10 @@ message AckPrereadyBC
 message AckEmotionBC
 {
     required int32 seatid = 1;
-	optional int32 money = 2;
-	optional int32 target_seatid = 3;
-	optional int32 target_seat_num = 4;
-	optional int32 type = 5;
+	int32 money = 2;
+	int32 target_seatid = 3;
+	int32 target_seat_num = 4;
+	int32 type = 5;
 }
 
 //错误码
