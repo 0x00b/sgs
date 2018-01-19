@@ -7,7 +7,7 @@
 Game::Game() :m_nStatus(0)
 {
 	m_mPlayers.clear();
-	m_mTables.clear();
+	m_mRooms.clear();
 }
 
 

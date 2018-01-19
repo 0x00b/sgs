@@ -1,112 +1,130 @@
 
 syntax = "proto3";
 
-//package com.sgs.network.protobuf;
 package proto.game;
 
+//玩家信息
+message Player
+{
+	int32 id = 1; 		
+	string account = 2;
+	string passwd = 3;		
+	string name = 4;	
+	string avatar = 5;
+	int32 sex = 6;
+	int32 exp = 7;
+	int32 level = 8;	
+	int32 status = 9;
+	int32 gamestatus = 10;
+	int32 seatid = 11;
+	string registdate = 12;
+	string remark = 13;
+}
 
 //客户端上行结构体
 //请求登陆
 message ReqLogin
 {
-	int32 uid      = 1; 		//uid
-	string skey     = 2;
-	string roomid   = 3;
-	int32 req_count = 4;		
-}
-
-//请求退出房间
-message ReqLogout
-{
-	int32   uid      = 1; 		//uid
+	string name	= 1;
+	string pwd	= 2;
 }
 
 //服务端下发结构体
 //登录成功返回（单播）
-message AckLoginSuccessUc
-{
-	int32 seatid = 1; 		
-	string avatar = 2;
-	int32 exp = 3;
-	int32 money = 4;			
-	string name = 5;
-	int32 ready = 6;			
-	int32 rmb = 7;
-	int32 see = 8;			
-	int32 sex = 9;
-	int32 uid = 10;			
-}
-//登录成功返回（广播）
-message AckLoginSuccessBc
-{
-	int32 seatid = 1; 		//
-	int32 uid = 2;
-	int32 money = 3;
-	string name = 4;			//
-	string avatar = 5;//头像
-	int32 sex = 6;	
-}
-//登陆错误
-message AckLoginError
-{
-	int32 uid       = 1;
-	int32 code      = 2;
+message AckLoginUc
+{	
+	int32 code = 1;	//返回码，0成功 1失败
+	Player player = 2;
 }
 
-//玩家退出房间请求返回(广播)
-message AckLogoutBc
+//请求退出游戏
+message ReqLogout
 {
-	int32 seatid = 1; 		//桌子id
-	int32 uid = 2;
-	int32 type = 3;	//
+	Player player = 1;
 }
-//上桌成功
-message  AckUpTableSuccess
+//玩家退出请求返回
+message AckLogoutUc
 {
-    int32 uid = 1;
-	int32 seatid = 2;
-	int32 ready = 3;
-	string name = 4;
-	int32 sex = 5;
-	string avatar = 6;
-	int32 money = 7;
-	int32 exp = 8;
-}
-//上桌失败
-message AckUpTableErrorUc
-{
-    int32 uid = 1;
-	int32 money = 2;
-	int32 code = 3;
+	int32 code = 1;
+	string remark = 2;
 }
 
-//游戏过程中选择下桌返回
-message AckAheadDownTable
+message ReqRegist
 {
-    int32 uid = 1;
-	int32 seatid = 2;
-	int32 down_tag = 3; //1：游戏结束自动下桌
+	Player player = 1;
+}
+message ReqRegistUc
+{
+	int32 code = 1;
+	Player player = 2;
+}
+message ReqUpdatePwd
+{
+	string account = 1;
+	string oldpasswd = 2;
+	string newpasswd = 3;
+}
+message ReqUpdatePwdUc
+{
+	int32 code = 1;
+}
+message ReqGetFriends
+{
+}
+message ReqGetFriendsUc
+{
+	int32 code = 1;
+	repeated Player frieds = 2;
+}
+message ReqAddFriends
+{
+	Player friend = 1;
+}
+message ReqAddFriendsUc
+{
+	int32 code = 1;
+	Player friend = 2;
+}
+message ReqDeleteFriend
+{
+	Player friend = 1;
+}
+message ReqDeleteFriendUc
+{
+	int32 code = 2;
+}
+message ReqEnterRoom
+{
+	int32 roomid = 1;
+}
+message ReqEnterRoomUc
+{
+	int32 roomid = 1;
+	int32 code = 2;
+	repeated Player players = 3;
+}
+message ReqEnterRoomBc
+{
+	int32 roomid = 1;
+	Player player = 2;
+}
+message ReqQuitRoom
+{
+	int32 roomid = 1;
+}
+message ReqQuitRoomUc
+{
+	int32 code = 1;
+}
+message ReqQuitRoomBc
+{
+	int32 code = 1;
+	Player player = 2;
 }
 
-//下桌成功返回
-message AckDownTableSuccess
-{
-    int32 uid = 1;
-	int32 seatid = 2;
-	int32 money = 3;
-}
-
-//广播下一局开赛
-message AckPrereadyBC
-{
-   string roomid = 1; //房间号
-}
 //广播互动表情
 message AckEmotionBC
 {
     int32 seatid = 1;
-	int32 money = 2;
-	int32 target_seatid = 3;
-	int32 target_seat_num = 4;
-	int32 type = 5;
+	int32 type = 2;
 }

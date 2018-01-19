@@ -19,6 +19,7 @@ private:
 	std::list<Player*> m_lstPlayers;//players in the room
 	std::string	m_stName;			//room's name
 
+	int roomid;
 	int m_nType;					//room type
 	int m_nMaxPlayerCnt;			//max player cnt
 	int m_nPlayerCnt;				//current player cnt

@@ -17,7 +17,7 @@ class Game
 //variables
 private:
 	std::map<int, Player*> m_mPlayers;
-	std::map<int, Room*>   m_mTables;
+	std::map<int, Room*>   m_mRooms;
 	
 	ev_io m_iAccept;
 

@@ -60,6 +60,7 @@ public:
 	int ReqAddFriends();
 	int ReqDeleteFriends();
 	int ReqQuitRoom();
+	int ReqEnterRoom();
 	int GetInfoByID();
 	int Send(PPacket& pkt);
 

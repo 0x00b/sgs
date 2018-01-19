@@ -17,6 +17,11 @@ int Player::ReqQuitRoom()
 	return 0;
 }
 
+int Player::ReqEnterRoom()
+{
+	return 0;
+}
+
 int Player::GetInfoByID()
 {
 	return 0;
