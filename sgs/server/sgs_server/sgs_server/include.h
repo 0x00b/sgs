@@ -36,6 +36,7 @@ Description : include some usage header that don't change
 #include <vector>
 #include <map>
 #include <list>
+#include <memory>
 
 /* other headers*/
 #include "zlib/zlib.h"

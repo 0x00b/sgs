@@ -4,12 +4,53 @@
 #include "main.h"
 #include "game.h"
 #include "mysqlutil/mysqlutil.h"
-#include "protoco/appproto.pb.h"
+
+Player::Player():m_iClient(this)
+{
+	Init();
+	m_iClient.m_nfd = -1;
+}
 
 Player::Player(int fd, std::string stIP):m_iClient(this)
 {
+	Init();
 	m_iClient.m_nfd = fd;
 	m_iClient.m_stIP = stIP;
+}
+
+
+Player::~Player()
+{
+}
+
+void Player::Init()
+{
+	m_pRoom = NULL;						//entered room
+
+	m_stAccount.clear();			//account
+	m_stPasswd.clear();				//password
+	m_stName.clear();				//player's name
+	m_stAvatar.clear();				//head picture
+	m_stRegistDate.clear();			//
+	m_stRemark.clear();				//
+										//ints
+	m_nID = 0;
+	m_nExp = 0;							//experience
+								//
+	m_sLevel = 0;						//level
+								//
+	m_chSex = 0;						//sex
+	m_nStatus = 0;						//player's status
+	m_nGameStatus = 0;					//player's gaming status
+}
+void Player::Set(const proto::game::Player &player)
+{
+	m_stAccount = player.account();	
+	m_stPasswd = player.passwd();
+	m_stName = player.name();		
+	m_stAvatar = player.avatar();		
+	m_stRegistDate = player.registdate();	
+	m_stRemark = player.remark();		
 }
 
 int Player::ReqQuitRoom()
@@ -29,7 +70,7 @@ int Player::GetInfoByID()
 /*
 pkt must call pack func before call this function
 */
-int Player::Send(PPacket & pkt)
+int Player::Send(std::shared_ptr<PPacket>& pkt)
 {
 	if (m_iClient.m_nfd > 0)
 	{
@@ -107,10 +148,10 @@ int Player::Do()
 			nRet = g_app.m_pGame->ReqCreateRoom(this);
 			break;
 		case PLAYER_REGIST:
-			nRet = g_app.m_pGame->UserRegist(this);
+			nRet = ReqRegist();
 			break;
 		case PLAYER_LOGIN:
-			nRet = g_app.m_pGame->UserLogin(this);
+			nRet = ReqLogin();
 			break;
 		case PLAYER_QUIT:
 			nRet = g_app.m_pGame->UserQuit(this);
@@ -135,17 +176,69 @@ int Player::AfterDo()
 }
 
 
-Player::~Player()
+int Player::CheckAccount()
 {
-}
+	if (m_stAccount.length() < 3 || m_stAccount.length() > 15)
+	{
+		return 1;
+	}
+	// todo 
 
+	return 0;
+}
+int Player::CheckPasswd()
+{
+	if (m_stPasswd.length() < 3 || m_stPasswd.length() > 15)
+	{
+		return 1;
+	}
+	// todo 
+
+	return 0;
+}
 int Player::ReqRegist()
 {
-	return 0;
+	int code = 0;
+	proto::game::ReqRegistUc rgstuc;
+	proto::game::ReqRegist rgst;
+	rgst.ParseFromString(m_iClient.m_iPacket.body);
+	
+	Set(rgst.player());
+
+	//check account
+	if (CheckAccount())
+	{
+		code = 0x01;
+	}
+
+	//check passwd
+	if (CheckPasswd())
+	{
+		code |= 0x10;
+	}
+	if (0 == code)
+	{
+		if (1 != Regist())
+		{
+			code = 0x0100; //
+		}
+	}
+	rgstuc.set_code(code); //
+	proto::game::Player* player = rgstuc.mutable_player();
+	*player = rgst.player();
+
+	std::shared_ptr<PPacket> packet(new PPacket());
+	rgstuc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_REGIST_UC);
+
+	Send(packet);
+
+	return code;
 }
 
 int Player::ReqLogin()
 {
+	Login();
 	return 0;
 }
 
@@ -186,7 +279,7 @@ int Player::Regist()
 	sql.append(",");
 	sql += m_sLevel;
 	sql.append(",");
-	sql += m_sExp;
+	sql += m_nExp;
 	sql.append(",");
 	sql += m_nStatus;
 	sql.append(",'").
@@ -197,7 +290,7 @@ int Player::Regist()
 	if (res)
 	{
 		mysql_free_result(res);
-		return 0;
+		return 1;
 	}
 	return -1;
 }
@@ -225,7 +318,7 @@ int Player::Login()
 	{
 		std::string pwd("");
 		int j = mysql_num_fields(res);
-		while (row = mysql_fetch_row(res))
+		while ((row = mysql_fetch_row(res)))
 		{
 			for (int i = 0; i < j; i++)
 			{
@@ -246,7 +339,7 @@ int Player::Login()
 				case 4:
 					m_sLevel = atoi(row[i]); break;
 				case 5:
-					m_sExp = atoi(row[i]); break;
+					m_nExp = atoi(row[i]); break;
 				case 6:
 					m_nStatus = atoi(row[i]); break;
 				case 7:
@@ -271,17 +364,99 @@ int Player::Login()
 	return nRet;
 }
 
-int Player::GetFriends(std::list<Player*>& list)
+int Player::GetFriends(std::list<std::shared_ptr<Player>>& list)
 {
-	return 0;
+	MYSQL_RES* res;
+	MYSQL_ROW row;
+	std::string sql = "SELECT `player`.`idplayer`,\
+		`player`.`sex`,\
+		`player`.`avatar`,\
+		`player`.`level`,\
+		`player`.`status`,\
+		FROM `sgs_db`.`player` WHERE \
+		`player`.`idplayer` in(SELECT `friends`.`idfriend` FROM `friends` WHERE `friends`.`idplayer` = ";
+	sql += m_nID;
+	sql.append(");");
+	
+	res = MySqlUtil::MysqlQuery(sql.c_str());
+	int nRet = 0;
+	if (res)
+	{
+		int j = mysql_num_fields(res);
+		while ((row = mysql_fetch_row(res)))
+		{
+			Player* player = new Player();
+			for (int i = 0; i < j; i++)
+			{
+				if (row[i] == NULL)
+				{
+					continue;
+				}
+				switch (i)
+				{
+				case 0:
+					player->m_nID = atoi(row[i]); break;
+				case 1:
+				case 2:
+					player->m_chSex = atoi(row[i]); break;
+				case 3:
+					player->m_stAvatar = row[i]; break;
+				case 4:
+					player->m_sLevel = atoi(row[i]); break;
+				case 5:
+					player->m_nStatus = atoi(row[i]); break;
+				default:
+					break;
+				}
+			}
+			list.push_back(std::shared_ptr<Player>(player));
+		}
+		nRet = list.size();
+	}
+	else
+	{
+		nRet = -1;
+	}
+	mysql_free_result(res);
+
+	return nRet;
 }
 
-int Player::AddFriends()
+int Player::AddFriends(int idfriend)
 {
-	return 0;
+	MYSQL_RES* res;
+	//MYSQL_ROW row;
+	std::string sql = "INSERT INTO `sgs_db`.`friends` \
+		(`idplayer` , `idfriend` , `type` , `remark`) VALUES(";
+	sql += m_nID;
+	sql.append(",");
+	sql += idfriend;
+	sql.append(",0,'');");
+
+	res = MySqlUtil::MysqlQuery(sql.c_str());
+	if (res)
+	{
+		mysql_free_result(res);
+		return 1;
+	}
+	return -1;
 }
 
-int Player::DeleteFriends()
+int Player::DeleteFriends(int idfriend)
 {
+	MYSQL_RES* res;
+	//MYSQL_ROW row;
+	std::string sql = "DELETE FROM `sgs_db`.`friends` WHERE `friends`.`idplayer` = ";
+	sql += m_nID;
+	sql.append(" and `friends`.`idfriend` = ");
+	sql += idfriend;
+	sql.append("；");
+
+	res = MySqlUtil::MysqlQuery(sql.c_str());
+	if (res)
+	{
+		mysql_free_result(res);
+		return 1;
+	}
 	return 0;
 }

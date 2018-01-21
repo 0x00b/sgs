@@ -1,7 +1,7 @@
 #include "game.h"
 #include "player.h"
 #include "app.h"
-
+#include "ppacket.h"
 
 
 Game::Game() :m_nStatus(0)
@@ -22,16 +22,6 @@ int Game::StartUp()
 		return 0;
 	}
 	return -1;
-}
-
-int Game::UserRegist(Player * player)
-{
-	return 0;
-}
-
-int Game::UserLogin(Player * player)
-{
-	return 0;
 }
 
 int Game::UserQuit(Player * player)
@@ -76,13 +66,20 @@ int Game::ReqSearchRoom(Player * player)
 	return 0;
 }
 
-int Game::Broadcast(std::string stMsg)
+int Game::Broadcast(PPacket* pkt)
 {
+	std::shared_ptr<PPacket> sptr(pkt);
+	for (std::map<int, Player *>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); ++player)
+	{
+		player->second->Send(sptr);
+	}
 	return 0;
 }
 
-int Game::Unicast(Player * player, std::string stMsg)
+int Game::Unicast(Player * player, PPacket* pkt)
 {
+	std::shared_ptr<PPacket> sptr(pkt);
+	player->Send(sptr);
 	return 0;
 }
 

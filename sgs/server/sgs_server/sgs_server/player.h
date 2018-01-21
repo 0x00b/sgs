@@ -10,6 +10,7 @@ Description :
 
 #include "include.h"
 #include "client.h"
+#include "protoco/appproto.pb.h"
 
 class Room;
 /*
@@ -39,7 +40,7 @@ public:
 	std::string m_stRemark;				//
 										//ints
 	int m_nID;
-	int m_sExp;							//experience
+	int m_nExp;							//experience
 										//
 	short m_sLevel;						//level
 										//
@@ -49,8 +50,10 @@ public:
 
 	//functions
 public:
+	Player();
 	Player(int fd, std::string stIP);
 	virtual ~Player();
+	void Init();
 
 	int ReqRegist();
 	int ReqLogin();
@@ -62,7 +65,7 @@ public:
 	int ReqQuitRoom();
 	int ReqEnterRoom();
 	int GetInfoByID();
-	int Send(PPacket& pkt);
+	int Send(std::shared_ptr<PPacket>& pkt);
 
 	virtual int BeforeDo();
 	virtual int Do();
@@ -70,11 +73,14 @@ public:
 protected:
 
 private:
+	void Set(const proto::game::Player& player);
+	int CheckAccount();
+	int CheckPasswd();
 	int Regist();
 	int Login();
-	int GetFriends(std::list<Player*>& list);
-	int AddFriends();
-	int DeleteFriends();
+	int GetFriends(std::list<std::shared_ptr<Player>>& list);
+	int AddFriends(int idfriend);
+	int DeleteFriends(int idfriend);
 };
 
 #endif

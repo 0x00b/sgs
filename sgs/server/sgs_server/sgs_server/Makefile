@@ -43,6 +43,9 @@ $(APP):$(objs)
 	$(CXX) $(CXXFLAGS) $(inc) -c $^
 
 
-.PHONY:clean
+.PHONY:clean clean_obj
 clean:
 	rm -f *.o $(APP) 
+
+clean_obj:
+	rm -f *.o

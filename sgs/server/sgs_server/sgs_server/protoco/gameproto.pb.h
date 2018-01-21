@@ -37,7 +37,7 @@ namespace protobuf_gameproto_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[1];
+  static const ::google::protobuf::internal::ParseTable schema[6];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -45,12 +45,42 @@ struct TableStruct {
 void AddDescriptors();
 void InitDefaultstagCardsImpl();
 void InitDefaultstagCards();
+void InitDefaultsAckUpTableSuccessImpl();
+void InitDefaultsAckUpTableSuccess();
+void InitDefaultsAckUpTableErrorUcImpl();
+void InitDefaultsAckUpTableErrorUc();
+void InitDefaultsAckAheadDownTableImpl();
+void InitDefaultsAckAheadDownTable();
+void InitDefaultsAckDownTableSuccessImpl();
+void InitDefaultsAckDownTableSuccess();
+void InitDefaultsAckPrereadyBCImpl();
+void InitDefaultsAckPrereadyBC();
 inline void InitDefaults() {
   InitDefaultstagCards();
+  InitDefaultsAckUpTableSuccess();
+  InitDefaultsAckUpTableErrorUc();
+  InitDefaultsAckAheadDownTable();
+  InitDefaultsAckDownTableSuccess();
+  InitDefaultsAckPrereadyBC();
 }
 }  // namespace protobuf_gameproto_2eproto
 namespace proto {
 namespace game {
+class AckAheadDownTable;
+class AckAheadDownTableDefaultTypeInternal;
+extern AckAheadDownTableDefaultTypeInternal _AckAheadDownTable_default_instance_;
+class AckDownTableSuccess;
+class AckDownTableSuccessDefaultTypeInternal;
+extern AckDownTableSuccessDefaultTypeInternal _AckDownTableSuccess_default_instance_;
+class AckPrereadyBC;
+class AckPrereadyBCDefaultTypeInternal;
+extern AckPrereadyBCDefaultTypeInternal _AckPrereadyBC_default_instance_;
+class AckUpTableErrorUc;
+class AckUpTableErrorUcDefaultTypeInternal;
+extern AckUpTableErrorUcDefaultTypeInternal _AckUpTableErrorUc_default_instance_;
+class AckUpTableSuccess;
+class AckUpTableSuccessDefaultTypeInternal;
+extern AckUpTableSuccessDefaultTypeInternal _AckUpTableSuccess_default_instance_;
 class tagCards;
 class tagCardsDefaultTypeInternal;
 extern tagCardsDefaultTypeInternal _tagCards_default_instance_;
@@ -58,6 +88,11 @@ extern tagCardsDefaultTypeInternal _tagCards_default_instance_;
 }  // namespace proto
 namespace google {
 namespace protobuf {
+template<> ::proto::game::AckAheadDownTable* Arena::Create< ::proto::game::AckAheadDownTable>(Arena*);
+template<> ::proto::game::AckDownTableSuccess* Arena::Create< ::proto::game::AckDownTableSuccess>(Arena*);
+template<> ::proto::game::AckPrereadyBC* Arena::Create< ::proto::game::AckPrereadyBC>(Arena*);
+template<> ::proto::game::AckUpTableErrorUc* Arena::Create< ::proto::game::AckUpTableErrorUc>(Arena*);
+template<> ::proto::game::AckUpTableSuccess* Arena::Create< ::proto::game::AckUpTableSuccess>(Arena*);
 template<> ::proto::game::tagCards* Arena::Create< ::proto::game::tagCards>(Arena*);
 }  // namespace protobuf
 }  // namespace google
@@ -194,6 +229,636 @@ class tagCards : public ::google::protobuf::Message /* @@protoc_insertion_point(
   friend struct ::protobuf_gameproto_2eproto::TableStruct;
   friend void ::protobuf_gameproto_2eproto::InitDefaultstagCardsImpl();
 };
+// -------------------------------------------------------------------
+
+class AckUpTableSuccess : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.AckUpTableSuccess) */ {
+ public:
+  AckUpTableSuccess();
+  virtual ~AckUpTableSuccess();
+
+  AckUpTableSuccess(const AckUpTableSuccess& from);
+
+  inline AckUpTableSuccess& operator=(const AckUpTableSuccess& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  AckUpTableSuccess(AckUpTableSuccess&& from) noexcept
+    : AckUpTableSuccess() {
+    *this = ::std::move(from);
+  }
+
+  inline AckUpTableSuccess& operator=(AckUpTableSuccess&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AckUpTableSuccess& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const AckUpTableSuccess* internal_default_instance() {
+    return reinterpret_cast<const AckUpTableSuccess*>(
+               &_AckUpTableSuccess_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    1;
+
+  void Swap(AckUpTableSuccess* other);
+  friend void swap(AckUpTableSuccess& a, AckUpTableSuccess& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AckUpTableSuccess* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckUpTableSuccess>(NULL);
+  }
+
+  AckUpTableSuccess* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckUpTableSuccess>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const AckUpTableSuccess& from);
+  void MergeFrom(const AckUpTableSuccess& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(AckUpTableSuccess* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string name = 4;
+  void clear_name();
+  static const int kNameFieldNumber = 4;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_name(::std::string&& value);
+  #endif
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // string avatar = 6;
+  void clear_avatar();
+  static const int kAvatarFieldNumber = 6;
+  const ::std::string& avatar() const;
+  void set_avatar(const ::std::string& value);
+  #if LANG_CXX11
+  void set_avatar(::std::string&& value);
+  #endif
+  void set_avatar(const char* value);
+  void set_avatar(const char* value, size_t size);
+  ::std::string* mutable_avatar();
+  ::std::string* release_avatar();
+  void set_allocated_avatar(::std::string* avatar);
+
+  // int32 uid = 1;
+  void clear_uid();
+  static const int kUidFieldNumber = 1;
+  ::google::protobuf::int32 uid() const;
+  void set_uid(::google::protobuf::int32 value);
+
+  // int32 seatid = 2;
+  void clear_seatid();
+  static const int kSeatidFieldNumber = 2;
+  ::google::protobuf::int32 seatid() const;
+  void set_seatid(::google::protobuf::int32 value);
+
+  // int32 ready = 3;
+  void clear_ready();
+  static const int kReadyFieldNumber = 3;
+  ::google::protobuf::int32 ready() const;
+  void set_ready(::google::protobuf::int32 value);
+
+  // int32 sex = 5;
+  void clear_sex();
+  static const int kSexFieldNumber = 5;
+  ::google::protobuf::int32 sex() const;
+  void set_sex(::google::protobuf::int32 value);
+
+  // int32 money = 7;
+  void clear_money();
+  static const int kMoneyFieldNumber = 7;
+  ::google::protobuf::int32 money() const;
+  void set_money(::google::protobuf::int32 value);
+
+  // int32 exp = 8;
+  void clear_exp();
+  static const int kExpFieldNumber = 8;
+  ::google::protobuf::int32 exp() const;
+  void set_exp(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:proto.game.AckUpTableSuccess)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr avatar_;
+  ::google::protobuf::int32 uid_;
+  ::google::protobuf::int32 seatid_;
+  ::google::protobuf::int32 ready_;
+  ::google::protobuf::int32 sex_;
+  ::google::protobuf::int32 money_;
+  ::google::protobuf::int32 exp_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_gameproto_2eproto::TableStruct;
+  friend void ::protobuf_gameproto_2eproto::InitDefaultsAckUpTableSuccessImpl();
+};
+// -------------------------------------------------------------------
+
+class AckUpTableErrorUc : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.AckUpTableErrorUc) */ {
+ public:
+  AckUpTableErrorUc();
+  virtual ~AckUpTableErrorUc();
+
+  AckUpTableErrorUc(const AckUpTableErrorUc& from);
+
+  inline AckUpTableErrorUc& operator=(const AckUpTableErrorUc& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  AckUpTableErrorUc(AckUpTableErrorUc&& from) noexcept
+    : AckUpTableErrorUc() {
+    *this = ::std::move(from);
+  }
+
+  inline AckUpTableErrorUc& operator=(AckUpTableErrorUc&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AckUpTableErrorUc& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const AckUpTableErrorUc* internal_default_instance() {
+    return reinterpret_cast<const AckUpTableErrorUc*>(
+               &_AckUpTableErrorUc_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    2;
+
+  void Swap(AckUpTableErrorUc* other);
+  friend void swap(AckUpTableErrorUc& a, AckUpTableErrorUc& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AckUpTableErrorUc* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckUpTableErrorUc>(NULL);
+  }
+
+  AckUpTableErrorUc* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckUpTableErrorUc>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const AckUpTableErrorUc& from);
+  void MergeFrom(const AckUpTableErrorUc& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(AckUpTableErrorUc* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int32 uid = 1;
+  void clear_uid();
+  static const int kUidFieldNumber = 1;
+  ::google::protobuf::int32 uid() const;
+  void set_uid(::google::protobuf::int32 value);
+
+  // int32 money = 2;
+  void clear_money();
+  static const int kMoneyFieldNumber = 2;
+  ::google::protobuf::int32 money() const;
+  void set_money(::google::protobuf::int32 value);
+
+  // int32 code = 3;
+  void clear_code();
+  static const int kCodeFieldNumber = 3;
+  ::google::protobuf::int32 code() const;
+  void set_code(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:proto.game.AckUpTableErrorUc)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 uid_;
+  ::google::protobuf::int32 money_;
+  ::google::protobuf::int32 code_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_gameproto_2eproto::TableStruct;
+  friend void ::protobuf_gameproto_2eproto::InitDefaultsAckUpTableErrorUcImpl();
+};
+// -------------------------------------------------------------------
+
+class AckAheadDownTable : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.AckAheadDownTable) */ {
+ public:
+  AckAheadDownTable();
+  virtual ~AckAheadDownTable();
+
+  AckAheadDownTable(const AckAheadDownTable& from);
+
+  inline AckAheadDownTable& operator=(const AckAheadDownTable& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  AckAheadDownTable(AckAheadDownTable&& from) noexcept
+    : AckAheadDownTable() {
+    *this = ::std::move(from);
+  }
+
+  inline AckAheadDownTable& operator=(AckAheadDownTable&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AckAheadDownTable& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const AckAheadDownTable* internal_default_instance() {
+    return reinterpret_cast<const AckAheadDownTable*>(
+               &_AckAheadDownTable_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    3;
+
+  void Swap(AckAheadDownTable* other);
+  friend void swap(AckAheadDownTable& a, AckAheadDownTable& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AckAheadDownTable* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckAheadDownTable>(NULL);
+  }
+
+  AckAheadDownTable* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckAheadDownTable>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const AckAheadDownTable& from);
+  void MergeFrom(const AckAheadDownTable& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(AckAheadDownTable* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int32 uid = 1;
+  void clear_uid();
+  static const int kUidFieldNumber = 1;
+  ::google::protobuf::int32 uid() const;
+  void set_uid(::google::protobuf::int32 value);
+
+  // int32 seatid = 2;
+  void clear_seatid();
+  static const int kSeatidFieldNumber = 2;
+  ::google::protobuf::int32 seatid() const;
+  void set_seatid(::google::protobuf::int32 value);
+
+  // int32 down_tag = 3;
+  void clear_down_tag();
+  static const int kDownTagFieldNumber = 3;
+  ::google::protobuf::int32 down_tag() const;
+  void set_down_tag(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:proto.game.AckAheadDownTable)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 uid_;
+  ::google::protobuf::int32 seatid_;
+  ::google::protobuf::int32 down_tag_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_gameproto_2eproto::TableStruct;
+  friend void ::protobuf_gameproto_2eproto::InitDefaultsAckAheadDownTableImpl();
+};
+// -------------------------------------------------------------------
+
+class AckDownTableSuccess : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.AckDownTableSuccess) */ {
+ public:
+  AckDownTableSuccess();
+  virtual ~AckDownTableSuccess();
+
+  AckDownTableSuccess(const AckDownTableSuccess& from);
+
+  inline AckDownTableSuccess& operator=(const AckDownTableSuccess& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  AckDownTableSuccess(AckDownTableSuccess&& from) noexcept
+    : AckDownTableSuccess() {
+    *this = ::std::move(from);
+  }
+
+  inline AckDownTableSuccess& operator=(AckDownTableSuccess&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AckDownTableSuccess& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const AckDownTableSuccess* internal_default_instance() {
+    return reinterpret_cast<const AckDownTableSuccess*>(
+               &_AckDownTableSuccess_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    4;
+
+  void Swap(AckDownTableSuccess* other);
+  friend void swap(AckDownTableSuccess& a, AckDownTableSuccess& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AckDownTableSuccess* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckDownTableSuccess>(NULL);
+  }
+
+  AckDownTableSuccess* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckDownTableSuccess>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const AckDownTableSuccess& from);
+  void MergeFrom(const AckDownTableSuccess& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(AckDownTableSuccess* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int32 uid = 1;
+  void clear_uid();
+  static const int kUidFieldNumber = 1;
+  ::google::protobuf::int32 uid() const;
+  void set_uid(::google::protobuf::int32 value);
+
+  // int32 seatid = 2;
+  void clear_seatid();
+  static const int kSeatidFieldNumber = 2;
+  ::google::protobuf::int32 seatid() const;
+  void set_seatid(::google::protobuf::int32 value);
+
+  // int32 money = 3;
+  void clear_money();
+  static const int kMoneyFieldNumber = 3;
+  ::google::protobuf::int32 money() const;
+  void set_money(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:proto.game.AckDownTableSuccess)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 uid_;
+  ::google::protobuf::int32 seatid_;
+  ::google::protobuf::int32 money_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_gameproto_2eproto::TableStruct;
+  friend void ::protobuf_gameproto_2eproto::InitDefaultsAckDownTableSuccessImpl();
+};
+// -------------------------------------------------------------------
+
+class AckPrereadyBC : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.AckPrereadyBC) */ {
+ public:
+  AckPrereadyBC();
+  virtual ~AckPrereadyBC();
+
+  AckPrereadyBC(const AckPrereadyBC& from);
+
+  inline AckPrereadyBC& operator=(const AckPrereadyBC& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  AckPrereadyBC(AckPrereadyBC&& from) noexcept
+    : AckPrereadyBC() {
+    *this = ::std::move(from);
+  }
+
+  inline AckPrereadyBC& operator=(AckPrereadyBC&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const AckPrereadyBC& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const AckPrereadyBC* internal_default_instance() {
+    return reinterpret_cast<const AckPrereadyBC*>(
+               &_AckPrereadyBC_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    5;
+
+  void Swap(AckPrereadyBC* other);
+  friend void swap(AckPrereadyBC& a, AckPrereadyBC& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AckPrereadyBC* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckPrereadyBC>(NULL);
+  }
+
+  AckPrereadyBC* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<AckPrereadyBC>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const AckPrereadyBC& from);
+  void MergeFrom(const AckPrereadyBC& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(AckPrereadyBC* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string roomid = 1;
+  void clear_roomid();
+  static const int kRoomidFieldNumber = 1;
+  const ::std::string& roomid() const;
+  void set_roomid(const ::std::string& value);
+  #if LANG_CXX11
+  void set_roomid(::std::string&& value);
+  #endif
+  void set_roomid(const char* value);
+  void set_roomid(const char* value, size_t size);
+  ::std::string* mutable_roomid();
+  ::std::string* release_roomid();
+  void set_allocated_roomid(::std::string* roomid);
+
+  // @@protoc_insertion_point(class_scope:proto.game.AckPrereadyBC)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr roomid_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_gameproto_2eproto::TableStruct;
+  friend void ::protobuf_gameproto_2eproto::InitDefaultsAckPrereadyBCImpl();
+};
 // ===================================================================
 
 
@@ -235,9 +900,408 @@ tagCards::mutable_card_list() {
   return &card_list_;
 }
 
+// -------------------------------------------------------------------
+
+// AckUpTableSuccess
+
+// int32 uid = 1;
+inline void AckUpTableSuccess::clear_uid() {
+  uid_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableSuccess::uid() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableSuccess.uid)
+  return uid_;
+}
+inline void AckUpTableSuccess::set_uid(::google::protobuf::int32 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableSuccess.uid)
+}
+
+// int32 seatid = 2;
+inline void AckUpTableSuccess::clear_seatid() {
+  seatid_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableSuccess::seatid() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableSuccess.seatid)
+  return seatid_;
+}
+inline void AckUpTableSuccess::set_seatid(::google::protobuf::int32 value) {
+  
+  seatid_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableSuccess.seatid)
+}
+
+// int32 ready = 3;
+inline void AckUpTableSuccess::clear_ready() {
+  ready_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableSuccess::ready() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableSuccess.ready)
+  return ready_;
+}
+inline void AckUpTableSuccess::set_ready(::google::protobuf::int32 value) {
+  
+  ready_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableSuccess.ready)
+}
+
+// string name = 4;
+inline void AckUpTableSuccess::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AckUpTableSuccess::name() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableSuccess.name)
+  return name_.GetNoArena();
+}
+inline void AckUpTableSuccess::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableSuccess.name)
+}
+#if LANG_CXX11
+inline void AckUpTableSuccess::set_name(::std::string&& value) {
+  
+  name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:proto.game.AckUpTableSuccess.name)
+}
+#endif
+inline void AckUpTableSuccess::set_name(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:proto.game.AckUpTableSuccess.name)
+}
+inline void AckUpTableSuccess::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:proto.game.AckUpTableSuccess.name)
+}
+inline ::std::string* AckUpTableSuccess::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:proto.game.AckUpTableSuccess.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AckUpTableSuccess::release_name() {
+  // @@protoc_insertion_point(field_release:proto.game.AckUpTableSuccess.name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AckUpTableSuccess::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:proto.game.AckUpTableSuccess.name)
+}
+
+// int32 sex = 5;
+inline void AckUpTableSuccess::clear_sex() {
+  sex_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableSuccess::sex() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableSuccess.sex)
+  return sex_;
+}
+inline void AckUpTableSuccess::set_sex(::google::protobuf::int32 value) {
+  
+  sex_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableSuccess.sex)
+}
+
+// string avatar = 6;
+inline void AckUpTableSuccess::clear_avatar() {
+  avatar_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AckUpTableSuccess::avatar() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableSuccess.avatar)
+  return avatar_.GetNoArena();
+}
+inline void AckUpTableSuccess::set_avatar(const ::std::string& value) {
+  
+  avatar_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableSuccess.avatar)
+}
+#if LANG_CXX11
+inline void AckUpTableSuccess::set_avatar(::std::string&& value) {
+  
+  avatar_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:proto.game.AckUpTableSuccess.avatar)
+}
+#endif
+inline void AckUpTableSuccess::set_avatar(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  avatar_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:proto.game.AckUpTableSuccess.avatar)
+}
+inline void AckUpTableSuccess::set_avatar(const char* value, size_t size) {
+  
+  avatar_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:proto.game.AckUpTableSuccess.avatar)
+}
+inline ::std::string* AckUpTableSuccess::mutable_avatar() {
+  
+  // @@protoc_insertion_point(field_mutable:proto.game.AckUpTableSuccess.avatar)
+  return avatar_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AckUpTableSuccess::release_avatar() {
+  // @@protoc_insertion_point(field_release:proto.game.AckUpTableSuccess.avatar)
+  
+  return avatar_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AckUpTableSuccess::set_allocated_avatar(::std::string* avatar) {
+  if (avatar != NULL) {
+    
+  } else {
+    
+  }
+  avatar_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), avatar);
+  // @@protoc_insertion_point(field_set_allocated:proto.game.AckUpTableSuccess.avatar)
+}
+
+// int32 money = 7;
+inline void AckUpTableSuccess::clear_money() {
+  money_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableSuccess::money() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableSuccess.money)
+  return money_;
+}
+inline void AckUpTableSuccess::set_money(::google::protobuf::int32 value) {
+  
+  money_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableSuccess.money)
+}
+
+// int32 exp = 8;
+inline void AckUpTableSuccess::clear_exp() {
+  exp_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableSuccess::exp() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableSuccess.exp)
+  return exp_;
+}
+inline void AckUpTableSuccess::set_exp(::google::protobuf::int32 value) {
+  
+  exp_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableSuccess.exp)
+}
+
+// -------------------------------------------------------------------
+
+// AckUpTableErrorUc
+
+// int32 uid = 1;
+inline void AckUpTableErrorUc::clear_uid() {
+  uid_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableErrorUc::uid() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableErrorUc.uid)
+  return uid_;
+}
+inline void AckUpTableErrorUc::set_uid(::google::protobuf::int32 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableErrorUc.uid)
+}
+
+// int32 money = 2;
+inline void AckUpTableErrorUc::clear_money() {
+  money_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableErrorUc::money() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableErrorUc.money)
+  return money_;
+}
+inline void AckUpTableErrorUc::set_money(::google::protobuf::int32 value) {
+  
+  money_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableErrorUc.money)
+}
+
+// int32 code = 3;
+inline void AckUpTableErrorUc::clear_code() {
+  code_ = 0;
+}
+inline ::google::protobuf::int32 AckUpTableErrorUc::code() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckUpTableErrorUc.code)
+  return code_;
+}
+inline void AckUpTableErrorUc::set_code(::google::protobuf::int32 value) {
+  
+  code_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckUpTableErrorUc.code)
+}
+
+// -------------------------------------------------------------------
+
+// AckAheadDownTable
+
+// int32 uid = 1;
+inline void AckAheadDownTable::clear_uid() {
+  uid_ = 0;
+}
+inline ::google::protobuf::int32 AckAheadDownTable::uid() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckAheadDownTable.uid)
+  return uid_;
+}
+inline void AckAheadDownTable::set_uid(::google::protobuf::int32 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckAheadDownTable.uid)
+}
+
+// int32 seatid = 2;
+inline void AckAheadDownTable::clear_seatid() {
+  seatid_ = 0;
+}
+inline ::google::protobuf::int32 AckAheadDownTable::seatid() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckAheadDownTable.seatid)
+  return seatid_;
+}
+inline void AckAheadDownTable::set_seatid(::google::protobuf::int32 value) {
+  
+  seatid_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckAheadDownTable.seatid)
+}
+
+// int32 down_tag = 3;
+inline void AckAheadDownTable::clear_down_tag() {
+  down_tag_ = 0;
+}
+inline ::google::protobuf::int32 AckAheadDownTable::down_tag() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckAheadDownTable.down_tag)
+  return down_tag_;
+}
+inline void AckAheadDownTable::set_down_tag(::google::protobuf::int32 value) {
+  
+  down_tag_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckAheadDownTable.down_tag)
+}
+
+// -------------------------------------------------------------------
+
+// AckDownTableSuccess
+
+// int32 uid = 1;
+inline void AckDownTableSuccess::clear_uid() {
+  uid_ = 0;
+}
+inline ::google::protobuf::int32 AckDownTableSuccess::uid() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckDownTableSuccess.uid)
+  return uid_;
+}
+inline void AckDownTableSuccess::set_uid(::google::protobuf::int32 value) {
+  
+  uid_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckDownTableSuccess.uid)
+}
+
+// int32 seatid = 2;
+inline void AckDownTableSuccess::clear_seatid() {
+  seatid_ = 0;
+}
+inline ::google::protobuf::int32 AckDownTableSuccess::seatid() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckDownTableSuccess.seatid)
+  return seatid_;
+}
+inline void AckDownTableSuccess::set_seatid(::google::protobuf::int32 value) {
+  
+  seatid_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckDownTableSuccess.seatid)
+}
+
+// int32 money = 3;
+inline void AckDownTableSuccess::clear_money() {
+  money_ = 0;
+}
+inline ::google::protobuf::int32 AckDownTableSuccess::money() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckDownTableSuccess.money)
+  return money_;
+}
+inline void AckDownTableSuccess::set_money(::google::protobuf::int32 value) {
+  
+  money_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.AckDownTableSuccess.money)
+}
+
+// -------------------------------------------------------------------
+
+// AckPrereadyBC
+
+// string roomid = 1;
+inline void AckPrereadyBC::clear_roomid() {
+  roomid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& AckPrereadyBC::roomid() const {
+  // @@protoc_insertion_point(field_get:proto.game.AckPrereadyBC.roomid)
+  return roomid_.GetNoArena();
+}
+inline void AckPrereadyBC::set_roomid(const ::std::string& value) {
+  
+  roomid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:proto.game.AckPrereadyBC.roomid)
+}
+#if LANG_CXX11
+inline void AckPrereadyBC::set_roomid(::std::string&& value) {
+  
+  roomid_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:proto.game.AckPrereadyBC.roomid)
+}
+#endif
+inline void AckPrereadyBC::set_roomid(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  roomid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:proto.game.AckPrereadyBC.roomid)
+}
+inline void AckPrereadyBC::set_roomid(const char* value, size_t size) {
+  
+  roomid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:proto.game.AckPrereadyBC.roomid)
+}
+inline ::std::string* AckPrereadyBC::mutable_roomid() {
+  
+  // @@protoc_insertion_point(field_mutable:proto.game.AckPrereadyBC.roomid)
+  return roomid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* AckPrereadyBC::release_roomid() {
+  // @@protoc_insertion_point(field_release:proto.game.AckPrereadyBC.roomid)
+  
+  return roomid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void AckPrereadyBC::set_allocated_roomid(::std::string* roomid) {
+  if (roomid != NULL) {
+    
+  } else {
+    
+  }
+  roomid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), roomid);
+  // @@protoc_insertion_point(field_set_allocated:proto.game.AckPrereadyBC.roomid)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

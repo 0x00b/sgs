@@ -26,6 +26,31 @@ class tagCardsDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<tagCards>
       _instance;
 } _tagCards_default_instance_;
+class AckUpTableSuccessDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<AckUpTableSuccess>
+      _instance;
+} _AckUpTableSuccess_default_instance_;
+class AckUpTableErrorUcDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<AckUpTableErrorUc>
+      _instance;
+} _AckUpTableErrorUc_default_instance_;
+class AckAheadDownTableDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<AckAheadDownTable>
+      _instance;
+} _AckAheadDownTable_default_instance_;
+class AckDownTableSuccessDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<AckDownTableSuccess>
+      _instance;
+} _AckDownTableSuccess_default_instance_;
+class AckPrereadyBCDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<AckPrereadyBC>
+      _instance;
+} _AckPrereadyBC_default_instance_;
 }  // namespace game
 }  // namespace proto
 namespace protobuf_gameproto_2eproto {
@@ -50,7 +75,112 @@ void InitDefaultstagCards() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultstagCardsImpl);
 }
 
-::google::protobuf::Metadata file_level_metadata[1];
+void InitDefaultsAckUpTableSuccessImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::proto::game::_AckUpTableSuccess_default_instance_;
+    new (ptr) ::proto::game::AckUpTableSuccess();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::proto::game::AckUpTableSuccess::InitAsDefaultInstance();
+}
+
+void InitDefaultsAckUpTableSuccess() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsAckUpTableSuccessImpl);
+}
+
+void InitDefaultsAckUpTableErrorUcImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::proto::game::_AckUpTableErrorUc_default_instance_;
+    new (ptr) ::proto::game::AckUpTableErrorUc();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::proto::game::AckUpTableErrorUc::InitAsDefaultInstance();
+}
+
+void InitDefaultsAckUpTableErrorUc() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsAckUpTableErrorUcImpl);
+}
+
+void InitDefaultsAckAheadDownTableImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::proto::game::_AckAheadDownTable_default_instance_;
+    new (ptr) ::proto::game::AckAheadDownTable();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::proto::game::AckAheadDownTable::InitAsDefaultInstance();
+}
+
+void InitDefaultsAckAheadDownTable() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsAckAheadDownTableImpl);
+}
+
+void InitDefaultsAckDownTableSuccessImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::proto::game::_AckDownTableSuccess_default_instance_;
+    new (ptr) ::proto::game::AckDownTableSuccess();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::proto::game::AckDownTableSuccess::InitAsDefaultInstance();
+}
+
+void InitDefaultsAckDownTableSuccess() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsAckDownTableSuccessImpl);
+}
+
+void InitDefaultsAckPrereadyBCImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  {
+    void* ptr = &::proto::game::_AckPrereadyBC_default_instance_;
+    new (ptr) ::proto::game::AckPrereadyBC();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::proto::game::AckPrereadyBC::InitAsDefaultInstance();
+}
+
+void InitDefaultsAckPrereadyBC() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsAckPrereadyBCImpl);
+}
+
+::google::protobuf::Metadata file_level_metadata[6];
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
@@ -60,13 +190,66 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::tagCards, card_list_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, uid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, seatid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, ready_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, sex_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, avatar_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, money_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableSuccess, exp_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableErrorUc, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableErrorUc, uid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableErrorUc, money_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckUpTableErrorUc, code_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckAheadDownTable, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckAheadDownTable, uid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckAheadDownTable, seatid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckAheadDownTable, down_tag_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckDownTableSuccess, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckDownTableSuccess, uid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckDownTableSuccess, seatid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckDownTableSuccess, money_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckPrereadyBC, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckPrereadyBC, roomid_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::proto::game::tagCards)},
+  { 6, -1, sizeof(::proto::game::AckUpTableSuccess)},
+  { 19, -1, sizeof(::proto::game::AckUpTableErrorUc)},
+  { 27, -1, sizeof(::proto::game::AckAheadDownTable)},
+  { 35, -1, sizeof(::proto::game::AckDownTableSuccess)},
+  { 43, -1, sizeof(::proto::game::AckPrereadyBC)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_tagCards_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_AckUpTableSuccess_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_AckUpTableErrorUc_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_AckAheadDownTable_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_AckDownTableSuccess_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_AckPrereadyBC_default_instance_),
 };
 
 void protobuf_AssignDescriptors() {
@@ -85,18 +268,27 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 1);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 6);
 }
 
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
       "\n\017gameproto.proto\022\nproto.game\"\035\n\010tagCard"
-      "s\022\021\n\tcard_list\030\001 \003(\005*\025\n\004Code\022\r\n\tCODE_NUL"
-      "L\020\000b\006proto3"
+      "s\022\021\n\tcard_list\030\001 \003(\005\"\206\001\n\021AckUpTableSucce"
+      "ss\022\013\n\003uid\030\001 \001(\005\022\016\n\006seatid\030\002 \001(\005\022\r\n\005ready"
+      "\030\003 \001(\005\022\014\n\004name\030\004 \001(\t\022\013\n\003sex\030\005 \001(\005\022\016\n\006ava"
+      "tar\030\006 \001(\t\022\r\n\005money\030\007 \001(\005\022\013\n\003exp\030\010 \001(\005\"=\n"
+      "\021AckUpTableErrorUc\022\013\n\003uid\030\001 \001(\005\022\r\n\005money"
+      "\030\002 \001(\005\022\014\n\004code\030\003 \001(\005\"B\n\021AckAheadDownTabl"
+      "e\022\013\n\003uid\030\001 \001(\005\022\016\n\006seatid\030\002 \001(\005\022\020\n\010down_t"
+      "ag\030\003 \001(\005\"A\n\023AckDownTableSuccess\022\013\n\003uid\030\001"
+      " \001(\005\022\016\n\006seatid\030\002 \001(\005\022\r\n\005money\030\003 \001(\005\"\037\n\rA"
+      "ckPrereadyBC\022\016\n\006roomid\030\001 \001(\t*\025\n\004Code\022\r\n\t"
+      "CODE_NULL\020\000b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 91);
+      descriptor, 459);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "gameproto.proto", &protobuf_RegisterTypes);
 }
@@ -384,6 +576,1713 @@ void tagCards::InternalSwap(tagCards* other) {
 }
 
 
+// ===================================================================
+
+void AckUpTableSuccess::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int AckUpTableSuccess::kUidFieldNumber;
+const int AckUpTableSuccess::kSeatidFieldNumber;
+const int AckUpTableSuccess::kReadyFieldNumber;
+const int AckUpTableSuccess::kNameFieldNumber;
+const int AckUpTableSuccess::kSexFieldNumber;
+const int AckUpTableSuccess::kAvatarFieldNumber;
+const int AckUpTableSuccess::kMoneyFieldNumber;
+const int AckUpTableSuccess::kExpFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+AckUpTableSuccess::AckUpTableSuccess()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_gameproto_2eproto::InitDefaultsAckUpTableSuccess();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:proto.game.AckUpTableSuccess)
+}
+AckUpTableSuccess::AckUpTableSuccess(const AckUpTableSuccess& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.name().size() > 0) {
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+  avatar_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.avatar().size() > 0) {
+    avatar_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.avatar_);
+  }
+  ::memcpy(&uid_, &from.uid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&exp_) -
+    reinterpret_cast<char*>(&uid_)) + sizeof(exp_));
+  // @@protoc_insertion_point(copy_constructor:proto.game.AckUpTableSuccess)
+}
+
+void AckUpTableSuccess::SharedCtor() {
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  avatar_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&exp_) -
+      reinterpret_cast<char*>(&uid_)) + sizeof(exp_));
+  _cached_size_ = 0;
+}
+
+AckUpTableSuccess::~AckUpTableSuccess() {
+  // @@protoc_insertion_point(destructor:proto.game.AckUpTableSuccess)
+  SharedDtor();
+}
+
+void AckUpTableSuccess::SharedDtor() {
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  avatar_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void AckUpTableSuccess::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* AckUpTableSuccess::descriptor() {
+  ::protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const AckUpTableSuccess& AckUpTableSuccess::default_instance() {
+  ::protobuf_gameproto_2eproto::InitDefaultsAckUpTableSuccess();
+  return *internal_default_instance();
+}
+
+
+void AckUpTableSuccess::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.game.AckUpTableSuccess)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  avatar_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&exp_) -
+      reinterpret_cast<char*>(&uid_)) + sizeof(exp_));
+  _internal_metadata_.Clear();
+}
+
+bool AckUpTableSuccess::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:proto.game.AckUpTableSuccess)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 uid = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &uid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 seatid = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &seatid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 ready = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &ready_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string name = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(34u /* 34 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->name().data(), static_cast<int>(this->name().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "proto.game.AckUpTableSuccess.name"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 sex = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(40u /* 40 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &sex_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string avatar = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(50u /* 50 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_avatar()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->avatar().data(), static_cast<int>(this->avatar().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "proto.game.AckUpTableSuccess.avatar"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 money = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(56u /* 56 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &money_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 exp = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(64u /* 64 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &exp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:proto.game.AckUpTableSuccess)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:proto.game.AckUpTableSuccess)
+  return false;
+#undef DO_
+}
+
+void AckUpTableSuccess::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:proto.game.AckUpTableSuccess)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->uid(), output);
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->seatid(), output);
+  }
+
+  // int32 ready = 3;
+  if (this->ready() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->ready(), output);
+  }
+
+  // string name = 4;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), static_cast<int>(this->name().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "proto.game.AckUpTableSuccess.name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->name(), output);
+  }
+
+  // int32 sex = 5;
+  if (this->sex() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->sex(), output);
+  }
+
+  // string avatar = 6;
+  if (this->avatar().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->avatar().data(), static_cast<int>(this->avatar().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "proto.game.AckUpTableSuccess.avatar");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->avatar(), output);
+  }
+
+  // int32 money = 7;
+  if (this->money() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->money(), output);
+  }
+
+  // int32 exp = 8;
+  if (this->exp() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->exp(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:proto.game.AckUpTableSuccess)
+}
+
+::google::protobuf::uint8* AckUpTableSuccess::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:proto.game.AckUpTableSuccess)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->uid(), target);
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->seatid(), target);
+  }
+
+  // int32 ready = 3;
+  if (this->ready() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->ready(), target);
+  }
+
+  // string name = 4;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), static_cast<int>(this->name().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "proto.game.AckUpTableSuccess.name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->name(), target);
+  }
+
+  // int32 sex = 5;
+  if (this->sex() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->sex(), target);
+  }
+
+  // string avatar = 6;
+  if (this->avatar().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->avatar().data(), static_cast<int>(this->avatar().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "proto.game.AckUpTableSuccess.avatar");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->avatar(), target);
+  }
+
+  // int32 money = 7;
+  if (this->money() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->money(), target);
+  }
+
+  // int32 exp = 8;
+  if (this->exp() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->exp(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.game.AckUpTableSuccess)
+  return target;
+}
+
+size_t AckUpTableSuccess::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.game.AckUpTableSuccess)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // string name = 4;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  // string avatar = 6;
+  if (this->avatar().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->avatar());
+  }
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->uid());
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->seatid());
+  }
+
+  // int32 ready = 3;
+  if (this->ready() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->ready());
+  }
+
+  // int32 sex = 5;
+  if (this->sex() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sex());
+  }
+
+  // int32 money = 7;
+  if (this->money() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->money());
+  }
+
+  // int32 exp = 8;
+  if (this->exp() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->exp());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AckUpTableSuccess::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:proto.game.AckUpTableSuccess)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AckUpTableSuccess* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const AckUpTableSuccess>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.AckUpTableSuccess)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.AckUpTableSuccess)
+    MergeFrom(*source);
+  }
+}
+
+void AckUpTableSuccess::MergeFrom(const AckUpTableSuccess& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.AckUpTableSuccess)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.name().size() > 0) {
+
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+  if (from.avatar().size() > 0) {
+
+    avatar_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.avatar_);
+  }
+  if (from.uid() != 0) {
+    set_uid(from.uid());
+  }
+  if (from.seatid() != 0) {
+    set_seatid(from.seatid());
+  }
+  if (from.ready() != 0) {
+    set_ready(from.ready());
+  }
+  if (from.sex() != 0) {
+    set_sex(from.sex());
+  }
+  if (from.money() != 0) {
+    set_money(from.money());
+  }
+  if (from.exp() != 0) {
+    set_exp(from.exp());
+  }
+}
+
+void AckUpTableSuccess::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:proto.game.AckUpTableSuccess)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AckUpTableSuccess::CopyFrom(const AckUpTableSuccess& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.AckUpTableSuccess)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AckUpTableSuccess::IsInitialized() const {
+  return true;
+}
+
+void AckUpTableSuccess::Swap(AckUpTableSuccess* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void AckUpTableSuccess::InternalSwap(AckUpTableSuccess* other) {
+  using std::swap;
+  name_.Swap(&other->name_);
+  avatar_.Swap(&other->avatar_);
+  swap(uid_, other->uid_);
+  swap(seatid_, other->seatid_);
+  swap(ready_, other->ready_);
+  swap(sex_, other->sex_);
+  swap(money_, other->money_);
+  swap(exp_, other->exp_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata AckUpTableSuccess::GetMetadata() const {
+  protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void AckUpTableErrorUc::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int AckUpTableErrorUc::kUidFieldNumber;
+const int AckUpTableErrorUc::kMoneyFieldNumber;
+const int AckUpTableErrorUc::kCodeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+AckUpTableErrorUc::AckUpTableErrorUc()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_gameproto_2eproto::InitDefaultsAckUpTableErrorUc();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:proto.game.AckUpTableErrorUc)
+}
+AckUpTableErrorUc::AckUpTableErrorUc(const AckUpTableErrorUc& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&uid_, &from.uid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&code_) -
+    reinterpret_cast<char*>(&uid_)) + sizeof(code_));
+  // @@protoc_insertion_point(copy_constructor:proto.game.AckUpTableErrorUc)
+}
+
+void AckUpTableErrorUc::SharedCtor() {
+  ::memset(&uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&code_) -
+      reinterpret_cast<char*>(&uid_)) + sizeof(code_));
+  _cached_size_ = 0;
+}
+
+AckUpTableErrorUc::~AckUpTableErrorUc() {
+  // @@protoc_insertion_point(destructor:proto.game.AckUpTableErrorUc)
+  SharedDtor();
+}
+
+void AckUpTableErrorUc::SharedDtor() {
+}
+
+void AckUpTableErrorUc::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* AckUpTableErrorUc::descriptor() {
+  ::protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const AckUpTableErrorUc& AckUpTableErrorUc::default_instance() {
+  ::protobuf_gameproto_2eproto::InitDefaultsAckUpTableErrorUc();
+  return *internal_default_instance();
+}
+
+
+void AckUpTableErrorUc::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.game.AckUpTableErrorUc)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&code_) -
+      reinterpret_cast<char*>(&uid_)) + sizeof(code_));
+  _internal_metadata_.Clear();
+}
+
+bool AckUpTableErrorUc::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:proto.game.AckUpTableErrorUc)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 uid = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &uid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 money = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &money_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 code = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &code_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:proto.game.AckUpTableErrorUc)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:proto.game.AckUpTableErrorUc)
+  return false;
+#undef DO_
+}
+
+void AckUpTableErrorUc::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:proto.game.AckUpTableErrorUc)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->uid(), output);
+  }
+
+  // int32 money = 2;
+  if (this->money() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->money(), output);
+  }
+
+  // int32 code = 3;
+  if (this->code() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->code(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:proto.game.AckUpTableErrorUc)
+}
+
+::google::protobuf::uint8* AckUpTableErrorUc::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:proto.game.AckUpTableErrorUc)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->uid(), target);
+  }
+
+  // int32 money = 2;
+  if (this->money() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->money(), target);
+  }
+
+  // int32 code = 3;
+  if (this->code() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->code(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.game.AckUpTableErrorUc)
+  return target;
+}
+
+size_t AckUpTableErrorUc::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.game.AckUpTableErrorUc)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->uid());
+  }
+
+  // int32 money = 2;
+  if (this->money() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->money());
+  }
+
+  // int32 code = 3;
+  if (this->code() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->code());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AckUpTableErrorUc::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:proto.game.AckUpTableErrorUc)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AckUpTableErrorUc* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const AckUpTableErrorUc>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.AckUpTableErrorUc)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.AckUpTableErrorUc)
+    MergeFrom(*source);
+  }
+}
+
+void AckUpTableErrorUc::MergeFrom(const AckUpTableErrorUc& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.AckUpTableErrorUc)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.uid() != 0) {
+    set_uid(from.uid());
+  }
+  if (from.money() != 0) {
+    set_money(from.money());
+  }
+  if (from.code() != 0) {
+    set_code(from.code());
+  }
+}
+
+void AckUpTableErrorUc::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:proto.game.AckUpTableErrorUc)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AckUpTableErrorUc::CopyFrom(const AckUpTableErrorUc& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.AckUpTableErrorUc)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AckUpTableErrorUc::IsInitialized() const {
+  return true;
+}
+
+void AckUpTableErrorUc::Swap(AckUpTableErrorUc* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void AckUpTableErrorUc::InternalSwap(AckUpTableErrorUc* other) {
+  using std::swap;
+  swap(uid_, other->uid_);
+  swap(money_, other->money_);
+  swap(code_, other->code_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata AckUpTableErrorUc::GetMetadata() const {
+  protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void AckAheadDownTable::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int AckAheadDownTable::kUidFieldNumber;
+const int AckAheadDownTable::kSeatidFieldNumber;
+const int AckAheadDownTable::kDownTagFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+AckAheadDownTable::AckAheadDownTable()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_gameproto_2eproto::InitDefaultsAckAheadDownTable();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:proto.game.AckAheadDownTable)
+}
+AckAheadDownTable::AckAheadDownTable(const AckAheadDownTable& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&uid_, &from.uid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&down_tag_) -
+    reinterpret_cast<char*>(&uid_)) + sizeof(down_tag_));
+  // @@protoc_insertion_point(copy_constructor:proto.game.AckAheadDownTable)
+}
+
+void AckAheadDownTable::SharedCtor() {
+  ::memset(&uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&down_tag_) -
+      reinterpret_cast<char*>(&uid_)) + sizeof(down_tag_));
+  _cached_size_ = 0;
+}
+
+AckAheadDownTable::~AckAheadDownTable() {
+  // @@protoc_insertion_point(destructor:proto.game.AckAheadDownTable)
+  SharedDtor();
+}
+
+void AckAheadDownTable::SharedDtor() {
+}
+
+void AckAheadDownTable::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* AckAheadDownTable::descriptor() {
+  ::protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const AckAheadDownTable& AckAheadDownTable::default_instance() {
+  ::protobuf_gameproto_2eproto::InitDefaultsAckAheadDownTable();
+  return *internal_default_instance();
+}
+
+
+void AckAheadDownTable::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.game.AckAheadDownTable)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&down_tag_) -
+      reinterpret_cast<char*>(&uid_)) + sizeof(down_tag_));
+  _internal_metadata_.Clear();
+}
+
+bool AckAheadDownTable::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:proto.game.AckAheadDownTable)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 uid = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &uid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 seatid = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &seatid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 down_tag = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &down_tag_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:proto.game.AckAheadDownTable)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:proto.game.AckAheadDownTable)
+  return false;
+#undef DO_
+}
+
+void AckAheadDownTable::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:proto.game.AckAheadDownTable)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->uid(), output);
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->seatid(), output);
+  }
+
+  // int32 down_tag = 3;
+  if (this->down_tag() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->down_tag(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:proto.game.AckAheadDownTable)
+}
+
+::google::protobuf::uint8* AckAheadDownTable::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:proto.game.AckAheadDownTable)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->uid(), target);
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->seatid(), target);
+  }
+
+  // int32 down_tag = 3;
+  if (this->down_tag() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->down_tag(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.game.AckAheadDownTable)
+  return target;
+}
+
+size_t AckAheadDownTable::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.game.AckAheadDownTable)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->uid());
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->seatid());
+  }
+
+  // int32 down_tag = 3;
+  if (this->down_tag() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->down_tag());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AckAheadDownTable::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:proto.game.AckAheadDownTable)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AckAheadDownTable* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const AckAheadDownTable>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.AckAheadDownTable)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.AckAheadDownTable)
+    MergeFrom(*source);
+  }
+}
+
+void AckAheadDownTable::MergeFrom(const AckAheadDownTable& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.AckAheadDownTable)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.uid() != 0) {
+    set_uid(from.uid());
+  }
+  if (from.seatid() != 0) {
+    set_seatid(from.seatid());
+  }
+  if (from.down_tag() != 0) {
+    set_down_tag(from.down_tag());
+  }
+}
+
+void AckAheadDownTable::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:proto.game.AckAheadDownTable)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AckAheadDownTable::CopyFrom(const AckAheadDownTable& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.AckAheadDownTable)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AckAheadDownTable::IsInitialized() const {
+  return true;
+}
+
+void AckAheadDownTable::Swap(AckAheadDownTable* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void AckAheadDownTable::InternalSwap(AckAheadDownTable* other) {
+  using std::swap;
+  swap(uid_, other->uid_);
+  swap(seatid_, other->seatid_);
+  swap(down_tag_, other->down_tag_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata AckAheadDownTable::GetMetadata() const {
+  protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void AckDownTableSuccess::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int AckDownTableSuccess::kUidFieldNumber;
+const int AckDownTableSuccess::kSeatidFieldNumber;
+const int AckDownTableSuccess::kMoneyFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+AckDownTableSuccess::AckDownTableSuccess()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_gameproto_2eproto::InitDefaultsAckDownTableSuccess();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:proto.game.AckDownTableSuccess)
+}
+AckDownTableSuccess::AckDownTableSuccess(const AckDownTableSuccess& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::memcpy(&uid_, &from.uid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&money_) -
+    reinterpret_cast<char*>(&uid_)) + sizeof(money_));
+  // @@protoc_insertion_point(copy_constructor:proto.game.AckDownTableSuccess)
+}
+
+void AckDownTableSuccess::SharedCtor() {
+  ::memset(&uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&money_) -
+      reinterpret_cast<char*>(&uid_)) + sizeof(money_));
+  _cached_size_ = 0;
+}
+
+AckDownTableSuccess::~AckDownTableSuccess() {
+  // @@protoc_insertion_point(destructor:proto.game.AckDownTableSuccess)
+  SharedDtor();
+}
+
+void AckDownTableSuccess::SharedDtor() {
+}
+
+void AckDownTableSuccess::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* AckDownTableSuccess::descriptor() {
+  ::protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const AckDownTableSuccess& AckDownTableSuccess::default_instance() {
+  ::protobuf_gameproto_2eproto::InitDefaultsAckDownTableSuccess();
+  return *internal_default_instance();
+}
+
+
+void AckDownTableSuccess::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.game.AckDownTableSuccess)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&money_) -
+      reinterpret_cast<char*>(&uid_)) + sizeof(money_));
+  _internal_metadata_.Clear();
+}
+
+bool AckDownTableSuccess::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:proto.game.AckDownTableSuccess)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 uid = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &uid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 seatid = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &seatid_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 money = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &money_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:proto.game.AckDownTableSuccess)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:proto.game.AckDownTableSuccess)
+  return false;
+#undef DO_
+}
+
+void AckDownTableSuccess::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:proto.game.AckDownTableSuccess)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->uid(), output);
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->seatid(), output);
+  }
+
+  // int32 money = 3;
+  if (this->money() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->money(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:proto.game.AckDownTableSuccess)
+}
+
+::google::protobuf::uint8* AckDownTableSuccess::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:proto.game.AckDownTableSuccess)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->uid(), target);
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->seatid(), target);
+  }
+
+  // int32 money = 3;
+  if (this->money() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->money(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.game.AckDownTableSuccess)
+  return target;
+}
+
+size_t AckDownTableSuccess::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.game.AckDownTableSuccess)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // int32 uid = 1;
+  if (this->uid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->uid());
+  }
+
+  // int32 seatid = 2;
+  if (this->seatid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->seatid());
+  }
+
+  // int32 money = 3;
+  if (this->money() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->money());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AckDownTableSuccess::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:proto.game.AckDownTableSuccess)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AckDownTableSuccess* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const AckDownTableSuccess>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.AckDownTableSuccess)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.AckDownTableSuccess)
+    MergeFrom(*source);
+  }
+}
+
+void AckDownTableSuccess::MergeFrom(const AckDownTableSuccess& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.AckDownTableSuccess)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.uid() != 0) {
+    set_uid(from.uid());
+  }
+  if (from.seatid() != 0) {
+    set_seatid(from.seatid());
+  }
+  if (from.money() != 0) {
+    set_money(from.money());
+  }
+}
+
+void AckDownTableSuccess::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:proto.game.AckDownTableSuccess)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AckDownTableSuccess::CopyFrom(const AckDownTableSuccess& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.AckDownTableSuccess)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AckDownTableSuccess::IsInitialized() const {
+  return true;
+}
+
+void AckDownTableSuccess::Swap(AckDownTableSuccess* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void AckDownTableSuccess::InternalSwap(AckDownTableSuccess* other) {
+  using std::swap;
+  swap(uid_, other->uid_);
+  swap(seatid_, other->seatid_);
+  swap(money_, other->money_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata AckDownTableSuccess::GetMetadata() const {
+  protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void AckPrereadyBC::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int AckPrereadyBC::kRoomidFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+AckPrereadyBC::AckPrereadyBC()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_gameproto_2eproto::InitDefaultsAckPrereadyBC();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:proto.game.AckPrereadyBC)
+}
+AckPrereadyBC::AckPrereadyBC(const AckPrereadyBC& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  roomid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.roomid().size() > 0) {
+    roomid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.roomid_);
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.game.AckPrereadyBC)
+}
+
+void AckPrereadyBC::SharedCtor() {
+  roomid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
+}
+
+AckPrereadyBC::~AckPrereadyBC() {
+  // @@protoc_insertion_point(destructor:proto.game.AckPrereadyBC)
+  SharedDtor();
+}
+
+void AckPrereadyBC::SharedDtor() {
+  roomid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void AckPrereadyBC::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* AckPrereadyBC::descriptor() {
+  ::protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const AckPrereadyBC& AckPrereadyBC::default_instance() {
+  ::protobuf_gameproto_2eproto::InitDefaultsAckPrereadyBC();
+  return *internal_default_instance();
+}
+
+
+void AckPrereadyBC::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.game.AckPrereadyBC)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  roomid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+bool AckPrereadyBC::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:proto.game.AckPrereadyBC)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string roomid = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_roomid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->roomid().data(), static_cast<int>(this->roomid().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "proto.game.AckPrereadyBC.roomid"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:proto.game.AckPrereadyBC)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:proto.game.AckPrereadyBC)
+  return false;
+#undef DO_
+}
+
+void AckPrereadyBC::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:proto.game.AckPrereadyBC)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string roomid = 1;
+  if (this->roomid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->roomid().data(), static_cast<int>(this->roomid().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "proto.game.AckPrereadyBC.roomid");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->roomid(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:proto.game.AckPrereadyBC)
+}
+
+::google::protobuf::uint8* AckPrereadyBC::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:proto.game.AckPrereadyBC)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string roomid = 1;
+  if (this->roomid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->roomid().data(), static_cast<int>(this->roomid().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "proto.game.AckPrereadyBC.roomid");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->roomid(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.game.AckPrereadyBC)
+  return target;
+}
+
+size_t AckPrereadyBC::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.game.AckPrereadyBC)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // string roomid = 1;
+  if (this->roomid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->roomid());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void AckPrereadyBC::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:proto.game.AckPrereadyBC)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AckPrereadyBC* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const AckPrereadyBC>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.AckPrereadyBC)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.AckPrereadyBC)
+    MergeFrom(*source);
+  }
+}
+
+void AckPrereadyBC::MergeFrom(const AckPrereadyBC& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.AckPrereadyBC)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.roomid().size() > 0) {
+
+    roomid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.roomid_);
+  }
+}
+
+void AckPrereadyBC::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:proto.game.AckPrereadyBC)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AckPrereadyBC::CopyFrom(const AckPrereadyBC& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.AckPrereadyBC)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AckPrereadyBC::IsInitialized() const {
+  return true;
+}
+
+void AckPrereadyBC::Swap(AckPrereadyBC* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void AckPrereadyBC::InternalSwap(AckPrereadyBC* other) {
+  using std::swap;
+  roomid_.Swap(&other->roomid_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata AckPrereadyBC::GetMetadata() const {
+  protobuf_gameproto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_gameproto_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace game
 }  // namespace proto
@@ -391,6 +2290,21 @@ namespace google {
 namespace protobuf {
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::tagCards* Arena::Create< ::proto::game::tagCards >(Arena* arena) {
   return Arena::CreateInternal< ::proto::game::tagCards >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::AckUpTableSuccess* Arena::Create< ::proto::game::AckUpTableSuccess >(Arena* arena) {
+  return Arena::CreateInternal< ::proto::game::AckUpTableSuccess >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::AckUpTableErrorUc* Arena::Create< ::proto::game::AckUpTableErrorUc >(Arena* arena) {
+  return Arena::CreateInternal< ::proto::game::AckUpTableErrorUc >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::AckAheadDownTable* Arena::Create< ::proto::game::AckAheadDownTable >(Arena* arena) {
+  return Arena::CreateInternal< ::proto::game::AckAheadDownTable >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::AckDownTableSuccess* Arena::Create< ::proto::game::AckDownTableSuccess >(Arena* arena) {
+  return Arena::CreateInternal< ::proto::game::AckDownTableSuccess >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::AckPrereadyBC* Arena::Create< ::proto::game::AckPrereadyBC >(Arena* arena) {
+  return Arena::CreateInternal< ::proto::game::AckPrereadyBC >(arena);
 }
 }  // namespace protobuf
 }  // namespace google

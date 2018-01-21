@@ -18,12 +18,19 @@ enum SGSCMD
 	/* */
 	PLAYER_START = 0,		
 	PLAYER_REGIST,			//player regist
+	PLAYER_REGIST_UC,		//player regist
 	PLAYER_LOGIN,			//player login
+	PLAYER_LOGIN_UC,		//player login
 	PLAYER_UPDATE_PWD,		//player update password
+	PLAYER_UPDATE_PWD_UC,	//player update password
 	PLAYER_QUIT,			//player quit game
+	PLAYER_QUIT_UC,			//player quit game
 	PLAYER_GET_FRIENDS,		//player get his friends
+	PLAYER_GET_FRIENDS_UC,	//player get his friends
 	PLAYER_DELETE_FRIENDS,	//delete his friend
+	PLAYER_DELETE_FRIENDS_UC,//delete his friend
 	PLAYER_ADD_FRIENDS,		//add firends
+	PLAYER_ADD_FRIENDS_UC,	//add firends
 
 	PLAYER_MATCH_ROOM,		//player request match room
 	PLAYER_MATCH_ROOM_FAST,	//player request match room fast,auto enter room

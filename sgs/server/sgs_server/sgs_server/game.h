@@ -9,8 +9,10 @@ Description :
 
 #include "include.h"
 
+
 class Player;
 class Room;
+class PPacket;
 
 class Game
 {
@@ -34,8 +36,6 @@ public:
 	virtual ~Game();
 	int StartUp();
 
-	int UserRegist(Player* player);
-	int UserLogin(Player* player);
 	int UserQuit(Player* player);
 
 	int ReqMatchRoom(Player* player);
@@ -46,8 +46,8 @@ public:
 	int ReqEnterRoomFast(Player* player);
 	int ReqSearchRoom(Player* player);
 
-	int Broadcast(std::string stMsg);
-	int Unicast(Player* player,std::string stMsg);
+	int Broadcast(PPacket* pkt);
+	int Unicast(Player* player,PPacket* pkt);
 
 	const Player* GetOLPlayer(int playerid);
 protected:

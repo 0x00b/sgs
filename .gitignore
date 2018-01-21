@@ -40,3 +40,5 @@
 *.idb
 *.pdb
 *.bak
+.vscode
+*.pid

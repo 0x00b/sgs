@@ -12,10 +12,13 @@ Client::Client(Player* p):m_pPlayer(p)
 
 Client::~Client()
 {
-	ev_io_stop(g_app.m_pLoop, &m_ev_read);
-	ev_io_stop(g_app.m_pLoop, &m_ev_write);
-	close(m_nfd);
-	m_nfd = -1;
+	if(-1 != m_nfd)
+	{
+		ev_io_stop(g_app.m_pLoop, &m_ev_read);
+		ev_io_stop(g_app.m_pLoop, &m_ev_write);
+		close(m_nfd);
+		m_nfd = -1;
+	}
 }
 
 int Client::Active()
@@ -82,6 +85,7 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 				self->m_iPacket.m_nCurLen += nRet;
 				if (len == self->m_iPacket.m_nCurLen)
 				{
+					sgslog.info(FFL_s_s, "recv:", self->m_iPacket.body.c_str());
 					self->m_iPacket.m_eStatus = STAT_END;
 					bEnd = true;
 				}
@@ -144,8 +148,8 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 		ev_io_stop(EV_A_ w);
 		return;
 	}
-	PPacket& pkt = self->m_lstWrite.front();
-	size_t written = write(self->m_nfd, pkt.data.c_str() + pkt.m_nCurLen, pkt.header.len - pkt.m_nCurLen);
+	std::shared_ptr<PPacket>& pkt = self->m_lstWrite.front();
+	size_t written = write(self->m_nfd, pkt->data.c_str() + pkt->m_nCurLen, pkt->header.len - pkt->m_nCurLen);
 	if (written < 0) {
 		if (errno == EAGAIN || errno == EINPROGRESS || errno == EINTR) {
 			sgslog.warn(FFL_s_s,"write failed", strerror(errno));
@@ -157,8 +161,8 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 		return;
 	}
 
-	pkt.m_nCurLen += written;
-	if (pkt.m_nCurLen == pkt.header.len) {
+	pkt->m_nCurLen += written;
+	if (pkt->m_nCurLen == pkt->header.len) {
 		self->m_lstWrite.pop_front();
 	}
 	return;
