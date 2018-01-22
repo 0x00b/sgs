@@ -74,6 +74,7 @@ protected:
 
 private:
 	void Set(const proto::game::Player& player);
+	void Get(proto::game::Player* player);
 	int CheckAccount();
 	int CheckPasswd();
 	int Regist();

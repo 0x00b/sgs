@@ -52,6 +52,22 @@ void Player::Set(const proto::game::Player &player)
 	m_stRegistDate = player.registdate();	
 	m_stRemark = player.remark();		
 }
+void Player::Get(proto::game::Player* player)
+{
+	player->set_id(m_nID);
+	player->set_account(m_stAccount);	
+	player->set_passwd(m_stPasswd);
+	player->set_name(m_stName);		
+	player->set_avatar(m_stAvatar);		
+	player->set_registdate(m_stRegistDate);	
+	player->set_remark(m_stRemark);		
+	player->set_status(m_nStatus);		
+	player->set_gamestatus(m_nGameStatus);	
+	player->set_sex(m_chSex);	
+	player->set_level(m_sLevel);	
+	player->set_exp(m_nExp);	
+	
+}
 
 int Player::ReqQuitRoom()
 {
@@ -96,7 +112,6 @@ int Player::BeforeDo()
 
 int Player::Do()
 {
-	sgslog.info(FFLs);
 	int nRet = 0;
 	if (m_iClient.m_iPacket.header.cmd > GAME_START && m_pRoom)
 	{
@@ -160,7 +175,7 @@ int Player::Do()
 			break;
 		}
 	}
-
+	sgslog.info(FFL_s_d_d, "cmd:", m_iClient.m_iPacket.header.cmd, nRet);
 	return nRet;
 }
 
@@ -192,7 +207,7 @@ int Player::CheckPasswd()
 	{
 		return 1;
 	}
-	// todo 
+	// todo
 
 	return 0;
 }
@@ -201,32 +216,40 @@ int Player::ReqRegist()
 	int code = 0;
 	proto::game::ReqRegistUc rgstuc;
 	proto::game::ReqRegist rgst;
-	rgst.ParseFromString(m_iClient.m_iPacket.body);
-	
-	Set(rgst.player());
-
-	//check account
-	if (CheckAccount())
+	if (!rgst.ParseFromString(m_iClient.m_iPacket.body))
 	{
 		code = 0x01;
 	}
+	else
+	{
+		Set(rgst.player());
 
-	//check passwd
-	if (CheckPasswd())
-	{
-		code |= 0x10;
-	}
-	if (0 == code)
-	{
-		if (1 != Regist())
+		//check account
+		if (CheckAccount())
 		{
-			code = 0x0100; //
+			code = 0x02;
+		}
+
+		//check passwd
+		if (CheckPasswd())
+		{
+			code |= 0x004;
+		}
+		if (0 == code)
+		{
+			if (1 != Regist())
+			{
+				code = 0x08; //
+			}
 		}
 	}
+	sgslog.info(FFL_s_d,"regist code:",code);
 	rgstuc.set_code(code); //
-	proto::game::Player* player = rgstuc.mutable_player();
-	*player = rgst.player();
-
+	if(0 == code)
+	{
+		Login();
+		Get(rgstuc.mutable_player());
+	}
 	std::shared_ptr<PPacket> packet(new PPacket());
 	rgstuc.SerializeToString(&packet->body);
 	packet->pack(PLAYER_REGIST_UC);
@@ -238,7 +261,6 @@ int Player::ReqRegist()
 
 int Player::ReqLogin()
 {
-	Login();
 	return 0;
 }
 
@@ -271,23 +293,14 @@ int Player::Regist()
 {
 	MYSQL_RES* res;
 	//MYSQL_ROW row;
-	std::string sql = "INSERT INTO `sgs_db`.`player` \
-		(`account`, `passwd`, `sex`, `level`, `exp`, `status`, `regist_date`, `remark`) VALUES('";
-	sql.append(m_stAccount).append("','").
-		append(m_stPasswd).append("',");
-	sql += m_chSex;
-	sql.append(",");
-	sql += m_sLevel;
-	sql.append(",");
-	sql += m_nExp;
-	sql.append(",");
-	sql += m_nStatus;
-	sql.append(",'").
-		append(m_stRegistDate).append("','").
-		append(m_stRemark).append("');");
+	std::string sql = "INSERT INTO `sgs_db`.`player`"
+	"(`account`, `passwd`) VALUES('";
+	sql.append(m_stAccount).append("',password('").
+		append(m_stPasswd).append("'));");
 
-	res = MySqlUtil::MysqlQuery(sql.c_str());
-	if (res)
+	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
+
+	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
 	{
 		mysql_free_result(res);
 		return 1;
@@ -300,7 +313,6 @@ int Player::Login()
 	MYSQL_RES* res;
 	MYSQL_ROW row;
 	std::string sql = "SELECT `player`.`idplayer`,\
-		`player`.`passwd`,\
 		`player`.`sex`,\
 		`player`.`avatar`,\
 		`player`.`level`,\
@@ -310,13 +322,13 @@ int Player::Login()
 		`player`.`remark`\
 		FROM `sgs_db`.`player` WHERE 1=1 \
 		";
-	sql.append(" and `player`.`account` = '").append(m_stAccount + "';");
+	sql.append(" and `player`.`account` = '").append(m_stAccount + "' and `player`.`passwd`=password('" + m_stPasswd + "');");
 
-	res = MySqlUtil::MysqlQuery(sql.c_str());
+	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
+
 	int nRet = 0;
-	if (res)
+	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
 	{
-		std::string pwd("");
 		int j = mysql_num_fields(res);
 		while ((row = mysql_fetch_row(res)))
 		{
@@ -331,29 +343,23 @@ int Player::Login()
 				case 0:
 					m_nID = atoi(row[i]); break;
 				case 1:
-					pwd = row[i]; break;
-				case 2:
 					m_chSex = atoi(row[i]); break;
-				case 3:
+				case 2:
 					m_stAvatar = row[i]; break;
-				case 4:
+				case 3:
 					m_sLevel = atoi(row[i]); break;
-				case 5:
+				case 4:
 					m_nExp = atoi(row[i]); break;
-				case 6:
+				case 5:
 					m_nStatus = atoi(row[i]); break;
-				case 7:
+				case 6:
 					m_stRegistDate = row[i]; break;
-				case 8:
+				case 7:
 					m_stRemark = row[i]; break;
 				default:
 					break;
 				}
 			}
-		}
-		if (m_stPasswd != pwd)
-		{
-			nRet = -2;
 		}
 	}
 	else
@@ -378,9 +384,10 @@ int Player::GetFriends(std::list<std::shared_ptr<Player>>& list)
 	sql += m_nID;
 	sql.append(");");
 	
-	res = MySqlUtil::MysqlQuery(sql.c_str());
+	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
+
 	int nRet = 0;
-	if (res)
+	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
 	{
 		int j = mysql_num_fields(res);
 		while ((row = mysql_fetch_row(res)))
@@ -433,8 +440,9 @@ int Player::AddFriends(int idfriend)
 	sql += idfriend;
 	sql.append(",0,'');");
 
-	res = MySqlUtil::MysqlQuery(sql.c_str());
-	if (res)
+	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
+
+	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
 	{
 		mysql_free_result(res);
 		return 1;
@@ -452,8 +460,9 @@ int Player::DeleteFriends(int idfriend)
 	sql += idfriend;
 	sql.append("；");
 
-	res = MySqlUtil::MysqlQuery(sql.c_str());
-	if (res)
+	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
+
+	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
 	{
 		mysql_free_result(res);
 		return 1;

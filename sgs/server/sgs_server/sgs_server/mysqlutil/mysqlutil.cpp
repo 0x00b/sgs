@@ -26,17 +26,18 @@ int MySqlUtil::ConnMysql(const char* ip, const char* usr, const char* pwd, const
 	return -1;
 }
 
-MYSQL_RES* MySqlUtil::MysqlQuery(const char* sql) {
+int MySqlUtil::MysqlQuery(MYSQL_RES*& res, const char* sql) {
 	if (NULL == sql)
 	{
-		return NULL;
+		return 0;
 	}
-	int res = mysql_query(&m_con, sql);
-	if (!res)
+	int nRet = mysql_query(&m_con, sql);
+	if (!nRet)
 	{
-		return mysql_store_result(&m_con);
+		res = mysql_store_result(&m_con);
+		return mysql_affected_rows(&m_con);
 	}
-	return NULL;
+	return 0;
 }
 
 void MySqlUtil::CloseMysql() {

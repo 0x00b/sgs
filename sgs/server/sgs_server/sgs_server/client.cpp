@@ -85,7 +85,7 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 				self->m_iPacket.m_nCurLen += nRet;
 				if (len == self->m_iPacket.m_nCurLen)
 				{
-					sgslog.info(FFL_s_s, "recv:", self->m_iPacket.body.c_str());
+					//sgslog.info(FFL_s_s, "recv:", self->m_iPacket.body.c_str());
 					self->m_iPacket.m_eStatus = STAT_END;
 					bEnd = true;
 				}
@@ -149,7 +149,7 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 		return;
 	}
 	std::shared_ptr<PPacket>& pkt = self->m_lstWrite.front();
-	size_t written = write(self->m_nfd, pkt->data.c_str() + pkt->m_nCurLen, pkt->header.len - pkt->m_nCurLen);
+	size_t written = write(self->m_nfd, pkt->data.c_str() + pkt->m_nCurLen, pkt->data.length() - pkt->m_nCurLen);
 	if (written < 0) {
 		if (errno == EAGAIN || errno == EINPROGRESS || errno == EINTR) {
 			sgslog.warn(FFL_s_s,"write failed", strerror(errno));
@@ -157,12 +157,12 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 		}
 		/* todo close this client */
 		sgslog.error(FFL_s_d, "unknow err in written:\n", self->m_nfd);
-		//Client::destroy(self);
+		g_app.m_pGame->UserQuit(self->m_pPlayer);
 		return;
 	}
 
 	pkt->m_nCurLen += written;
-	if (pkt->m_nCurLen == pkt->header.len) {
+	if ((std::size_t)pkt->m_nCurLen == pkt->data.length()) {
 		self->m_lstWrite.pop_front();
 	}
 	return;
