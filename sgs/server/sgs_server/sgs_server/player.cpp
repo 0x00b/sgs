@@ -214,8 +214,8 @@ int Player::CheckPasswd()
 int Player::ReqRegist()
 {
 	int code = 0;
-	proto::game::ReqRegistUc rgstuc;
 	proto::game::ReqRegist rgst;
+	proto::game::ReqRegistUc rgstuc;
 	if (!rgst.ParseFromString(m_iClient.m_iPacket.body))
 	{
 		code = 0x01;
@@ -245,11 +245,11 @@ int Player::ReqRegist()
 	}
 	sgslog.info(FFL_s_d,"regist code:",code);
 	rgstuc.set_code(code); //
-	if(0 == code)
+	/*if(0 == code)
 	{
 		Login();
 		Get(rgstuc.mutable_player());
-	}
+	}*/
 	std::shared_ptr<PPacket> packet(new PPacket());
 	rgstuc.SerializeToString(&packet->body);
 	packet->pack(PLAYER_REGIST_UC);
@@ -261,6 +261,49 @@ int Player::ReqRegist()
 
 int Player::ReqLogin()
 {
+	int code = 0;
+	proto::game::ReqLogin proto;
+	proto::game::ReqLoginUc protouc;
+	if (!proto.ParseFromString(m_iClient.m_iPacket.body))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		m_stAccount = proto.account();
+		m_stPasswd = proto.pwd();
+
+		//check account
+		if (CheckAccount())
+		{
+			code = 0x02;
+		}
+
+		//check passwd
+		if (CheckPasswd())
+		{
+			code |= 0x004;
+		}
+		if (0 == code)
+		{
+			if (1 != Login())
+			{
+				code = 0x08; //
+			}
+		}
+	}
+	sgslog.info(FFL_s_d,"login code:",code);
+	protouc.set_code(code); //
+	if(0 == code)
+	{
+		Get(protouc.mutable_player());
+	}
+	std::shared_ptr<PPacket> packet(new PPacket());
+	protouc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_REGIST_UC);
+
+	Send(packet);
+
 	return 0;
 }
 
@@ -327,7 +370,7 @@ int Player::Login()
 	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
 
 	int nRet = 0;
-	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
+	if ((nRet = MySqlUtil::MysqlQuery(res, sql.c_str())))
 	{
 		int j = mysql_num_fields(res);
 		while ((row = mysql_fetch_row(res)))

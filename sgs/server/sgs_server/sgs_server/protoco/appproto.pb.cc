@@ -31,21 +31,21 @@ class ReqLoginDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<ReqLogin>
       _instance;
 } _ReqLogin_default_instance_;
-class AckLoginUcDefaultTypeInternal {
+class ReqLoginUcDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AckLoginUc>
+  ::google::protobuf::internal::ExplicitlyConstructed<ReqLoginUc>
       _instance;
-} _AckLoginUc_default_instance_;
+} _ReqLoginUc_default_instance_;
 class ReqLogoutDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ReqLogout>
       _instance;
 } _ReqLogout_default_instance_;
-class AckLogoutUcDefaultTypeInternal {
+class ReqLogoutUcDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AckLogoutUc>
+  ::google::protobuf::internal::ExplicitlyConstructed<ReqLogoutUc>
       _instance;
-} _AckLogoutUc_default_instance_;
+} _ReqLogoutUc_default_instance_;
 class ReqRegistDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ReqRegist>
@@ -126,11 +126,11 @@ class ReqQuitRoomBcDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<ReqQuitRoomBc>
       _instance;
 } _ReqQuitRoomBc_default_instance_;
-class AckEmotionBCDefaultTypeInternal {
+class ReqEmotionBCDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<AckEmotionBC>
+  ::google::protobuf::internal::ExplicitlyConstructed<ReqEmotionBC>
       _instance;
-} _AckEmotionBC_default_instance_;
+} _ReqEmotionBC_default_instance_;
 }  // namespace game
 }  // namespace proto
 namespace protobuf_appproto_2eproto {
@@ -176,7 +176,7 @@ void InitDefaultsReqLogin() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsReqLoginImpl);
 }
 
-void InitDefaultsAckLoginUcImpl() {
+void InitDefaultsReqLoginUcImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
 #ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
@@ -186,16 +186,16 @@ void InitDefaultsAckLoginUcImpl() {
 #endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   protobuf_appproto_2eproto::InitDefaultsPlayer();
   {
-    void* ptr = &::proto::game::_AckLoginUc_default_instance_;
-    new (ptr) ::proto::game::AckLoginUc();
+    void* ptr = &::proto::game::_ReqLoginUc_default_instance_;
+    new (ptr) ::proto::game::ReqLoginUc();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::proto::game::AckLoginUc::InitAsDefaultInstance();
+  ::proto::game::ReqLoginUc::InitAsDefaultInstance();
 }
 
-void InitDefaultsAckLoginUc() {
+void InitDefaultsReqLoginUc() {
   static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsAckLoginUcImpl);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsReqLoginUcImpl);
 }
 
 void InitDefaultsReqLogoutImpl() {
@@ -220,7 +220,7 @@ void InitDefaultsReqLogout() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsReqLogoutImpl);
 }
 
-void InitDefaultsAckLogoutUcImpl() {
+void InitDefaultsReqLogoutUcImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
 #ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
@@ -229,16 +229,16 @@ void InitDefaultsAckLogoutUcImpl() {
   ::google::protobuf::internal::InitProtobufDefaults();
 #endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
-    void* ptr = &::proto::game::_AckLogoutUc_default_instance_;
-    new (ptr) ::proto::game::AckLogoutUc();
+    void* ptr = &::proto::game::_ReqLogoutUc_default_instance_;
+    new (ptr) ::proto::game::ReqLogoutUc();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::proto::game::AckLogoutUc::InitAsDefaultInstance();
+  ::proto::game::ReqLogoutUc::InitAsDefaultInstance();
 }
 
-void InitDefaultsAckLogoutUc() {
+void InitDefaultsReqLogoutUc() {
   static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsAckLogoutUcImpl);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsReqLogoutUcImpl);
 }
 
 void InitDefaultsReqRegistImpl() {
@@ -586,7 +586,7 @@ void InitDefaultsReqQuitRoomBc() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsReqQuitRoomBcImpl);
 }
 
-void InitDefaultsAckEmotionBCImpl() {
+void InitDefaultsReqEmotionBCImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
 #ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
@@ -595,16 +595,16 @@ void InitDefaultsAckEmotionBCImpl() {
   ::google::protobuf::internal::InitProtobufDefaults();
 #endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
   {
-    void* ptr = &::proto::game::_AckEmotionBC_default_instance_;
-    new (ptr) ::proto::game::AckEmotionBC();
+    void* ptr = &::proto::game::_ReqEmotionBC_default_instance_;
+    new (ptr) ::proto::game::ReqEmotionBC();
     ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::proto::game::AckEmotionBC::InitAsDefaultInstance();
+  ::proto::game::ReqEmotionBC::InitAsDefaultInstance();
 }
 
-void InitDefaultsAckEmotionBC() {
+void InitDefaultsReqEmotionBC() {
   static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsAckEmotionBCImpl);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsReqEmotionBCImpl);
 }
 
 ::google::protobuf::Metadata file_level_metadata[22];
@@ -633,15 +633,15 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLogin, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLogin, account_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLogin, pwd_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckLoginUc, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLoginUc, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckLoginUc, code_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckLoginUc, player_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLoginUc, code_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLoginUc, player_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLogout, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -649,12 +649,12 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLogout, player_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckLogoutUc, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLogoutUc, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckLogoutUc, code_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckLogoutUc, remark_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLogoutUc, code_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqLogoutUc, remark_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqRegist, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -760,19 +760,19 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqQuitRoomBc, code_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqQuitRoomBc, player_),
   ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckEmotionBC, _internal_metadata_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqEmotionBC, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckEmotionBC, seatid_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::AckEmotionBC, type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqEmotionBC, seatid_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqEmotionBC, type_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::proto::game::Player)},
   { 18, -1, sizeof(::proto::game::ReqLogin)},
-  { 25, -1, sizeof(::proto::game::AckLoginUc)},
+  { 25, -1, sizeof(::proto::game::ReqLoginUc)},
   { 32, -1, sizeof(::proto::game::ReqLogout)},
-  { 38, -1, sizeof(::proto::game::AckLogoutUc)},
+  { 38, -1, sizeof(::proto::game::ReqLogoutUc)},
   { 45, -1, sizeof(::proto::game::ReqRegist)},
   { 51, -1, sizeof(::proto::game::ReqRegistUc)},
   { 58, -1, sizeof(::proto::game::ReqUpdatePwd)},
@@ -789,15 +789,15 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 130, -1, sizeof(::proto::game::ReqQuitRoom)},
   { 136, -1, sizeof(::proto::game::ReqQuitRoomUc)},
   { 142, -1, sizeof(::proto::game::ReqQuitRoomBc)},
-  { 149, -1, sizeof(::proto::game::AckEmotionBC)},
+  { 149, -1, sizeof(::proto::game::ReqEmotionBC)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_Player_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqLogin_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_AckLoginUc_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqLoginUc_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqLogout_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_AckLogoutUc_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqLogoutUc_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqRegist_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqRegistUc_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqUpdatePwd_default_instance_),
@@ -814,7 +814,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqQuitRoom_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqQuitRoomUc_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqQuitRoomBc_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_AckEmotionBC_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::proto::game::_ReqEmotionBC_default_instance_),
 };
 
 void protobuf_AssignDescriptors() {
@@ -845,37 +845,37 @@ void AddDescriptorsImpl() {
       "x\030\006 \001(\005\022\013\n\003exp\030\007 \001(\005\022\r\n\005level\030\010 \001(\005\022\016\n\006s"
       "tatus\030\t \001(\005\022\022\n\ngamestatus\030\n \001(\005\022\016\n\006seati"
       "d\030\013 \001(\005\022\022\n\nregistdate\030\014 \001(\t\022\016\n\006remark\030\r "
-      "\001(\t\"%\n\010ReqLogin\022\014\n\004name\030\001 \001(\t\022\013\n\003pwd\030\002 \001"
-      "(\t\">\n\nAckLoginUc\022\014\n\004code\030\001 \001(\005\022\"\n\006player"
-      "\030\002 \001(\0132\022.proto.game.Player\"/\n\tReqLogout\022"
-      "\"\n\006player\030\001 \001(\0132\022.proto.game.Player\"+\n\013A"
-      "ckLogoutUc\022\014\n\004code\030\001 \001(\005\022\016\n\006remark\030\002 \001(\t"
-      "\"/\n\tReqRegist\022\"\n\006player\030\001 \001(\0132\022.proto.ga"
-      "me.Player\"\?\n\013ReqRegistUc\022\014\n\004code\030\001 \001(\005\022\""
-      "\n\006player\030\002 \001(\0132\022.proto.game.Player\"E\n\014Re"
-      "qUpdatePwd\022\017\n\007account\030\001 \001(\t\022\021\n\toldpasswd"
-      "\030\002 \001(\t\022\021\n\tnewpasswd\030\003 \001(\t\"\036\n\016ReqUpdatePw"
-      "dUc\022\014\n\004code\030\001 \001(\005\"\017\n\rReqGetFriends\"C\n\017Re"
-      "qGetFriendsUc\022\014\n\004code\030\001 \001(\005\022\"\n\006frieds\030\002 "
-      "\003(\0132\022.proto.game.Player\"3\n\rReqAddFriends"
-      "\022\"\n\006friend\030\001 \001(\0132\022.proto.game.Player\"C\n\017"
-      "ReqAddFriendsUc\022\014\n\004code\030\001 \001(\005\022\"\n\006friend\030"
-      "\002 \001(\0132\022.proto.game.Player\"5\n\017ReqDeleteFr"
-      "iend\022\"\n\006friend\030\001 \001(\0132\022.proto.game.Player"
-      "\"!\n\021ReqDeleteFriendUc\022\014\n\004code\030\002 \001(\005\"\036\n\014R"
-      "eqEnterRoom\022\016\n\006roomid\030\001 \001(\005\"S\n\016ReqEnterR"
-      "oomUc\022\016\n\006roomid\030\001 \001(\005\022\014\n\004code\030\002 \001(\005\022#\n\007p"
-      "layers\030\003 \003(\0132\022.proto.game.Player\"D\n\016ReqE"
-      "nterRoomBc\022\016\n\006roomid\030\001 \001(\005\022\"\n\006player\030\002 \001"
-      "(\0132\022.proto.game.Player\"\035\n\013ReqQuitRoom\022\016\n"
-      "\006roomid\030\001 \001(\005\"\035\n\rReqQuitRoomUc\022\014\n\004code\030\001"
-      " \001(\005\"A\n\rReqQuitRoomBc\022\014\n\004code\030\001 \001(\005\022\"\n\006p"
-      "layer\030\002 \001(\0132\022.proto.game.Player\",\n\014AckEm"
-      "otionBC\022\016\n\006seatid\030\001 \001(\005\022\014\n\004type\030\002 \001(\005b\006p"
-      "roto3"
+      "\001(\t\"(\n\010ReqLogin\022\017\n\007account\030\001 \001(\t\022\013\n\003pwd\030"
+      "\002 \001(\t\">\n\nReqLoginUc\022\014\n\004code\030\001 \001(\005\022\"\n\006pla"
+      "yer\030\002 \001(\0132\022.proto.game.Player\"/\n\tReqLogo"
+      "ut\022\"\n\006player\030\001 \001(\0132\022.proto.game.Player\"+"
+      "\n\013ReqLogoutUc\022\014\n\004code\030\001 \001(\005\022\016\n\006remark\030\002 "
+      "\001(\t\"/\n\tReqRegist\022\"\n\006player\030\001 \001(\0132\022.proto"
+      ".game.Player\"\?\n\013ReqRegistUc\022\014\n\004code\030\001 \001("
+      "\005\022\"\n\006player\030\002 \001(\0132\022.proto.game.Player\"E\n"
+      "\014ReqUpdatePwd\022\017\n\007account\030\001 \001(\t\022\021\n\toldpas"
+      "swd\030\002 \001(\t\022\021\n\tnewpasswd\030\003 \001(\t\"\036\n\016ReqUpdat"
+      "ePwdUc\022\014\n\004code\030\001 \001(\005\"\017\n\rReqGetFriends\"C\n"
+      "\017ReqGetFriendsUc\022\014\n\004code\030\001 \001(\005\022\"\n\006frieds"
+      "\030\002 \003(\0132\022.proto.game.Player\"3\n\rReqAddFrie"
+      "nds\022\"\n\006friend\030\001 \001(\0132\022.proto.game.Player\""
+      "C\n\017ReqAddFriendsUc\022\014\n\004code\030\001 \001(\005\022\"\n\006frie"
+      "nd\030\002 \001(\0132\022.proto.game.Player\"5\n\017ReqDelet"
+      "eFriend\022\"\n\006friend\030\001 \001(\0132\022.proto.game.Pla"
+      "yer\"!\n\021ReqDeleteFriendUc\022\014\n\004code\030\002 \001(\005\"\036"
+      "\n\014ReqEnterRoom\022\016\n\006roomid\030\001 \001(\005\"S\n\016ReqEnt"
+      "erRoomUc\022\016\n\006roomid\030\001 \001(\005\022\014\n\004code\030\002 \001(\005\022#"
+      "\n\007players\030\003 \003(\0132\022.proto.game.Player\"D\n\016R"
+      "eqEnterRoomBc\022\016\n\006roomid\030\001 \001(\005\022\"\n\006player\030"
+      "\002 \001(\0132\022.proto.game.Player\"\035\n\013ReqQuitRoom"
+      "\022\016\n\006roomid\030\001 \001(\005\"\035\n\rReqQuitRoomUc\022\014\n\004cod"
+      "e\030\001 \001(\005\"A\n\rReqQuitRoomBc\022\014\n\004code\030\001 \001(\005\022\""
+      "\n\006player\030\002 \001(\0132\022.proto.game.Player\",\n\014Re"
+      "qEmotionBC\022\016\n\006seatid\030\001 \001(\005\022\014\n\004type\030\002 \001(\005"
+      "b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1325);
+      descriptor, 1328);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "appproto.proto", &protobuf_RegisterTypes);
 }
@@ -1694,7 +1694,7 @@ void Player::InternalSwap(Player* other) {
 void ReqLogin::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ReqLogin::kNameFieldNumber;
+const int ReqLogin::kAccountFieldNumber;
 const int ReqLogin::kPwdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -1711,9 +1711,9 @@ ReqLogin::ReqLogin(const ReqLogin& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.name().size() > 0) {
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  account_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.account().size() > 0) {
+    account_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.account_);
   }
   pwd_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.pwd().size() > 0) {
@@ -1723,7 +1723,7 @@ ReqLogin::ReqLogin(const ReqLogin& from)
 }
 
 void ReqLogin::SharedCtor() {
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  account_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   pwd_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _cached_size_ = 0;
 }
@@ -1734,7 +1734,7 @@ ReqLogin::~ReqLogin() {
 }
 
 void ReqLogin::SharedDtor() {
-  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  account_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   pwd_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -1760,7 +1760,7 @@ void ReqLogin::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  account_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   pwd_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
@@ -1775,16 +1775,16 @@ bool ReqLogin::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string name = 1;
+      // string account = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_name()));
+                input, this->mutable_account()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), static_cast<int>(this->name().length()),
+            this->account().data(), static_cast<int>(this->account().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "proto.game.ReqLogin.name"));
+            "proto.game.ReqLogin.account"));
         } else {
           goto handle_unusual;
         }
@@ -1833,14 +1833,14 @@ void ReqLogin::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string name = 1;
-  if (this->name().size() > 0) {
+  // string account = 1;
+  if (this->account().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), static_cast<int>(this->name().length()),
+      this->account().data(), static_cast<int>(this->account().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "proto.game.ReqLogin.name");
+      "proto.game.ReqLogin.account");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->name(), output);
+      1, this->account(), output);
   }
 
   // string pwd = 2;
@@ -1867,15 +1867,15 @@ void ReqLogin::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string name = 1;
-  if (this->name().size() > 0) {
+  // string account = 1;
+  if (this->account().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), static_cast<int>(this->name().length()),
+      this->account().data(), static_cast<int>(this->account().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "proto.game.ReqLogin.name");
+      "proto.game.ReqLogin.account");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->name(), target);
+        1, this->account(), target);
   }
 
   // string pwd = 2;
@@ -1906,11 +1906,11 @@ size_t ReqLogin::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // string name = 1;
-  if (this->name().size() > 0) {
+  // string account = 1;
+  if (this->account().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
+        this->account());
   }
 
   // string pwd = 2;
@@ -1949,9 +1949,9 @@ void ReqLogin::MergeFrom(const ReqLogin& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.name().size() > 0) {
+  if (from.account().size() > 0) {
 
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+    account_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.account_);
   }
   if (from.pwd().size() > 0) {
 
@@ -1983,7 +1983,7 @@ void ReqLogin::Swap(ReqLogin* other) {
 }
 void ReqLogin::InternalSwap(ReqLogin* other) {
   using std::swap;
-  name_.Swap(&other->name_);
+  account_.Swap(&other->account_);
   pwd_.Swap(&other->pwd_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
@@ -1997,24 +1997,24 @@ void ReqLogin::InternalSwap(ReqLogin* other) {
 
 // ===================================================================
 
-void AckLoginUc::InitAsDefaultInstance() {
-  ::proto::game::_AckLoginUc_default_instance_._instance.get_mutable()->player_ = const_cast< ::proto::game::Player*>(
+void ReqLoginUc::InitAsDefaultInstance() {
+  ::proto::game::_ReqLoginUc_default_instance_._instance.get_mutable()->player_ = const_cast< ::proto::game::Player*>(
       ::proto::game::Player::internal_default_instance());
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int AckLoginUc::kCodeFieldNumber;
-const int AckLoginUc::kPlayerFieldNumber;
+const int ReqLoginUc::kCodeFieldNumber;
+const int ReqLoginUc::kPlayerFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-AckLoginUc::AckLoginUc()
+ReqLoginUc::ReqLoginUc()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_appproto_2eproto::InitDefaultsAckLoginUc();
+    ::protobuf_appproto_2eproto::InitDefaultsReqLoginUc();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(constructor:proto.game.ReqLoginUc)
 }
-AckLoginUc::AckLoginUc(const AckLoginUc& from)
+ReqLoginUc::ReqLoginUc(const ReqLoginUc& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       _cached_size_(0) {
@@ -2025,43 +2025,43 @@ AckLoginUc::AckLoginUc(const AckLoginUc& from)
     player_ = NULL;
   }
   code_ = from.code_;
-  // @@protoc_insertion_point(copy_constructor:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(copy_constructor:proto.game.ReqLoginUc)
 }
 
-void AckLoginUc::SharedCtor() {
+void ReqLoginUc::SharedCtor() {
   ::memset(&player_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&code_) -
       reinterpret_cast<char*>(&player_)) + sizeof(code_));
   _cached_size_ = 0;
 }
 
-AckLoginUc::~AckLoginUc() {
-  // @@protoc_insertion_point(destructor:proto.game.AckLoginUc)
+ReqLoginUc::~ReqLoginUc() {
+  // @@protoc_insertion_point(destructor:proto.game.ReqLoginUc)
   SharedDtor();
 }
 
-void AckLoginUc::SharedDtor() {
+void ReqLoginUc::SharedDtor() {
   if (this != internal_default_instance()) delete player_;
 }
 
-void AckLoginUc::SetCachedSize(int size) const {
+void ReqLoginUc::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* AckLoginUc::descriptor() {
+const ::google::protobuf::Descriptor* ReqLoginUc::descriptor() {
   ::protobuf_appproto_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_appproto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const AckLoginUc& AckLoginUc::default_instance() {
-  ::protobuf_appproto_2eproto::InitDefaultsAckLoginUc();
+const ReqLoginUc& ReqLoginUc::default_instance() {
+  ::protobuf_appproto_2eproto::InitDefaultsReqLoginUc();
   return *internal_default_instance();
 }
 
 
-void AckLoginUc::Clear() {
-// @@protoc_insertion_point(message_clear_start:proto.game.AckLoginUc)
+void ReqLoginUc::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.game.ReqLoginUc)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -2074,11 +2074,11 @@ void AckLoginUc::Clear() {
   _internal_metadata_.Clear();
 }
 
-bool AckLoginUc::MergePartialFromCodedStream(
+bool ReqLoginUc::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(parse_start:proto.game.ReqLoginUc)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -2122,17 +2122,17 @@ bool AckLoginUc::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(parse_success:proto.game.ReqLoginUc)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(parse_failure:proto.game.ReqLoginUc)
   return false;
 #undef DO_
 }
 
-void AckLoginUc::SerializeWithCachedSizes(
+void ReqLoginUc::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(serialize_start:proto.game.ReqLoginUc)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2151,13 +2151,13 @@ void AckLoginUc::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
-  // @@protoc_insertion_point(serialize_end:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(serialize_end:proto.game.ReqLoginUc)
 }
 
-::google::protobuf::uint8* AckLoginUc::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ReqLoginUc::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(serialize_to_array_start:proto.game.ReqLoginUc)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2177,12 +2177,12 @@ void AckLoginUc::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(serialize_to_array_end:proto.game.ReqLoginUc)
   return target;
 }
 
-size_t AckLoginUc::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:proto.game.AckLoginUc)
+size_t ReqLoginUc::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.game.ReqLoginUc)
   size_t total_size = 0;
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2211,23 +2211,23 @@ size_t AckLoginUc::ByteSizeLong() const {
   return total_size;
 }
 
-void AckLoginUc::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:proto.game.AckLoginUc)
+void ReqLoginUc::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:proto.game.ReqLoginUc)
   GOOGLE_DCHECK_NE(&from, this);
-  const AckLoginUc* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const AckLoginUc>(
+  const ReqLoginUc* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ReqLoginUc>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.ReqLoginUc)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.ReqLoginUc)
     MergeFrom(*source);
   }
 }
 
-void AckLoginUc::MergeFrom(const AckLoginUc& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.AckLoginUc)
+void ReqLoginUc::MergeFrom(const ReqLoginUc& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.ReqLoginUc)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -2241,29 +2241,29 @@ void AckLoginUc::MergeFrom(const AckLoginUc& from) {
   }
 }
 
-void AckLoginUc::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:proto.game.AckLoginUc)
+void ReqLoginUc::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:proto.game.ReqLoginUc)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void AckLoginUc::CopyFrom(const AckLoginUc& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.AckLoginUc)
+void ReqLoginUc::CopyFrom(const ReqLoginUc& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.ReqLoginUc)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool AckLoginUc::IsInitialized() const {
+bool ReqLoginUc::IsInitialized() const {
   return true;
 }
 
-void AckLoginUc::Swap(AckLoginUc* other) {
+void ReqLoginUc::Swap(ReqLoginUc* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void AckLoginUc::InternalSwap(AckLoginUc* other) {
+void ReqLoginUc::InternalSwap(ReqLoginUc* other) {
   using std::swap;
   swap(player_, other->player_);
   swap(code_, other->code_);
@@ -2271,7 +2271,7 @@ void AckLoginUc::InternalSwap(AckLoginUc* other) {
   swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata AckLoginUc::GetMetadata() const {
+::google::protobuf::Metadata ReqLoginUc::GetMetadata() const {
   protobuf_appproto_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_appproto_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -2521,22 +2521,22 @@ void ReqLogout::InternalSwap(ReqLogout* other) {
 
 // ===================================================================
 
-void AckLogoutUc::InitAsDefaultInstance() {
+void ReqLogoutUc::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int AckLogoutUc::kCodeFieldNumber;
-const int AckLogoutUc::kRemarkFieldNumber;
+const int ReqLogoutUc::kCodeFieldNumber;
+const int ReqLogoutUc::kRemarkFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-AckLogoutUc::AckLogoutUc()
+ReqLogoutUc::ReqLogoutUc()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_appproto_2eproto::InitDefaultsAckLogoutUc();
+    ::protobuf_appproto_2eproto::InitDefaultsReqLogoutUc();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(constructor:proto.game.ReqLogoutUc)
 }
-AckLogoutUc::AckLogoutUc(const AckLogoutUc& from)
+ReqLogoutUc::ReqLogoutUc(const ReqLogoutUc& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       _cached_size_(0) {
@@ -2546,42 +2546,42 @@ AckLogoutUc::AckLogoutUc(const AckLogoutUc& from)
     remark_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.remark_);
   }
   code_ = from.code_;
-  // @@protoc_insertion_point(copy_constructor:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(copy_constructor:proto.game.ReqLogoutUc)
 }
 
-void AckLogoutUc::SharedCtor() {
+void ReqLogoutUc::SharedCtor() {
   remark_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   code_ = 0;
   _cached_size_ = 0;
 }
 
-AckLogoutUc::~AckLogoutUc() {
-  // @@protoc_insertion_point(destructor:proto.game.AckLogoutUc)
+ReqLogoutUc::~ReqLogoutUc() {
+  // @@protoc_insertion_point(destructor:proto.game.ReqLogoutUc)
   SharedDtor();
 }
 
-void AckLogoutUc::SharedDtor() {
+void ReqLogoutUc::SharedDtor() {
   remark_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-void AckLogoutUc::SetCachedSize(int size) const {
+void ReqLogoutUc::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* AckLogoutUc::descriptor() {
+const ::google::protobuf::Descriptor* ReqLogoutUc::descriptor() {
   ::protobuf_appproto_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_appproto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const AckLogoutUc& AckLogoutUc::default_instance() {
-  ::protobuf_appproto_2eproto::InitDefaultsAckLogoutUc();
+const ReqLogoutUc& ReqLogoutUc::default_instance() {
+  ::protobuf_appproto_2eproto::InitDefaultsReqLogoutUc();
   return *internal_default_instance();
 }
 
 
-void AckLogoutUc::Clear() {
-// @@protoc_insertion_point(message_clear_start:proto.game.AckLogoutUc)
+void ReqLogoutUc::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.game.ReqLogoutUc)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -2591,11 +2591,11 @@ void AckLogoutUc::Clear() {
   _internal_metadata_.Clear();
 }
 
-bool AckLogoutUc::MergePartialFromCodedStream(
+bool ReqLogoutUc::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(parse_start:proto.game.ReqLogoutUc)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -2624,7 +2624,7 @@ bool AckLogoutUc::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->remark().data(), static_cast<int>(this->remark().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "proto.game.AckLogoutUc.remark"));
+            "proto.game.ReqLogoutUc.remark"));
         } else {
           goto handle_unusual;
         }
@@ -2643,17 +2643,17 @@ bool AckLogoutUc::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(parse_success:proto.game.ReqLogoutUc)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(parse_failure:proto.game.ReqLogoutUc)
   return false;
 #undef DO_
 }
 
-void AckLogoutUc::SerializeWithCachedSizes(
+void ReqLogoutUc::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(serialize_start:proto.game.ReqLogoutUc)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2667,7 +2667,7 @@ void AckLogoutUc::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->remark().data(), static_cast<int>(this->remark().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "proto.game.AckLogoutUc.remark");
+      "proto.game.ReqLogoutUc.remark");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->remark(), output);
   }
@@ -2676,13 +2676,13 @@ void AckLogoutUc::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
-  // @@protoc_insertion_point(serialize_end:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(serialize_end:proto.game.ReqLogoutUc)
 }
 
-::google::protobuf::uint8* AckLogoutUc::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ReqLogoutUc::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(serialize_to_array_start:proto.game.ReqLogoutUc)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2696,7 +2696,7 @@ void AckLogoutUc::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->remark().data(), static_cast<int>(this->remark().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "proto.game.AckLogoutUc.remark");
+      "proto.game.ReqLogoutUc.remark");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->remark(), target);
@@ -2706,12 +2706,12 @@ void AckLogoutUc::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(serialize_to_array_end:proto.game.ReqLogoutUc)
   return target;
 }
 
-size_t AckLogoutUc::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:proto.game.AckLogoutUc)
+size_t ReqLogoutUc::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.game.ReqLogoutUc)
   size_t total_size = 0;
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2740,23 +2740,23 @@ size_t AckLogoutUc::ByteSizeLong() const {
   return total_size;
 }
 
-void AckLogoutUc::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:proto.game.AckLogoutUc)
+void ReqLogoutUc::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:proto.game.ReqLogoutUc)
   GOOGLE_DCHECK_NE(&from, this);
-  const AckLogoutUc* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const AckLogoutUc>(
+  const ReqLogoutUc* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ReqLogoutUc>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.ReqLogoutUc)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.ReqLogoutUc)
     MergeFrom(*source);
   }
 }
 
-void AckLogoutUc::MergeFrom(const AckLogoutUc& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.AckLogoutUc)
+void ReqLogoutUc::MergeFrom(const ReqLogoutUc& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.ReqLogoutUc)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -2771,29 +2771,29 @@ void AckLogoutUc::MergeFrom(const AckLogoutUc& from) {
   }
 }
 
-void AckLogoutUc::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:proto.game.AckLogoutUc)
+void ReqLogoutUc::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:proto.game.ReqLogoutUc)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void AckLogoutUc::CopyFrom(const AckLogoutUc& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.AckLogoutUc)
+void ReqLogoutUc::CopyFrom(const ReqLogoutUc& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.ReqLogoutUc)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool AckLogoutUc::IsInitialized() const {
+bool ReqLogoutUc::IsInitialized() const {
   return true;
 }
 
-void AckLogoutUc::Swap(AckLogoutUc* other) {
+void ReqLogoutUc::Swap(ReqLogoutUc* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void AckLogoutUc::InternalSwap(AckLogoutUc* other) {
+void ReqLogoutUc::InternalSwap(ReqLogoutUc* other) {
   using std::swap;
   remark_.Swap(&other->remark_);
   swap(code_, other->code_);
@@ -2801,7 +2801,7 @@ void AckLogoutUc::InternalSwap(AckLogoutUc* other) {
   swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata AckLogoutUc::GetMetadata() const {
+::google::protobuf::Metadata ReqLogoutUc::GetMetadata() const {
   protobuf_appproto_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_appproto_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -6962,22 +6962,22 @@ void ReqQuitRoomBc::InternalSwap(ReqQuitRoomBc* other) {
 
 // ===================================================================
 
-void AckEmotionBC::InitAsDefaultInstance() {
+void ReqEmotionBC::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int AckEmotionBC::kSeatidFieldNumber;
-const int AckEmotionBC::kTypeFieldNumber;
+const int ReqEmotionBC::kSeatidFieldNumber;
+const int ReqEmotionBC::kTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-AckEmotionBC::AckEmotionBC()
+ReqEmotionBC::ReqEmotionBC()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    ::protobuf_appproto_2eproto::InitDefaultsAckEmotionBC();
+    ::protobuf_appproto_2eproto::InitDefaultsReqEmotionBC();
   }
   SharedCtor();
-  // @@protoc_insertion_point(constructor:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(constructor:proto.game.ReqEmotionBC)
 }
-AckEmotionBC::AckEmotionBC(const AckEmotionBC& from)
+ReqEmotionBC::ReqEmotionBC(const ReqEmotionBC& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
       _cached_size_(0) {
@@ -6985,42 +6985,42 @@ AckEmotionBC::AckEmotionBC(const AckEmotionBC& from)
   ::memcpy(&seatid_, &from.seatid_,
     static_cast<size_t>(reinterpret_cast<char*>(&type_) -
     reinterpret_cast<char*>(&seatid_)) + sizeof(type_));
-  // @@protoc_insertion_point(copy_constructor:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(copy_constructor:proto.game.ReqEmotionBC)
 }
 
-void AckEmotionBC::SharedCtor() {
+void ReqEmotionBC::SharedCtor() {
   ::memset(&seatid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&type_) -
       reinterpret_cast<char*>(&seatid_)) + sizeof(type_));
   _cached_size_ = 0;
 }
 
-AckEmotionBC::~AckEmotionBC() {
-  // @@protoc_insertion_point(destructor:proto.game.AckEmotionBC)
+ReqEmotionBC::~ReqEmotionBC() {
+  // @@protoc_insertion_point(destructor:proto.game.ReqEmotionBC)
   SharedDtor();
 }
 
-void AckEmotionBC::SharedDtor() {
+void ReqEmotionBC::SharedDtor() {
 }
 
-void AckEmotionBC::SetCachedSize(int size) const {
+void ReqEmotionBC::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* AckEmotionBC::descriptor() {
+const ::google::protobuf::Descriptor* ReqEmotionBC::descriptor() {
   ::protobuf_appproto_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_appproto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
 }
 
-const AckEmotionBC& AckEmotionBC::default_instance() {
-  ::protobuf_appproto_2eproto::InitDefaultsAckEmotionBC();
+const ReqEmotionBC& ReqEmotionBC::default_instance() {
+  ::protobuf_appproto_2eproto::InitDefaultsReqEmotionBC();
   return *internal_default_instance();
 }
 
 
-void AckEmotionBC::Clear() {
-// @@protoc_insertion_point(message_clear_start:proto.game.AckEmotionBC)
+void ReqEmotionBC::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.game.ReqEmotionBC)
   ::google::protobuf::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -7031,11 +7031,11 @@ void AckEmotionBC::Clear() {
   _internal_metadata_.Clear();
 }
 
-bool AckEmotionBC::MergePartialFromCodedStream(
+bool ReqEmotionBC::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(parse_start:proto.game.ReqEmotionBC)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
     tag = p.first;
@@ -7081,17 +7081,17 @@ bool AckEmotionBC::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(parse_success:proto.game.ReqEmotionBC)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(parse_failure:proto.game.ReqEmotionBC)
   return false;
 #undef DO_
 }
 
-void AckEmotionBC::SerializeWithCachedSizes(
+void ReqEmotionBC::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(serialize_start:proto.game.ReqEmotionBC)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -7109,13 +7109,13 @@ void AckEmotionBC::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
   }
-  // @@protoc_insertion_point(serialize_end:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(serialize_end:proto.game.ReqEmotionBC)
 }
 
-::google::protobuf::uint8* AckEmotionBC::InternalSerializeWithCachedSizesToArray(
+::google::protobuf::uint8* ReqEmotionBC::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(serialize_to_array_start:proto.game.ReqEmotionBC)
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -7133,12 +7133,12 @@ void AckEmotionBC::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(serialize_to_array_end:proto.game.ReqEmotionBC)
   return target;
 }
 
-size_t AckEmotionBC::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:proto.game.AckEmotionBC)
+size_t ReqEmotionBC::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.game.ReqEmotionBC)
   size_t total_size = 0;
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -7167,23 +7167,23 @@ size_t AckEmotionBC::ByteSizeLong() const {
   return total_size;
 }
 
-void AckEmotionBC::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:proto.game.AckEmotionBC)
+void ReqEmotionBC::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:proto.game.ReqEmotionBC)
   GOOGLE_DCHECK_NE(&from, this);
-  const AckEmotionBC* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const AckEmotionBC>(
+  const ReqEmotionBC* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const ReqEmotionBC>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:proto.game.ReqEmotionBC)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:proto.game.ReqEmotionBC)
     MergeFrom(*source);
   }
 }
 
-void AckEmotionBC::MergeFrom(const AckEmotionBC& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.AckEmotionBC)
+void ReqEmotionBC::MergeFrom(const ReqEmotionBC& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:proto.game.ReqEmotionBC)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::google::protobuf::uint32 cached_has_bits = 0;
@@ -7197,29 +7197,29 @@ void AckEmotionBC::MergeFrom(const AckEmotionBC& from) {
   }
 }
 
-void AckEmotionBC::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:proto.game.AckEmotionBC)
+void ReqEmotionBC::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:proto.game.ReqEmotionBC)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void AckEmotionBC::CopyFrom(const AckEmotionBC& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.AckEmotionBC)
+void ReqEmotionBC::CopyFrom(const ReqEmotionBC& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.game.ReqEmotionBC)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool AckEmotionBC::IsInitialized() const {
+bool ReqEmotionBC::IsInitialized() const {
   return true;
 }
 
-void AckEmotionBC::Swap(AckEmotionBC* other) {
+void ReqEmotionBC::Swap(ReqEmotionBC* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void AckEmotionBC::InternalSwap(AckEmotionBC* other) {
+void ReqEmotionBC::InternalSwap(ReqEmotionBC* other) {
   using std::swap;
   swap(seatid_, other->seatid_);
   swap(type_, other->type_);
@@ -7227,7 +7227,7 @@ void AckEmotionBC::InternalSwap(AckEmotionBC* other) {
   swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata AckEmotionBC::GetMetadata() const {
+::google::protobuf::Metadata ReqEmotionBC::GetMetadata() const {
   protobuf_appproto_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_appproto_2eproto::file_level_metadata[kIndexInFileMessages];
 }
@@ -7244,14 +7244,14 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::Player* Arena::Crea
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::ReqLogin* Arena::Create< ::proto::game::ReqLogin >(Arena* arena) {
   return Arena::CreateInternal< ::proto::game::ReqLogin >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::AckLoginUc* Arena::Create< ::proto::game::AckLoginUc >(Arena* arena) {
-  return Arena::CreateInternal< ::proto::game::AckLoginUc >(arena);
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::ReqLoginUc* Arena::Create< ::proto::game::ReqLoginUc >(Arena* arena) {
+  return Arena::CreateInternal< ::proto::game::ReqLoginUc >(arena);
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::ReqLogout* Arena::Create< ::proto::game::ReqLogout >(Arena* arena) {
   return Arena::CreateInternal< ::proto::game::ReqLogout >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::AckLogoutUc* Arena::Create< ::proto::game::AckLogoutUc >(Arena* arena) {
-  return Arena::CreateInternal< ::proto::game::AckLogoutUc >(arena);
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::ReqLogoutUc* Arena::Create< ::proto::game::ReqLogoutUc >(Arena* arena) {
+  return Arena::CreateInternal< ::proto::game::ReqLogoutUc >(arena);
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::ReqRegist* Arena::Create< ::proto::game::ReqRegist >(Arena* arena) {
   return Arena::CreateInternal< ::proto::game::ReqRegist >(arena);
@@ -7301,8 +7301,8 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::ReqQuitRoomUc* Aren
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::ReqQuitRoomBc* Arena::Create< ::proto::game::ReqQuitRoomBc >(Arena* arena) {
   return Arena::CreateInternal< ::proto::game::ReqQuitRoomBc >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::AckEmotionBC* Arena::Create< ::proto::game::AckEmotionBC >(Arena* arena) {
-  return Arena::CreateInternal< ::proto::game::AckEmotionBC >(arena);
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::proto::game::ReqEmotionBC* Arena::Create< ::proto::game::ReqEmotionBC >(Arena* arena) {
+  return Arena::CreateInternal< ::proto::game::ReqEmotionBC >(arena);
 }
 }  // namespace protobuf
 }  // namespace google

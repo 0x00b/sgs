@@ -46,12 +46,12 @@ void InitDefaultsPlayerImpl();
 void InitDefaultsPlayer();
 void InitDefaultsReqLoginImpl();
 void InitDefaultsReqLogin();
-void InitDefaultsAckLoginUcImpl();
-void InitDefaultsAckLoginUc();
+void InitDefaultsReqLoginUcImpl();
+void InitDefaultsReqLoginUc();
 void InitDefaultsReqLogoutImpl();
 void InitDefaultsReqLogout();
-void InitDefaultsAckLogoutUcImpl();
-void InitDefaultsAckLogoutUc();
+void InitDefaultsReqLogoutUcImpl();
+void InitDefaultsReqLogoutUc();
 void InitDefaultsReqRegistImpl();
 void InitDefaultsReqRegist();
 void InitDefaultsReqRegistUcImpl();
@@ -84,14 +84,14 @@ void InitDefaultsReqQuitRoomUcImpl();
 void InitDefaultsReqQuitRoomUc();
 void InitDefaultsReqQuitRoomBcImpl();
 void InitDefaultsReqQuitRoomBc();
-void InitDefaultsAckEmotionBCImpl();
-void InitDefaultsAckEmotionBC();
+void InitDefaultsReqEmotionBCImpl();
+void InitDefaultsReqEmotionBC();
 inline void InitDefaults() {
   InitDefaultsPlayer();
   InitDefaultsReqLogin();
-  InitDefaultsAckLoginUc();
+  InitDefaultsReqLoginUc();
   InitDefaultsReqLogout();
-  InitDefaultsAckLogoutUc();
+  InitDefaultsReqLogoutUc();
   InitDefaultsReqRegist();
   InitDefaultsReqRegistUc();
   InitDefaultsReqUpdatePwd();
@@ -108,20 +108,11 @@ inline void InitDefaults() {
   InitDefaultsReqQuitRoom();
   InitDefaultsReqQuitRoomUc();
   InitDefaultsReqQuitRoomBc();
-  InitDefaultsAckEmotionBC();
+  InitDefaultsReqEmotionBC();
 }
 }  // namespace protobuf_appproto_2eproto
 namespace proto {
 namespace game {
-class AckEmotionBC;
-class AckEmotionBCDefaultTypeInternal;
-extern AckEmotionBCDefaultTypeInternal _AckEmotionBC_default_instance_;
-class AckLoginUc;
-class AckLoginUcDefaultTypeInternal;
-extern AckLoginUcDefaultTypeInternal _AckLoginUc_default_instance_;
-class AckLogoutUc;
-class AckLogoutUcDefaultTypeInternal;
-extern AckLogoutUcDefaultTypeInternal _AckLogoutUc_default_instance_;
 class Player;
 class PlayerDefaultTypeInternal;
 extern PlayerDefaultTypeInternal _Player_default_instance_;
@@ -137,6 +128,9 @@ extern ReqDeleteFriendDefaultTypeInternal _ReqDeleteFriend_default_instance_;
 class ReqDeleteFriendUc;
 class ReqDeleteFriendUcDefaultTypeInternal;
 extern ReqDeleteFriendUcDefaultTypeInternal _ReqDeleteFriendUc_default_instance_;
+class ReqEmotionBC;
+class ReqEmotionBCDefaultTypeInternal;
+extern ReqEmotionBCDefaultTypeInternal _ReqEmotionBC_default_instance_;
 class ReqEnterRoom;
 class ReqEnterRoomDefaultTypeInternal;
 extern ReqEnterRoomDefaultTypeInternal _ReqEnterRoom_default_instance_;
@@ -155,9 +149,15 @@ extern ReqGetFriendsUcDefaultTypeInternal _ReqGetFriendsUc_default_instance_;
 class ReqLogin;
 class ReqLoginDefaultTypeInternal;
 extern ReqLoginDefaultTypeInternal _ReqLogin_default_instance_;
+class ReqLoginUc;
+class ReqLoginUcDefaultTypeInternal;
+extern ReqLoginUcDefaultTypeInternal _ReqLoginUc_default_instance_;
 class ReqLogout;
 class ReqLogoutDefaultTypeInternal;
 extern ReqLogoutDefaultTypeInternal _ReqLogout_default_instance_;
+class ReqLogoutUc;
+class ReqLogoutUcDefaultTypeInternal;
+extern ReqLogoutUcDefaultTypeInternal _ReqLogoutUc_default_instance_;
 class ReqQuitRoom;
 class ReqQuitRoomDefaultTypeInternal;
 extern ReqQuitRoomDefaultTypeInternal _ReqQuitRoom_default_instance_;
@@ -183,21 +183,21 @@ extern ReqUpdatePwdUcDefaultTypeInternal _ReqUpdatePwdUc_default_instance_;
 }  // namespace proto
 namespace google {
 namespace protobuf {
-template<> ::proto::game::AckEmotionBC* Arena::Create< ::proto::game::AckEmotionBC>(Arena*);
-template<> ::proto::game::AckLoginUc* Arena::Create< ::proto::game::AckLoginUc>(Arena*);
-template<> ::proto::game::AckLogoutUc* Arena::Create< ::proto::game::AckLogoutUc>(Arena*);
 template<> ::proto::game::Player* Arena::Create< ::proto::game::Player>(Arena*);
 template<> ::proto::game::ReqAddFriends* Arena::Create< ::proto::game::ReqAddFriends>(Arena*);
 template<> ::proto::game::ReqAddFriendsUc* Arena::Create< ::proto::game::ReqAddFriendsUc>(Arena*);
 template<> ::proto::game::ReqDeleteFriend* Arena::Create< ::proto::game::ReqDeleteFriend>(Arena*);
 template<> ::proto::game::ReqDeleteFriendUc* Arena::Create< ::proto::game::ReqDeleteFriendUc>(Arena*);
+template<> ::proto::game::ReqEmotionBC* Arena::Create< ::proto::game::ReqEmotionBC>(Arena*);
 template<> ::proto::game::ReqEnterRoom* Arena::Create< ::proto::game::ReqEnterRoom>(Arena*);
 template<> ::proto::game::ReqEnterRoomBc* Arena::Create< ::proto::game::ReqEnterRoomBc>(Arena*);
 template<> ::proto::game::ReqEnterRoomUc* Arena::Create< ::proto::game::ReqEnterRoomUc>(Arena*);
 template<> ::proto::game::ReqGetFriends* Arena::Create< ::proto::game::ReqGetFriends>(Arena*);
 template<> ::proto::game::ReqGetFriendsUc* Arena::Create< ::proto::game::ReqGetFriendsUc>(Arena*);
 template<> ::proto::game::ReqLogin* Arena::Create< ::proto::game::ReqLogin>(Arena*);
+template<> ::proto::game::ReqLoginUc* Arena::Create< ::proto::game::ReqLoginUc>(Arena*);
 template<> ::proto::game::ReqLogout* Arena::Create< ::proto::game::ReqLogout>(Arena*);
+template<> ::proto::game::ReqLogoutUc* Arena::Create< ::proto::game::ReqLogoutUc>(Arena*);
 template<> ::proto::game::ReqQuitRoom* Arena::Create< ::proto::game::ReqQuitRoom>(Arena*);
 template<> ::proto::game::ReqQuitRoomBc* Arena::Create< ::proto::game::ReqQuitRoomBc>(Arena*);
 template<> ::proto::game::ReqQuitRoomUc* Arena::Create< ::proto::game::ReqQuitRoomUc>(Arena*);
@@ -533,19 +533,19 @@ class ReqLogin : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // string name = 1;
-  void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
+  // string account = 1;
+  void clear_account();
+  static const int kAccountFieldNumber = 1;
+  const ::std::string& account() const;
+  void set_account(const ::std::string& value);
   #if LANG_CXX11
-  void set_name(::std::string&& value);
+  void set_account(::std::string&& value);
   #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
+  void set_account(const char* value);
+  void set_account(const char* value, size_t size);
+  ::std::string* mutable_account();
+  ::std::string* release_account();
+  void set_allocated_account(::std::string* account);
 
   // string pwd = 2;
   void clear_pwd();
@@ -565,7 +565,7 @@ class ReqLogin : public ::google::protobuf::Message /* @@protoc_insertion_point(
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr account_;
   ::google::protobuf::internal::ArenaStringPtr pwd_;
   mutable int _cached_size_;
   friend struct ::protobuf_appproto_2eproto::TableStruct;
@@ -573,24 +573,24 @@ class ReqLogin : public ::google::protobuf::Message /* @@protoc_insertion_point(
 };
 // -------------------------------------------------------------------
 
-class AckLoginUc : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.AckLoginUc) */ {
+class ReqLoginUc : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.ReqLoginUc) */ {
  public:
-  AckLoginUc();
-  virtual ~AckLoginUc();
+  ReqLoginUc();
+  virtual ~ReqLoginUc();
 
-  AckLoginUc(const AckLoginUc& from);
+  ReqLoginUc(const ReqLoginUc& from);
 
-  inline AckLoginUc& operator=(const AckLoginUc& from) {
+  inline ReqLoginUc& operator=(const ReqLoginUc& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  AckLoginUc(AckLoginUc&& from) noexcept
-    : AckLoginUc() {
+  ReqLoginUc(ReqLoginUc&& from) noexcept
+    : ReqLoginUc() {
     *this = ::std::move(from);
   }
 
-  inline AckLoginUc& operator=(AckLoginUc&& from) noexcept {
+  inline ReqLoginUc& operator=(ReqLoginUc&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -600,34 +600,34 @@ class AckLoginUc : public ::google::protobuf::Message /* @@protoc_insertion_poin
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const AckLoginUc& default_instance();
+  static const ReqLoginUc& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const AckLoginUc* internal_default_instance() {
-    return reinterpret_cast<const AckLoginUc*>(
-               &_AckLoginUc_default_instance_);
+  static inline const ReqLoginUc* internal_default_instance() {
+    return reinterpret_cast<const ReqLoginUc*>(
+               &_ReqLoginUc_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     2;
 
-  void Swap(AckLoginUc* other);
-  friend void swap(AckLoginUc& a, AckLoginUc& b) {
+  void Swap(ReqLoginUc* other);
+  friend void swap(ReqLoginUc& a, ReqLoginUc& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline AckLoginUc* New() const PROTOBUF_FINAL {
-    return ::google::protobuf::Arena::Create<AckLoginUc>(NULL);
+  inline ReqLoginUc* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqLoginUc>(NULL);
   }
 
-  AckLoginUc* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
-    return ::google::protobuf::Arena::Create<AckLoginUc>(arena);
+  ReqLoginUc* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqLoginUc>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const AckLoginUc& from);
-  void MergeFrom(const AckLoginUc& from);
+  void CopyFrom(const ReqLoginUc& from);
+  void MergeFrom(const ReqLoginUc& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -643,7 +643,7 @@ class AckLoginUc : public ::google::protobuf::Message /* @@protoc_insertion_poin
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(AckLoginUc* other);
+  void InternalSwap(ReqLoginUc* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -674,7 +674,7 @@ class AckLoginUc : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::google::protobuf::int32 code() const;
   void set_code(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:proto.game.AckLoginUc)
+  // @@protoc_insertion_point(class_scope:proto.game.ReqLoginUc)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -682,7 +682,7 @@ class AckLoginUc : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::google::protobuf::int32 code_;
   mutable int _cached_size_;
   friend struct ::protobuf_appproto_2eproto::TableStruct;
-  friend void ::protobuf_appproto_2eproto::InitDefaultsAckLoginUcImpl();
+  friend void ::protobuf_appproto_2eproto::InitDefaultsReqLoginUcImpl();
 };
 // -------------------------------------------------------------------
 
@@ -792,24 +792,24 @@ class ReqLogout : public ::google::protobuf::Message /* @@protoc_insertion_point
 };
 // -------------------------------------------------------------------
 
-class AckLogoutUc : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.AckLogoutUc) */ {
+class ReqLogoutUc : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.ReqLogoutUc) */ {
  public:
-  AckLogoutUc();
-  virtual ~AckLogoutUc();
+  ReqLogoutUc();
+  virtual ~ReqLogoutUc();
 
-  AckLogoutUc(const AckLogoutUc& from);
+  ReqLogoutUc(const ReqLogoutUc& from);
 
-  inline AckLogoutUc& operator=(const AckLogoutUc& from) {
+  inline ReqLogoutUc& operator=(const ReqLogoutUc& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  AckLogoutUc(AckLogoutUc&& from) noexcept
-    : AckLogoutUc() {
+  ReqLogoutUc(ReqLogoutUc&& from) noexcept
+    : ReqLogoutUc() {
     *this = ::std::move(from);
   }
 
-  inline AckLogoutUc& operator=(AckLogoutUc&& from) noexcept {
+  inline ReqLogoutUc& operator=(ReqLogoutUc&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -819,34 +819,34 @@ class AckLogoutUc : public ::google::protobuf::Message /* @@protoc_insertion_poi
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const AckLogoutUc& default_instance();
+  static const ReqLogoutUc& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const AckLogoutUc* internal_default_instance() {
-    return reinterpret_cast<const AckLogoutUc*>(
-               &_AckLogoutUc_default_instance_);
+  static inline const ReqLogoutUc* internal_default_instance() {
+    return reinterpret_cast<const ReqLogoutUc*>(
+               &_ReqLogoutUc_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     4;
 
-  void Swap(AckLogoutUc* other);
-  friend void swap(AckLogoutUc& a, AckLogoutUc& b) {
+  void Swap(ReqLogoutUc* other);
+  friend void swap(ReqLogoutUc& a, ReqLogoutUc& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline AckLogoutUc* New() const PROTOBUF_FINAL {
-    return ::google::protobuf::Arena::Create<AckLogoutUc>(NULL);
+  inline ReqLogoutUc* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqLogoutUc>(NULL);
   }
 
-  AckLogoutUc* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
-    return ::google::protobuf::Arena::Create<AckLogoutUc>(arena);
+  ReqLogoutUc* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqLogoutUc>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const AckLogoutUc& from);
-  void MergeFrom(const AckLogoutUc& from);
+  void CopyFrom(const ReqLogoutUc& from);
+  void MergeFrom(const ReqLogoutUc& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -862,7 +862,7 @@ class AckLogoutUc : public ::google::protobuf::Message /* @@protoc_insertion_poi
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(AckLogoutUc* other);
+  void InternalSwap(ReqLogoutUc* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -898,7 +898,7 @@ class AckLogoutUc : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::int32 code() const;
   void set_code(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:proto.game.AckLogoutUc)
+  // @@protoc_insertion_point(class_scope:proto.game.ReqLogoutUc)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -906,7 +906,7 @@ class AckLogoutUc : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::int32 code_;
   mutable int _cached_size_;
   friend struct ::protobuf_appproto_2eproto::TableStruct;
-  friend void ::protobuf_appproto_2eproto::InitDefaultsAckLogoutUcImpl();
+  friend void ::protobuf_appproto_2eproto::InitDefaultsReqLogoutUcImpl();
 };
 // -------------------------------------------------------------------
 
@@ -2671,24 +2671,24 @@ class ReqQuitRoomBc : public ::google::protobuf::Message /* @@protoc_insertion_p
 };
 // -------------------------------------------------------------------
 
-class AckEmotionBC : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.AckEmotionBC) */ {
+class ReqEmotionBC : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.ReqEmotionBC) */ {
  public:
-  AckEmotionBC();
-  virtual ~AckEmotionBC();
+  ReqEmotionBC();
+  virtual ~ReqEmotionBC();
 
-  AckEmotionBC(const AckEmotionBC& from);
+  ReqEmotionBC(const ReqEmotionBC& from);
 
-  inline AckEmotionBC& operator=(const AckEmotionBC& from) {
+  inline ReqEmotionBC& operator=(const ReqEmotionBC& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  AckEmotionBC(AckEmotionBC&& from) noexcept
-    : AckEmotionBC() {
+  ReqEmotionBC(ReqEmotionBC&& from) noexcept
+    : ReqEmotionBC() {
     *this = ::std::move(from);
   }
 
-  inline AckEmotionBC& operator=(AckEmotionBC&& from) noexcept {
+  inline ReqEmotionBC& operator=(ReqEmotionBC&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -2698,34 +2698,34 @@ class AckEmotionBC : public ::google::protobuf::Message /* @@protoc_insertion_po
   }
   #endif
   static const ::google::protobuf::Descriptor* descriptor();
-  static const AckEmotionBC& default_instance();
+  static const ReqEmotionBC& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const AckEmotionBC* internal_default_instance() {
-    return reinterpret_cast<const AckEmotionBC*>(
-               &_AckEmotionBC_default_instance_);
+  static inline const ReqEmotionBC* internal_default_instance() {
+    return reinterpret_cast<const ReqEmotionBC*>(
+               &_ReqEmotionBC_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     21;
 
-  void Swap(AckEmotionBC* other);
-  friend void swap(AckEmotionBC& a, AckEmotionBC& b) {
+  void Swap(ReqEmotionBC* other);
+  friend void swap(ReqEmotionBC& a, ReqEmotionBC& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline AckEmotionBC* New() const PROTOBUF_FINAL {
-    return ::google::protobuf::Arena::Create<AckEmotionBC>(NULL);
+  inline ReqEmotionBC* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqEmotionBC>(NULL);
   }
 
-  AckEmotionBC* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
-    return ::google::protobuf::Arena::Create<AckEmotionBC>(arena);
+  ReqEmotionBC* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqEmotionBC>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const AckEmotionBC& from);
-  void MergeFrom(const AckEmotionBC& from);
+  void CopyFrom(const ReqEmotionBC& from);
+  void MergeFrom(const ReqEmotionBC& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -2741,7 +2741,7 @@ class AckEmotionBC : public ::google::protobuf::Message /* @@protoc_insertion_po
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(AckEmotionBC* other);
+  void InternalSwap(ReqEmotionBC* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -2769,7 +2769,7 @@ class AckEmotionBC : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::int32 type() const;
   void set_type(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:proto.game.AckEmotionBC)
+  // @@protoc_insertion_point(class_scope:proto.game.ReqEmotionBC)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -2777,7 +2777,7 @@ class AckEmotionBC : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::int32 type_;
   mutable int _cached_size_;
   friend struct ::protobuf_appproto_2eproto::TableStruct;
-  friend void ::protobuf_appproto_2eproto::InitDefaultsAckEmotionBCImpl();
+  friend void ::protobuf_appproto_2eproto::InitDefaultsReqEmotionBCImpl();
 };
 // ===================================================================
 
@@ -3210,57 +3210,57 @@ inline void Player::set_allocated_remark(::std::string* remark) {
 
 // ReqLogin
 
-// string name = 1;
-inline void ReqLogin::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// string account = 1;
+inline void ReqLogin::clear_account() {
+  account_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& ReqLogin::name() const {
-  // @@protoc_insertion_point(field_get:proto.game.ReqLogin.name)
-  return name_.GetNoArena();
+inline const ::std::string& ReqLogin::account() const {
+  // @@protoc_insertion_point(field_get:proto.game.ReqLogin.account)
+  return account_.GetNoArena();
 }
-inline void ReqLogin::set_name(const ::std::string& value) {
+inline void ReqLogin::set_account(const ::std::string& value) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:proto.game.ReqLogin.name)
+  account_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:proto.game.ReqLogin.account)
 }
 #if LANG_CXX11
-inline void ReqLogin::set_name(::std::string&& value) {
+inline void ReqLogin::set_account(::std::string&& value) {
   
-  name_.SetNoArena(
+  account_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:proto.game.ReqLogin.name)
+  // @@protoc_insertion_point(field_set_rvalue:proto.game.ReqLogin.account)
 }
 #endif
-inline void ReqLogin::set_name(const char* value) {
+inline void ReqLogin::set_account(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:proto.game.ReqLogin.name)
+  account_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:proto.game.ReqLogin.account)
 }
-inline void ReqLogin::set_name(const char* value, size_t size) {
+inline void ReqLogin::set_account(const char* value, size_t size) {
   
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  account_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:proto.game.ReqLogin.name)
+  // @@protoc_insertion_point(field_set_pointer:proto.game.ReqLogin.account)
 }
-inline ::std::string* ReqLogin::mutable_name() {
+inline ::std::string* ReqLogin::mutable_account() {
   
-  // @@protoc_insertion_point(field_mutable:proto.game.ReqLogin.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:proto.game.ReqLogin.account)
+  return account_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* ReqLogin::release_name() {
-  // @@protoc_insertion_point(field_release:proto.game.ReqLogin.name)
+inline ::std::string* ReqLogin::release_account() {
+  // @@protoc_insertion_point(field_release:proto.game.ReqLogin.account)
   
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return account_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ReqLogin::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
+inline void ReqLogin::set_allocated_account(::std::string* account) {
+  if (account != NULL) {
     
   } else {
     
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:proto.game.ReqLogin.name)
+  account_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), account);
+  // @@protoc_insertion_point(field_set_allocated:proto.game.ReqLogin.account)
 }
 
 // string pwd = 2;
@@ -3318,55 +3318,55 @@ inline void ReqLogin::set_allocated_pwd(::std::string* pwd) {
 
 // -------------------------------------------------------------------
 
-// AckLoginUc
+// ReqLoginUc
 
 // int32 code = 1;
-inline void AckLoginUc::clear_code() {
+inline void ReqLoginUc::clear_code() {
   code_ = 0;
 }
-inline ::google::protobuf::int32 AckLoginUc::code() const {
-  // @@protoc_insertion_point(field_get:proto.game.AckLoginUc.code)
+inline ::google::protobuf::int32 ReqLoginUc::code() const {
+  // @@protoc_insertion_point(field_get:proto.game.ReqLoginUc.code)
   return code_;
 }
-inline void AckLoginUc::set_code(::google::protobuf::int32 value) {
+inline void ReqLoginUc::set_code(::google::protobuf::int32 value) {
   
   code_ = value;
-  // @@protoc_insertion_point(field_set:proto.game.AckLoginUc.code)
+  // @@protoc_insertion_point(field_set:proto.game.ReqLoginUc.code)
 }
 
 // .proto.game.Player player = 2;
-inline bool AckLoginUc::has_player() const {
+inline bool ReqLoginUc::has_player() const {
   return this != internal_default_instance() && player_ != NULL;
 }
-inline void AckLoginUc::clear_player() {
+inline void ReqLoginUc::clear_player() {
   if (GetArenaNoVirtual() == NULL && player_ != NULL) {
     delete player_;
   }
   player_ = NULL;
 }
-inline const ::proto::game::Player& AckLoginUc::player() const {
+inline const ::proto::game::Player& ReqLoginUc::player() const {
   const ::proto::game::Player* p = player_;
-  // @@protoc_insertion_point(field_get:proto.game.AckLoginUc.player)
+  // @@protoc_insertion_point(field_get:proto.game.ReqLoginUc.player)
   return p != NULL ? *p : *reinterpret_cast<const ::proto::game::Player*>(
       &::proto::game::_Player_default_instance_);
 }
-inline ::proto::game::Player* AckLoginUc::release_player() {
-  // @@protoc_insertion_point(field_release:proto.game.AckLoginUc.player)
+inline ::proto::game::Player* ReqLoginUc::release_player() {
+  // @@protoc_insertion_point(field_release:proto.game.ReqLoginUc.player)
   
   ::proto::game::Player* temp = player_;
   player_ = NULL;
   return temp;
 }
-inline ::proto::game::Player* AckLoginUc::mutable_player() {
+inline ::proto::game::Player* ReqLoginUc::mutable_player() {
   
   if (player_ == NULL) {
     player_ = ::google::protobuf::Arena::Create< ::proto::game::Player >(
         GetArenaNoVirtual());
   }
-  // @@protoc_insertion_point(field_mutable:proto.game.AckLoginUc.player)
+  // @@protoc_insertion_point(field_mutable:proto.game.ReqLoginUc.player)
   return player_;
 }
-inline void AckLoginUc::set_allocated_player(::proto::game::Player* player) {
+inline void ReqLoginUc::set_allocated_player(::proto::game::Player* player) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
     delete player_;
@@ -3382,7 +3382,7 @@ inline void AckLoginUc::set_allocated_player(::proto::game::Player* player) {
     
   }
   player_ = player;
-  // @@protoc_insertion_point(field_set_allocated:proto.game.AckLoginUc.player)
+  // @@protoc_insertion_point(field_set_allocated:proto.game.ReqLoginUc.player)
 }
 
 // -------------------------------------------------------------------
@@ -3442,73 +3442,73 @@ inline void ReqLogout::set_allocated_player(::proto::game::Player* player) {
 
 // -------------------------------------------------------------------
 
-// AckLogoutUc
+// ReqLogoutUc
 
 // int32 code = 1;
-inline void AckLogoutUc::clear_code() {
+inline void ReqLogoutUc::clear_code() {
   code_ = 0;
 }
-inline ::google::protobuf::int32 AckLogoutUc::code() const {
-  // @@protoc_insertion_point(field_get:proto.game.AckLogoutUc.code)
+inline ::google::protobuf::int32 ReqLogoutUc::code() const {
+  // @@protoc_insertion_point(field_get:proto.game.ReqLogoutUc.code)
   return code_;
 }
-inline void AckLogoutUc::set_code(::google::protobuf::int32 value) {
+inline void ReqLogoutUc::set_code(::google::protobuf::int32 value) {
   
   code_ = value;
-  // @@protoc_insertion_point(field_set:proto.game.AckLogoutUc.code)
+  // @@protoc_insertion_point(field_set:proto.game.ReqLogoutUc.code)
 }
 
 // string remark = 2;
-inline void AckLogoutUc::clear_remark() {
+inline void ReqLogoutUc::clear_remark() {
   remark_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& AckLogoutUc::remark() const {
-  // @@protoc_insertion_point(field_get:proto.game.AckLogoutUc.remark)
+inline const ::std::string& ReqLogoutUc::remark() const {
+  // @@protoc_insertion_point(field_get:proto.game.ReqLogoutUc.remark)
   return remark_.GetNoArena();
 }
-inline void AckLogoutUc::set_remark(const ::std::string& value) {
+inline void ReqLogoutUc::set_remark(const ::std::string& value) {
   
   remark_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:proto.game.AckLogoutUc.remark)
+  // @@protoc_insertion_point(field_set:proto.game.ReqLogoutUc.remark)
 }
 #if LANG_CXX11
-inline void AckLogoutUc::set_remark(::std::string&& value) {
+inline void ReqLogoutUc::set_remark(::std::string&& value) {
   
   remark_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:proto.game.AckLogoutUc.remark)
+  // @@protoc_insertion_point(field_set_rvalue:proto.game.ReqLogoutUc.remark)
 }
 #endif
-inline void AckLogoutUc::set_remark(const char* value) {
+inline void ReqLogoutUc::set_remark(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   
   remark_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:proto.game.AckLogoutUc.remark)
+  // @@protoc_insertion_point(field_set_char:proto.game.ReqLogoutUc.remark)
 }
-inline void AckLogoutUc::set_remark(const char* value, size_t size) {
+inline void ReqLogoutUc::set_remark(const char* value, size_t size) {
   
   remark_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:proto.game.AckLogoutUc.remark)
+  // @@protoc_insertion_point(field_set_pointer:proto.game.ReqLogoutUc.remark)
 }
-inline ::std::string* AckLogoutUc::mutable_remark() {
+inline ::std::string* ReqLogoutUc::mutable_remark() {
   
-  // @@protoc_insertion_point(field_mutable:proto.game.AckLogoutUc.remark)
+  // @@protoc_insertion_point(field_mutable:proto.game.ReqLogoutUc.remark)
   return remark_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* AckLogoutUc::release_remark() {
-  // @@protoc_insertion_point(field_release:proto.game.AckLogoutUc.remark)
+inline ::std::string* ReqLogoutUc::release_remark() {
+  // @@protoc_insertion_point(field_release:proto.game.ReqLogoutUc.remark)
   
   return remark_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void AckLogoutUc::set_allocated_remark(::std::string* remark) {
+inline void ReqLogoutUc::set_allocated_remark(::std::string* remark) {
   if (remark != NULL) {
     
   } else {
     
   }
   remark_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), remark);
-  // @@protoc_insertion_point(field_set_allocated:proto.game.AckLogoutUc.remark)
+  // @@protoc_insertion_point(field_set_allocated:proto.game.ReqLogoutUc.remark)
 }
 
 // -------------------------------------------------------------------
@@ -4321,34 +4321,34 @@ inline void ReqQuitRoomBc::set_allocated_player(::proto::game::Player* player) {
 
 // -------------------------------------------------------------------
 
-// AckEmotionBC
+// ReqEmotionBC
 
 // int32 seatid = 1;
-inline void AckEmotionBC::clear_seatid() {
+inline void ReqEmotionBC::clear_seatid() {
   seatid_ = 0;
 }
-inline ::google::protobuf::int32 AckEmotionBC::seatid() const {
-  // @@protoc_insertion_point(field_get:proto.game.AckEmotionBC.seatid)
+inline ::google::protobuf::int32 ReqEmotionBC::seatid() const {
+  // @@protoc_insertion_point(field_get:proto.game.ReqEmotionBC.seatid)
   return seatid_;
 }
-inline void AckEmotionBC::set_seatid(::google::protobuf::int32 value) {
+inline void ReqEmotionBC::set_seatid(::google::protobuf::int32 value) {
   
   seatid_ = value;
-  // @@protoc_insertion_point(field_set:proto.game.AckEmotionBC.seatid)
+  // @@protoc_insertion_point(field_set:proto.game.ReqEmotionBC.seatid)
 }
 
 // int32 type = 2;
-inline void AckEmotionBC::clear_type() {
+inline void ReqEmotionBC::clear_type() {
   type_ = 0;
 }
-inline ::google::protobuf::int32 AckEmotionBC::type() const {
-  // @@protoc_insertion_point(field_get:proto.game.AckEmotionBC.type)
+inline ::google::protobuf::int32 ReqEmotionBC::type() const {
+  // @@protoc_insertion_point(field_get:proto.game.ReqEmotionBC.type)
   return type_;
 }
-inline void AckEmotionBC::set_type(::google::protobuf::int32 value) {
+inline void ReqEmotionBC::set_type(::google::protobuf::int32 value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:proto.game.AckEmotionBC.type)
+  // @@protoc_insertion_point(field_set:proto.game.ReqEmotionBC.type)
 }
 
 #ifdef __GNUC__

@@ -25,13 +25,13 @@ message Player
 //请求登陆
 message ReqLogin
 {
-	string name	= 1;
+	string account	= 1;
 	string pwd	= 2;
 }
 
 //服务端下发结构体
 //登录成功返回（单播）
-message AckLoginUc
+message ReqLoginUc
 {	
 	int32 code = 1;	//返回码，0成功 1失败
 	Player player = 2;
@@ -43,7 +43,7 @@ message ReqLogout
 	Player player = 1;
 }
 //玩家退出请求返回
-message AckLogoutUc
+message ReqLogoutUc
 {
 	int32 code = 1;
 	string remark = 2;
@@ -123,7 +123,7 @@ message ReqQuitRoomBc
 }
 
 //广播互动表情
-message AckEmotionBC
+message ReqEmotionBC
 {
     int32 seatid = 1;
 	int32 type = 2;
