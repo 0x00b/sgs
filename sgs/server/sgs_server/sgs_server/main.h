@@ -33,14 +33,26 @@ enum SGSCMD
 	PLAYER_ADD_FRIENDS_UC,	//add firends
 
 	PLAYER_MATCH_ROOM,		//player request match room
+	PLAYER_MATCH_ROOM_UC,		//player request match room
 	PLAYER_MATCH_ROOM_FAST,	//player request match room fast,auto enter room
+	PLAYER_MATCH_ROOM_FAST_UC,	//player request match room fast,auto enter room
 	PLAYER_ENTER_ROOM,		//player enter room 
+	PLAYER_ENTER_ROOM_UC,		//player enter room 
+	PLAYER_ENTER_ROOM_BC,		//player enter room 
 	PLAYER_QUIT_ROOM,		//player quit room
+	PLAYER_QUIT_ROOM_UC,		//player quit room
+	PLAYER_QUIT_ROOM_BC,		//player quit room
 	PLAYER_SEARCH_ROOM,		//player search room by room id 
+	PLAYER_SEARCH_ROOM_UC,		//player search room by room id 
 	PLAYER_READY,			//player get ready
+	PLAYER_READY_UC,			//player get ready
+	PLAYER_READY_BC,			//player get ready
 	PLAYER_SELECT_GAME_MODE,//player select game mode
+	PLAYER_SELECT_GAME_MODE_UC,//player select game mode
 	PLAYER_GET_GAME_MODE,	//player get game mode
+	PLAYER_GET_GAME_MODE_UC,	//player get game mode
 	PLAYER_CREATE_ROOM,		//player create a room
+	PLAYER_CREATE_ROOM_UC,		//player create a room
 	
 	/* GAME CMD */
 	GAME_START = 1000,

@@ -69,14 +69,9 @@ void Player::Get(proto::game::Player* player)
 	
 }
 
-int Player::ReqQuitRoom()
+std::string &Player::GetProtoMsg()
 {
-	return 0;
-}
-
-int Player::ReqEnterRoom()
-{
-	return 0;
+	return m_iClient.m_iPacket.body;
 }
 
 int Player::GetInfoByID()
@@ -145,7 +140,7 @@ int Player::Do()
 			nRet = g_app.m_pGame->ReqEnterRoom(this);
 			break;
 		case PLAYER_QUIT_ROOM:
-			nRet = ReqQuitRoom();
+			nRet = g_app.m_pGame->ReqQuitRoom(this);
 			break;
 		case PLAYER_SEARCH_ROOM:
 			nRet = g_app.m_pGame->ReqSearchRoom(this);
@@ -296,6 +291,7 @@ int Player::ReqLogin()
 	protouc.set_code(code); //
 	if(0 == code)
 	{
+		UpdateState(ST_PLAYER_ONLINE);
 		Get(protouc.mutable_player());
 	}
 	std::shared_ptr<PPacket> packet(new PPacket());
@@ -337,9 +333,9 @@ int Player::Regist()
 	MYSQL_RES* res;
 	//MYSQL_ROW row;
 	std::string sql = "INSERT INTO `sgs_db`.`player`"
-	"(`account`, `passwd`) VALUES('";
+	"(`account`, `passwd`, `level`,`exp`, `status`,`regist_date`, `name`) VALUES('";
 	sql.append(m_stAccount).append("',password('").
-		append(m_stPasswd).append("'));");
+		append(m_stPasswd).append("'), 0, 0, 0, curdate(),'").append(m_stName+"');");
 
 	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
 
@@ -355,16 +351,17 @@ int Player::Login()
 {
 	MYSQL_RES* res;
 	MYSQL_ROW row;
-	std::string sql = "SELECT `player`.`idplayer`,\
-		`player`.`sex`,\
-		`player`.`avatar`,\
-		`player`.`level`,\
-		`player`.`exp`,\
-		`player`.`status`,\
-		`player`.`regist_date`,\
-		`player`.`remark`\
-		FROM `sgs_db`.`player` WHERE 1=1 \
-		";
+	std::string sql = "SELECT `player`.`idplayer`,"
+		"`player`.`sex`,"
+		"`player`.`avatar`,"
+		"`player`.`level`,"
+		"`player`.`exp`,"
+		"`player`.`status`,"
+		"`player`.`regist_date`,"
+		"`player`.`remark`"
+		"`player`.`name`,"
+		"FROM `sgs_db`.`player` WHERE 1=1 "
+		;
 	sql.append(" and `player`.`account` = '").append(m_stAccount + "' and `player`.`passwd`=password('" + m_stPasswd + "');");
 
 	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
@@ -399,6 +396,8 @@ int Player::Login()
 					m_stRegistDate = row[i]; break;
 				case 7:
 					m_stRemark = row[i]; break;
+				case 8:
+					m_stName = row[i]; break;
 				default:
 					break;
 				}
@@ -417,13 +416,14 @@ int Player::GetFriends(std::list<std::shared_ptr<Player>>& list)
 {
 	MYSQL_RES* res;
 	MYSQL_ROW row;
-	std::string sql = "SELECT `player`.`idplayer`,\
-		`player`.`sex`,\
-		`player`.`avatar`,\
-		`player`.`level`,\
-		`player`.`status`,\
-		FROM `sgs_db`.`player` WHERE \
-		`player`.`idplayer` in(SELECT `friends`.`idfriend` FROM `friends` WHERE `friends`.`idplayer` = ";
+	std::string sql = "SELECT `player`.`idplayer`,"
+		"player`.`sex`,"
+		"player`.`avatar`,"
+		"player`.`level`,"
+		"player`.`status`,"
+		"player`.`name`,"
+		"FROM `sgs_db`.`player` WHERE "
+		"player`.`idplayer` in(SELECT `friends`.`idfriend` FROM `friends` WHERE `friends`.`idplayer` = ";
 	sql += m_nID;
 	sql.append(");");
 	
@@ -455,6 +455,8 @@ int Player::GetFriends(std::list<std::shared_ptr<Player>>& list)
 					player->m_sLevel = atoi(row[i]); break;
 				case 5:
 					player->m_nStatus = atoi(row[i]); break;
+				case 6:
+					player->m_stName = row[i]; break;
 				default:
 					break;
 				}
@@ -476,8 +478,8 @@ int Player::AddFriends(int idfriend)
 {
 	MYSQL_RES* res;
 	//MYSQL_ROW row;
-	std::string sql = "INSERT INTO `sgs_db`.`friends` \
-		(`idplayer` , `idfriend` , `type` , `remark`) VALUES(";
+	std::string sql = "INSERT INTO `sgs_db`.`friends` "
+		"(`idplayer` , `idfriend` , `type` , `remark`) VALUES(";
 	sql += m_nID;
 	sql.append(",");
 	sql += idfriend;
@@ -502,6 +504,26 @@ int Player::DeleteFriends(int idfriend)
 	sql.append(" and `friends`.`idfriend` = ");
 	sql += idfriend;
 	sql.append("；");
+
+	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
+
+	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
+	{
+		mysql_free_result(res);
+		return 1;
+	}
+	return 0;
+}
+
+int Player::UpdateState(EPlayerStatus status)
+{
+	MYSQL_RES *res;
+	//MYSQL_ROW row;
+	std::string sql = "UPDATE `sgs_db`.`player` SET `player`.`status`=";
+	sql += status;
+	sql.append("WHERE `player`.`idplayer`=");
+	sql += m_nID;
+	sql.append(";");
 
 	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
 

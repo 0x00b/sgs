@@ -35,14 +35,15 @@ public:
 	Game();
 	virtual ~Game();
 	int StartUp();
-
 	int UserQuit(Player* player);
+	int GetNewRoomID();
 
 	int ReqMatchRoom(Player* player);
 	int ReqSelectGameMode(Player* player);
 	int ReqGetGameMode(Player* player);
 	int ReqCreateRoom(Player* player);
 	int	ReqEnterRoom(Player* player);
+	int	ReqQuitRoom(Player* player);
 	int ReqEnterRoomFast(Player* player);
 	int ReqSearchRoom(Player* player);
 
@@ -55,6 +56,7 @@ protected:
 private:
 	int Listen();
 	static void Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents);
+	
 };
 
 #endif

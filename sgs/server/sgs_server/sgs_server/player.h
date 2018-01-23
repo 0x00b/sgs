@@ -13,6 +13,14 @@ Description :
 #include "protoco/appproto.pb.h"
 
 class Room;
+
+enum EPlayerStatus
+{
+	ST_PLAYER_OFFLINE = 0,
+	ST_PLAYER_ONLINE,
+	ST_PLAYER_BUSY,
+};
+
 /*
 */
 class Player
@@ -62,10 +70,12 @@ public:
 	int ReqGetFriends();
 	int ReqAddFriends();
 	int ReqDeleteFriends();
-	int ReqQuitRoom();
-	int ReqEnterRoom();
 	int GetInfoByID();
 	int Send(std::shared_ptr<PPacket>& pkt);
+
+	int UpdateState(EPlayerStatus status);
+	
+	std::string& GetProtoMsg();
 
 	virtual int BeforeDo();
 	virtual int Do();

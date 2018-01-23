@@ -93,15 +93,36 @@ message ReqDeleteFriendUc
 {
 	int32 code = 2;
 }
+
+message Room
+{
+	int32 room_id = 1;
+	string	name = 2;				//room's name
+	int32 type = 3;					//room type
+	int32 max_player_cnt = 4;			//max player cnt
+	int32 player_cnt = 5;				//current player cnt
+	int32 match_seat_way = 6;			//random or by order to give seat number
+	int32 status = 7;					//room's status
+	repeated Player players = 8;	//players in the room
+}
+
+message ReqCreateRoom
+{
+	Room room = 1;
+}
+message ReqCreateRoomUc
+{
+	int32 code = 1;
+	Room room = 2;
+}
 message ReqEnterRoom
 {
 	int32 roomid = 1;
 }
 message ReqEnterRoomUc
 {
-	int32 roomid = 1;
-	int32 code = 2;
-	repeated Player players = 3;
+	int32 code = 1;
+	Room room = 2;
 }
 message ReqEnterRoomBc
 {

@@ -11,9 +11,11 @@ vpath %.h libs/json				# .h at
 vpath %.h zlib					# .h at 
 vpath %.h mysqlutil				# .h at 
 vpath %.h protoco			# .h at 
+vpath %.h libgamelogic			# .h at 
 #vpath %.c include/libev	# .h at 
 vpath %.cpp libs				# .cpp at 
 vpath %.cpp mysqlutil			# .cpp at 
+vpath %.cpp libgamelogic			# .cpp at 
 vpath %.cc protoco				# .cc at 
 
 CC = gcc
@@ -28,7 +30,7 @@ APP = sgs_server
 inc = -I./ -Iinclude/google/protobuf -Iinclude/libev -Ilibs -Ilibs/json -Izlib -Imysqlutil -Iprotoco# or use C_INCLUDE_PATH ,CPLUS_INCLUDE_PATH envir_path
 #inc += -Isrc/src	 # +=
 
-targ := $(shell ls|grep '\.cpp';ls libs|grep '\.cpp';ls mysqlutil|grep '\.cpp';ls protoco|grep '\.cc')
+targ := $(shell ls|grep '\.cpp';ls libs|grep '\.cpp';ls mysqlutil|grep '\.cpp';ls protoco|grep '\.cc';ls libgamelogic|grep '\.cpp')
 objs_c:= $(patsubst %.c,%.o,$(targ))
 objs_cc:= $(patsubst %.cc,%.o,$(objs_c))
 objs := $(patsubst %.cpp,%.o,$(objs_cc))

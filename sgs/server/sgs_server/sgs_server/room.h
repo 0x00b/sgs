@@ -12,6 +12,13 @@ Description :
 
 class Player;
 
+enum ERoomType
+{
+	ROOM_TYPE_3 = 3,
+	ROOM_TYPE_6 = 6,
+	ROOM_TYPE_8 = 8,
+};
+
 class Room
 {
 	//variables
@@ -19,8 +26,9 @@ private:
 	std::list<Player*> m_lstPlayers;//players in the room
 	std::string	m_stName;			//room's name
 
-	int roomid;
-	int m_nType;					//room type
+	ERoomType m_eType;				//room type
+
+	int m_nRoomID;
 	int m_nMaxPlayerCnt;			//max player cnt
 	int m_nPlayerCnt;				//current player cnt
 	int m_nMatchSeatWay;			//random or by order to give seat number
@@ -32,7 +40,7 @@ public:
 
 	//functions
 public:
-	Room();
+	Room(GameLogic* plogic);
 	virtual ~Room();
 
 	int EnterRoom(Player* player);

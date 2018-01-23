@@ -2,7 +2,13 @@
 #include "player.h"
 #include "app.h"
 #include "ppacket.h"
+#include "room.h"
+#include "libgamelogic/sgsgamelogic.h"
+#include "protoco/appproto.pb.h"
+#include "main.h"
 
+#define ROOM_ID_END 1000000
+#define ROOM_ID_START 100000
 
 Game::Game() :m_nStatus(0)
 {
@@ -24,9 +30,27 @@ int Game::StartUp()
 	return -1;
 }
 
+int Game::GetNewRoomID()
+{
+	srand((unsigned int)time(NULL));
+
+	int id = (rand() % (ROOM_ID_END - ROOM_ID_START)) + ROOM_ID_START;
+
+	while (m_mRooms.find(id) != m_mRooms.end())
+	{
+		id = ((id + 100) % (ROOM_ID_END - ROOM_ID_START)) + ROOM_ID_START;
+	}
+	
+	return id;
+}
+
 int Game::UserQuit(Player * player)
 {
 	m_mPlayers.erase(player->m_iClient.m_nfd);
+	if (ST_PLAYER_OFFLINE != player->m_nStatus)
+	{
+		player->UpdateState(ST_PLAYER_OFFLINE);
+	}
 	delete player;
 	return 0;
 }
@@ -48,10 +72,63 @@ int Game::ReqGetGameMode(Player * player)
 
 int Game::ReqCreateRoom(Player * player)
 {
-	return 0;
+	if(NULL == player)
+	{
+		return -1;
+	}
+	int code = 0;
+	proto::game::ReqCreateRoom crproto;
+	proto::game::ReqCreateRoomUc crprotouc;
+
+	if(!crproto.ParseFromString(player->GetProtoMsg()))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		GameLogic *plogic = new (std::nothrow) SGSGame();
+		if (NULL != plogic)
+		{
+			Room *room = new (std::nothrow) Room(plogic);
+			if (NULL != room)
+			{
+				int roomid = GetNewRoomID();
+				m_mRooms[roomid] = room;
+				player->m_pRoom = room;
+				room->EnterRoom(player);
+			}
+			else
+			{
+				delete plogic;
+				code = 0x02;
+			}
+		}
+		else
+		{
+			code = 0x04;
+		}
+	}
+	
+	if(0 == code)
+	{
+
+	}
+	
+	crprotouc.set_code(code);
+	std::shared_ptr<PPacket> packet(new PPacket());
+	crprotouc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_CREATE_ROOM_UC);
+
+	player->Send(packet);
+
+	return code;
 }
 
 int Game::ReqEnterRoom(Player * player)
+{
+	return 0;
+}
+int Game::ReqQuitRoom(Player * player)
 {
 	return 0;
 }
