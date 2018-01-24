@@ -9,15 +9,17 @@ Description : GameLogic
 #define _SGS_GAMELOGIC_H_
 
 #include <map>
+#include <memory>
 
 class Player;
 class Room;
+class GameAttr;
 
 class GameLogic
 {
 	/*varibles*/
 private:
-	std::map<Player*, int> m_mPlayer;
+	std::map<Player*, std::shared_ptr<GameAttr>> m_mPlayer;
 	Room* m_pRoom;
 protected:
 

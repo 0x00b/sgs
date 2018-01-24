@@ -30,8 +30,138 @@ int Game::StartUp()
 	return -1;
 }
 
+int Game::ReqRegist(Player* player)
+{
+	int code = 0;
+	proto::game::ReqRegist rgst;
+	proto::game::ReqRegistUc rgstuc;
+	if (!rgst.ParseFromString(player->m_iClient.m_iPacket.body))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		player->Set(rgst.player());
 
-int Game::UserQuit(Player * player)
+		//check account
+		if (player->CheckAccount())
+		{
+			code = 0x02;
+		}
+
+		//check passwd
+		if (player->CheckPasswd())
+		{
+			code |= 0x004;
+		}
+		if (0 == code)
+		{
+			if (1 != player->Regist())
+			{
+				code = 0x08; //
+			}
+		}
+	}
+	sgslog.info(FFL_s_d,"regist code:",code);
+	rgstuc.set_code(code); //
+	/*if(0 == code)
+	{
+		Login();
+		Get(rgstuc.mutable_player());
+	}*/
+	std::shared_ptr<PPacket> packet(new PPacket());
+	rgstuc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_REGIST_UC);
+
+	player->Send(packet);
+
+	return code;
+}
+
+int Game::ReqLogin(Player* player)
+{
+	int code = 0;
+	proto::game::ReqLogin proto;
+	proto::game::ReqLoginUc protouc;
+	if (!proto.ParseFromString(player->m_iClient.m_iPacket.body))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		player->m_stAccount = proto.account();
+		player->m_stPasswd = proto.pwd();
+
+		//check account
+		if (player->CheckAccount())
+		{
+			code = 0x02;
+		}
+
+		//check passwd
+		if (player->CheckPasswd())
+		{
+			code |= 0x004;
+		}
+		if (0 == code)
+		{
+			if (1 != player->Login())
+			{
+				code = 0x08; //
+			}
+		}
+	}
+	sgslog.info(FFL_s_d,"login code:",code);
+	protouc.set_code(code); //
+	if(0 == code)
+	{
+		player->UpdateState(ST_PLAYER_ONLINE);
+		player->Get(protouc.mutable_player());
+	}
+	std::shared_ptr<PPacket> packet(new PPacket());
+	protouc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_REGIST_UC);
+
+	player->Send(packet);
+
+	return 0;
+}
+
+int Game::ReqReady(Player* player)
+{
+	int code = 0;
+	proto::game::ReqReady proto;
+	proto::game::ReqReadyBc protouc;
+	if (!proto.ParseFromString(player->m_iClient.m_iPacket.body))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		player->m_nGameStatus = ST_GM_PLAYER_READY;
+
+		player->m_pRoom->Ready(player);
+	}
+	protouc.set_code(code); //
+	if(0 == code)
+	{
+		player->Get(protouc.mutable_player());
+	}
+	PPacket* packet = (new PPacket());
+	protouc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_READY_BC);
+
+	player->m_pRoom->Broadcast(packet);
+
+	//to check start
+	if(0 == code)
+	{
+		player->m_pRoom->CheckGameStart();
+	}
+	return code;
+}
+
+int Game::ReqUserQuit(Player * player)
 {
 	m_mPlayers.erase(player->m_iClient.m_nfd);
 	if (ST_PLAYER_OFFLINE != player->m_nStatus)
@@ -41,6 +171,33 @@ int Game::UserQuit(Player * player)
 	delete player;
 	return 0;
 }
+
+
+int Game::ReqUpdatePwd(Player* player)
+{
+	return 0;
+}
+
+int Game::ReqGetInfo(Player* player)
+{
+	return 0;
+}
+
+int Game::ReqGetFriends(Player* player)
+{
+	return 0;
+}
+
+int Game::ReqAddFriends(Player* player)
+{
+	return 0;
+}
+
+int Game::ReqDeleteFriends(Player* player)
+{
+	return 0;
+}
+
 
 
 int Game::ReqSelectGameMode(Player * player)
@@ -228,7 +385,7 @@ int Game::ReqQuitRoom(Player * player)
 	qrprotobc.set_code(code);
 	PPacket* packet = new PPacket();
 	qrprotobc.SerializeToString(&packet->body);
-	packet->pack(PLAYER_ENTER_ROOM_BC);
+	packet->pack(PLAYER_QUIT_ROOM_BC);
 
 	if(0 == code)
 	{
@@ -237,8 +394,8 @@ int Game::ReqQuitRoom(Player * player)
 		if(1 == quit_ret)
 		{
 			m_mRooms.erase(room);
+			delete room->second;
 		}
-		delete room->second;
 	}
 	else
 	{
@@ -251,12 +408,108 @@ int Game::ReqQuitRoom(Player * player)
 
 int Game::ReqEnterRoomFast(Player * player)
 {
-	return 0;
+	if(NULL == player)
+	{
+		return -1;
+	}
+	int code = 0;
+	proto::game::ReqEnterRoomFast erf_proto;
+	proto::game::ReqEnterRoomBc erf_protobc;
+	Room* room = NULL;
+
+	if(!erf_proto.ParseFromString(player->GetProtoMsg()))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		for (std::map<int, Room *>::iterator room_it = m_mRooms.begin(); room_it != m_mRooms.end(); ++room_it)
+		{
+			if (room_it->second->m_nPlayerCnt < room_it->second->m_nMaxPlayerCnt)
+			{
+				room = room_it->second;
+				break;
+			}
+		}
+
+		if (NULL != room)
+		{
+			if (0 != room->EnterRoom(player))
+			{
+				code = 0x02;//enter room failed
+			}
+		}
+		else
+		{
+			code = 0x04;//not find the room
+		}
+	}
+
+	if(0 == code)
+	{
+		proto::game::Player* pplayer = erf_protobc.mutable_player();
+		proto::game::Room* proom = erf_protobc.mutable_room();
+		player->Get(pplayer);
+		room->Get(proom);
+	}
+
+	erf_protobc.set_code(code);
+	PPacket* packet = new PPacket();
+	erf_protobc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_ENTER_ROOM_BC);
+
+	if(0 == code)
+	{
+		room->Broadcast(packet);
+	}
+	else
+	{
+		std::shared_ptr<PPacket> sppacket(packet);
+		player->Send(sppacket);
+	}
+
+	return code;
 }
 
 int Game::ReqSearchRoom(Player * player)
 {
-	return 0;
+	if(NULL == player)
+	{
+		return -1;
+	}
+	int code = 0;
+	proto::game::ReqSearchRoom rsr_proto;
+	proto::game::ReqSearchRoomUc rsr_protouc;
+	std::map<int, Room*>::iterator room ;
+
+	if(!rsr_proto.ParseFromString(player->GetProtoMsg()))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		room = m_mRooms.find(rsr_proto.roomid());
+		if(m_mRooms.end() == room)
+		{
+			code = 0x02;//not find the room
+		}
+	}
+
+	if(0 == code)
+	{
+		proto::game::Room* proom = rsr_protouc.mutable_room();
+		room->second->Get(proom);
+	}
+
+	rsr_protouc.set_code(code);
+
+	std::shared_ptr<PPacket> packet(new PPacket());
+	rsr_protouc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_SEARCH_ROOM_UC);
+
+	player->Send(packet);
+
+	return code;
 }
 
 int Game::Broadcast(PPacket* pkt)
@@ -278,7 +531,7 @@ int Game::Unicast(Player * player, PPacket* pkt)
 
 const Player * Game::GetOLPlayer(int playerid)
 {
-	for (std::map<int, Player*>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); player++)
+	for (std::map<int, Player*>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); ++player)
 	{
 		if (playerid == player->second->m_nID)
 		{

@@ -34,9 +34,19 @@ public:
 public:
 	Game();
 	virtual ~Game();
+	
 	int StartUp();
-	int UserQuit(Player* player);
 	int GetNewRoomID();
+
+	int ReqRegist(Player* player);
+	int ReqLogin(Player* player);
+	int ReqUpdatePwd(Player* player);
+	int ReqGetInfo(Player* player);
+	int ReqGetFriends(Player* player);
+	int ReqAddFriends(Player* player);
+	int ReqDeleteFriends(Player* player);
+	int ReqReady(Player* player);
+	int ReqUserQuit(Player* player);
 
 	int ReqMatchRoom(Player* player);
 	int ReqSelectGameMode(Player* player);
@@ -46,6 +56,7 @@ public:
 	int	ReqQuitRoom(Player* player);
 	int ReqEnterRoomFast(Player* player);
 	int ReqSearchRoom(Player* player);
+
 	int DeleteRoom(Room* room);
 
 	int Broadcast(PPacket* pkt);

@@ -21,7 +21,7 @@ private:
 protected:
 
 public:
-	static const int MAX_RECV_BUF_SIZE = 1024;
+	static const int MAX_RECV_BUF_SIZE = 1024*4;
 	std::list<std::shared_ptr<PPacket>> m_lstWrite;
 
 	ev_io	m_ev_write;

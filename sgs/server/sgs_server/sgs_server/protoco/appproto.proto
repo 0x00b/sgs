@@ -116,9 +116,24 @@ message ReqCreateRoomUc
 	int32 code = 1;
 	Room room = 2;
 }
+message ReqSearchRoom
+{
+	int32 roomid = 1;
+}
+message ReqSearchRoomUc
+{
+	int32 code = 1;
+	Room room = 2;
+}
+
 message ReqEnterRoom
 {
 	int32 roomid = 1;
+}
+
+message ReqEnterRoomFast
+{
+
 }
 
 message ReqEnterRoomBc

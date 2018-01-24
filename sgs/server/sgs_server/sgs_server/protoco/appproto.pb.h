@@ -36,7 +36,7 @@ namespace protobuf_appproto_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[25];
+  static const ::google::protobuf::internal::ParseTable schema[28];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -78,8 +78,14 @@ void InitDefaultsReqCreateRoomImpl();
 void InitDefaultsReqCreateRoom();
 void InitDefaultsReqCreateRoomUcImpl();
 void InitDefaultsReqCreateRoomUc();
+void InitDefaultsReqSearchRoomImpl();
+void InitDefaultsReqSearchRoom();
+void InitDefaultsReqSearchRoomUcImpl();
+void InitDefaultsReqSearchRoomUc();
 void InitDefaultsReqEnterRoomImpl();
 void InitDefaultsReqEnterRoom();
+void InitDefaultsReqEnterRoomFastImpl();
+void InitDefaultsReqEnterRoomFast();
 void InitDefaultsReqEnterRoomBcImpl();
 void InitDefaultsReqEnterRoomBc();
 void InitDefaultsReqQuitRoomImpl();
@@ -111,7 +117,10 @@ inline void InitDefaults() {
   InitDefaultsRoom();
   InitDefaultsReqCreateRoom();
   InitDefaultsReqCreateRoomUc();
+  InitDefaultsReqSearchRoom();
+  InitDefaultsReqSearchRoomUc();
   InitDefaultsReqEnterRoom();
+  InitDefaultsReqEnterRoomFast();
   InitDefaultsReqEnterRoomBc();
   InitDefaultsReqQuitRoom();
   InitDefaultsReqQuitRoomBc();
@@ -152,6 +161,9 @@ extern ReqEnterRoomDefaultTypeInternal _ReqEnterRoom_default_instance_;
 class ReqEnterRoomBc;
 class ReqEnterRoomBcDefaultTypeInternal;
 extern ReqEnterRoomBcDefaultTypeInternal _ReqEnterRoomBc_default_instance_;
+class ReqEnterRoomFast;
+class ReqEnterRoomFastDefaultTypeInternal;
+extern ReqEnterRoomFastDefaultTypeInternal _ReqEnterRoomFast_default_instance_;
 class ReqGetFriends;
 class ReqGetFriendsDefaultTypeInternal;
 extern ReqGetFriendsDefaultTypeInternal _ReqGetFriends_default_instance_;
@@ -188,6 +200,12 @@ extern ReqRegistDefaultTypeInternal _ReqRegist_default_instance_;
 class ReqRegistUc;
 class ReqRegistUcDefaultTypeInternal;
 extern ReqRegistUcDefaultTypeInternal _ReqRegistUc_default_instance_;
+class ReqSearchRoom;
+class ReqSearchRoomDefaultTypeInternal;
+extern ReqSearchRoomDefaultTypeInternal _ReqSearchRoom_default_instance_;
+class ReqSearchRoomUc;
+class ReqSearchRoomUcDefaultTypeInternal;
+extern ReqSearchRoomUcDefaultTypeInternal _ReqSearchRoomUc_default_instance_;
 class ReqUpdatePwd;
 class ReqUpdatePwdDefaultTypeInternal;
 extern ReqUpdatePwdDefaultTypeInternal _ReqUpdatePwd_default_instance_;
@@ -211,6 +229,7 @@ template<> ::proto::game::ReqDeleteFriendUc* Arena::Create< ::proto::game::ReqDe
 template<> ::proto::game::ReqEmotionBC* Arena::Create< ::proto::game::ReqEmotionBC>(Arena*);
 template<> ::proto::game::ReqEnterRoom* Arena::Create< ::proto::game::ReqEnterRoom>(Arena*);
 template<> ::proto::game::ReqEnterRoomBc* Arena::Create< ::proto::game::ReqEnterRoomBc>(Arena*);
+template<> ::proto::game::ReqEnterRoomFast* Arena::Create< ::proto::game::ReqEnterRoomFast>(Arena*);
 template<> ::proto::game::ReqGetFriends* Arena::Create< ::proto::game::ReqGetFriends>(Arena*);
 template<> ::proto::game::ReqGetFriendsUc* Arena::Create< ::proto::game::ReqGetFriendsUc>(Arena*);
 template<> ::proto::game::ReqLogin* Arena::Create< ::proto::game::ReqLogin>(Arena*);
@@ -223,6 +242,8 @@ template<> ::proto::game::ReqReady* Arena::Create< ::proto::game::ReqReady>(Aren
 template<> ::proto::game::ReqReadyBc* Arena::Create< ::proto::game::ReqReadyBc>(Arena*);
 template<> ::proto::game::ReqRegist* Arena::Create< ::proto::game::ReqRegist>(Arena*);
 template<> ::proto::game::ReqRegistUc* Arena::Create< ::proto::game::ReqRegistUc>(Arena*);
+template<> ::proto::game::ReqSearchRoom* Arena::Create< ::proto::game::ReqSearchRoom>(Arena*);
+template<> ::proto::game::ReqSearchRoomUc* Arena::Create< ::proto::game::ReqSearchRoomUc>(Arena*);
 template<> ::proto::game::ReqUpdatePwd* Arena::Create< ::proto::game::ReqUpdatePwd>(Arena*);
 template<> ::proto::game::ReqUpdatePwdUc* Arena::Create< ::proto::game::ReqUpdatePwdUc>(Arena*);
 template<> ::proto::game::Room* Arena::Create< ::proto::game::Room>(Arena*);
@@ -2429,6 +2450,222 @@ class ReqCreateRoomUc : public ::google::protobuf::Message /* @@protoc_insertion
 };
 // -------------------------------------------------------------------
 
+class ReqSearchRoom : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.ReqSearchRoom) */ {
+ public:
+  ReqSearchRoom();
+  virtual ~ReqSearchRoom();
+
+  ReqSearchRoom(const ReqSearchRoom& from);
+
+  inline ReqSearchRoom& operator=(const ReqSearchRoom& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ReqSearchRoom(ReqSearchRoom&& from) noexcept
+    : ReqSearchRoom() {
+    *this = ::std::move(from);
+  }
+
+  inline ReqSearchRoom& operator=(ReqSearchRoom&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ReqSearchRoom& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ReqSearchRoom* internal_default_instance() {
+    return reinterpret_cast<const ReqSearchRoom*>(
+               &_ReqSearchRoom_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    18;
+
+  void Swap(ReqSearchRoom* other);
+  friend void swap(ReqSearchRoom& a, ReqSearchRoom& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReqSearchRoom* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqSearchRoom>(NULL);
+  }
+
+  ReqSearchRoom* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqSearchRoom>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ReqSearchRoom& from);
+  void MergeFrom(const ReqSearchRoom& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ReqSearchRoom* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int32 roomid = 1;
+  void clear_roomid();
+  static const int kRoomidFieldNumber = 1;
+  ::google::protobuf::int32 roomid() const;
+  void set_roomid(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:proto.game.ReqSearchRoom)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 roomid_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_appproto_2eproto::TableStruct;
+  friend void ::protobuf_appproto_2eproto::InitDefaultsReqSearchRoomImpl();
+};
+// -------------------------------------------------------------------
+
+class ReqSearchRoomUc : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.ReqSearchRoomUc) */ {
+ public:
+  ReqSearchRoomUc();
+  virtual ~ReqSearchRoomUc();
+
+  ReqSearchRoomUc(const ReqSearchRoomUc& from);
+
+  inline ReqSearchRoomUc& operator=(const ReqSearchRoomUc& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ReqSearchRoomUc(ReqSearchRoomUc&& from) noexcept
+    : ReqSearchRoomUc() {
+    *this = ::std::move(from);
+  }
+
+  inline ReqSearchRoomUc& operator=(ReqSearchRoomUc&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ReqSearchRoomUc& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ReqSearchRoomUc* internal_default_instance() {
+    return reinterpret_cast<const ReqSearchRoomUc*>(
+               &_ReqSearchRoomUc_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    19;
+
+  void Swap(ReqSearchRoomUc* other);
+  friend void swap(ReqSearchRoomUc& a, ReqSearchRoomUc& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReqSearchRoomUc* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqSearchRoomUc>(NULL);
+  }
+
+  ReqSearchRoomUc* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqSearchRoomUc>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ReqSearchRoomUc& from);
+  void MergeFrom(const ReqSearchRoomUc& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ReqSearchRoomUc* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .proto.game.Room room = 2;
+  bool has_room() const;
+  void clear_room();
+  static const int kRoomFieldNumber = 2;
+  const ::proto::game::Room& room() const;
+  ::proto::game::Room* release_room();
+  ::proto::game::Room* mutable_room();
+  void set_allocated_room(::proto::game::Room* room);
+
+  // int32 code = 1;
+  void clear_code();
+  static const int kCodeFieldNumber = 1;
+  ::google::protobuf::int32 code() const;
+  void set_code(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:proto.game.ReqSearchRoomUc)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::proto::game::Room* room_;
+  ::google::protobuf::int32 code_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_appproto_2eproto::TableStruct;
+  friend void ::protobuf_appproto_2eproto::InitDefaultsReqSearchRoomUcImpl();
+};
+// -------------------------------------------------------------------
+
 class ReqEnterRoom : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.ReqEnterRoom) */ {
  public:
   ReqEnterRoom();
@@ -2464,7 +2701,7 @@ class ReqEnterRoom : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_ReqEnterRoom_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    18;
+    20;
 
   void Swap(ReqEnterRoom* other);
   friend void swap(ReqEnterRoom& a, ReqEnterRoom& b) {
@@ -2532,6 +2769,102 @@ class ReqEnterRoom : public ::google::protobuf::Message /* @@protoc_insertion_po
 };
 // -------------------------------------------------------------------
 
+class ReqEnterRoomFast : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.ReqEnterRoomFast) */ {
+ public:
+  ReqEnterRoomFast();
+  virtual ~ReqEnterRoomFast();
+
+  ReqEnterRoomFast(const ReqEnterRoomFast& from);
+
+  inline ReqEnterRoomFast& operator=(const ReqEnterRoomFast& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ReqEnterRoomFast(ReqEnterRoomFast&& from) noexcept
+    : ReqEnterRoomFast() {
+    *this = ::std::move(from);
+  }
+
+  inline ReqEnterRoomFast& operator=(ReqEnterRoomFast&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ReqEnterRoomFast& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ReqEnterRoomFast* internal_default_instance() {
+    return reinterpret_cast<const ReqEnterRoomFast*>(
+               &_ReqEnterRoomFast_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    21;
+
+  void Swap(ReqEnterRoomFast* other);
+  friend void swap(ReqEnterRoomFast& a, ReqEnterRoomFast& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReqEnterRoomFast* New() const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqEnterRoomFast>(NULL);
+  }
+
+  ReqEnterRoomFast* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL {
+    return ::google::protobuf::Arena::Create<ReqEnterRoomFast>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const ReqEnterRoomFast& from);
+  void MergeFrom(const ReqEnterRoomFast& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(ReqEnterRoomFast* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:proto.game.ReqEnterRoomFast)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_appproto_2eproto::TableStruct;
+  friend void ::protobuf_appproto_2eproto::InitDefaultsReqEnterRoomFastImpl();
+};
+// -------------------------------------------------------------------
+
 class ReqEnterRoomBc : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:proto.game.ReqEnterRoomBc) */ {
  public:
   ReqEnterRoomBc();
@@ -2567,7 +2900,7 @@ class ReqEnterRoomBc : public ::google::protobuf::Message /* @@protoc_insertion_
                &_ReqEnterRoomBc_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    19;
+    22;
 
   void Swap(ReqEnterRoomBc* other);
   friend void swap(ReqEnterRoomBc& a, ReqEnterRoomBc& b) {
@@ -2690,7 +3023,7 @@ class ReqQuitRoom : public ::google::protobuf::Message /* @@protoc_insertion_poi
                &_ReqQuitRoom_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    20;
+    23;
 
   void Swap(ReqQuitRoom* other);
   friend void swap(ReqQuitRoom& a, ReqQuitRoom& b) {
@@ -2793,7 +3126,7 @@ class ReqQuitRoomBc : public ::google::protobuf::Message /* @@protoc_insertion_p
                &_ReqQuitRoomBc_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    21;
+    24;
 
   void Swap(ReqQuitRoomBc* other);
   friend void swap(ReqQuitRoomBc& a, ReqQuitRoomBc& b) {
@@ -2906,7 +3239,7 @@ class ReqReady : public ::google::protobuf::Message /* @@protoc_insertion_point(
                &_ReqReady_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    22;
+    25;
 
   void Swap(ReqReady* other);
   friend void swap(ReqReady& a, ReqReady& b) {
@@ -3009,7 +3342,7 @@ class ReqReadyBc : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_ReqReadyBc_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    23;
+    26;
 
   void Swap(ReqReadyBc* other);
   friend void swap(ReqReadyBc& a, ReqReadyBc& b) {
@@ -3122,7 +3455,7 @@ class ReqEmotionBC : public ::google::protobuf::Message /* @@protoc_insertion_po
                &_ReqEmotionBC_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    24;
+    27;
 
   void Swap(ReqEmotionBC* other);
   friend void swap(ReqEmotionBC& a, ReqEmotionBC& b) {
@@ -4829,6 +5162,93 @@ inline void ReqCreateRoomUc::set_allocated_room(::proto::game::Room* room) {
 
 // -------------------------------------------------------------------
 
+// ReqSearchRoom
+
+// int32 roomid = 1;
+inline void ReqSearchRoom::clear_roomid() {
+  roomid_ = 0;
+}
+inline ::google::protobuf::int32 ReqSearchRoom::roomid() const {
+  // @@protoc_insertion_point(field_get:proto.game.ReqSearchRoom.roomid)
+  return roomid_;
+}
+inline void ReqSearchRoom::set_roomid(::google::protobuf::int32 value) {
+  
+  roomid_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.ReqSearchRoom.roomid)
+}
+
+// -------------------------------------------------------------------
+
+// ReqSearchRoomUc
+
+// int32 code = 1;
+inline void ReqSearchRoomUc::clear_code() {
+  code_ = 0;
+}
+inline ::google::protobuf::int32 ReqSearchRoomUc::code() const {
+  // @@protoc_insertion_point(field_get:proto.game.ReqSearchRoomUc.code)
+  return code_;
+}
+inline void ReqSearchRoomUc::set_code(::google::protobuf::int32 value) {
+  
+  code_ = value;
+  // @@protoc_insertion_point(field_set:proto.game.ReqSearchRoomUc.code)
+}
+
+// .proto.game.Room room = 2;
+inline bool ReqSearchRoomUc::has_room() const {
+  return this != internal_default_instance() && room_ != NULL;
+}
+inline void ReqSearchRoomUc::clear_room() {
+  if (GetArenaNoVirtual() == NULL && room_ != NULL) {
+    delete room_;
+  }
+  room_ = NULL;
+}
+inline const ::proto::game::Room& ReqSearchRoomUc::room() const {
+  const ::proto::game::Room* p = room_;
+  // @@protoc_insertion_point(field_get:proto.game.ReqSearchRoomUc.room)
+  return p != NULL ? *p : *reinterpret_cast<const ::proto::game::Room*>(
+      &::proto::game::_Room_default_instance_);
+}
+inline ::proto::game::Room* ReqSearchRoomUc::release_room() {
+  // @@protoc_insertion_point(field_release:proto.game.ReqSearchRoomUc.room)
+  
+  ::proto::game::Room* temp = room_;
+  room_ = NULL;
+  return temp;
+}
+inline ::proto::game::Room* ReqSearchRoomUc::mutable_room() {
+  
+  if (room_ == NULL) {
+    room_ = ::google::protobuf::Arena::Create< ::proto::game::Room >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:proto.game.ReqSearchRoomUc.room)
+  return room_;
+}
+inline void ReqSearchRoomUc::set_allocated_room(::proto::game::Room* room) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete room_;
+  }
+  if (room) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      room = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, room, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  room_ = room;
+  // @@protoc_insertion_point(field_set_allocated:proto.game.ReqSearchRoomUc.room)
+}
+
+// -------------------------------------------------------------------
+
 // ReqEnterRoom
 
 // int32 roomid = 1;
@@ -4844,6 +5264,10 @@ inline void ReqEnterRoom::set_roomid(::google::protobuf::int32 value) {
   roomid_ = value;
   // @@protoc_insertion_point(field_set:proto.game.ReqEnterRoom.roomid)
 }
+
+// -------------------------------------------------------------------
+
+// ReqEnterRoomFast
 
 // -------------------------------------------------------------------
 
@@ -5174,6 +5598,12 @@ inline void ReqEmotionBC::set_type(::google::protobuf::int32 value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

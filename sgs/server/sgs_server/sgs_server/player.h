@@ -70,14 +70,6 @@ public:
 	virtual ~Player();
 	void Init();
 
-	int ReqRegist();
-	int ReqLogin();
-	int ReqUpdatePwd();
-	int ReqGetInfo();
-	int ReqGetFriends();
-	int ReqAddFriends();
-	int ReqDeleteFriends();
-	int ReqReady();
 	int GetInfoByID();
 	int Send(std::shared_ptr<PPacket>& pkt);
 
@@ -93,16 +85,18 @@ public:
 	static int BeforeDo(Player* self);
 	static int Do(Player* self);
 	static int AfterDo(Player* self);
-protected:
 
-private:
-	int CheckAccount();
-	int CheckPasswd();
 	int Regist();
 	int Login();
 	int GetFriends(std::list<std::shared_ptr<Player>>& list);
 	int AddFriends(int idfriend);
 	int DeleteFriends(int idfriend);
+	
+	int CheckAccount();
+	int CheckPasswd();
+protected:
+
+private:
 };
 
 #endif

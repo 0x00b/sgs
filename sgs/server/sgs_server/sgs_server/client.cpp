@@ -126,7 +126,7 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 	{
 		sgslog.warn(FFL_s, "fd closed!");
 		//destory
-		g_app.m_pGame->UserQuit(self->m_pPlayer);
+		g_app.m_pGame->ReqUserQuit(self->m_pPlayer);
 	}
 	else
 	{
@@ -134,7 +134,7 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 		{
 			sgslog.warn(FFL_s, strerror(errno));
 			//destory
-			g_app.m_pGame->UserQuit(self->m_pPlayer);
+			g_app.m_pGame->ReqUserQuit(self->m_pPlayer);
 		}
 	}
 	return;
@@ -157,7 +157,7 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 		}
 		/* todo close this client */
 		sgslog.error(FFL_s_d, "unknow err in written:\n", self->m_nfd);
-		g_app.m_pGame->UserQuit(self->m_pPlayer);
+		g_app.m_pGame->ReqUserQuit(self->m_pPlayer);
 		return;
 	}
 

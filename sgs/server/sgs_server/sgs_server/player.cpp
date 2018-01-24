@@ -135,16 +135,16 @@ int Player::Do(Player* self)
 		switch (self->m_iClient.m_iPacket.header.cmd)
 		{
 		case PLAYER_GET_FRIENDS:
-			nRet = self->ReqGetFriends();
+			nRet = g_app.m_pGame->ReqGetFriends(self);
 			break;
 		case PLAYER_DELETE_FRIENDS:
-			nRet = self->ReqDeleteFriends();
+			nRet = g_app.m_pGame->ReqDeleteFriends(self);
 			break;
 		case PLAYER_ADD_FRIENDS:
-			nRet = self->ReqAddFriends();
+			nRet = g_app.m_pGame->ReqAddFriends(self);
 			break;
 		case PLAYER_UPDATE_PWD:
-			nRet = self->ReqUpdatePwd();
+			nRet = g_app.m_pGame->ReqUpdatePwd(self);
 			break;
 		case PLAYER_MATCH_ROOM:
 			nRet = g_app.m_pGame->ReqMatchRoom(self);
@@ -162,7 +162,7 @@ int Player::Do(Player* self)
 			nRet = g_app.m_pGame->ReqSearchRoom(self);
 			break;
 		case PLAYER_READY:
-			nRet = self->ReqReady();
+			nRet = g_app.m_pGame->ReqReady(self);
 			break;
 		case PLAYER_SELECT_GAME_MODE:
 			nRet = g_app.m_pGame->ReqSelectGameMode(self);
@@ -174,13 +174,13 @@ int Player::Do(Player* self)
 			nRet = g_app.m_pGame->ReqCreateRoom(self);
 			break;
 		case PLAYER_REGIST:
-			nRet = self->ReqRegist();
+			nRet = g_app.m_pGame->ReqRegist(self);
 			break;
 		case PLAYER_LOGIN:
-			nRet = self->ReqLogin();
+			nRet = g_app.m_pGame->ReqLogin(self);
 			break;
 		case PLAYER_QUIT:
-			nRet = g_app.m_pGame->UserQuit(self);
+			nRet = g_app.m_pGame->ReqUserQuit(self);
 			break;
 		default:
 			break;
@@ -221,137 +221,6 @@ int Player::CheckPasswd()
 
 	return 0;
 }
-int Player::ReqRegist()
-{
-	int code = 0;
-	proto::game::ReqRegist rgst;
-	proto::game::ReqRegistUc rgstuc;
-	if (!rgst.ParseFromString(m_iClient.m_iPacket.body))
-	{
-		code = 0x01;
-	}
-	else
-	{
-		Set(rgst.player());
-
-		//check account
-		if (CheckAccount())
-		{
-			code = 0x02;
-		}
-
-		//check passwd
-		if (CheckPasswd())
-		{
-			code |= 0x004;
-		}
-		if (0 == code)
-		{
-			if (1 != Regist())
-			{
-				code = 0x08; //
-			}
-		}
-	}
-	sgslog.info(FFL_s_d,"regist code:",code);
-	rgstuc.set_code(code); //
-	/*if(0 == code)
-	{
-		Login();
-		Get(rgstuc.mutable_player());
-	}*/
-	std::shared_ptr<PPacket> packet(new PPacket());
-	rgstuc.SerializeToString(&packet->body);
-	packet->pack(PLAYER_REGIST_UC);
-
-	Send(packet);
-
-	return code;
-}
-
-int Player::ReqLogin()
-{
-	int code = 0;
-	proto::game::ReqLogin proto;
-	proto::game::ReqLoginUc protouc;
-	if (!proto.ParseFromString(m_iClient.m_iPacket.body))
-	{
-		code = 0x01;
-	}
-	else
-	{
-		m_stAccount = proto.account();
-		m_stPasswd = proto.pwd();
-
-		//check account
-		if (CheckAccount())
-		{
-			code = 0x02;
-		}
-
-		//check passwd
-		if (CheckPasswd())
-		{
-			code |= 0x004;
-		}
-		if (0 == code)
-		{
-			if (1 != Login())
-			{
-				code = 0x08; //
-			}
-		}
-	}
-	sgslog.info(FFL_s_d,"login code:",code);
-	protouc.set_code(code); //
-	if(0 == code)
-	{
-		UpdateState(ST_PLAYER_ONLINE);
-		Get(protouc.mutable_player());
-	}
-	std::shared_ptr<PPacket> packet(new PPacket());
-	protouc.SerializeToString(&packet->body);
-	packet->pack(PLAYER_REGIST_UC);
-
-	Send(packet);
-
-	return 0;
-}
-
-int Player::ReqReady()
-{
-	int code = 0;
-	proto::game::ReqReady proto;
-	proto::game::ReqReadyBc protouc;
-	if (!proto.ParseFromString(m_iClient.m_iPacket.body))
-	{
-		code = 0x01;
-	}
-	else
-	{
-		m_nGameStatus = ST_GM_PLAYER_READY;
-
-		m_pRoom->Ready(this);
-	}
-	protouc.set_code(code); //
-	if(0 == code)
-	{
-		Get(protouc.mutable_player());
-	}
-	PPacket* packet = (new PPacket());
-	protouc.SerializeToString(&packet->body);
-	packet->pack(PLAYER_READY_BC);
-
-	m_pRoom->Broadcast(packet);
-
-	//to check start
-
-	if(0 == code)
-	{
-		m_pRoom->CheckGameStart();
-	}
-	return code;
-}
 
 int Player::QuitRoom()
 {
@@ -366,31 +235,6 @@ int Player::EnterRoom(Room *room)
 	m_pRoom = room;
 	m_nGameStatus = ST_GM_PLAYER_NONE;
 
-	return 0;
-}
-
-int Player::ReqUpdatePwd()
-{
-	return 0;
-}
-
-int Player::ReqGetInfo()
-{
-	return 0;
-}
-
-int Player::ReqGetFriends()
-{
-	return 0;
-}
-
-int Player::ReqAddFriends()
-{
-	return 0;
-}
-
-int Player::ReqDeleteFriends()
-{
 	return 0;
 }
 

@@ -1,0 +1,2 @@
+#include "gameattr.h"
+
