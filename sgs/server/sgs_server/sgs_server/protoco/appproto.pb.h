@@ -2146,6 +2146,15 @@ class Room : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
+  // .proto.game.Player master = 9;
+  bool has_master() const;
+  void clear_master();
+  static const int kMasterFieldNumber = 9;
+  const ::proto::game::Player& master() const;
+  ::proto::game::Player* release_master();
+  ::proto::game::Player* mutable_master();
+  void set_allocated_master(::proto::game::Player* master);
+
   // int32 room_id = 1;
   void clear_room_id();
   static const int kRoomIdFieldNumber = 1;
@@ -2188,6 +2197,7 @@ class Room : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::proto::game::Player > players_;
   ::google::protobuf::internal::ArenaStringPtr name_;
+  ::proto::game::Player* master_;
   ::google::protobuf::int32 room_id_;
   ::google::protobuf::int32 type_;
   ::google::protobuf::int32 max_player_cnt_;
@@ -4640,6 +4650,57 @@ inline const ::google::protobuf::RepeatedPtrField< ::proto::game::Player >&
 Room::players() const {
   // @@protoc_insertion_point(field_list:proto.game.Room.players)
   return players_;
+}
+
+// .proto.game.Player master = 9;
+inline bool Room::has_master() const {
+  return this != internal_default_instance() && master_ != NULL;
+}
+inline void Room::clear_master() {
+  if (GetArenaNoVirtual() == NULL && master_ != NULL) {
+    delete master_;
+  }
+  master_ = NULL;
+}
+inline const ::proto::game::Player& Room::master() const {
+  const ::proto::game::Player* p = master_;
+  // @@protoc_insertion_point(field_get:proto.game.Room.master)
+  return p != NULL ? *p : *reinterpret_cast<const ::proto::game::Player*>(
+      &::proto::game::_Player_default_instance_);
+}
+inline ::proto::game::Player* Room::release_master() {
+  // @@protoc_insertion_point(field_release:proto.game.Room.master)
+  
+  ::proto::game::Player* temp = master_;
+  master_ = NULL;
+  return temp;
+}
+inline ::proto::game::Player* Room::mutable_master() {
+  
+  if (master_ == NULL) {
+    master_ = ::google::protobuf::Arena::Create< ::proto::game::Player >(
+        GetArenaNoVirtual());
+  }
+  // @@protoc_insertion_point(field_mutable:proto.game.Room.master)
+  return master_;
+}
+inline void Room::set_allocated_master(::proto::game::Player* master) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete master_;
+  }
+  if (master) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      master = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, master, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  master_ = master;
+  // @@protoc_insertion_point(field_set_allocated:proto.game.Room.master)
 }
 
 // -------------------------------------------------------------------

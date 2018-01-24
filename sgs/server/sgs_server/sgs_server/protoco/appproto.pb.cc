@@ -814,6 +814,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::Room, match_seat_way_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::Room, status_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::Room, players_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::Room, master_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::proto::game::ReqCreateRoom, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -892,15 +893,15 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 97, -1, sizeof(::proto::game::ReqDeleteFriend)},
   { 103, -1, sizeof(::proto::game::ReqDeleteFriendUc)},
   { 109, -1, sizeof(::proto::game::Room)},
-  { 122, -1, sizeof(::proto::game::ReqCreateRoom)},
-  { 128, -1, sizeof(::proto::game::ReqCreateRoomUc)},
-  { 135, -1, sizeof(::proto::game::ReqEnterRoom)},
-  { 141, -1, sizeof(::proto::game::ReqEnterRoomBc)},
-  { 149, -1, sizeof(::proto::game::ReqQuitRoom)},
-  { 155, -1, sizeof(::proto::game::ReqQuitRoomBc)},
-  { 162, -1, sizeof(::proto::game::ReqReady)},
-  { 168, -1, sizeof(::proto::game::ReqReadyBc)},
-  { 175, -1, sizeof(::proto::game::ReqEmotionBC)},
+  { 123, -1, sizeof(::proto::game::ReqCreateRoom)},
+  { 129, -1, sizeof(::proto::game::ReqCreateRoomUc)},
+  { 136, -1, sizeof(::proto::game::ReqEnterRoom)},
+  { 142, -1, sizeof(::proto::game::ReqEnterRoomBc)},
+  { 150, -1, sizeof(::proto::game::ReqQuitRoom)},
+  { 156, -1, sizeof(::proto::game::ReqQuitRoomBc)},
+  { 163, -1, sizeof(::proto::game::ReqReady)},
+  { 169, -1, sizeof(::proto::game::ReqReadyBc)},
+  { 176, -1, sizeof(::proto::game::ReqEmotionBC)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -976,27 +977,28 @@ void AddDescriptorsImpl() {
       "C\n\017ReqAddFriendsUc\022\014\n\004code\030\001 \001(\005\022\"\n\006frie"
       "nd\030\002 \001(\0132\022.proto.game.Player\"5\n\017ReqDelet"
       "eFriend\022\"\n\006friend\030\001 \001(\0132\022.proto.game.Pla"
-      "yer\"!\n\021ReqDeleteFriendUc\022\014\n\004code\030\002 \001(\005\"\254"
+      "yer\"!\n\021ReqDeleteFriendUc\022\014\n\004code\030\002 \001(\005\"\320"
       "\001\n\004Room\022\017\n\007room_id\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\014"
       "\n\004type\030\003 \001(\005\022\026\n\016max_player_cnt\030\004 \001(\005\022\022\n\n"
       "player_cnt\030\005 \001(\005\022\026\n\016match_seat_way\030\006 \001(\005"
       "\022\016\n\006status\030\007 \001(\005\022#\n\007players\030\010 \003(\0132\022.prot"
-      "o.game.Player\"/\n\rReqCreateRoom\022\036\n\004room\030\001"
-      " \001(\0132\020.proto.game.Room\"\?\n\017ReqCreateRoomU"
-      "c\022\014\n\004code\030\001 \001(\005\022\036\n\004room\030\002 \001(\0132\020.proto.ga"
-      "me.Room\"\036\n\014ReqEnterRoom\022\016\n\006roomid\030\001 \001(\005\""
-      "b\n\016ReqEnterRoomBc\022\014\n\004code\030\001 \001(\005\022\"\n\006playe"
-      "r\030\002 \001(\0132\022.proto.game.Player\022\036\n\004room\030\003 \001("
-      "\0132\020.proto.game.Room\"\035\n\013ReqQuitRoom\022\016\n\006ro"
-      "omid\030\001 \001(\005\"A\n\rReqQuitRoomBc\022\014\n\004code\030\001 \001("
-      "\005\022\"\n\006player\030\002 \001(\0132\022.proto.game.Player\"\032\n"
-      "\010ReqReady\022\016\n\006roomid\030\001 \001(\005\">\n\nReqReadyBc\022"
-      "\014\n\004code\030\001 \001(\005\022\"\n\006player\030\002 \001(\0132\022.proto.ga"
-      "me.Player\",\n\014ReqEmotionBC\022\016\n\006seatid\030\001 \001("
-      "\005\022\014\n\004type\030\002 \001(\005b\006proto3"
+      "o.game.Player\022\"\n\006master\030\t \001(\0132\022.proto.ga"
+      "me.Player\"/\n\rReqCreateRoom\022\036\n\004room\030\001 \001(\013"
+      "2\020.proto.game.Room\"\?\n\017ReqCreateRoomUc\022\014\n"
+      "\004code\030\001 \001(\005\022\036\n\004room\030\002 \001(\0132\020.proto.game.R"
+      "oom\"\036\n\014ReqEnterRoom\022\016\n\006roomid\030\001 \001(\005\"b\n\016R"
+      "eqEnterRoomBc\022\014\n\004code\030\001 \001(\005\022\"\n\006player\030\002 "
+      "\001(\0132\022.proto.game.Player\022\036\n\004room\030\003 \001(\0132\020."
+      "proto.game.Room\"\035\n\013ReqQuitRoom\022\016\n\006roomid"
+      "\030\001 \001(\005\"A\n\rReqQuitRoomBc\022\014\n\004code\030\001 \001(\005\022\"\n"
+      "\006player\030\002 \001(\0132\022.proto.game.Player\"\032\n\010Req"
+      "Ready\022\016\n\006roomid\030\001 \001(\005\">\n\nReqReadyBc\022\014\n\004c"
+      "ode\030\001 \001(\005\022\"\n\006player\030\002 \001(\0132\022.proto.game.P"
+      "layer\",\n\014ReqEmotionBC\022\016\n\006seatid\030\001 \001(\005\022\014\n"
+      "\004type\030\002 \001(\005b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1623);
+      descriptor, 1659);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "appproto.proto", &protobuf_RegisterTypes);
 }
@@ -5509,6 +5511,8 @@ void ReqDeleteFriendUc::InternalSwap(ReqDeleteFriendUc* other) {
 // ===================================================================
 
 void Room::InitAsDefaultInstance() {
+  ::proto::game::_Room_default_instance_._instance.get_mutable()->master_ = const_cast< ::proto::game::Player*>(
+      ::proto::game::Player::internal_default_instance());
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Room::kRoomIdFieldNumber;
@@ -5519,6 +5523,7 @@ const int Room::kPlayerCntFieldNumber;
 const int Room::kMatchSeatWayFieldNumber;
 const int Room::kStatusFieldNumber;
 const int Room::kPlayersFieldNumber;
+const int Room::kMasterFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Room::Room()
@@ -5539,6 +5544,11 @@ Room::Room(const Room& from)
   if (from.name().size() > 0) {
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
+  if (from.has_master()) {
+    master_ = new ::proto::game::Player(*from.master_);
+  } else {
+    master_ = NULL;
+  }
   ::memcpy(&room_id_, &from.room_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&status_) -
     reinterpret_cast<char*>(&room_id_)) + sizeof(status_));
@@ -5547,9 +5557,9 @@ Room::Room(const Room& from)
 
 void Room::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&room_id_, 0, static_cast<size_t>(
+  ::memset(&master_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&status_) -
-      reinterpret_cast<char*>(&room_id_)) + sizeof(status_));
+      reinterpret_cast<char*>(&master_)) + sizeof(status_));
   _cached_size_ = 0;
 }
 
@@ -5560,6 +5570,7 @@ Room::~Room() {
 
 void Room::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete master_;
 }
 
 void Room::SetCachedSize(int size) const {
@@ -5586,6 +5597,10 @@ void Room::Clear() {
 
   players_.Clear();
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && master_ != NULL) {
+    delete master_;
+  }
+  master_ = NULL;
   ::memset(&room_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&status_) -
       reinterpret_cast<char*>(&room_id_)) + sizeof(status_));
@@ -5714,6 +5729,18 @@ bool Room::MergePartialFromCodedStream(
         break;
       }
 
+      // .proto.game.Player master = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(74u /* 74 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+               input, mutable_master()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -5789,6 +5816,12 @@ void Room::SerializeWithCachedSizes(
       output);
   }
 
+  // .proto.game.Player master = 9;
+  if (this->has_master()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      9, *master_, output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -5852,6 +5885,13 @@ void Room::SerializeWithCachedSizes(
         8, this->players(static_cast<int>(i)), deterministic, target);
   }
 
+  // .proto.game.Player master = 9;
+  if (this->has_master()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        9, *master_, deterministic, target);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
@@ -5885,6 +5925,13 @@ size_t Room::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
+  }
+
+  // .proto.game.Player master = 9;
+  if (this->has_master()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSize(
+        *master_);
   }
 
   // int32 room_id = 1;
@@ -5963,6 +6010,9 @@ void Room::MergeFrom(const Room& from) {
 
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
+  if (from.has_master()) {
+    mutable_master()->::proto::game::Player::MergeFrom(from.master());
+  }
   if (from.room_id() != 0) {
     set_room_id(from.room_id());
   }
@@ -6009,6 +6059,7 @@ void Room::InternalSwap(Room* other) {
   using std::swap;
   CastToBase(&players_)->InternalSwap(CastToBase(&other->players_));
   name_.Swap(&other->name_);
+  swap(master_, other->master_);
   swap(room_id_, other->room_id_);
   swap(type_, other->type_);
   swap(max_player_cnt_, other->max_player_cnt_);

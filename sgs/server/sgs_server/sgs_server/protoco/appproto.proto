@@ -104,6 +104,7 @@ message Room
 	int32 match_seat_way = 6;			//random or by order to give seat number
 	int32 status = 7;					//room's status
 	repeated Player players = 8;	//players in the room
+	Player master = 9;				//room master
 }
 
 message ReqCreateRoom

@@ -1,6 +1,8 @@
 #include "room.h"
 #include "player.h"
 #include "ppacket.h"
+#include "app.h"
+#include "game.h"
 
 Room::Room(GameLogic* plogic, int roomid, ERoomType type, const std::string& name):
 	m_pGmLgic(plogic),
@@ -52,11 +54,23 @@ int Room::QuitRoom(Player *player)
 		m_lstPlayers.remove(player);
 		m_nPlayerCnt--;
 		player->QuitRoom();
+		
+		if (0 >= m_nPlayerCnt)
+		{
+			//all player quit
+			return 1;
+		}
+		else
+		{
+			if (player == m_pMaster) // mstart quit , need to select a new master
+			{
+				m_pMaster = m_lstPlayers.front(); //
+			}
+		}
 		return 0;
 	}
 	return -1;
 }
-
 
 void Room::Get(proto::game::Room *proom)
 {
@@ -72,9 +86,16 @@ void Room::Get(proto::game::Room *proom)
 	google::protobuf::RepeatedPtrField<proto::game::Player> *players =  proom->mutable_players();
 	for (std::list<Player *>::iterator it = m_lstPlayers.begin(); it != m_lstPlayers.end(); ++it)
 	{
-		proto::game::Player* player =players->Mutable(index);
-		(*it)->Get(player);
+		if (m_pMaster != *it)
+		{
+			proto::game::Player *player = players->Mutable(index++);
+			(*it)->Get(player);
+		}
 	}
+
+	proto::game::Player* master = proom->mutable_master();
+	m_pMaster->Get(master);
+
 }
 void Room::Set(const proto::game::Room &proom)
 {

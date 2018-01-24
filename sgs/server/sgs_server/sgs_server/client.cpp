@@ -97,18 +97,18 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 			int start = time(NULL);
 			do 
 			{
-				if (self->m_pPlayer->BeforeDo() < 0)
+				if (Player::BeforeDo(self->m_pPlayer) < 0)
 				{
 					sgslog.error(FFL_s, "before err!");
 					break;
 				}
-				if (self->m_pPlayer->Do() < 0)
+				if (Player::Do(self->m_pPlayer) < 0)
 				{
 					sgslog.error(FFL_s, "do err!");
 					break;
 				}
 
-				if (self->m_pPlayer->AfterDo() < 0)
+				if (Player::AfterDo(self->m_pPlayer) < 0)
 				{
 					sgslog.error(FFL_s, "after err!");
 					break;

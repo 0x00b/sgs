@@ -108,11 +108,11 @@ int Player::Send(std::shared_ptr<PPacket>& pkt)
 }
 
 
-int Player::BeforeDo()
+int Player::BeforeDo(Player* self)
 {
 	sgslog.info(FFLs);
 
-	if (m_iClient.m_iPacket.check())
+	if (self->m_iClient.m_iPacket.check())
 	{
 		return 0;
 	}
@@ -121,82 +121,82 @@ int Player::BeforeDo()
 	return -1;
 }
 
-int Player::Do()
+int Player::Do(Player* self)
 {
 	int nRet = 0;
-	if (m_iClient.m_iPacket.header.cmd > GAME_START && m_pRoom)
+	if (self->m_iClient.m_iPacket.header.cmd > GAME_START && self->m_pRoom)
 	{
 		/*do game logic*/
-		nRet = m_pRoom->Do(this);
+		nRet = self->m_pRoom->Do(self);
 	}
 	else
 	{
 		/*do*/
-		switch (m_iClient.m_iPacket.header.cmd)
+		switch (self->m_iClient.m_iPacket.header.cmd)
 		{
 		case PLAYER_GET_FRIENDS:
-			nRet = ReqGetFriends();
+			nRet = self->ReqGetFriends();
 			break;
 		case PLAYER_DELETE_FRIENDS:
-			nRet = ReqDeleteFriends();
+			nRet = self->ReqDeleteFriends();
 			break;
 		case PLAYER_ADD_FRIENDS:
-			nRet = ReqAddFriends();
+			nRet = self->ReqAddFriends();
 			break;
 		case PLAYER_UPDATE_PWD:
-			nRet = ReqUpdatePwd();
+			nRet = self->ReqUpdatePwd();
 			break;
 		case PLAYER_MATCH_ROOM:
-			nRet = g_app.m_pGame->ReqMatchRoom(this);
+			nRet = g_app.m_pGame->ReqMatchRoom(self);
 			break;
 		case PLAYER_MATCH_ROOM_FAST:
-			nRet = g_app.m_pGame->ReqEnterRoomFast(this);
+			nRet = g_app.m_pGame->ReqEnterRoomFast(self);
 			break;
 		case PLAYER_ENTER_ROOM:
-			nRet = g_app.m_pGame->ReqEnterRoom(this);
+			nRet = g_app.m_pGame->ReqEnterRoom(self);
 			break;
 		case PLAYER_QUIT_ROOM:
-			nRet = g_app.m_pGame->ReqQuitRoom(this);
+			nRet = g_app.m_pGame->ReqQuitRoom(self);
 			break;
 		case PLAYER_SEARCH_ROOM:
-			nRet = g_app.m_pGame->ReqSearchRoom(this);
+			nRet = g_app.m_pGame->ReqSearchRoom(self);
 			break;
 		case PLAYER_READY:
-			nRet = ReqReady();
+			nRet = self->ReqReady();
 			break;
 		case PLAYER_SELECT_GAME_MODE:
-			nRet = g_app.m_pGame->ReqSelectGameMode(this);
+			nRet = g_app.m_pGame->ReqSelectGameMode(self);
 			break;
 		case PLAYER_GET_GAME_MODE:
-			nRet = g_app.m_pGame->ReqGetGameMode(this);
+			nRet = g_app.m_pGame->ReqGetGameMode(self);
 			break;
 		case PLAYER_CREATE_ROOM:
-			nRet = g_app.m_pGame->ReqCreateRoom(this);
+			nRet = g_app.m_pGame->ReqCreateRoom(self);
 			break;
 		case PLAYER_REGIST:
-			nRet = ReqRegist();
+			nRet = self->ReqRegist();
 			break;
 		case PLAYER_LOGIN:
-			nRet = ReqLogin();
+			nRet = self->ReqLogin();
 			break;
 		case PLAYER_QUIT:
-			nRet = g_app.m_pGame->UserQuit(this);
+			nRet = g_app.m_pGame->UserQuit(self);
 			break;
 		default:
 			break;
 		}
 	}
-	sgslog.info(FFL_s_d_d, "cmd:", m_iClient.m_iPacket.header.cmd, nRet);
+	sgslog.info(FFL_s_d_d, "cmd:", self->m_iClient.m_iPacket.header.cmd, nRet);
 	return nRet;
 }
 
-int Player::AfterDo()
+int Player::AfterDo(Player* self)
 {
 	sgslog.info(FFLs);
 
-	m_iClient.m_iPacket.body.clear();
-	m_iClient.m_iPacket.m_nCurLen = 0;
-	m_iClient.m_iPacket.m_eStatus = STAT_HEADER;
+	self->m_iClient.m_iPacket.body.clear();
+	self->m_iClient.m_iPacket.m_nCurLen = 0;
+	self->m_iClient.m_iPacket.m_eStatus = STAT_HEADER;
 
 	return 0;
 }

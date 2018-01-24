@@ -42,6 +42,7 @@ int Game::UserQuit(Player * player)
 	return 0;
 }
 
+
 int Game::ReqSelectGameMode(Player * player)
 {
 	return 0;
@@ -119,6 +120,10 @@ int Game::ReqCreateRoom(Player * player)
 
 	return code;
 }
+int Game::DeleteRoom(Room *room)
+{
+	return 0;
+}
 
 int Game::ReqMatchRoom(Player * player)
 {
@@ -190,8 +195,10 @@ int Game::ReqQuitRoom(Player * player)
 	int code = 0;
 	proto::game::ReqQuitRoom qrproto;
 	proto::game::ReqQuitRoomBc qrprotobc;
-	std::map<int, Room*>::iterator room ;
 
+	std::map<int, Room*>::iterator room ;
+	int quit_ret = 0;
+	
 	if(!qrproto.ParseFromString(player->GetProtoMsg()))
 	{
 		code = 0x01;
@@ -201,7 +208,7 @@ int Game::ReqQuitRoom(Player * player)
 		room = m_mRooms.find(qrproto.roomid());
 		if(m_mRooms.end() != room)
 		{
-			if(0 != room->second->QuitRoom(player))
+			if(0 != (quit_ret = room->second->QuitRoom(player)))
 			{
 				code = 0x02;//enter room failed
 			}
@@ -226,6 +233,12 @@ int Game::ReqQuitRoom(Player * player)
 	if(0 == code)
 	{
 		room->second->Broadcast(packet);
+		//all quit room ,delete room 
+		if(1 == quit_ret)
+		{
+			m_mRooms.erase(room);
+		}
+		delete room->second;
 	}
 	else
 	{

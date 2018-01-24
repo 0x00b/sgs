@@ -46,6 +46,7 @@ public:
 	int	ReqQuitRoom(Player* player);
 	int ReqEnterRoomFast(Player* player);
 	int ReqSearchRoom(Player* player);
+	int DeleteRoom(Room* room);
 
 	int Broadcast(PPacket* pkt);
 	int Unicast(Player* player,PPacket* pkt);

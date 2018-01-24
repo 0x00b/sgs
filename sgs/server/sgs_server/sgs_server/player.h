@@ -90,9 +90,9 @@ public:
 	void Get(proto::game::Player* player);
 	int SeatID();
 
-	virtual int BeforeDo();
-	virtual int Do();
-	virtual int AfterDo();
+	static int BeforeDo(Player* self);
+	static int Do(Player* self);
+	static int AfterDo(Player* self);
 protected:
 
 private:
