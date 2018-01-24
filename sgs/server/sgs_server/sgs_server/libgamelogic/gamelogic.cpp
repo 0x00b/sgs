@@ -12,7 +12,7 @@ GameLogic::~GameLogic()
 void GameLogic::Init(Room *proom)
 {
     m_pRoom = proom; 
-    m_lstCards = Card::CardList();
+    m_lstCards = g_lstCards;
 }
 
 int GameLogic::Leave(Player *player)

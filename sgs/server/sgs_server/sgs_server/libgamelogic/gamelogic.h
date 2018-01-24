@@ -24,6 +24,7 @@ class GameLogic
 private:
 
 protected:
+	static std::list<std::shared_ptr<Card>> g_lstCards;
 	std::map<Player*, std::shared_ptr<GameAttr>> m_mPlayer;	//all player in the room, one player match a GameAttr
 	std::list<std::shared_ptr<Card>> m_lstCards;			//all card
 

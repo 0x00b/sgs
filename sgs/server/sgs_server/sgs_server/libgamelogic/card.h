@@ -18,7 +18,6 @@ class Card
   private:
 
   protected:
-    static std::list<std::shared_ptr<Card>> g_lstCards;
 
     int card_;        //value
     std::string name_; //desciption
@@ -37,8 +36,6 @@ class Card
     virtual int value() const = 0;
     virtual int color() const = 0;
     virtual int type() const;
-
-    static const std::list<std::shared_ptr<Card>> &CardList();
 
   protected:
   private:

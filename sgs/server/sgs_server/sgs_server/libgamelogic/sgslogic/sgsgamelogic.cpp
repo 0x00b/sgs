@@ -1,9 +1,13 @@
-#include "sgsgamelogic.h"
-#include "sgsgameattr.h"
 #include "../../include.h"
 #include "../../player.h"
 #include "../../main.h"
 #include "../../room.h"
+#include "sgsgamelogic.h"
+#include "sgsgameattr.h"
+#include "sgscard.h"
+
+
+extern const std::shared_ptr<Card> g_sgsCards[SGSCard::CARD_CNT];
 
 SGSGameLogic::SGSGameLogic()
 {
@@ -30,6 +34,14 @@ int SGSGameLogic::Do(Player* player)
 int SGSGameLogic::GameStart()
 {
     return 0;
+}
+void SGSGameLogic::InitCards()
+{
+	g_lstCards.clear();
+	for (int i = 0; i < SGSCard::CARD_CNT; ++i)
+	{
+		g_lstCards.push_back(g_sgsCards[i]);
+	}
 }
 
 int SGSGameLogic::Enter(Player *player)

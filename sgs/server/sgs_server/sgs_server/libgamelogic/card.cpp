@@ -1,7 +1,5 @@
 #include "card.h"
 
-std::list<std::shared_ptr<Card>> Card::g_lstCards;
-
 Card::Card(int card, const std::string name, const std::string desc) : 
   card_(card),
   name_(name),
@@ -32,9 +30,4 @@ const int &Card::card() const
 int Card::type() const
 {
   return 0;
-}
-
-const std::list<std::shared_ptr<Card>> &Card::CardList()
-{
-  return g_lstCards;
 }
