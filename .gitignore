@@ -42,3 +42,5 @@
 *.bak
 .vscode
 *.pid
+/sgs/server/sgs_server/sgs_server/ClassDiagram1.cd
+/sgs/server/sgs_server/sgs_server/ClassDiagram.cd

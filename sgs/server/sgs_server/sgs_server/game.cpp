@@ -91,6 +91,7 @@ int Game::ReqCreateRoom(Player * player)
 				plogic->Init(room);
 				m_mRooms[roomid] = room;
 				player->m_pRoom = room;
+				room->m_pMaster = player;
 				room->EnterRoom(player);
 
 				proto::game::Room* proom = crprotouc.mutable_room();

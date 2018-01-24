@@ -29,10 +29,10 @@ protected:
 
 public:
 	GameLogic* m_pGmLgic;
+	Player* m_pMaster;	//room master
 
 	std::list<Player*> m_lstPlayers;//players in the room
 	std::string	m_stName;			//room's name
-
 	ERoomType m_eType;				//room type
 
 	int m_nRoomID;
