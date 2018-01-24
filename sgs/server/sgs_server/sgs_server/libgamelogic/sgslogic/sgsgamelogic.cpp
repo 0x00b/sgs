@@ -1,16 +1,16 @@
 #include "sgsgamelogic.h"
-#include "../player.h"
-#include "../main.h"
+#include "../../player.h"
+#include "../../main.h"
 
-SGSGame::SGSGame()
+SGSGameLogic::SGSGameLogic()
 {
 
 }
-SGSGame::~SGSGame()
+SGSGameLogic::~SGSGameLogic()
 {
 }
 
-int SGSGame::Do(Player* player)
+int SGSGameLogic::Do(Player* player)
 {
     if (NULL != player)
     {
@@ -24,7 +24,7 @@ int SGSGame::Do(Player* player)
     }
     return 0;
 }
-int SGSGame::GameStart()
+int SGSGameLogic::GameStart()
 {
     return 0;
 }

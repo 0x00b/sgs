@@ -8,26 +8,27 @@ Description : GameAttr
 #ifndef _SGS_GAMEATTR_H_
 #define _SGS_GAMEATTR_H_
 
+#include <list>
+#include <memory>
+
+class Card;
 
 class GameAttr
 {
-	/*varibles*/
+  /*varibles*/
 private:
-
 protected:
-
 public:
-	int m_nSeatId;
+  int m_nSeatId;
+  std::list<std::shared_ptr<Card>> m_lstPlayerCards; //all card
 
-	/*functions*/
+  /*functions*/
 public:
   GameAttr();
   virtual ~GameAttr();
 
 protected:
-
 private:
-
 };
 
 #endif

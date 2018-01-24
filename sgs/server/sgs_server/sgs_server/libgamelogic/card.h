@@ -8,25 +8,40 @@ Description : Card
 #ifndef _SGS_CARD_H_
 #define _SGS_CARD_H_
 
+#include <string>
+#include <memory>
+#include <list>
 
 class Card
 {
-	/*varibles*/
-private:
+    /*varibles*/
+  private:
 
-protected:
+  protected:
+    static std::list<std::shared_ptr<Card>> g_lstCards;
 
-public:
+    int card_;        //value
+    std::string name_; //desciption
+    std::string desc_; //desciption
+    
+  public:
+    /*functions*/
+  public:
+    Card(int card, const std::string name = (""), const std::string desc = (""));
+    virtual ~Card();
 
-	/*functions*/
-public:
-  Card();
-  virtual ~Card();
+    virtual const int &card() const;
+    virtual const std::string &desc() const;
+    virtual const std::string &name() const;
 
-protected:
+    virtual int value() const = 0;
+    virtual int color() const = 0;
+    virtual int type() const;
 
-private:
+    static const std::list<std::shared_ptr<Card>> &CardList();
 
+  protected:
+  private:
 };
 
 #endif

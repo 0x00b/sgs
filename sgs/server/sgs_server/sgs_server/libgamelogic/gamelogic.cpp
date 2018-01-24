@@ -12,6 +12,7 @@ GameLogic::~GameLogic()
 void GameLogic::Init(Room *proom)
 {
     m_pRoom = proom; 
+    m_lstCards = Card::CardList();
 }
 
 int GameLogic::Enter(Player *player)

@@ -82,10 +82,6 @@ public:
 	void Get(proto::game::Player* player);
 	int SeatID();
 
-	static int BeforeDo(Player* self);
-	static int Do(Player* self);
-	static int AfterDo(Player* self);
-
 	int Regist();
 	int Login();
 	int GetFriends(std::list<std::shared_ptr<Player>>& list);

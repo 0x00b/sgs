@@ -63,6 +63,12 @@ public:
 	int Unicast(Player* player,PPacket* pkt);
 
 	const Player* GetOLPlayer(int playerid);
+
+
+	virtual int BeforeDo(Player* self);
+	virtual int Do(Player* self);
+	virtual int AfterDo(Player* self);
+
 protected:
 	
 private:

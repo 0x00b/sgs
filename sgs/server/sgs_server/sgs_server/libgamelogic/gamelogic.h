@@ -10,6 +10,9 @@ Description : GameLogic
 
 #include <map>
 #include <memory>
+#include <list>
+
+#include "card.h"
 
 class Player;
 class Room;
@@ -19,8 +22,11 @@ class GameLogic
 {
 	/*varibles*/
 private:
-	std::map<Player*, std::shared_ptr<GameAttr>> m_mPlayer;
-	Room* m_pRoom;
+	std::map<Player*, std::shared_ptr<GameAttr>> m_mPlayer;	//all player in the room, one player match a GameAttr
+	std::list<std::shared_ptr<Card>> m_lstCards;			//all card
+
+	Room* m_pRoom;	//this logic belongs to the room
+
 protected:
 
 public:

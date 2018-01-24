@@ -3,7 +3,7 @@
 #include "app.h"
 #include "ppacket.h"
 #include "room.h"
-#include "libgamelogic/sgsgamelogic.h"
+#include "libgamelogic/sgslogic/sgsgamelogic.h"
 #include "protoco/appproto.pb.h"
 #include "main.h"
 
@@ -239,7 +239,7 @@ int Game::ReqCreateRoom(Player * player)
 	}
 	else
 	{
-		GameLogic *plogic = new (std::nothrow) SGSGame();
+		GameLogic *plogic = new (std::nothrow) SGSGameLogic();
 		if (NULL != plogic)
 		{
 			int roomid = GetNewRoomID();
@@ -618,4 +618,97 @@ void Game::Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents)
 		close(fd);
 	}
 	return;
+}
+
+int Game::BeforeDo(Player* self)
+{
+	sgslog.info(FFLs);
+
+	if (self->m_iClient.m_iPacket.check())
+	{
+		return 0;
+	}
+	//check state
+
+	return -1;
+}
+
+int Game::Do(Player* self)
+{
+	int nRet = 0;
+	if (self->m_iClient.m_iPacket.header.cmd > GAME_START && self->m_pRoom)
+	{
+		/*do game logic*/
+		nRet = self->m_pRoom->Do(self);
+	}
+	else
+	{
+		/*do*/
+		switch (self->m_iClient.m_iPacket.header.cmd)
+		{
+		case PLAYER_GET_FRIENDS:
+			nRet = ReqGetFriends(self);
+			break;
+		case PLAYER_DELETE_FRIENDS:
+			nRet = ReqDeleteFriends(self);
+			break;
+		case PLAYER_ADD_FRIENDS:
+			nRet = ReqAddFriends(self);
+			break;
+		case PLAYER_UPDATE_PWD:
+			nRet = ReqUpdatePwd(self);
+			break;
+		case PLAYER_MATCH_ROOM:
+			nRet = ReqMatchRoom(self);
+			break;
+		case PLAYER_MATCH_ROOM_FAST:
+			nRet = ReqEnterRoomFast(self);
+			break;
+		case PLAYER_ENTER_ROOM:
+			nRet = ReqEnterRoom(self);
+			break;
+		case PLAYER_QUIT_ROOM:
+			nRet = ReqQuitRoom(self);
+			break;
+		case PLAYER_SEARCH_ROOM:
+			nRet = ReqSearchRoom(self);
+			break;
+		case PLAYER_READY:
+			nRet = ReqReady(self);
+			break;
+		case PLAYER_SELECT_GAME_MODE:
+			nRet = ReqSelectGameMode(self);
+			break;
+		case PLAYER_GET_GAME_MODE:
+			nRet = ReqGetGameMode(self);
+			break;
+		case PLAYER_CREATE_ROOM:
+			nRet = ReqCreateRoom(self);
+			break;
+		case PLAYER_REGIST:
+			nRet = ReqRegist(self);
+			break;
+		case PLAYER_LOGIN:
+			nRet = ReqLogin(self);
+			break;
+		case PLAYER_QUIT:
+			nRet = ReqUserQuit(self);
+			break;
+		default:
+			break;
+		}
+	}
+	sgslog.info(FFL_s_d_d, "cmd:", self->m_iClient.m_iPacket.header.cmd, nRet);
+	return nRet;
+}
+
+int Game::AfterDo(Player* self)
+{
+	sgslog.info(FFLs);
+
+	self->m_iClient.m_iPacket.body.clear();
+	self->m_iClient.m_iPacket.m_nCurLen = 0;
+	self->m_iClient.m_iPacket.m_eStatus = STAT_HEADER;
+
+	return 0;
 }
