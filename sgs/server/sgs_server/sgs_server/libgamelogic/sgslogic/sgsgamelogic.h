@@ -3,20 +3,17 @@
 
 #include "../gamelogic.h"
 
-class SGSGameLogic:public GameLogic
+class SGSGameLogic : public GameLogic
 {
-public:
-
-public:
-    SGSGameLogic();
-    virtual ~SGSGameLogic();
-
-	virtual int Do(Player* player);
-    
+  public:
+  public:
+	SGSGameLogic();
+	virtual ~SGSGameLogic();
+	virtual int Do(Player *player);
 	virtual int GameStart();
-    
-private:
+	virtual int Enter(Player *player);
 
+  private:
 };
 
 #endif

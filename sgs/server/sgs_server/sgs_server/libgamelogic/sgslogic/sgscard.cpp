@@ -1,9 +1,8 @@
+#include "../card.h"
 #include "sgscard.h"
 
 
-
-
-static const short g_cbCards[108] = {
+static const int g_cbCards[108] = {
 //  A      2      3      4      5      6      7      8      9      10     J      Q		K      --
 	0x101, 0x102, 0x103, 0x104, 0x105, 0x106, 0x107, 0x108, 0x109, 0x10A, 0x10B, 0x10C, 0x10D, // A2--K
 	0x111, 0x112, 0x113, 0x114, 0x115, 0x116, 0x117, 0x118, 0x119, 0x11A, 0x11B, 0x11C, 0x11D, // A2--K
@@ -17,7 +16,7 @@ static const short g_cbCards[108] = {
 	0x30C, 0x32C,																			   //ex
 };
 
-//SGSCard::InitCards();
+
 
 SGSCard::SGSCard(int card, const std::string name, const std::string desc) : Card(card, name, desc)
 {
@@ -28,7 +27,7 @@ SGSCard::~SGSCard()
 
 void SGSCard::InitCards()
 {
-    g_lstCards;
+    //g_lstCards;
 }
 
 int SGSCard::value() const

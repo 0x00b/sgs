@@ -8,7 +8,7 @@ Description : SGSCard
 #ifndef _SGS_SGS_CARD_H_
 #define _SGS_SGS_CARD_H_
 
-#include "../card.h"
+class Card;
 
 class SGSCard: private Card
 {

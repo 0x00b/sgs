@@ -4,14 +4,14 @@
 #include "app.h"
 #include "game.h"
 
-Room::Room(GameLogic* plogic, int roomid, ERoomType type, const std::string& name):
+Room::Room(GameLogic* plogic, int roomid, ERoomType type, const std::string& name, EMatchSeatWay eway):
 	m_pGmLgic(plogic),
 	m_stName(name),
 	m_eType(type),
 	m_nRoomID(roomid),
 	m_nMaxPlayerCnt(type),
 	m_nPlayerCnt(0),
-	m_nMatchSeatWay(),
+	m_nMatchSeatWay(eway),
 	m_nStatus(0)
 {
 	m_lstPlayers.clear();
@@ -101,6 +101,7 @@ void Room::Set(const proto::game::Room &proom)
 {
 	m_stName = proom.name();				//room's name
 	m_eType = (ERoomType)proom.type();		//room type
+	m_nMatchSeatWay = proom.match_seat_way();
 }
 
 int Room::Broadcast(PPacket* pkt)

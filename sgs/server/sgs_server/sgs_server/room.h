@@ -21,6 +21,12 @@ enum ERoomType
 	ROOM_TYPE_8 = 8,
 };
 
+enum EMatchSeatWay
+{
+	MATCH_SEAT_ORDER = 1,
+	MATCH_SEAT_RAND = 2
+};
+
 class Room
 {
 	//variables
@@ -43,7 +49,7 @@ public:
 
 	//functions
 public:
-	Room(GameLogic* plogic, int roomid,ERoomType type, const std::string& name);
+	Room(GameLogic* plogic, int roomid,ERoomType type, const std::string& name, EMatchSeatWay eway);
 	virtual ~Room();
 
 	int EnterRoom(Player* player);

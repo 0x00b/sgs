@@ -243,7 +243,8 @@ int Game::ReqCreateRoom(Player * player)
 		if (NULL != plogic)
 		{
 			int roomid = GetNewRoomID();
-			Room *room = new (std::nothrow) Room(plogic,roomid, (ERoomType)crproto.room().type(),crproto.room().name());
+			Room *room = new (std::nothrow) Room(plogic,roomid, (ERoomType)crproto.room().type(),
+				crproto.room().name(), (EMatchSeatWay)crproto.room().match_seat_way()); 
 			if (NULL != room)
 			{
 				plogic->Init(room);
