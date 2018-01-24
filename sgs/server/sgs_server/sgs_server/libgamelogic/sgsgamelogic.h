@@ -23,9 +23,11 @@ public:
 
 public:
     SGSGame();
-    ~SGSGame();
+    virtual ~SGSGame();
 
 	virtual int Do(Player* player);
+    
+	virtual int GameStart();
     
 private:
 

@@ -21,6 +21,13 @@ enum EPlayerStatus
 	ST_PLAYER_BUSY,
 };
 
+enum EPlayerGmStatus
+{
+	ST_GM_PLAYER_NONE = 0,
+	ST_GM_PLAYER_READY,
+	ST_GM_PLAYER_PLAYING,
+};
+
 /*
 */
 class Player
@@ -70,12 +77,18 @@ public:
 	int ReqGetFriends();
 	int ReqAddFriends();
 	int ReqDeleteFriends();
+	int ReqReady();
 	int GetInfoByID();
 	int Send(std::shared_ptr<PPacket>& pkt);
 
 	int UpdateState(EPlayerStatus status);
-	
+	int EnterRoom(Room* room);
+	int QuitRoom();
+
 	std::string& GetProtoMsg();
+	void Set(const proto::game::Player& player);
+	void Get(proto::game::Player* player);
+	int SeatID();
 
 	virtual int BeforeDo();
 	virtual int Do();
@@ -83,8 +96,6 @@ public:
 protected:
 
 private:
-	void Set(const proto::game::Player& player);
-	void Get(proto::game::Player* player);
 	int CheckAccount();
 	int CheckPasswd();
 	int Regist();

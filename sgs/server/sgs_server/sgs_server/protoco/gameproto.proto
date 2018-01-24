@@ -9,49 +9,8 @@ enum Code
 	CODE_NULL = 0; //无
 }
 
-message tagCards
+message Cards
 {
 	repeated int32 card_list = 1;			//牌列表
 }
 
-//上桌成功
-message  AckUpTableSuccess
-{
-    int32 uid = 1;
-	int32 seatid = 2;
-	int32 ready = 3;
-	string name = 4;
-	int32 sex = 5;
-	string avatar = 6;
-	int32 money = 7;
-	int32 exp = 8;
-}
-//上桌失败
-message AckUpTableErrorUc
-{
-    int32 uid = 1;
-	int32 money = 2;
-	int32 code = 3;
-}
-
-//游戏过程中选择下桌返回
-message AckAheadDownTable
-{
-    int32 uid = 1;
-	int32 seatid = 2;
-	int32 down_tag = 3; //1：游戏结束自动下桌
-}
-
-//下桌成功返回
-message AckDownTableSuccess
-{
-    int32 uid = 1;
-	int32 seatid = 2;
-	int32 money = 3;
-}
-
-//广播下一局开赛
-message AckPrereadyBC
-{
-   string roomid = 1; //房间号
-}

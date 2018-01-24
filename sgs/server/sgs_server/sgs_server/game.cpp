@@ -30,19 +30,6 @@ int Game::StartUp()
 	return -1;
 }
 
-int Game::GetNewRoomID()
-{
-	srand((unsigned int)time(NULL));
-
-	int id = (rand() % (ROOM_ID_END - ROOM_ID_START)) + ROOM_ID_START;
-
-	while (m_mRooms.find(id) != m_mRooms.end())
-	{
-		id = ((id + 100) % (ROOM_ID_END - ROOM_ID_START)) + ROOM_ID_START;
-	}
-	
-	return id;
-}
 
 int Game::UserQuit(Player * player)
 {
@@ -52,11 +39,6 @@ int Game::UserQuit(Player * player)
 		player->UpdateState(ST_PLAYER_OFFLINE);
 	}
 	delete player;
-	return 0;
-}
-
-int Game::ReqMatchRoom(Player * player)
-{
 	return 0;
 }
 
@@ -70,6 +52,19 @@ int Game::ReqGetGameMode(Player * player)
 	return 0;
 }
 
+int Game::GetNewRoomID()
+{
+	srand((unsigned int)time(NULL));
+
+	int id = (rand() % (ROOM_ID_END - ROOM_ID_START)) + ROOM_ID_START;
+
+	while (m_mRooms.find(id) != m_mRooms.end())
+	{
+		id = ((id + 100) % (ROOM_ID_END - ROOM_ID_START)) + ROOM_ID_START;
+	}
+	
+	return id;
+}
 int Game::ReqCreateRoom(Player * player)
 {
 	if(NULL == player)
@@ -89,31 +84,31 @@ int Game::ReqCreateRoom(Player * player)
 		GameLogic *plogic = new (std::nothrow) SGSGame();
 		if (NULL != plogic)
 		{
-			Room *room = new (std::nothrow) Room(plogic);
+			int roomid = GetNewRoomID();
+			Room *room = new (std::nothrow) Room(plogic,roomid, (ERoomType)crproto.room().type(),crproto.room().name());
 			if (NULL != room)
 			{
-				int roomid = GetNewRoomID();
+				plogic->Init(room);
 				m_mRooms[roomid] = room;
 				player->m_pRoom = room;
 				room->EnterRoom(player);
+
+				proto::game::Room* proom = crprotouc.mutable_room();
+				room->Get(proom);
+
 			}
 			else
 			{
-				delete plogic;
+				delete plogic;//new err
 				code = 0x02;
 			}
 		}
 		else
 		{
-			code = 0x04;
+			code = 0x04;//new err
 		}
 	}
-	
-	if(0 == code)
-	{
 
-	}
-	
 	crprotouc.set_code(code);
 	std::shared_ptr<PPacket> packet(new PPacket());
 	crprotouc.SerializeToString(&packet->body);
@@ -124,13 +119,120 @@ int Game::ReqCreateRoom(Player * player)
 	return code;
 }
 
-int Game::ReqEnterRoom(Player * player)
+int Game::ReqMatchRoom(Player * player)
 {
 	return 0;
 }
+
+int Game::ReqEnterRoom(Player * player)
+{
+	if(NULL == player)
+	{
+		return -1;
+	}
+	int code = 0;
+	proto::game::ReqEnterRoom erproto;
+	proto::game::ReqEnterRoomBc erprotobc;
+	std::map<int, Room*>::iterator room ;
+
+	if(!erproto.ParseFromString(player->GetProtoMsg()))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		room = m_mRooms.find(erproto.roomid());
+		if(m_mRooms.end() != room)
+		{
+			if(0 != room->second->EnterRoom(player))
+			{
+				code = 0x02;//enter room failed
+			}
+		}
+		else
+		{
+			code = 0x04;//not find the room
+		}
+	}
+
+	if(0 == code)
+	{
+		proto::game::Player* pplayer = erprotobc.mutable_player();
+		proto::game::Room* proom = erprotobc.mutable_room();
+		player->Get(pplayer);
+		room->second->Get(proom);
+	}
+
+	erprotobc.set_code(code);
+	PPacket* packet = new PPacket();
+	erprotobc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_ENTER_ROOM_BC);
+
+	if(0 == code)
+	{
+		room->second->Broadcast(packet);
+	}
+	else
+	{
+		std::shared_ptr<PPacket> sppacket(packet);
+		player->Send(sppacket);
+	}
+
+	return code;
+}
 int Game::ReqQuitRoom(Player * player)
 {
-	return 0;
+	if(NULL == player)
+	{
+		return -1;
+	}
+	int code = 0;
+	proto::game::ReqQuitRoom qrproto;
+	proto::game::ReqQuitRoomBc qrprotobc;
+	std::map<int, Room*>::iterator room ;
+
+	if(!qrproto.ParseFromString(player->GetProtoMsg()))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		room = m_mRooms.find(qrproto.roomid());
+		if(m_mRooms.end() != room)
+		{
+			if(0 != room->second->QuitRoom(player))
+			{
+				code = 0x02;//enter room failed
+			}
+		}
+		else
+		{
+			code = 0x04;//not find the room
+		}
+	}
+
+	if(0 == code)
+	{
+		proto::game::Player* pplayer = qrprotobc.mutable_player();
+		player->Get(pplayer);
+	}
+
+	qrprotobc.set_code(code);
+	PPacket* packet = new PPacket();
+	qrprotobc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_ENTER_ROOM_BC);
+
+	if(0 == code)
+	{
+		room->second->Broadcast(packet);
+	}
+	else
+	{
+		std::shared_ptr<PPacket> sppacket(packet);
+		player->Send(sppacket);
+	}
+
+	return code;
 }
 
 int Game::ReqEnterRoomFast(Player * player)

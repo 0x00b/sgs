@@ -21,6 +21,10 @@ Player::Player(int fd, std::string stIP):m_iClient(this)
 
 Player::~Player()
 {
+	if (m_nID >= 0)
+	{
+		UpdateState(ST_PLAYER_OFFLINE);
+	}
 }
 
 void Player::Init()
@@ -34,14 +38,14 @@ void Player::Init()
 	m_stRegistDate.clear();			//
 	m_stRemark.clear();				//
 										//ints
-	m_nID = 0;
+	m_nID = -1;
 	m_nExp = 0;							//experience
 								//
 	m_sLevel = 0;						//level
 								//
 	m_chSex = 0;						//sex
-	m_nStatus = 0;						//player's status
-	m_nGameStatus = 0;					//player's gaming status
+	m_nStatus = ST_PLAYER_ONLINE;						//player's status
+	m_nGameStatus = ST_GM_PLAYER_NONE;					//player's gaming status
 }
 void Player::Set(const proto::game::Player &player)
 {
@@ -66,7 +70,17 @@ void Player::Get(proto::game::Player* player)
 	player->set_sex(m_chSex);	
 	player->set_level(m_sLevel);	
 	player->set_exp(m_nExp);	
+	player->set_seatid(SeatID());
 	
+}
+
+int Player::SeatID()
+{
+	if (NULL != m_pRoom)
+	{
+		return m_pRoom->m_pGmLgic->GetSeatID(this);
+	}
+	return -1;
 }
 
 std::string &Player::GetProtoMsg()
@@ -102,6 +116,8 @@ int Player::BeforeDo()
 	{
 		return 0;
 	}
+	//check state
+
 	return -1;
 }
 
@@ -146,7 +162,7 @@ int Player::Do()
 			nRet = g_app.m_pGame->ReqSearchRoom(this);
 			break;
 		case PLAYER_READY:
-			nRet = m_pRoom->Ready(this);
+			nRet = ReqReady();
 			break;
 		case PLAYER_SELECT_GAME_MODE:
 			nRet = g_app.m_pGame->ReqSelectGameMode(this);
@@ -184,7 +200,6 @@ int Player::AfterDo()
 
 	return 0;
 }
-
 
 int Player::CheckAccount()
 {
@@ -299,6 +314,57 @@ int Player::ReqLogin()
 	packet->pack(PLAYER_REGIST_UC);
 
 	Send(packet);
+
+	return 0;
+}
+
+int Player::ReqReady()
+{
+	int code = 0;
+	proto::game::ReqReady proto;
+	proto::game::ReqReadyBc protouc;
+	if (!proto.ParseFromString(m_iClient.m_iPacket.body))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		m_nGameStatus = ST_GM_PLAYER_READY;
+
+		m_pRoom->Ready(this);
+	}
+	protouc.set_code(code); //
+	if(0 == code)
+	{
+		Get(protouc.mutable_player());
+	}
+	PPacket* packet = (new PPacket());
+	protouc.SerializeToString(&packet->body);
+	packet->pack(PLAYER_READY_BC);
+
+	m_pRoom->Broadcast(packet);
+
+	//to check start
+
+	if(0 == code)
+	{
+		m_pRoom->CheckGameStart();
+	}
+	return code;
+}
+
+int Player::QuitRoom()
+{
+	m_nGameStatus = ST_GM_PLAYER_NONE;
+	m_pRoom = NULL;
+	
+	return 0;
+}
+
+int Player::EnterRoom(Room *room)
+{
+	m_pRoom = room;
+	m_nGameStatus = ST_GM_PLAYER_NONE;
 
 	return 0;
 }

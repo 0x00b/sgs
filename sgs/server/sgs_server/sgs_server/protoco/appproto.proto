@@ -119,29 +119,33 @@ message ReqEnterRoom
 {
 	int32 roomid = 1;
 }
-message ReqEnterRoomUc
-{
-	int32 code = 1;
-	Room room = 2;
-}
+
 message ReqEnterRoomBc
 {
-	int32 roomid = 1;
+	int32 code = 1;
 	Player player = 2;
+	Room room = 3;
 }
 message ReqQuitRoom
 {
 	int32 roomid = 1;
-}
-message ReqQuitRoomUc
-{
-	int32 code = 1;
 }
 message ReqQuitRoomBc
 {
 	int32 code = 1;
 	Player player = 2;
 }
+
+message ReqReady
+{
+	int32 roomid = 1;
+}
+message ReqReadyBc
+{
+	int32 code = 1;
+	Player player = 2;
+}
+
 
 //广播互动表情
 message ReqEmotionBC

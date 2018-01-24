@@ -9,8 +9,10 @@ Description :
 
 #include "include.h"
 #include "libgamelogic/gamelogic.h"
+#include "protoco/appproto.pb.h"
 
 class Player;
+class PPacket;
 
 enum ERoomType
 {
@@ -23,6 +25,11 @@ class Room
 {
 	//variables
 private:
+protected:
+
+public:
+	GameLogic* m_pGmLgic;
+
 	std::list<Player*> m_lstPlayers;//players in the room
 	std::string	m_stName;			//room's name
 
@@ -33,23 +40,25 @@ private:
 	int m_nPlayerCnt;				//current player cnt
 	int m_nMatchSeatWay;			//random or by order to give seat number
 	int m_nStatus;					//room's status
-protected:
-
-public:
-	GameLogic* m_pGmLgic;
 
 	//functions
 public:
-	Room(GameLogic* plogic);
+	Room(GameLogic* plogic, int roomid,ERoomType type, const std::string& name);
 	virtual ~Room();
 
 	int EnterRoom(Player* player);
 	int QuitRoom(Player* player);
-	int Broadcast();
-	int Unicast(Player* player);
+	int Broadcast(PPacket* pkt);
+	int Unicast(Player* player, PPacket* pkt);
 	int Ready(Player* player);
 
+	int CheckGameStart();
+
 	virtual int Do(Player* player);
+	
+
+	void Get(proto::game::Room* proom);
+	void Set(const proto::game::Room& proom);
 protected:
 
 private:

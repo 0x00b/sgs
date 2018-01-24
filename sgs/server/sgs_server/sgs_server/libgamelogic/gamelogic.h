@@ -11,12 +11,14 @@ Description : GameLogic
 #include <map>
 
 class Player;
+class Room;
 
 class GameLogic
 {
 	/*varibles*/
 private:
-	std::map<int, Player*> m_mPlayer;
+	std::map<Player*, int> m_mPlayer;
+	Room* m_pRoom;
 protected:
 
 public:
@@ -25,8 +27,14 @@ public:
 public:
 	GameLogic();
 	virtual ~GameLogic();
+	
+	void Init(Room* proom);
+	int Enter(Player* player);
+	int Leave(Player* player);
+	int GetSeatID(Player* player);
 
 	virtual int Do(Player* player) = 0;
+	virtual int GameStart() = 0;
 
 protected:
 
