@@ -20,8 +20,9 @@ class SGSGameAttr: public GameAttr
   protected:
   public:
     std::shared_ptr<Hero> m_pHero;
-    /*functions*/
+    int m_nBlood = 0;
 
+    /*functions*/
   public:
     SGSGameAttr();
     virtual ~SGSGameAttr();
