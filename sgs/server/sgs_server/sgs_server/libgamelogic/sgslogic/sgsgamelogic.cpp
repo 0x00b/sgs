@@ -35,13 +35,14 @@ int SGSGameLogic::GameStart()
 {
     return 0;
 }
-void SGSGameLogic::InitCards()
+
+void SGSGameLogic::Init()
 {
-	g_lstCards.clear();
-	for (int i = 0; i < SGSCard::CARD_CNT; ++i)
-	{
-		g_lstCards.push_back(g_sgsCards[i]);
-	}
+    m_lstCards.clear();
+    for (int i = 0; i < SGSCard::CARD_CNT; ++i)
+    {
+        m_lstCards.push_back(g_lstCards[i]);
+    }
 }
 
 int SGSGameLogic::Enter(Player *player)

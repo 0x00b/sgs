@@ -24,21 +24,22 @@ class GameLogic
 private:
 
 protected:
-	static std::list<std::shared_ptr<Card>> g_lstCards;
+
 	std::map<Player*, std::shared_ptr<GameAttr>> m_mPlayer;	//all player in the room, one player match a GameAttr
-	std::list<std::shared_ptr<Card>> m_lstCards;			//all card
+	std::list<std::shared_ptr<Card>> m_lstCards;			//current all card
 
 	Room* m_pRoom;	//this logic belongs to the room
 
-
 public:
+	static const std::shared_ptr<Card>* const g_lstCards; //must initial this into your cards
 
 	/*functions*/
 public:
 	GameLogic();
 	virtual ~GameLogic();
 	
-	virtual void Init(Room* proom);
+	virtual void Init() = 0;
+	virtual void SetRoom(Room* proom);
 	virtual int Enter(Player* player) = 0;
 	virtual int Leave(Player* player);
 

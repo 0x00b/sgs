@@ -8,7 +8,7 @@ Description : SGSCard
 #ifndef _SGS_SGS_CARD_H_
 #define _SGS_SGS_CARD_H_
 
-class Card;
+#include "../card.h"
 
 class SGSCard: private Card
 {
@@ -42,10 +42,7 @@ class SGSCard: private Card
   public:
     SGSCard(int card, const std::string name = (""), const std::string desc = (""));
     virtual ~SGSCard();
-
-    //must call InitCards() before use this class
-    static void InitCards();
-
+    
     inline virtual int value() const;
     inline virtual int color() const;
     inline virtual int type() const;

@@ -247,8 +247,8 @@ int Game::ReqCreateRoom(Player * player)
 				crproto.room().name(), (EMatchSeatWay)crproto.room().match_seat_way()); 
 			if (NULL != room)
 			{
-				plogic->Init(room);
-				m_mRooms[roomid] = room;
+				plogic->SetRoom(room);
+				m_mRooms[roomid] = room; 
 				player->m_pRoom = room;
 				room->m_pMaster = player;
 				room->EnterRoom(player);

@@ -12,7 +12,9 @@ class SGSGameLogic : public GameLogic
 	virtual int Do(Player *player);
 	virtual int GameStart();
 	virtual int Enter(Player *player);
-	static void InitCards();
+	
+	virtual void Init();
+
   private:
 };
 

@@ -9,10 +9,11 @@ GameLogic::~GameLogic()
 {
 }
 
-void GameLogic::Init(Room *proom)
+void GameLogic::SetRoom(Room *proom)
 {
     m_pRoom = proom; 
-    m_lstCards = g_lstCards;
+    
+    Init(); 
 }
 
 int GameLogic::Leave(Player *player)
