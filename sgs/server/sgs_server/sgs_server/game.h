@@ -26,6 +26,9 @@ private:
 	int m_nListenfd;
 	int m_nStatus;
 
+	Json::CharReaderBuilder m_jBuilder;
+	Json::CharReader* m_jReader;
+
 protected:
 
 public:

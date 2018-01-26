@@ -10,7 +10,7 @@ Description :
 
 #include "include.h"
 #include "client.h"
-#include "protoco/appproto.pb.h"
+#include "jsonproto/jsonproto.h"
 
 class Room;
 
@@ -78,8 +78,11 @@ public:
 	int QuitRoom();
 
 	std::string& GetProtoMsg();
-	void Set(const proto::game::Player& player);
-	void Get(proto::game::Player* player);
+	//void Set(const proto::game::Player& player);
+	//void Get(proto::game::Player* player);
+	void Set(const Json::Value& player);
+	void Get(Json::Value& player);
+	
 	int SeatID();
 
 	int Regist();

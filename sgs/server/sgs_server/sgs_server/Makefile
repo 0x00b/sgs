@@ -4,35 +4,33 @@
 #
 #VPATH=.:src  #make find file in this directory,use : depart,or use vpath 
 
-vpath %.h include/google/protobuf		# .h at include/google/protobuf
 vpath %.h include/libev	# .h at 
 vpath %.h libs					# .h at 
 vpath %.h libs/json				# .h at 
 vpath %.h zlib					# .h at 
 vpath %.h mysqlutil				# .h at 
-vpath %.h protoco			# .h at 
 vpath %.h libgamelogic			# .h at 
 vpath %.h libgamelogic/sgslogic			# .h at 
+vpath %.h jsonproto			# .h at 
 #vpath %.c include/libev	# .h at 
 vpath %.cpp libs				# .cpp at 
 vpath %.cpp mysqlutil			# .cpp at 
 vpath %.cpp libgamelogic			# .cpp at 
 vpath %.cpp libgamelogic/sgslogic	# .cpp at 
-vpath %.cc protoco				# .cc at 
 
 CC = gcc
 CXX = g++
 
 CFLAGS = -O0 -Wall
 CXXFLAGS = -std=c++11 -g -O0 -fno-strict-aliasing -Wno-write-strings -frtti -fexceptions -Wall -DDEBUG
-LIBS = -L./zlib -L./libs -lprotobuf -lev -lstdc++ -lmysqlclient
+LIBS = -L./zlib -L./libs -lev -lstdc++ -lmysqlclient
 
 APP = sgs_server
 
-inc = -I./ -Iinclude/google/protobuf -Iinclude/libev -Ilibs -Ilibs/json -Izlib -Imysqlutil -Iprotoco# or use C_INCLUDE_PATH ,CPLUS_INCLUDE_PATH envir_path
+inc = -I./ -Iinclude/libev -Ilibs -Ilibs/json -Izlib -Imysqlutil -Ijsonproto# or use C_INCLUDE_PATH ,CPLUS_INCLUDE_PATH envir_path
 #inc += -Isrc/src	 # +=
 
-targ := $(shell ls|grep '\.cpp';ls libs|grep '\.cpp';ls mysqlutil|grep '\.cpp';ls protoco|grep '\.cc';ls libgamelogic|grep '\.cpp';ls libgamelogic/sgslogic|grep '\.cpp')
+targ := $(shell ls|grep '\.cpp';ls libs|grep '\.cpp';ls mysqlutil|grep '\.cpp';ls libgamelogic|grep '\.cpp';ls libgamelogic/sgslogic|grep '\.cpp')
 objs_c:= $(patsubst %.c,%.o,$(targ))
 objs_cc:= $(patsubst %.cc,%.o,$(objs_c))
 objs := $(patsubst %.cpp,%.o,$(objs_cc))

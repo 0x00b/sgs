@@ -50,6 +50,7 @@ public:
 	~PPacket();
 
 	void pack(unsigned int cmd = 0, unsigned int uid = 0, unsigned short svrid = 0);
+	void pack(unsigned int cmd, std::string &body_, unsigned int uid = 0, unsigned short svrid = 0);
 	int save();
 	int check();
 

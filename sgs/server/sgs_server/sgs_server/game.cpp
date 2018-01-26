@@ -4,8 +4,9 @@
 #include "ppacket.h"
 #include "room.h"
 #include "libgamelogic/sgslogic/sgsgamelogic.h"
-#include "protoco/appproto.pb.h"
 #include "main.h"
+#include "libs/json/json.h"
+#include "jsonproto/jsonproto.h"
 
 #define ROOM_ID_END 1000000
 #define ROOM_ID_START 100000
@@ -14,11 +15,13 @@ Game::Game() :m_nStatus(0)
 {
 	m_mPlayers.clear();
 	m_mRooms.clear();
+	m_jReader = m_jBuilder.newCharReader();
 }
 
 
 Game::~Game()
 {
+	delete m_jReader;
 }
 
 int Game::StartUp()
@@ -33,7 +36,48 @@ int Game::StartUp()
 int Game::ReqRegist(Player* player)
 {
 	int code = 0;
-	proto::game::ReqRegist rgst;
+
+	Json::Value root;
+	std::string err;
+
+	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
+				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		player->Set(root[SJPROTO[E_Player]]);
+
+		//check account
+		if (player->CheckAccount())
+		{
+			code = 0x02;
+		}
+
+		//check passwd
+		if (player->CheckPasswd())
+		{
+			code |= 0x004;
+		}
+		if (0 == code)
+		{
+			if (1 != player->Regist())
+			{
+				code = 0x08; //
+			}
+		}
+	}
+	sgslog.info(FFL_s_d,"regist code:",code);
+
+	root.clear();
+	root["code"] = (code); //
+	std::shared_ptr<PPacket> packet(new PPacket());
+	packet->body = root.toStyledString();
+	packet->pack(PLAYER_REGIST_UC);
+	player->Send(packet);
+	
+	/*proto::game::ReqRegist rgst;
 	proto::game::ReqRegistUc rgstuc;
 	if (!rgst.ParseFromString(player->m_iClient.m_iPacket.body))
 	{
@@ -64,16 +108,11 @@ int Game::ReqRegist(Player* player)
 	}
 	sgslog.info(FFL_s_d,"regist code:",code);
 	rgstuc.set_code(code); //
-	/*if(0 == code)
-	{
-		Login();
-		Get(rgstuc.mutable_player());
-	}*/
 	std::shared_ptr<PPacket> packet(new PPacket());
 	rgstuc.SerializeToString(&packet->body);
 	packet->pack(PLAYER_REGIST_UC);
 
-	player->Send(packet);
+	player->Send(packet);*/
 
 	return code;
 }
@@ -81,6 +120,52 @@ int Game::ReqRegist(Player* player)
 int Game::ReqLogin(Player* player)
 {
 	int code = 0;
+	Json::Value root;
+	std::string err;
+
+	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
+				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		player->m_stAccount = root["account"].asString();
+		player->m_stPasswd = root["pwd"].asString();
+
+		//check account
+		if (player->CheckAccount())
+		{
+			code = 0x02;
+		}
+
+		//check passwd
+		if (player->CheckPasswd())
+		{
+			code |= 0x004;
+		}
+		if (0 == code)
+		{
+			if (1 != player->Login())
+			{
+				code = 0x08; //
+			}
+		}
+	}
+	sgslog.info(FFL_s_d,"login code:",code);
+	root.clear();
+	root["code"] = (code); //
+	if(0 == code)
+	{
+		player->UpdateState(ST_PLAYER_ONLINE);
+		player->Get(root[SJPROTO[E_Player]]);
+	}
+	std::shared_ptr<PPacket> packet(new PPacket());
+	packet->body = root.toStyledString();
+	packet->pack(PLAYER_REGIST_UC);
+
+	player->Send(packet);
+	/*
 	proto::game::ReqLogin proto;
 	proto::game::ReqLoginUc protouc;
 	if (!proto.ParseFromString(player->m_iClient.m_iPacket.body))
@@ -123,13 +208,14 @@ int Game::ReqLogin(Player* player)
 	packet->pack(PLAYER_REGIST_UC);
 
 	player->Send(packet);
-
-	return 0;
+*/
+	return code;
 }
 
 int Game::ReqReady(Player* player)
 {
 	int code = 0;
+	/*
 	proto::game::ReqReady proto;
 	proto::game::ReqReadyBc protouc;
 	if (!proto.ParseFromString(player->m_iClient.m_iPacket.body))
@@ -158,6 +244,7 @@ int Game::ReqReady(Player* player)
 	{
 		player->m_pRoom->CheckGameStart();
 	}
+	*/
 	return code;
 }
 
@@ -230,6 +317,7 @@ int Game::ReqCreateRoom(Player * player)
 		return -1;
 	}
 	int code = 0;
+	/*
 	proto::game::ReqCreateRoom crproto;
 	proto::game::ReqCreateRoomUc crprotouc;
 
@@ -275,6 +363,7 @@ int Game::ReqCreateRoom(Player * player)
 	packet->pack(PLAYER_CREATE_ROOM_UC);
 
 	player->Send(packet);
+	*/
 
 	return code;
 }
@@ -295,6 +384,7 @@ int Game::ReqEnterRoom(Player * player)
 		return -1;
 	}
 	int code = 0;
+	/*
 	proto::game::ReqEnterRoom erproto;
 	proto::game::ReqEnterRoomBc erprotobc;
 	std::map<int, Room*>::iterator room ;
@@ -341,6 +431,7 @@ int Game::ReqEnterRoom(Player * player)
 		std::shared_ptr<PPacket> sppacket(packet);
 		player->Send(sppacket);
 	}
+	*/
 
 	return code;
 }
@@ -351,6 +442,7 @@ int Game::ReqQuitRoom(Player * player)
 		return -1;
 	}
 	int code = 0;
+	/*
 	proto::game::ReqQuitRoom qrproto;
 	proto::game::ReqQuitRoomBc qrprotobc;
 
@@ -403,7 +495,7 @@ int Game::ReqQuitRoom(Player * player)
 		std::shared_ptr<PPacket> sppacket(packet);
 		player->Send(sppacket);
 	}
-
+*/
 	return code;
 }
 
@@ -414,6 +506,7 @@ int Game::ReqEnterRoomFast(Player * player)
 		return -1;
 	}
 	int code = 0;
+	/*
 	proto::game::ReqEnterRoomFast erf_proto;
 	proto::game::ReqEnterRoomBc erf_protobc;
 	Room* room = NULL;
@@ -468,7 +561,7 @@ int Game::ReqEnterRoomFast(Player * player)
 		std::shared_ptr<PPacket> sppacket(packet);
 		player->Send(sppacket);
 	}
-
+*/
 	return code;
 }
 
@@ -479,6 +572,7 @@ int Game::ReqSearchRoom(Player * player)
 		return -1;
 	}
 	int code = 0;
+	/*
 	proto::game::ReqSearchRoom rsr_proto;
 	proto::game::ReqSearchRoomUc rsr_protouc;
 	std::map<int, Room*>::iterator room ;
@@ -509,7 +603,7 @@ int Game::ReqSearchRoom(Player * player)
 	packet->pack(PLAYER_SEARCH_ROOM_UC);
 
 	player->Send(packet);
-
+*/
 	return code;
 }
 

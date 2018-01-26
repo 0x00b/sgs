@@ -4,6 +4,7 @@
 #include "main.h"
 #include "game.h"
 #include "mysqlutil/mysqlutil.h"
+#include "jsonproto/jsonproto.h"
 
 Player::Player():m_iClient(this)
 {
@@ -47,6 +48,7 @@ void Player::Init()
 	m_nStatus = ST_PLAYER_ONLINE;						//player's status
 	m_nGameStatus = ST_GM_PLAYER_NONE;					//player's gaming status
 }
+/*
 void Player::Set(const proto::game::Player &player)
 {
 	m_stAccount = player.account();	
@@ -73,7 +75,36 @@ void Player::Get(proto::game::Player* player)
 	player->set_seatid(SeatID());
 	
 }
+*/
 
+
+void Player::Set(const Json::Value& player)
+{
+	m_stAccount = player[SPlayer[EPlayer_account]].asString();	
+	m_stPasswd =  player[SPlayer[EPlayer_passwd]].asString();	
+	m_stName =  player[SPlayer[EPlayer_name]].asString();	
+	m_stAvatar =  player[SPlayer[EPlayer_avatar]].asString();		
+	m_stRegistDate =  player[SPlayer[EPlayer_registdate]].asString();	
+	m_stRemark =  player[SPlayer[EPlayer_remark]].asString();
+}
+
+void Player::Get(Json::Value& player)
+{
+	player[SPlayer[EPlayer_id]] 		= (m_nID);
+	player[SPlayer[EPlayer_account]] 	= (m_stAccount);	
+	player[SPlayer[EPlayer_passwd]] 	= (m_stPasswd);
+	player[SPlayer[EPlayer_name]] 		= (m_stName);		
+	player[SPlayer[EPlayer_avatar]] 	= (m_stAvatar);		
+	player[SPlayer[EPlayer_registdate]] = (m_stRegistDate);	
+	player[SPlayer[EPlayer_remark]] 	= (m_stRemark);		
+	player[SPlayer[EPlayer_status]] 	= (m_nStatus);		
+	player[SPlayer[EPlayer_gamestatus]] = (m_nGameStatus);	
+	player[SPlayer[EPlayer_sex]] 		= (m_chSex);	
+	player[SPlayer[EPlayer_level]] 		= (m_sLevel);	
+	player[SPlayer[EPlayer_exp]] 		= (m_nExp);	
+	player[SPlayer[EPlayer_seatid]] 	= (SeatID());
+	
+}
 int Player::SeatID()
 {
 	if (NULL != m_pRoom)

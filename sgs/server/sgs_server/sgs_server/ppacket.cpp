@@ -39,6 +39,17 @@ void PPacket::pack(unsigned int cmd, unsigned int uid, unsigned short svrid)
 	data.append(body);
 }
 
+void PPacket::pack(unsigned int cmd, std::string& body_ ,unsigned int uid, unsigned short svrid)
+{
+	header.cmd = cmd;
+	header.uid = uid;
+	header.svrid = svrid;
+	header.len = body_.length();
+	data.clear();
+	header.toNetStr(data);
+	data.append(body_);
+}
+
 int PPacket::save()
 {
 	header.cmd = ntohl(header.cmd);

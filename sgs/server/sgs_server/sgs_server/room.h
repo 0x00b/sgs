@@ -9,7 +9,7 @@ Description :
 
 #include "include.h"
 #include "libgamelogic/gamelogic.h"
-#include "protoco/appproto.pb.h"
+#include "jsonproto/jsonproto.h"
 
 class Player;
 class PPacket;
@@ -63,8 +63,10 @@ public:
 	virtual int Do(Player* player);
 	
 
-	void Get(proto::game::Room* proom);
-	void Set(const proto::game::Room& proom);
+	//void Get(proto::game::Room* proom);
+	//void Set(const proto::game::Room& proom);
+	void Get(Json::Value& proom);
+	void Set(const Json::Value& proom);
 protected:
 
 private:

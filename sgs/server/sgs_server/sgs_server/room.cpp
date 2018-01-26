@@ -71,7 +71,7 @@ int Room::QuitRoom(Player *player)
 	}
 	return -1;
 }
-
+/*
 void Room::Get(proto::game::Room *proom)
 {
 	proom->set_name(m_stName);
@@ -102,6 +102,42 @@ void Room::Set(const proto::game::Room &proom)
 	m_stName = proom.name();				//room's name
 	m_eType = (ERoomType)proom.type();		//room type
 	m_nMatchSeatWay = proom.match_seat_way();
+}
+*/
+
+void Room::Get(Json::Value& proom)
+{
+	/*
+	proom->set_name(m_stName);
+	proom->set_type(m_eType);
+	proom->set_room_id(m_nRoomID);
+	proom->set_max_player_cnt(m_nMaxPlayerCnt);
+	proom->set_player_cnt(m_nPlayerCnt);
+	proom->set_match_seat_way(m_nMatchSeatWay);
+	proom->set_status(m_nStatus);
+
+	int index = 0;
+	google::protobuf::RepeatedPtrField<proto::game::Player> *players =  proom->mutable_players();
+	for (std::list<Player *>::iterator it = m_lstPlayers.begin(); it != m_lstPlayers.end(); ++it)
+	{
+		if (m_pMaster != *it)
+		{
+			proto::game::Player *player = players->Mutable(index++);
+			(*it)->Get(player);
+		}
+	}
+
+	proto::game::Player* master = proom->mutable_master();
+	m_pMaster->Get(master);*/
+
+}
+void Room::Set(const Json::Value &proom)
+{
+	/*
+	m_stName = proom.name();				//room's name
+	m_eType = (ERoomType)proom.type();		//room type
+	m_nMatchSeatWay = proom.match_seat_way();
+	*/
 }
 
 int Room::Broadcast(PPacket* pkt)
