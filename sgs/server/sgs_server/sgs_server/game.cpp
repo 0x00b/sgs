@@ -130,8 +130,8 @@ int Game::ReqLogin(Player* player)
 	}
 	else
 	{
-		player->m_stAccount = root["account"].asString();
-		player->m_stPasswd = root["pwd"].asString();
+		player->m_stAccount = root[SPlayer[EPlayer_account]].asString();
+		player->m_stPasswd = root[SPlayer[EPlayer_passwd]].asString();
 
 		//check account
 		if (player->CheckAccount())
@@ -150,6 +150,11 @@ int Game::ReqLogin(Player* player)
 			{
 				code = 0x08; //
 			}
+			else
+			{
+				player->m_nStatus = ST_PLAYER_ONLINE;
+				player->UpdateState(ST_PLAYER_ONLINE);
+			}
 		}
 	}
 	sgslog.info(FFL_s_d,"login code:",code);
@@ -162,7 +167,7 @@ int Game::ReqLogin(Player* player)
 	}
 	std::shared_ptr<PPacket> packet(new PPacket());
 	packet->body = root.toStyledString();
-	packet->pack(PLAYER_REGIST_UC);
+	packet->pack(PLAYER_LOGIN_UC);
 
 	player->Send(packet);
 	/*
@@ -205,7 +210,7 @@ int Game::ReqLogin(Player* player)
 	}
 	std::shared_ptr<PPacket> packet(new PPacket());
 	protouc.SerializeToString(&packet->body);
-	packet->pack(PLAYER_REGIST_UC);
+	packet->pack(PLAYER_LOGIN_UC);
 
 	player->Send(packet);
 */
@@ -251,7 +256,7 @@ int Game::ReqReady(Player* player)
 int Game::ReqUserQuit(Player * player)
 {
 	m_mPlayers.erase(player->m_iClient.m_nfd);
-	if (ST_PLAYER_OFFLINE != player->m_nStatus)
+	if (ST_PLAYER_OFFLINE != player->m_nStatus && player->m_nID >= 0)
 	{
 		player->UpdateState(ST_PLAYER_OFFLINE);
 	}

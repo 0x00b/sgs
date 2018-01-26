@@ -177,9 +177,21 @@ int Player::EnterRoom(Room *room)
 
 int Player::Regist()
 {
+	/*check exsit*/
 	MYSQL_RES* res;
 	//MYSQL_ROW row;
-	std::string sql = "INSERT INTO `sgs_db`.`player`"
+	std::string sql = "SELECT idplayer "
+		"FROM `sgs_db`.`player` WHERE 1=1 "
+		;
+	sql.append(" and `player`.`account` = '").append(m_stAccount + "';");
+
+	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
+	{
+		return 0;
+	}
+
+	sql.clear();
+	sql = "INSERT INTO `sgs_db`.`player`"
 	"(`account`, `passwd`, `level`,`exp`, `status`,`regist_date`, `name`) VALUES('";
 	sql.append(m_stAccount).append("',password('").
 		append(m_stPasswd).append("'), 0, 0, 0, curdate(),'").append(m_stName+"');");
@@ -205,9 +217,9 @@ int Player::Login()
 		"`player`.`exp`,"
 		"`player`.`status`,"
 		"`player`.`regist_date`,"
-		"`player`.`remark`"
-		"`player`.`name`,"
-		"FROM `sgs_db`.`player` WHERE 1=1 "
+		"`player`.`remark`,"
+		"`player`.`name`"
+		" FROM `sgs_db`.`player` WHERE 1=1 "
 		;
 	sql.append(" and `player`.`account` = '").append(m_stAccount + "' and `player`.`passwd`=password('" + m_stPasswd + "');");
 
@@ -250,12 +262,12 @@ int Player::Login()
 				}
 			}
 		}
+		mysql_free_result(res);
 	}
 	else
 	{
 		nRet = -1;
 	}
-	mysql_free_result(res);
 	return nRet;
 }
 
@@ -271,7 +283,7 @@ int Player::GetFriends(std::list<std::shared_ptr<Player>>& list)
 		"player`.`name`,"
 		"FROM `sgs_db`.`player` WHERE "
 		"player`.`idplayer` in(SELECT `friends`.`idfriend` FROM `friends` WHERE `friends`.`idplayer` = ";
-	sql += m_nID;
+	sql.append(std::to_string(m_nID));
 	sql.append(");");
 	
 	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
@@ -311,12 +323,12 @@ int Player::GetFriends(std::list<std::shared_ptr<Player>>& list)
 			list.push_back(std::shared_ptr<Player>(player));
 		}
 		nRet = list.size();
+		mysql_free_result(res);
 	}
 	else
 	{
 		nRet = -1;
 	}
-	mysql_free_result(res);
 
 	return nRet;
 }
@@ -324,12 +336,23 @@ int Player::GetFriends(std::list<std::shared_ptr<Player>>& list)
 int Player::AddFriends(int idfriend)
 {
 	MYSQL_RES* res;
+	std::string sql = "SELECT COUNT(idplayer) FROM `sgs_db`.`friends` WHERE `idplayer` = ";
+	sql.append(std::to_string(m_nID));
+	sql.append(" and `idfriend` = " + std::to_string(idfriend));
+
+	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
+	{
+		mysql_free_result(res);
+		return 0;
+	}
 	//MYSQL_ROW row;
-	std::string sql = "INSERT INTO `sgs_db`.`friends` "
+	
+	sql.clear();
+	sql = "INSERT INTO `sgs_db`.`friends` "
 		"(`idplayer` , `idfriend` , `type` , `remark`) VALUES(";
-	sql += m_nID;
+	sql.append(std::to_string(m_nID));
 	sql.append(",");
-	sql += idfriend;
+	sql.append(std::to_string(idfriend));
 	sql.append(",0,'');");
 
 	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
@@ -347,9 +370,9 @@ int Player::DeleteFriends(int idfriend)
 	MYSQL_RES* res;
 	//MYSQL_ROW row;
 	std::string sql = "DELETE FROM `sgs_db`.`friends` WHERE `friends`.`idplayer` = ";
-	sql += m_nID;
+	sql.append(std::to_string(m_nID));
 	sql.append(" and `friends`.`idfriend` = ");
-	sql += idfriend;
+	sql.append(std::to_string(idfriend));
 	sql.append("；");
 
 	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
@@ -367,15 +390,16 @@ int Player::UpdateState(EPlayerStatus status)
 	MYSQL_RES *res;
 	//MYSQL_ROW row;
 	std::string sql = "UPDATE `sgs_db`.`player` SET `player`.`status`=";
-	sql += status;
+	sql.append(std::to_string(status));
 	sql.append("WHERE `player`.`idplayer`=");
-	sql += m_nID;
+	sql.append(std::to_string(m_nID));
 	sql.append(";");
 
 	sgslog.debug(FFL_s_s,"sql:",sql.c_str());
 
 	if (MySqlUtil::MysqlQuery(res, sql.c_str()))
 	{
+		m_nStatus = status;
 		mysql_free_result(res);
 		return 1;
 	}

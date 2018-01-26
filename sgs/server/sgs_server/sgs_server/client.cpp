@@ -85,7 +85,7 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 				self->m_iPacket.m_nCurLen += nRet;
 				if (len == self->m_iPacket.m_nCurLen)
 				{
-					//sgslog.info(FFL_s_s, "recv:", self->m_iPacket.body.c_str());
+					sgslog.info(FFL_s_s, "recv:", self->m_iPacket.body.c_str());
 					self->m_iPacket.m_eStatus = STAT_END;
 					bEnd = true;
 				}
