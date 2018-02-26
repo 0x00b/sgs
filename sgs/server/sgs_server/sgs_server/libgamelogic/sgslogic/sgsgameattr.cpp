@@ -2,7 +2,7 @@
 #include "hero.h"
 
 SGSGameAttr::SGSGameAttr():
-    m_pHero(std::shared_ptr<Hero>(new Hero()))
+    m_pHero(new Hero())
 {
 }
 SGSGameAttr::~SGSGameAttr()

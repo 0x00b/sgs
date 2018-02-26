@@ -16,7 +16,7 @@ class PPacket;
 
 enum ERoomType
 {
-	ROOM_TYPE_3 = 3,
+	ROOM_TYPE_2 = 2,
 	ROOM_TYPE_6 = 6,
 	ROOM_TYPE_8 = 8,
 };

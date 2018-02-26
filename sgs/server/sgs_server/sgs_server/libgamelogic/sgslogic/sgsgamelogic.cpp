@@ -5,25 +5,36 @@
 #include "sgsgamelogic.h"
 #include "sgsgameattr.h"
 #include "sgscard.h"
-
+#include "hero.h"
+#include "../../libs/json/json.h"
+#include "../../jsonproto/jsonproto.h"
 
 extern const std::shared_ptr<Card> g_sgsCards[SGSCard::CARD_CNT];
 
 SGSGameLogic::SGSGameLogic()
 {
-
 }
 SGSGameLogic::~SGSGameLogic()
 {
 }
 
-int SGSGameLogic::Do(Player* player)
+int SGSGameLogic::Do(Player *player)
 {
     if (NULL != player)
     {
-        switch(player->m_iClient.m_iPacket.header.cmd)
+        switch (player->m_iClient.m_iPacket.header.cmd)
         {
-        case GAME_START:
+        case GAME_OUT_CARD:
+            break;
+        case GAME_ABANDON_CARD:
+            break;
+        case GAME_USE_SKILL:
+            break;
+        case GAME_CANCEL_OUT_CARD:
+            break;
+        case GAME_OUT_CARD_END:
+            break;
+        case GAME_SELECT_CARD:
             break;
         default:
             break;
@@ -33,10 +44,64 @@ int SGSGameLogic::Do(Player* player)
 }
 int SGSGameLogic::GameStart()
 {
-    return 0;
+    int code = 0;
+    Json::Value root;
+    root.clear();
+
+    InitCard();
+    //先洗牌
+    RandomCard();
+
+    switch (m_pRoom->m_eType)
+    {
+    case ROOM_TYPE_2:
+        Do2PStart(root);
+        break;
+
+    case ROOM_TYPE_6:
+        Do6PStart(root);
+        break;
+
+    case ROOM_TYPE_8:
+        break;
+    default:
+        break;
+    }
+
+    //广播结果
+
+    root["code"] = (code); //
+
+    PPacket *packet = (new PPacket());
+    packet->body = root.toStyledString();
+    packet->pack(GAME_START);
+
+    m_pRoom->Broadcast(packet);
+
+    return code;
+}
+
+void SGSGameLogic::RandomCard()
+{
+}
+
+void SGSGameLogic::EnsureRoles()
+{
+}
+void SGSGameLogic::Do2PStart(Json::Value &root)
+{
+    //
+}
+
+void SGSGameLogic::Do6PStart(Json::Value &root)
+{
 }
 
 void SGSGameLogic::Init()
+{
+}
+
+void SGSGameLogic::InitCard()
 {
     m_lstCards.clear();
     for (int i = 0; i < SGSCard::CARD_CNT; ++i)
@@ -65,7 +130,6 @@ int SGSGameLogic::Enter(Player *player)
                 if (0 == seat[i])
                 {
                     gm_attr->m_nSeatId = i;
-                    m_mPlayer.insert(std::pair<Player *, std::shared_ptr<GameAttr>>(player, (gm_attr)));
                     break;
                 }
             }
@@ -92,6 +156,10 @@ int SGSGameLogic::Enter(Player *player)
         if (i >= m_pRoom->m_nMaxPlayerCnt)
         {
             nRet = -1;
+        }
+        else
+        {
+            m_mPlayer.insert(std::pair<Player *, std::shared_ptr<GameAttr>>(player, (gm_attr)));
         }
     }
 

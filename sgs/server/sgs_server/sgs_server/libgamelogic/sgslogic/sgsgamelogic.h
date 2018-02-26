@@ -15,6 +15,20 @@ class SGSGameLogic : public GameLogic
 	
 	virtual void Init();
 
+	void InitCard();
+
+	void EnsureRoles();
+	void RandomCard();
+
+	void Do2PStart(Json::Value& root);
+	void Do6PStart(Json::Value& root);
+
+	int ReqOutCard(Player *player);
+	int ReqAbandonCard(Player *player);
+	int ReqUseSkill(Player *player);
+	int ReqCancelOutCard(Player *player);
+	int ReqSelectCard(Player *player);
+
   private:
 };
 

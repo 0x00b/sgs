@@ -81,6 +81,17 @@ public:
 	int skill_2_id;
 	int master_skill_id;
 
+	enum Role
+	{
+		MASTER,			//主公
+		LOYAL_OFFICER,	//忠臣
+		GUILT_OFFICER,	//内奸
+		BETRAY_OFFICER,	//反贼
+		ROLE_NUM,		//角色类型数量
+	};
+
+	Role role;
+
 public:
 	Hero();
 	~Hero();
