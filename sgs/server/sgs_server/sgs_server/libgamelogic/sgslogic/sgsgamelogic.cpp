@@ -8,6 +8,7 @@
 #include "hero.h"
 #include "../../libs/json/json.h"
 #include "../../jsonproto/jsonproto.h"
+#include "../../game.h"
 
 extern const std::shared_ptr<Card> g_sgsCards[SGSCard::CARD_CNT];
 
@@ -83,6 +84,15 @@ int SGSGameLogic::GameStart()
 
 void SGSGameLogic::RandomCard()
 {
+    srand((unsigned int)time(NULL));
+
+    int nCardCnt = m_vCards.size();
+
+    for (int i = nCardCnt - 1; i > 0; i--)
+    {
+        m_vCards[rand() % i].swap(m_vCards[i]);
+    }
+
 }
 
 void SGSGameLogic::EnsureRoles()
@@ -97,16 +107,69 @@ void SGSGameLogic::Do6PStart(Json::Value &root)
 {
 }
 
+int SGSGameLogic::ReqOutCard(Player *player)
+{
+	int code = 0;
+	
+	Json::Value root;
+	std::string err;
+	
+	if (!Game::ParseMsg(player,&root,err))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		root["card"].asInt();
+	}
+
+	root.clear();
+	root["code"] = (code); //
+	if(0 == code)
+	{
+		player->Get(root[SJPROTO[E_Player]]);
+	}
+	PPacket* packet = (new PPacket());
+	packet->body = root.toStyledString();
+	packet->pack(PLAYER_READY_BC);
+
+	m_pRoom->Broadcast(packet);
+
+	//to check start
+	if(0 == code)
+	{
+		player->m_pRoom->CheckGameStart();
+	}
+	
+	return code;
+}
+int SGSGameLogic::ReqAbandonCard(Player *player)
+{
+    return 0;
+}
+int SGSGameLogic::ReqUseSkill(Player *player)
+{
+    return 0;
+}
+int SGSGameLogic::ReqCancelOutCard(Player *player)
+{
+    return 0;
+}
+int SGSGameLogic::ReqSelectCard(Player *player)
+{
+    return 0;
+}
+
 void SGSGameLogic::Init()
 {
 }
 
 void SGSGameLogic::InitCard()
 {
-    m_lstCards.clear();
+    m_vCards.clear();
     for (int i = 0; i < SGSCard::CARD_CNT; ++i)
     {
-        m_lstCards.push_back(g_lstCards[i]);
+        m_vCards.push_back(g_lstCards[i]);
     }
 }
 

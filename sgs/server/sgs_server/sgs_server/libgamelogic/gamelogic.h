@@ -11,6 +11,7 @@ Description : GameLogic
 #include <map>
 #include <memory>
 #include <list>
+#include <vector>
 
 #include "card.h"
 
@@ -26,7 +27,7 @@ private:
 protected:
 
 	std::map<Player*, std::shared_ptr<GameAttr>> m_mPlayer;	//all player in the room, one player match a GameAttr
-	std::list<std::shared_ptr<Card>> m_lstCards;			//current all card
+	std::vector<std::shared_ptr<Card>> m_vCards;			//current all card
 
 	Room* m_pRoom;	//this logic belongs to the room
 

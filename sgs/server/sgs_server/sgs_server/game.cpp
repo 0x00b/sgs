@@ -11,17 +11,14 @@
 #define ROOM_ID_END 1000000
 #define ROOM_ID_START 100000
 
-Game::Game() :m_nStatus(0)
+Game::Game() : m_nStatus(0)
 {
 	m_mPlayers.clear();
 	m_mRooms.clear();
-	m_jReader = m_jBuilder.newCharReader();
 }
-
 
 Game::~Game()
 {
-	delete m_jReader;
 }
 
 int Game::StartUp()
@@ -33,15 +30,14 @@ int Game::StartUp()
 	return -1;
 }
 
-int Game::ReqRegist(Player* player)
+int Game::ReqRegist(Player *player)
 {
 	int code = 0;
 
 	Json::Value root;
 	std::string err;
 
-	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	if (!Game::ParseMsg(player,&root,err))
 	{
 		code = 0x01;
 	}
@@ -68,7 +64,7 @@ int Game::ReqRegist(Player* player)
 			}
 		}
 	}
-	sgslog.info(FFL_s_d,"regist code:",code);
+	sgslog.info(FFL_s_d, "regist code:", code);
 
 	root.clear();
 	root["code"] = (code); //
@@ -76,7 +72,7 @@ int Game::ReqRegist(Player* player)
 	packet->body = root.toStyledString();
 	packet->pack(PLAYER_REGIST_UC);
 	player->Send(packet);
-	
+
 	/*proto::game::ReqRegist rgst;
 	proto::game::ReqRegistUc rgstuc;
 	if (!rgst.ParseFromString(player->m_iClient.m_iPacket.body))
@@ -117,14 +113,13 @@ int Game::ReqRegist(Player* player)
 	return code;
 }
 
-int Game::ReqLogin(Player* player)
+int Game::ReqLogin(Player *player)
 {
 	int code = 0;
 	Json::Value root;
 	std::string err;
 
-	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	if (!Game::ParseMsg(player,&root,err))
 	{
 		code = 0x01;
 	}
@@ -152,10 +147,10 @@ int Game::ReqLogin(Player* player)
 			}
 		}
 	}
-	sgslog.info(FFL_s_d,"login code:",code);
+	sgslog.info(FFL_s_d, "login code:", code);
 	root.clear();
 	root["code"] = (code); //
-	if(0 == code)
+	if (0 == code)
 	{
 		player->UpdateState(ST_PLAYER_ONLINE);
 		player->Get(root[SJPROTO[E_Player]]);
@@ -168,21 +163,20 @@ int Game::ReqLogin(Player* player)
 	return code;
 }
 
-int Game::ReqReady(Player* player)
+int Game::ReqReady(Player *player)
 {
 	int code = 0;
-	
+
 	Json::Value root;
 	std::string err;
-	
-	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+
+	if (!Game::ParseMsg(player,&root,err))
 	{
 		code = 0x01;
 	}
 	else
 	{
-		if(root["ready"].asBool())
+		if (root["ready"].asBool())
 		{
 			player->m_nGameStatus = ST_GM_PLAYER_READY;
 			//player->m_pRoom->Ready(player);
@@ -195,26 +189,26 @@ int Game::ReqReady(Player* player)
 
 	root.clear();
 	root["code"] = (code); //
-	if(0 == code)
+	if (0 == code)
 	{
 		player->Get(root[SJPROTO[E_Player]]);
 	}
-	PPacket* packet = (new PPacket());
+	PPacket *packet = (new PPacket());
 	packet->body = root.toStyledString();
 	packet->pack(PLAYER_READY_BC);
 
 	player->m_pRoom->Broadcast(packet);
 
 	//to check start
-	if(0 == code)
+	if (0 == code)
 	{
 		player->m_pRoom->CheckGameStart();
 	}
-	
+
 	return code;
 }
 
-int Game::ReqUserQuit(Player * player)
+int Game::ReqUserQuit(Player *player)
 {
 	m_mPlayers.erase(player->m_iClient.m_nfd);
 	if (ST_PLAYER_OFFLINE != player->m_nStatus && player->m_nID >= 0)
@@ -225,40 +219,37 @@ int Game::ReqUserQuit(Player * player)
 	return 0;
 }
 
-
-int Game::ReqUpdatePwd(Player* player)
+int Game::ReqUpdatePwd(Player *player)
 {
 	return 0;
 }
 
-int Game::ReqGetInfo(Player* player)
+int Game::ReqGetInfo(Player *player)
 {
 	return 0;
 }
 
-int Game::ReqGetFriends(Player* player)
+int Game::ReqGetFriends(Player *player)
 {
 	return 0;
 }
 
-int Game::ReqAddFriends(Player* player)
+int Game::ReqAddFriends(Player *player)
 {
 	return 0;
 }
 
-int Game::ReqDeleteFriends(Player* player)
+int Game::ReqDeleteFriends(Player *player)
 {
 	return 0;
 }
 
-
-
-int Game::ReqSelectGameMode(Player * player)
+int Game::ReqSelectGameMode(Player *player)
 {
 	return 0;
 }
 
-int Game::ReqGetGameMode(Player * player)
+int Game::ReqGetGameMode(Player *player)
 {
 	return 0;
 }
@@ -273,22 +264,21 @@ int Game::GetNewRoomID()
 	{
 		id = ((id + 100) % (ROOM_ID_END - ROOM_ID_START)) + ROOM_ID_START;
 	}
-	
+
 	return id;
 }
-int Game::ReqCreateRoom(Player * player)
+int Game::ReqCreateRoom(Player *player)
 {
-	if(NULL == player)
+	if (NULL == player)
 	{
 		return -1;
 	}
 	int code = 0;
-	
+
 	Json::Value root;
 	std::string err;
 
-	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	if (!Game::ParseMsg(player,&root,err))
 	{
 		code = 0x01;
 	}
@@ -298,29 +288,28 @@ int Game::ReqCreateRoom(Player * player)
 		if (NULL != plogic)
 		{
 			int roomid = GetNewRoomID();
-			Room *room = new (std::nothrow) Room(plogic,roomid, (ERoomType)(root.get(SRoom[ERoom_type],ROOM_TYPE_6).asInt()),
-				root[SRoom[ERoom_name]].asString(), (EMatchSeatWay)(root[SRoom[ERoom_match_seat_way]].asInt())); 
+			Room *room = new (std::nothrow) Room(plogic, roomid, (ERoomType)(root.get(SRoom[ERoom_type], ROOM_TYPE_6).asInt()),
+												 root[SRoom[ERoom_name]].asString(), (EMatchSeatWay)(root[SRoom[ERoom_match_seat_way]].asInt()));
 			if (NULL != room)
 			{
 				plogic->SetRoom(room);
-				m_mRooms[roomid] = room; 
+				m_mRooms[roomid] = room;
 				player->m_pRoom = room;
 				room->m_pMaster = player;
 				room->EnterRoom(player);
 
 				root.clear();
 				room->Get(root[SJPROTO[E_Room]]);
-
 			}
 			else
 			{
-				delete plogic;//new err
+				delete plogic; //new err
 				code = 0x02;
 			}
 		}
 		else
 		{
-			code = 0x04;//new err
+			code = 0x04; //new err
 		}
 	}
 
@@ -338,57 +327,56 @@ int Game::DeleteRoom(Room *room)
 	return 0;
 }
 
-int Game::ReqMatchRoom(Player * player)
+int Game::ReqMatchRoom(Player *player)
 {
 	return 0;
 }
 
-int Game::ReqEnterRoom(Player * player)
+int Game::ReqEnterRoom(Player *player)
 {
-	if(NULL == player)
+	if (NULL == player)
 	{
 		return -1;
 	}
 	int code = 0;
-	
-	std::map<int, Room*>::iterator room ;
+
+	std::map<int, Room *>::iterator room;
 	Json::Value root;
 	std::string err;
 
-	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	if (!Game::ParseMsg(player,&root,err))
 	{
 		code = 0x01;
 	}
 	else
 	{
 		room = m_mRooms.find(root[SRoom[ERoom_room_id]].asInt());
-		if(m_mRooms.end() != room)
+		if (m_mRooms.end() != room)
 		{
-			if(0 != room->second->EnterRoom(player))
+			if (0 != room->second->EnterRoom(player))
 			{
-				code = 0x02;//enter room failed
+				code = 0x02; //enter room failed
 			}
 		}
 		else
 		{
-			code = 0x04;//not find the room
+			code = 0x04; //not find the room
 		}
 	}
 
 	root.clear();
-	if(0 == code)
+	if (0 == code)
 	{
 		player->Get(root[SJPROTO[E_Player]]);
 		room->second->Get(root[SJPROTO[E_Room]]);
 	}
 
 	root["code"] = (code);
-	PPacket* packet = new PPacket();
+	PPacket *packet = new PPacket();
 	packet->body = root.toStyledString();
 	packet->pack(PLAYER_ENTER_ROOM_BC);
 
-	if(0 == code)
+	if (0 == code)
 	{
 		room->second->Broadcast(packet);
 	}
@@ -397,62 +385,59 @@ int Game::ReqEnterRoom(Player * player)
 		std::shared_ptr<PPacket> sppacket(packet);
 		player->Send(sppacket);
 	}
-	
 
 	return code;
 }
-int Game::ReqQuitRoom(Player * player)
+int Game::ReqQuitRoom(Player *player)
 {
-	if(NULL == player)
+	if (NULL == player)
 	{
 		return -1;
 	}
 	int code = 0;
-	
 
-	std::map<int, Room*>::iterator room ;
+	std::map<int, Room *>::iterator room;
 	int quit_ret = 0;
-	
+
 	Json::Value root;
 	std::string err;
 
-	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	if (!Game::ParseMsg(player,&root,err))
 	{
 		code = 0x01;
 	}
 	else
 	{
 		room = m_mRooms.find(root[SRoom[ERoom_room_id]].asInt());
-		if(m_mRooms.end() != room)
+		if (m_mRooms.end() != room)
 		{
-			if(0 != (quit_ret = room->second->QuitRoom(player)))
+			if (0 != (quit_ret = room->second->QuitRoom(player)))
 			{
-				code = 0x02;//enter room failed
+				code = 0x02; //enter room failed
 			}
 		}
 		else
 		{
-			code = 0x04;//not find the room
+			code = 0x04; //not find the room
 		}
 	}
 
 	root.clear();
-	if(0 == code)
+	if (0 == code)
 	{
 		player->Get(root[SJPROTO[E_Player]]);
 	}
 
 	root["code"] = (code);
-	PPacket* packet = new PPacket();
+	PPacket *packet = new PPacket();
 	packet->body = root.toStyledString();
 	packet->pack(PLAYER_QUIT_ROOM_BC);
 
-	if(0 == code)
+	if (0 == code)
 	{
 		room->second->Broadcast(packet);
-		//all quit room ,delete room 
-		if(1 == quit_ret)
+		//all quit room ,delete room
+		if (1 == quit_ret)
 		{
 			m_mRooms.erase(room);
 			delete room->second;
@@ -467,21 +452,20 @@ int Game::ReqQuitRoom(Player * player)
 	return code;
 }
 
-int Game::ReqEnterRoomFast(Player * player)
+int Game::ReqEnterRoomFast(Player *player)
 {
-	if(NULL == player)
+	if (NULL == player)
 	{
 		return -1;
 	}
 	int code = 0;
-	
-	Room* room = NULL;
+
+	Room *room = NULL;
 
 	Json::Value root;
 	std::string err;
 
-	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	if (!Game::ParseMsg(player,&root,err))
 	{
 		code = 0x01;
 	}
@@ -500,27 +484,27 @@ int Game::ReqEnterRoomFast(Player * player)
 		{
 			if (0 != room->EnterRoom(player))
 			{
-				code = 0x02;//enter room failed
+				code = 0x02; //enter room failed
 			}
 		}
 		else
 		{
-			code = 0x04;//not find the room
+			code = 0x04; //not find the room
 		}
 	}
 	root.clear();
-	if(0 == code)
+	if (0 == code)
 	{
 		player->Get(root[SJPROTO[E_Player]]);
 		room->Get(root[SJPROTO[E_Room]]);
 	}
 
 	root["code"] = (code);
-	PPacket* packet = new PPacket();
+	PPacket *packet = new PPacket();
 	packet->body = root.toStyledString();
 	packet->pack(PLAYER_ENTER_ROOM_BC);
 
-	if(0 == code)
+	if (0 == code)
 	{
 		room->Broadcast(packet);
 	}
@@ -533,35 +517,34 @@ int Game::ReqEnterRoomFast(Player * player)
 	return code;
 }
 
-int Game::ReqSearchRoom(Player * player)
+int Game::ReqSearchRoom(Player *player)
 {
-	if(NULL == player)
+	if (NULL == player)
 	{
 		return -1;
 	}
 	int code = 0;
-	
-	std::map<int, Room*>::iterator room ;
+
+	std::map<int, Room *>::iterator room;
 
 	Json::Value root;
 	std::string err;
 
-	if (!m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-				  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), &root, &err))
+	if (!Game::ParseMsg(player,&root,err))
 	{
 		code = 0x01;
 	}
 	else
 	{
 		room = m_mRooms.find(root[SRoom[ERoom_room_id]].asInt());
-		if(m_mRooms.end() == room)
+		if (m_mRooms.end() == room)
 		{
-			code = 0x02;//not find the room
+			code = 0x02; //not find the room
 		}
 	}
 
 	root.clear();
-	if(0 == code)
+	if (0 == code)
 	{
 		room->second->Get(root[SJPROTO[E_Room]]);
 	}
@@ -577,7 +560,7 @@ int Game::ReqSearchRoom(Player * player)
 	return code;
 }
 
-int Game::Broadcast(PPacket* pkt)
+int Game::Broadcast(PPacket *pkt)
 {
 	std::shared_ptr<PPacket> sptr(pkt);
 	for (std::map<int, Player *>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); ++player)
@@ -587,16 +570,16 @@ int Game::Broadcast(PPacket* pkt)
 	return 0;
 }
 
-int Game::Unicast(Player * player, PPacket* pkt)
+int Game::Unicast(Player *player, PPacket *pkt)
 {
 	std::shared_ptr<PPacket> sptr(pkt);
 	player->Send(sptr);
 	return 0;
 }
 
-const Player * Game::GetOLPlayer(int playerid)
+const Player *Game::GetOLPlayer(int playerid)
 {
-	for (std::map<int, Player*>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); ++player)
+	for (std::map<int, Player *>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); ++player)
 	{
 		if (playerid == player->second->m_nID)
 		{
@@ -609,36 +592,40 @@ const Player * Game::GetOLPlayer(int playerid)
 
 int Game::Listen()
 {
-	sgslog.info(FFL_s_s_d,"Listening on:",
-		g_app.m_iConf["app"]["host"].asString().c_str(),
-		g_app.m_iConf["app"]["port"].asInt());
+	sgslog.info(FFL_s_s_d, "Listening on:",
+				g_app.m_iConf["app"]["host"].asString().c_str(),
+				g_app.m_iConf["app"]["port"].asInt());
 
 	struct sockaddr_in addr;
 
 	m_nListenfd = socket(PF_INET, SOCK_STREAM, 0);
-	if (m_nListenfd < 0) {
+	if (m_nListenfd < 0)
+	{
 		sgslog.error(FFL_s, strerror(errno));
 	}
 
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(g_app.m_iConf["app"]["port"].asInt());
 	addr.sin_addr.s_addr = inet_addr(g_app.m_iConf["app"]["host"].asString().c_str());
-	if (addr.sin_addr.s_addr == INADDR_NONE) {
-		sgslog.error(FFL_s,"Incorrect ip address!");
+	if (addr.sin_addr.s_addr == INADDR_NONE)
+	{
+		sgslog.error(FFL_s, "Incorrect ip address!");
 		close(m_nListenfd);
 		m_nListenfd = -1;
 		return -1;
 	}
 
 	int on = 1;
-	if (setsockopt(m_nListenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
-		sgslog.error(FFL_s_s,"setsockopt failed:", strerror(errno));
+	if (setsockopt(m_nListenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
+	{
+		sgslog.error(FFL_s_s, "setsockopt failed:", strerror(errno));
 		close(m_nListenfd);
 		return -1;
 	}
 
-	if (bind(m_nListenfd, (struct sockaddr *) &addr, sizeof(addr)) < 0) {
-		sgslog.error(FFL_s,"bind failed:", strerror(errno));
+	if (bind(m_nListenfd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+	{
+		sgslog.error(FFL_s, "bind failed:", strerror(errno));
 		close(m_nListenfd);
 		return -1;
 	}
@@ -649,13 +636,14 @@ int Game::Listen()
 	m_iAccept.data = this;
 	ev_io_init(&m_iAccept, Game::Accept_cb, m_nListenfd, EV_READ);
 	ev_io_start(g_app.m_pLoop, &m_iAccept);
-	sgslog.info(FFL_s,"listen ok");
+	sgslog.info(FFL_s, "listen ok");
 	return 0;
 }
 
 void Game::Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents)
 {
-	if (EV_ERROR & revents) {
+	if (EV_ERROR & revents)
+	{
 		sgslog.error(FFL_s, "got invalid event");
 		return;
 	}
@@ -663,12 +651,13 @@ void Game::Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents)
 	struct sockaddr_in client_addr;
 	socklen_t client_len = sizeof(client_addr);
 
-	int fd = accept(w->fd, (struct sockaddr *) &client_addr, &client_len);
-	if (fd < 0) {
+	int fd = accept(w->fd, (struct sockaddr *)&client_addr, &client_len);
+	if (fd < 0)
+	{
 		sgslog.error(FFL_s_s, "accept error:", strerror(errno));
 		return;
 	}
-	Game *game = (Game*)(w->data);
+	Game *game = (Game *)(w->data);
 
 	fcntl(fd, F_SETFL, fcntl(fd, F_GETFL, 0) | O_NONBLOCK);
 
@@ -685,11 +674,11 @@ void Game::Accept_cb(struct ev_loop *loop, struct ev_io *w, int revents)
 	return;
 }
 
-int Game::BeforeDo(Player* self)
+int Game::BeforeDo(Player *player)
 {
 	sgslog.info(FFLs);
 
-	if (self->m_iClient.m_iPacket.check())
+	if (player->m_iClient.m_iPacket.check())
 	{
 		return 0;
 	}
@@ -698,82 +687,102 @@ int Game::BeforeDo(Player* self)
 	return -1;
 }
 
-int Game::Do(Player* self)
+int Game::Do(Player *player)
 {
 	int nRet = 0;
-	if (self->m_iClient.m_iPacket.header.cmd > GAME_START && self->m_pRoom)
+
+	if (player->m_iClient.m_iPacket.header.cmd > GAME_START && player->m_pRoom)
 	{
 		/*do game logic*/
-		nRet = self->m_pRoom->Do(self);
+		nRet = player->m_pRoom->Do(player);
 	}
 	else
 	{
 		/*do*/
-		switch (self->m_iClient.m_iPacket.header.cmd)
+		switch (player->m_iClient.m_iPacket.header.cmd)
 		{
 		case PLAYER_GET_FRIENDS:
-			nRet = ReqGetFriends(self);
+			nRet = ReqGetFriends(player);
 			break;
 		case PLAYER_DELETE_FRIENDS:
-			nRet = ReqDeleteFriends(self);
+			nRet = ReqDeleteFriends(player);
 			break;
 		case PLAYER_ADD_FRIENDS:
-			nRet = ReqAddFriends(self);
+			nRet = ReqAddFriends(player);
 			break;
 		case PLAYER_UPDATE_PWD:
-			nRet = ReqUpdatePwd(self);
+			nRet = ReqUpdatePwd(player);
 			break;
 		case PLAYER_MATCH_ROOM:
-			nRet = ReqMatchRoom(self);
+			nRet = ReqMatchRoom(player);
 			break;
 		case PLAYER_MATCH_ROOM_FAST:
-			nRet = ReqEnterRoomFast(self);
+			nRet = ReqEnterRoomFast(player);
 			break;
 		case PLAYER_ENTER_ROOM:
-			nRet = ReqEnterRoom(self);
+			nRet = ReqEnterRoom(player);
 			break;
 		case PLAYER_QUIT_ROOM:
-			nRet = ReqQuitRoom(self);
+			nRet = ReqQuitRoom(player);
 			break;
 		case PLAYER_SEARCH_ROOM:
-			nRet = ReqSearchRoom(self);
+			nRet = ReqSearchRoom(player);
 			break;
 		case PLAYER_READY:
-			nRet = ReqReady(self);
+			nRet = ReqReady(player);
 			break;
 		case PLAYER_SELECT_GAME_MODE:
-			nRet = ReqSelectGameMode(self);
+			nRet = ReqSelectGameMode(player);
 			break;
 		case PLAYER_GET_GAME_MODE:
-			nRet = ReqGetGameMode(self);
+			nRet = ReqGetGameMode(player);
 			break;
 		case PLAYER_CREATE_ROOM:
-			nRet = ReqCreateRoom(self);
+			nRet = ReqCreateRoom(player);
 			break;
 		case PLAYER_REGIST:
-			nRet = ReqRegist(self);
+			nRet = ReqRegist(player);
 			break;
 		case PLAYER_LOGIN:
-			nRet = ReqLogin(self);
+			nRet = ReqLogin(player);
 			break;
 		case PLAYER_QUIT:
-			nRet = ReqUserQuit(self);
+			nRet = ReqUserQuit(player);
 			break;
 		default:
 			break;
 		}
 	}
-	sgslog.info(FFL_s_d_d, "cmd:", self->m_iClient.m_iPacket.header.cmd, nRet);
+
+	sgslog.info(FFL_s_d_d, "cmd:", player->m_iClient.m_iPacket.header.cmd, nRet);
 	return nRet;
 }
 
-int Game::AfterDo(Player* self)
+int Game::AfterDo(Player *player)
 {
 	sgslog.info(FFLs);
 
-	self->m_iClient.m_iPacket.body.clear();
-	self->m_iClient.m_iPacket.m_nCurLen = 0;
-	self->m_iClient.m_iPacket.m_eStatus = STAT_HEADER;
+	player->m_iClient.m_iPacket.body.clear();
+	player->m_iClient.m_iPacket.m_nCurLen = 0;
+	player->m_iClient.m_iPacket.m_eStatus = STAT_HEADER;
 
 	return 0;
+}
+
+bool Game::ParseMsg(Player *player, void *msg, std::string &err)
+{
+	bool nRet = 0;
+#if 1
+	//json
+	static Json::CharReaderBuilder m_jBuilder;
+	static Json::CharReader *m_jReader = m_jBuilder.newCharReader();
+
+	nRet = m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
+						  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), (Json::Value*)msg, &err);
+#else
+	//maybe protobuf
+
+#endif
+
+	return nRet;
 }

@@ -26,9 +26,6 @@ private:
 	int m_nListenfd;
 	int m_nStatus;
 
-	Json::CharReaderBuilder m_jBuilder;
-	Json::CharReader* m_jReader;
-
 protected:
 
 public:
@@ -71,6 +68,8 @@ public:
 	virtual int BeforeDo(Player* self);
 	virtual int Do(Player* self);
 	virtual int AfterDo(Player* self);
+
+	static bool ParseMsg(Player *player, void *msg, std::string &err);
 
 protected:
 	

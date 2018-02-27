@@ -3,6 +3,15 @@
 
 int main()
 {
+
+    srand(time(NULL));
+
+    for (int i = 0; i < 100; i++)
+    {
+        printf("%d\n", rand());
+    }
+
+    /*
     int ret = 0;
     sockaddr_in sa;
     int fd = socket(PF_INET, SOCK_STREAM, 0);
@@ -21,5 +30,5 @@ int main()
 
     ret = send(fd, p.data.c_str(), p.data.length(), 0);
 
-    close(fd);
+    close(fd);*/
 }
