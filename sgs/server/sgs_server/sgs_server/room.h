@@ -27,6 +27,13 @@ enum EMatchSeatWay
 	MATCH_SEAT_RAND = 2
 };
 
+enum ERoomStatus
+{
+	ROOM_ST_NONE = 0,
+	ROOM_ST_START,
+	ROOM_ST_PLAYING,
+};
+
 class Room
 {
 	//variables

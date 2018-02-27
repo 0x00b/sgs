@@ -288,8 +288,8 @@ int Game::ReqCreateRoom(Player *player)
 		if (NULL != plogic)
 		{
 			int roomid = GetNewRoomID();
-			Room *room = new (std::nothrow) Room(plogic, roomid, (ERoomType)(root.get(SRoom[ERoom_type], ROOM_TYPE_6).asInt()),
-												 root[SRoom[ERoom_name]].asString(), (EMatchSeatWay)(root[SRoom[ERoom_match_seat_way]].asInt()));
+			Room *room = new (std::nothrow) Room(plogic, roomid, (ERoomType)(root.get(SRoom[ERoom_type], ROOM_TYPE_2).asInt()),
+												 root[SRoom[ERoom_name]].asString(), (EMatchSeatWay)(root.get(SRoom[ERoom_match_seat_way],MATCH_SEAT_ORDER).asInt()));
 			if (NULL != room)
 			{
 				plogic->SetRoom(room);
