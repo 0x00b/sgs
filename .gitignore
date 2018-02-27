@@ -44,3 +44,10 @@
 *.pid
 /sgs/server/sgs_server/sgs_server/ClassDiagram1.cd
 /sgs/server/sgs_server/sgs_server/ClassDiagram.cd
+/sgs/client/MyCppGame/proj.linux
+/sgs/client/MyCppGame/proj.ios_mac
+/sgs/client/MyCppGame/proj.android-studio
+/sgs/client/MyCppGame/proj.android
+/sgs/client/MyCppGame/cocos2d
+/sgs/client/MyCppGame/Classes2
+/sgs/client/MyCppGame/Classes/boost.asio.1.0.159/example
