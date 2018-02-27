@@ -391,7 +391,7 @@ int Player::UpdateState(EPlayerStatus status)
 	//MYSQL_ROW row;
 	std::string sql = "UPDATE `sgs_db`.`player` SET `player`.`status`=";
 	sql.append(std::to_string(status));
-	sql.append("WHERE `player`.`idplayer`=");
+	sql.append(" WHERE `player`.`idplayer`=");
 	sql.append(std::to_string(m_nID));
 	sql.append(";");
 
