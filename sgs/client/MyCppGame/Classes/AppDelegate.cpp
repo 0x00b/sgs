@@ -96,7 +96,6 @@ void AppDelegate::func_send()
 
 		g_lstWrite.pop_front();
 
-		return;
 	}
 
 
@@ -132,17 +131,19 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 {
 	switch (cmd)
 	{
-	case 4:
+	case PLAYER_LOGIN_UC:
 		if (0 == pkt["code"].asInt())
 		{
-			MessageBox("1","");
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, HelloWorld::createScene()));
+			});
 		}
 		else
 		{
-			MessageBox("2","");
+			MessageBox("login failed!", "");
 		}
 		break;
-		default:
+	default:
 		break;
 	}
 	return 0;
@@ -278,7 +279,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	// create a scene. it's an autorelease object
 	auto scene = Login::createScene();
-	auto pvp1 = pvp::createScene();
+	//auto pvp1 = pvp::createScene();
 	// run
 
 	director->runWithScene(scene);

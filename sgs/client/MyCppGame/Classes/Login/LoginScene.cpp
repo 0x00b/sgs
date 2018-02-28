@@ -1,7 +1,14 @@
 #include "LoginScene.h"
 
+#include "libs/json/json.h"
+#include "jsonproto/jsonproto.h"
+#include "ppacket.h"
+#include "model/proto.h"
+
 USING_NS_CC;
 using namespace ui;
+
+extern std::list<std::shared_ptr<PPacket>> g_lstWrite;
 
 Scene* Login::createScene()
 {
@@ -36,7 +43,7 @@ bool Login::init()
 
 	ImageView* img_bg = ImageView::create("Login/login_bg.png");
 	img_bg->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
-	img_bg->setScale(visibleSize.width/img_bg->getContentSize().width, visibleSize.height / img_bg->getContentSize().height);
+	img_bg->setScale(visibleSize.width / img_bg->getContentSize().width, visibleSize.height / img_bg->getContentSize().height);
 	layer_bg->addChild(img_bg);
 	//添加背景e
 
@@ -98,16 +105,33 @@ bool Login::init()
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::ENDED:
-			//此处联网检查账号 
-			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, HelloWorld::createScene()));
+
+			//Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, HelloWorld::createScene()));
 
 			log(txt_account->getString().c_str());
 			log(txt_pwd->getString().c_str());
+
+			if (txt_account->getStringLength() >= 3 && txt_account->getStringLength() <= 15 &&
+				txt_pwd->getStringLength() >= 3 && txt_pwd->getStringLength() <= 15) {
+				//此处联网检查账号s
+				Json::Value root;
+				root[SPlayer[EPlayer_account]] = txt_account->getString();
+				root[SPlayer[EPlayer_passwd]] = txt_pwd->getString();
+				std::shared_ptr<PPacket> p(new PPacket());
+				p->body = root.toStyledString();
+				p->pack(PLAYER_LOGIN);
+				g_lstWrite.push_back(p);
+				//此处联网检查账号e
+			}
+			else {
+				MessageBox("please check your input!", "");
+			}
+
 			break;
 		}
 	});
 
-	Label* lab_login = Label::create(message["login"].asString(),"fonts/FZBWKSK.TTF",22);
+	Label* lab_login = Label::create(message["login"].asString(), "fonts/FZBWKSK.TTF", 22);
 	lab_login->setPosition(Vec2(size_rect_bg.width / 2, size_rect_bg.height / 5));
 	img_rect_bg->addChild(lab_login);
 	//登录按钮e
