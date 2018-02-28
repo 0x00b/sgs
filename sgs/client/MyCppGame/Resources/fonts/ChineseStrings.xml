@@ -17,7 +17,16 @@
 
 	<key>startsearch</key>
  	<string>开始搜索</string>
+	
+	<key>ready</key>
+ 	<string>准备</string>	
 
-	<key>startgame</key>
- 	<string>开始</string>
+	<key>login</key>
+ 	<string>登录</string>
+	
+	<key>account</key>
+ 	<string>账号</string>
+
+	<key>pwd</key>
+ 	<string>密码</string>
 </dict>
