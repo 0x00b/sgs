@@ -2,7 +2,7 @@
 #define  _APP_DELEGATE_H_
 
 #include "../Classes/model/include_all.h"
-
+#include "Do_function.h"
 using boost::asio::ip::tcp;
 
 #ifdef WIN32  

@@ -132,16 +132,7 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	switch (cmd)
 	{
 	case PLAYER_LOGIN_UC:
-		if (0 == pkt["code"].asInt())
-		{
-			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
-				Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, HelloWorld::createScene()));
-			});
-		}
-		else
-		{
-			MessageBox("login failed!", "");
-		}
+		Do_function::PLAYER_LOGIN_UC(pkt,cmd);
 		break;
 	default:
 		break;

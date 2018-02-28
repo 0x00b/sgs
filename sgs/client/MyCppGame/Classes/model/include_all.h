@@ -18,3 +18,6 @@
 #include "player.h"
 #include "room.h"
 #include "proto.h"
+
+
+extern std::list<std::shared_ptr<PPacket>> g_lstWrite;
