@@ -1,11 +1,9 @@
 #ifndef __READYHOME_SCENE_H__
 #define __READYHOME_SCENE_H__
 
-#include "cocos2d.h"
 #include "SimpleAudioEngine.h"
-#include "ui/CocosGUI.h"
-
 #include "Mode/SelectModeScene.h"
+#include "../Classes/model/include_all.h"
 
 USING_NS_CC;
 using namespace ui;

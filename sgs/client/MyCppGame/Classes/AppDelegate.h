@@ -1,16 +1,7 @@
 #ifndef  _APP_DELEGATE_H_
 #define  _APP_DELEGATE_H_
 
-#include "cocos2d.h"
-#include <iostream>
-#include <string>
-
-#include "boost/asio.hpp"
-#include "ppacket.h"
-
-#include "./Classes/jsonproto/jsonproto.h"
-#include "./Classes/libs/json/json.h"
-#include "./Classes/libs/json/json-forwards.h"
+#include "../Classes/model/include_all.h"
 
 using boost::asio::ip::tcp;
 
@@ -20,7 +11,6 @@ using boost::asio::ip::tcp;
 #define CCSleep(t)  USleep(t)  
 #endif  
 
-#include "model/player.h"
 
 /**
 @brief    The cocos2d Application.

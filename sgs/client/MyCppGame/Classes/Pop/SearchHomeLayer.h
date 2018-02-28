@@ -1,10 +1,9 @@
 #ifndef __SEARCHHOME_LAYER_H__
 #define __SEARCHHOME_LAYER_H__
 
-#include "cocos2d.h"
+#include "../Classes/model/include_all.h"
 #include "SimpleAudioEngine.h"
-#include "ui\CocosGUI.h"
-#include "ui\UIWidget.h"
+
 
 USING_NS_CC;
 using namespace ui;

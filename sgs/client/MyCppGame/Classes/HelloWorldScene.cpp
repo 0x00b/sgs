@@ -1,6 +1,6 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
-#include "ui/CocosGUI.h"
+
 
 USING_NS_CC;
 

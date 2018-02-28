@@ -1,9 +1,10 @@
 #ifndef __LOGIN_SCENE_H__
 #define __LOGIN_SCENE_H__
 
-#include "cocos2d.h"
+
+#include "../Classes/model/include_all.h"
+
 #include "SimpleAudioEngine.h"
-#include "ui/CocosGUI.h"
 
 #include "HelloWorldScene.h"
 
