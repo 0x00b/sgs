@@ -119,7 +119,7 @@ void Room::Get(Json::Value& proom)
 	int index = 0;
 	for (std::list<Player *>::iterator it = m_lstPlayers.begin(); it != m_lstPlayers.end(); ++it)
 	{
-		if (m_pMaster != *it)
+		//if (m_pMaster != *it)
 		{
 			(*it)->Get(proom[SJPROTO[E_Player]][index++]);
 		}
