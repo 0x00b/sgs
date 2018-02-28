@@ -59,7 +59,7 @@ bool SearchHome::init()
 
 	//初始化动画s
 	img_bg->setScale(0);
-	img_bg->runAction(ScaleTo::create(0.5, 1));
+	img_bg->runAction(ScaleTo::create(0.3, 1));
 	//初始化动画e
 
 	this->setSwallowsTouches(true);
@@ -74,7 +74,7 @@ bool SearchHome::init()
 	listener_closepop->onTouchEnded = [&](Touch *t, Event *event)
 	{
 		log("listener_closepop Ended");
-		auto seq = Sequence::create(ScaleTo::create(0.5, 0), CallFuncN::create(CC_CALLBACK_1(SearchHome::closeAnimation, this)), NULL);
+		auto seq = Sequence::create(ScaleTo::create(0.3, 0), CallFuncN::create(CC_CALLBACK_1(SearchHome::closeAnimation, this)), NULL);
 		img_bg->runAction(seq);
 		return true;
 	};

@@ -95,7 +95,7 @@ void ReadyHome::DidBack(Ref* pSender, Widget::TouchEventType type) {
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
 		auto director = Director::getInstance();
 		auto SelectModeScene = SelectMode::createScene();
-		director->replaceScene(TransitionSlideInL::create(1.0f, SelectModeScene));
+		director->replaceScene(TransitionSlideInL::create(0.5f, SelectModeScene));
 		break;
 	}
 }
