@@ -45,18 +45,10 @@ bool SelectMode::init()
 	img_slct_bg->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 	img_bg->addChild(img_slct_bg);
 	//添加选择模式背景图e
-
-	//中文显示s
-	//过时
-	//Dictionary* message = Dictionary::createWithContentsOfFile("fonts/ChineseStrings.xml");
-	//auto sixmodeValue = message->valueForKey("sixmode");    //根据key，获取value
-	//const char* sixmodeString = sixmodeValue->getCString();    //将value转化为字符串
-	//替代
-	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
-	auto twomodeString = message["twomode"].asString();
-	auto createhomeString = message["createhome"].asString();
-	auto fastenterString = message["fastenter"].asString();
-	auto searchhomeString = message["searchhome"].asString();
+	auto twomodeString = SGSTXT["twomode"];
+	auto createhomeString = SGSTXT["createhome"];
+	auto fastenterString = SGSTXT["fastenter"];
+	auto searchhomeString = SGSTXT["searchhome"];
 	//中文显示e
 
 	//添加创建房间 快速加入 搜索房间三个按钮s
@@ -175,9 +167,7 @@ void SelectMode::AutoSlide(Ref* pSender, Widget::TouchEventType type) {
 }
 
 void SelectMode::change6ImageBig(Node* sender) {
-	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
-	auto sixmodeString = message["sixmode"].asString();
-	lab_slct_mode->setString(sixmodeString);
+	lab_slct_mode->setString(SGSTXT["sixmode"]);
 
 	((ImageView*)sender)->loadTexture("Mode/model_big_6.png");
 }
@@ -187,9 +177,7 @@ void SelectMode::change6ImageSmall(Node* sender) {
 }
 
 void SelectMode::change2ImageBig(Node* sender) {
-	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
-	auto twomodeString = message["twomode"].asString();
-	lab_slct_mode->setString(twomodeString);
+	lab_slct_mode->setString(SGSTXT["twomode"]);
 
 	((ImageView*)sender)->loadTexture("Mode/model_big_2.png");
 }

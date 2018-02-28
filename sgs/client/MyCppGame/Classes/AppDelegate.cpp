@@ -58,7 +58,6 @@ AppDelegate::AppDelegate() :
 	th_send(AppDelegate::func_send),
 	th_receive(func_receive)
 {
-
 }
 
 AppDelegate::~AppDelegate()

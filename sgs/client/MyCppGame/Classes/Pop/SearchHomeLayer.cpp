@@ -36,8 +36,7 @@ bool SearchHome::init()
 	//添加背景e
 
 	//中文显示s
-	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
-	auto searchhomeString = message["searchhome"].asString();
+	auto searchhomeString = SGSTXT["searchhome"];
 	//中文显示e
 
 	//标题s
@@ -52,7 +51,7 @@ bool SearchHome::init()
 	btn_startsearch->setPosition(Vec2(size_bg.width / 2, size_bg.height / 5));
 	img_bg->addChild(btn_startsearch);
 
-	auto lab_startsearch = Label::createWithTTF(message["startsearch"].asString(), "fonts/FZBWKSK.TTF", 22);
+	auto lab_startsearch = Label::createWithTTF(SGSTXT["startsearch"], "fonts/FZBWKSK.TTF", 22);
 	lab_startsearch->setPosition(Vec2(size_bg.width / 2, size_bg.height / 5));
 	img_bg->addChild(lab_startsearch);
 	//确定搜索按钮e

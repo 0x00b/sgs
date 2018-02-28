@@ -18,6 +18,9 @@
 #include "player.h"
 #include "room.h"
 #include "proto.h"
+#include "text.h"
 
 
 extern std::list<std::shared_ptr<PPacket>> g_lstWrite;
+
+extern CSGSTXT SGSTXT;

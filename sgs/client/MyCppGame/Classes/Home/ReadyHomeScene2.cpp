@@ -66,10 +66,8 @@ bool ReadyHome::init()
 	//两个座位s
 
 	//开始按钮s
-	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
-
 	btn_ready = Button::create("Home/chapter_normal.png", "Home/chapter_selected.png", "Home/disabled_image.png");
-	btn_ready->setTitleText(message["ready"].asString());
+	btn_ready->setTitleText(SGSTXT["ready"]);
 	btn_ready->setTitleFontName("fonts/FZBWKSK.TTF");
 	btn_ready->setTitleFontSize(40);
 
