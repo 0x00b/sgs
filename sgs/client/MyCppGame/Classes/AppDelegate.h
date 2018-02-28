@@ -20,6 +20,8 @@ using boost::asio::ip::tcp;
 #define CCSleep(t)  USleep(t)  
 #endif  
 
+#include "model/player.h"
+
 /**
 @brief    The cocos2d Application.
 

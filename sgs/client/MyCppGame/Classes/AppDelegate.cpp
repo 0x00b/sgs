@@ -109,18 +109,18 @@ void AppDelegate::func_send()
 	p.pack(1);
 	s.write(p.data.c_str(), p.data.length());*/
 
-	Json::Value root;
-	std::string err;
-	root[SPlayer[EPlayer_account]] = "waterm1";
-	root[SPlayer[EPlayer_passwd]] = "123456";
+	//Json::Value root;
+	//std::string err;
+	//root[SPlayer[EPlayer_account]] = "waterm1";
+	//root[SPlayer[EPlayer_passwd]] = "123456";
 
-	std::shared_ptr<PPacket> packet(new PPacket());
-	packet->body = root.toStyledString();
-	packet->pack(1);
+	//std::shared_ptr<PPacket> packet(new PPacket());
+	//packet->body = root.toStyledString();
+	//packet->pack(1);
 
-	//放到队列
+	////放到队列
 
-	g_lstWrite.push_back(packet);
+	//g_lstWrite.push_back(packet);
 
 
 	return;

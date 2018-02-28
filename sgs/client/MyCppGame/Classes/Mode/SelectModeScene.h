@@ -8,9 +8,13 @@
 #include "Pop/SearchHomeLayer.h"
 #include "Home/ReadyHomeScene2.h"
 #include "HelloWorldScene.h"
+#include "./model/proto.h"
+#include "AppDelegate.h"
 
 USING_NS_CC;
 using namespace ui;
+
+extern std::list<std::shared_ptr<PPacket>> g_lstWrite;
 
 class SelectMode : public cocos2d::Scene
 {
