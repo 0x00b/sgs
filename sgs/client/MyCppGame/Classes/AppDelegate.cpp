@@ -38,6 +38,19 @@ static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 tcp::socket sock(*(new boost::asio::io_service()));
 tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.251"),37373);
 
+void connectToSvr()
+{
+	try
+	{
+		sock.connect(ep);
+	}
+	catch (const std::exception&)
+	{
+		MessageBox("connect sever err!","");
+	}
+}
+
+
 AppDelegate::AppDelegate() :
 	th_send(AppDelegate::func_send),
 	th_receive(func_receive)
@@ -75,7 +88,7 @@ void AppDelegate::func_send()
 		}
 		catch (const std::exception&)
 		{
-			sock.connect(ep);
+			connectToSvr();
 		}
 
 		g_lstWrite.pop_front();
@@ -153,7 +166,7 @@ void AppDelegate::func_receive()
 		}
 		catch (const std::exception&)
 		{
-			sock.connect(ep);
+			connectToSvr();
 		}
 
 		pMsg.save();
@@ -170,7 +183,7 @@ void AppDelegate::func_receive()
 			}
 			catch (const std::exception&)
 			{
-				sock.connect(ep);
+				connectToSvr();
 			}
 			pMsg.body.append(pRecvBuf.get(), pMsg.header.len);
 			reader->parse(pMsg.body.c_str(), pMsg.body.c_str() + pMsg.body.length(), &root, &err);
@@ -234,10 +247,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	}
 
 	// turn on display FPS
-	director->setDisplayStats(true);
+	//director->setDisplayStats(true);
 
 	// set FPS. the default value is 1.0/60 if you don't call this
-	director->setAnimationInterval(1.0f / 60);
+	//director->setAnimationInterval(1.0f / 60);
 
 	// Set the design resolution
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
