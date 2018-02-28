@@ -100,7 +100,7 @@ bool SelectMode::init()
 		{
 		case ui::Widget::TouchEventType::ENDED:
 			//ÇÐ»»³¡¾°s
-			Director::getInstance()->replaceScene(TransitionSlideInL::create(1.0f, HelloWorld::createScene()));
+			Director::getInstance()->replaceScene(TransitionSlideInL::create(0.5f, HelloWorld::createScene()));
 			break;
 		}
 	});
@@ -223,11 +223,7 @@ void SelectMode::CreateHomePop(Ref* pSender, Widget::TouchEventType type) {
 		}
 		p->pack(PLAYER_CREATE_ROOM);
 		g_lstWrite.push_back(p);
-	/*	director = Director::getInstance();
-		homeScene = ReadyHome::createScene();
-		transition = TransitionSlideInR::create(1.0f, homeScene);
-		director->replaceScene(transition);*/
-		//std::list<std::shared_ptr<PPacket>> g_lstWrite;
+
 		break;
 	}
 }

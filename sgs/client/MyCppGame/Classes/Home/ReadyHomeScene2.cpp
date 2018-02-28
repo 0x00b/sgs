@@ -68,12 +68,12 @@ bool ReadyHome::init()
 	//开始按钮s
 	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
 
-	btn_start = Button::create("Home/chapter_normal.png", "Home/chapter_selected.png", "Home/disabled_image.png");
-	btn_start->setTitleText(message["startgame"].asString());
-	btn_start->setTitleFontName("fonts/FZBWKSK.TTF");
-	btn_start->setTitleFontSize(40);
+	btn_ready = Button::create("Home/chapter_normal.png", "Home/chapter_selected.png", "Home/disabled_image.png");
+	btn_ready->setTitleText(message["ready"].asString());
+	btn_ready->setTitleFontName("fonts/FZBWKSK.TTF");
+	btn_ready->setTitleFontSize(40);
 
-	btn_start->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+	btn_ready->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::ENDED:
@@ -82,8 +82,8 @@ bool ReadyHome::init()
 			break;
 		}
 	});
-	btn_start->setPosition(Vec2(origin.x + visibleSize.width - 150, origin.y + visibleSize.height / 2));
-	img_bg->addChild(btn_start);
+	btn_ready->setPosition(Vec2(origin.x + visibleSize.width - 150, origin.y + visibleSize.height / 2));
+	img_bg->addChild(btn_ready);
 	//开始按钮e
 
 	return true;
@@ -95,7 +95,7 @@ void ReadyHome::DidBack(Ref* pSender, Widget::TouchEventType type) {
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
 		auto director = Director::getInstance();
 		auto SelectModeScene = SelectMode::createScene();
-		director->replaceScene(TransitionSlideInL::create(1.0f, SelectModeScene));
+		director->replaceScene(TransitionSlideInL::create(0.5f, SelectModeScene));
 		break;
 	}
 }

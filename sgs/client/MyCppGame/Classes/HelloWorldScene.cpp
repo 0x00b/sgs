@@ -190,7 +190,7 @@ bool HelloWorld::init()
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::ENDED:
-			Director::getInstance()->replaceScene(TransitionSlideInR::create(1.0f, SelectMode::createScene()));
+			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, SelectMode::createScene()));
 			break;
 		}
 	}));
