@@ -24,3 +24,7 @@ void Do_function::PLAYER_LOGIN_UC(Json::Value &pkt, int cmd)
 		MessageBox("login failed!", "");
 	};
 }
+
+void Do_function::PLAYER_GET_GAME_MODE_UC(Json::Value &pkt, int cmd) {
+	;
+}
