@@ -1,10 +1,5 @@
 #include "LoginScene.h"
 
-#include "libs/json/json.h"
-#include "jsonproto/jsonproto.h"
-#include "ppacket.h"
-#include "model/proto.h"
-
 USING_NS_CC;
 using namespace ui;
 
