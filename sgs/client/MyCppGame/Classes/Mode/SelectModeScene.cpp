@@ -60,31 +60,28 @@ bool SelectMode::init()
 	//中文显示e
 
 	//添加创建房间 快速加入 搜索房间三个按钮s
-	img_createhome = ui::ImageView::create("Bg/btn_bg.png");
-	img_createhome->setPosition(Vec2(origin.x + visibleSize.width / 2 - 168 * 2, origin.y + 70));
-	img_bg->addChild(img_createhome);
-	img_createhome->setTouchEnabled(true);
-	img_createhome->addTouchEventListener(CC_CALLBACK_2(SelectMode::CreateHomePop, this));
+	btn_createhome = Button::create("Bg/btn_bg.png");
+	btn_createhome->setPosition(Vec2(origin.x + visibleSize.width / 2 - 168 * 2, origin.y + 70));
+	img_bg->addChild(btn_createhome);
+	btn_createhome->addTouchEventListener(CC_CALLBACK_2(SelectMode::CreateHomePop, this));
 
 	auto lab_createhome = Label::createWithTTF(createhomeString, "fonts/FZBWKSK.TTF",22);
 	lab_createhome->setPosition(Vec2(origin.x + visibleSize.width / 2 - 168 * 2, origin.y + 70));
 	img_bg->addChild(lab_createhome);
 
-	img_fastenter = ui::ImageView::create("Bg/btn_bg.png");
-	img_fastenter->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 70));
-	img_bg->addChild(img_fastenter);
-	img_fastenter->setTouchEnabled(true);
-	img_fastenter->addTouchEventListener(CC_CALLBACK_2(SelectMode::DidFastEnter, this));
+	btn_fastenter = Button::create("Bg/btn_bg.png");
+	btn_fastenter->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 70));
+	img_bg->addChild(btn_fastenter);
+	btn_fastenter->addTouchEventListener(CC_CALLBACK_2(SelectMode::DidFastEnter, this));
 
 	auto lab_fastenter = Label::createWithTTF(fastenterString, "fonts/FZBWKSK.TTF", 22);
 	lab_fastenter->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 70));
 	img_bg->addChild(lab_fastenter);
 
-	img_searchhome = ui::ImageView::create("Bg/btn_bg.png");
-	img_searchhome->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + 70));
-	img_bg->addChild(img_searchhome);
-	img_searchhome->setTouchEnabled(true);
-	img_searchhome->addTouchEventListener(CC_CALLBACK_2(SelectMode::SearchHomePop, this));
+	btn_searchhome = Button::create("Bg/btn_bg.png");
+	btn_searchhome->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + 70));
+	img_bg->addChild(btn_searchhome);
+	btn_searchhome->addTouchEventListener(CC_CALLBACK_2(SelectMode::SearchHomePop, this));
 
 	auto lab_searchhome = Label::createWithTTF(searchhomeString, "fonts/FZBWKSK.TTF", 22);
 	lab_searchhome->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + 70));
@@ -93,13 +90,12 @@ bool SelectMode::init()
 
 
 	//添加回退按钮s
-	img_back = ui::ImageView::create("Bg/back_bg.png");
-	img_back->setAnchorPoint(Vec2(0, 1));
-	img_back->setPosition(Vec2(origin.x, origin.y + visibleSize.height));
-	img_bg->addChild(img_back);
+	btn_back = Button::create("Bg/back_bg.png");
+	btn_back->setAnchorPoint(Vec2(0, 1));
+	btn_back->setPosition(Vec2(origin.x, origin.y + visibleSize.height));
+	img_bg->addChild(btn_back);
 
-	img_back->setTouchEnabled(true);
-	img_back->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+	btn_back->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::ENDED:

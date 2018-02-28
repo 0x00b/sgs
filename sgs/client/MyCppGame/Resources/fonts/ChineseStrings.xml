@@ -17,4 +17,7 @@
 
 	<key>startsearch</key>
  	<string>开始搜索</string>
+
+	<key>startgame</key>
+ 	<string>开始</string>
 </dict>

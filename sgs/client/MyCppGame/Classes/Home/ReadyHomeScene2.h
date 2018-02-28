@@ -21,10 +21,10 @@ public:
 	CREATE_FUNC(ReadyHome);
 
 private:
-	ImageView* img_back;	//回退按钮
+	Button* btn_back;	//回退按钮
 	ImageView* img_table_bg1;	//一号位玩家
 	ImageView* img_table_bg2;	//二号位玩家
-	Button* btn_start;
+	Button* btn_start;	//开始按钮
 
 private:
 	void DidBack(Ref* pSender, Widget::TouchEventType type);	//回退按钮

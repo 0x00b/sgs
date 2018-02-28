@@ -42,11 +42,11 @@ private:
 	ImageView* img_two;	//双人模式按钮
 	ImageView* img_six; //六人模式按钮
 
-	ImageView* img_createhome;	//创建房间
-	ImageView* img_fastenter; //快速加入
-	ImageView* img_searchhome;	//搜索房间
+	Button* btn_createhome;	//创建房间
+	Button* btn_fastenter; //快速加入
+	Button* btn_searchhome;	//搜索房间
 
-	ImageView* img_back;	//回退按钮
+	Button* btn_back;	//回退按钮
 
 	ImageView* lab_slct_bg;		//当前高亮的模式标签背景
 	Label* lab_slct_mode;	//当前选中模式的标签

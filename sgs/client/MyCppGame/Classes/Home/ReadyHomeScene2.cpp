@@ -43,13 +43,12 @@ bool ReadyHome::init()
 	//添加背景e
 
 	//添加回退按钮s
-	img_back = ImageView::create("Bg/back_bg.png");
-	img_back->setAnchorPoint(Vec2(0, 1));
-	img_back->setPosition(Vec2(origin.x, origin.y + visibleSize.height));
-	img_bg->addChild(img_back);
+	btn_back = Button::create("Bg/back_bg.png");
+	btn_back->setAnchorPoint(Vec2(0, 1));
+	btn_back->setPosition(Vec2(origin.x, origin.y + visibleSize.height));
+	img_bg->addChild(btn_back);
 
-	img_back->setTouchEnabled(true);
-	img_back->addTouchEventListener(CC_CALLBACK_2(ReadyHome::DidBack, this));
+	btn_back->addTouchEventListener(CC_CALLBACK_2(ReadyHome::DidBack, this));
 	//添加回退按钮e
 
 	//两个座位s
@@ -67,8 +66,12 @@ bool ReadyHome::init()
 	//两个座位s
 
 	//开始按钮s
+	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
+
 	btn_start = Button::create("Home/chapter_normal.png", "Home/chapter_selected.png", "Home/disabled_image.png");
-	btn_start->setTitleText("Start");
+	btn_start->setTitleText(message["startgame"].asString());
+	btn_start->setTitleFontName("fonts/FZBWKSK.TTF");
+	btn_start->setTitleFontSize(40);
 
 	btn_start->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
