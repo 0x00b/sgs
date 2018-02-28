@@ -220,7 +220,12 @@ void SelectMode::DidFastEnter(Ref* pSender, Widget::TouchEventType type) {
 	switch (type)
 	{
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
-
+		Json::Value root;
+		root[SRoom[ERoom_max_player_cnt]] = 2;
+		std::shared_ptr<PPacket> p(new PPacket());
+		p->body = root.toStyledString();
+		p->pack(PLAYER_MATCH_ROOM_FAST);
+		g_lstWrite.push_back(p);
 		break;
 	}
 }

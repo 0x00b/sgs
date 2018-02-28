@@ -2,6 +2,7 @@
 
 #include "../Classes/model/include_all.h"
 #include "HelloWorldScene.h"
+#include "../Classes/Home/ReadyHomeScene2.h"
 
 class Do_function
 {

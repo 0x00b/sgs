@@ -83,6 +83,18 @@ bool ReadyHome::init()
 	btn_ready->setPosition(Vec2(origin.x + visibleSize.width - 150, origin.y + visibleSize.height / 2));
 	img_bg->addChild(btn_ready);
 	//¿ªÊ¼°´Å¥e
+	
+	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+	{
+		if ((*it).m_nSeatId == 0)
+		{
+			img_table_bg1->loadTexture("Home/generalface_soldier1.png");
+		}
+		else
+		{
+			img_table_bg2->loadTexture("Home/generalface_mystery.png");
+		}
+	}
 
 	return true;
 }

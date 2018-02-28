@@ -55,6 +55,7 @@ public:
 										//ints
 	int m_nID;
 	int m_nExp;							//experience
+	int m_nSeatId;							//experience
 										//
 	short m_sLevel;						//level
 										//
@@ -65,7 +66,6 @@ public:
 
 	//functions
 public:
-	Player();
 	void Get(Json::Value& player);
 	//Player(int fd, std::string stIP);
 	//virtual ~Player();
@@ -81,7 +81,7 @@ public:
 	//std::string& GetProtoMsg();
 	////void Set(const proto::game::Player& player);
 	////void Get(proto::game::Player* player);
-	//void Set(const Json::Value& player);
+	void Set(const Json::Value& player);
 	//
 	//int SeatID();
 

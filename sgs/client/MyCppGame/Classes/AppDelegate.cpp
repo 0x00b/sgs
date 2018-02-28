@@ -31,7 +31,8 @@ static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
-Player u_player();  //纪录用户信息
+Player u_player;  //纪录用户信息
+Room u_room;
 
 //tcp::iostream AppDelegate::skt("10.14.115.244", "37373");
 //tcp::iostream AppDelegate::skt("10.12.137.251", "37373"); 
@@ -132,6 +133,12 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	{
 	case PLAYER_LOGIN_UC:
 		Do_function::PLAYER_LOGIN_UC(pkt,cmd);
+		break;
+	case PLAYER_CREATE_ROOM_UC:
+		Do_function::PLAYER_CREATE_ROOM_UC(pkt, cmd);
+		break;
+	case PLAYER_ENTER_ROOM_BC:
+		Do_function::PLAYER_ENTER_ROOM_BC(pkt, cmd);
 		break;
 	default:
 		break;

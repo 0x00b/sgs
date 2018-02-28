@@ -2,17 +2,17 @@
 #include "player.h"
 #include "ppacket.h"
 
-Room::Room(int roomid, ERoomType type, const std::string& name, EMatchSeatWay eway):
-	m_stName(name),
-	m_eType(type),
-	m_nRoomID(roomid),
-	m_nMaxPlayerCnt(type),
-	m_nPlayerCnt(0),
-	m_nMatchSeatWay(eway),
-	m_nStatus(0)
-{
-	m_lstPlayers.clear();
-}
+//Room::Room(int roomid, ERoomType type, const std::string& name, EMatchSeatWay eway):
+//	m_stName(name),
+//	m_eType(type),
+//	m_nRoomID(roomid),
+//	m_nMaxPlayerCnt(type),
+//	m_nPlayerCnt(0),
+//	m_nMatchSeatWay(eway),
+//	m_nStatus(0)
+//{
+//	m_lstPlayers.clear();
+//}
 
 
 Room::~Room()
@@ -30,19 +30,41 @@ void Room::Get(Json::Value& proom)
 	proom[SRoom[ERoom_match_seat_way]] 	= (m_nMatchSeatWay);
 	proom[SRoom[ERoom_status]] 			= (m_nStatus);
 
-	int index = 0;
-	for (std::list<Player *>::iterator it = m_lstPlayers.begin(); it != m_lstPlayers.end(); ++it)
-	{
-		if (m_pMaster != *it)
-		{
-			(*it)->Get(proom[SJPROTO[E_Player]][index++]);
-		}
-	}
+	//int index = 0;
+	//for (std::list<Player *>::iterator it = m_lstPlayers.begin(); it != m_lstPlayers.end(); ++it)
+	//{
+	//	if (m_pMaster != *it)
+	//	{
+	//		(*it)->Get(proom[SJPROTO[E_Player]][index++]);
+	//	}
+	//}
 
 
-	m_pMaster->Get(proom["master"]);
+	m_pMaster.Get(proom["master"]);
 
 }
+
+void Room::Set(const Json::Value &proom)
+{
+	(m_stName)			=	proom[SRoom[ERoom_name]] 			.asString();
+	(m_eType)			=	(ERoomType)proom[SRoom[ERoom_type]] .asInt();
+	(m_nRoomID)			=	proom[SRoom[ERoom_room_id]] 		.asInt();
+	(m_nMaxPlayerCnt)	=	proom[SRoom[ERoom_max_player_cnt]] 	.asInt();
+	(m_nPlayerCnt)		=	proom[SRoom[ERoom_player_cnt]] 		.asInt();
+	(m_nMatchSeatWay)	=	proom[SRoom[ERoom_match_seat_way]] 	.asInt();
+	(m_nStatus)			=	proom[SRoom[ERoom_status]] 			.asInt();
+
+	m_lstPlayers.clear();
+	for (size_t i = 0; i < proom[SJPROTO[E_Player]].size(); i++)
+	{
+		Player p;
+		p.Set(proom[SJPROTO[E_Player]][i]);
+		m_lstPlayers.push_back(p);
+	}
+	m_pMaster.Set(proom["master"]);
+}
+
+
 #if 0
 int Room::EnterRoom(Player *player)
 {

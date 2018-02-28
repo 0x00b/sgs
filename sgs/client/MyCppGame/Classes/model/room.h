@@ -10,8 +10,8 @@ Description :
 #include "jsonproto/jsonproto.h"
 #include "./libs/json/json.h"
 #include <list>
+#include "player.h"
 
-class Player;
 class PPacket;
 
 enum ERoomType
@@ -35,9 +35,9 @@ protected:
 
 public:
 
-	Player* m_pMaster;	//room master
+	Player m_pMaster;	//room master
 
-	std::list<Player*> m_lstPlayers;//players in the room
+	std::list<Player> m_lstPlayers;//players in the room
 	std::string	m_stName;			//room's name
 	ERoomType m_eType;				//room type
 
@@ -49,7 +49,7 @@ public:
 
 	//functions
 public:
-	Room(int roomid,ERoomType type, const std::string& name, EMatchSeatWay eway);
+//	Room(int roomid,ERoomType type, const std::string& name, EMatchSeatWay eway);
 	virtual ~Room();
 
 	int EnterRoom(Player* player);

@@ -18,6 +18,19 @@ void Player::Get(Json::Value& player)
 	player[SPlayer[EPlayer_seatid]] 	= (m_oGameAttr.m_nSeatId);
 	
 }
+
+void Player::Set(const Json::Value& player)
+{
+	m_stAccount = player[SPlayer[EPlayer_account]].asString();
+	m_stPasswd = player[SPlayer[EPlayer_passwd]].asString();
+	m_stName = player[SPlayer[EPlayer_name]].asString();
+	m_stAvatar = player[SPlayer[EPlayer_avatar]].asString();
+	m_stRegistDate = player[SPlayer[EPlayer_registdate]].asString();
+	m_stRemark = player[SPlayer[EPlayer_remark]].asString();
+	m_nSeatId = player[SPlayer[EPlayer_seatid]].asInt();
+}
+
+
 #if 0
 Player::Player():m_iClient(this)
 {

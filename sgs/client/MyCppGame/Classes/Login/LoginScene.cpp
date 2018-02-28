@@ -66,6 +66,7 @@ bool Login::init()
 
 	txt_account = TextField::create();
 	txt_account->setPlaceHolder("input your account");
+	txt_account->setText("waterm1");
 	txt_account->setPosition(Vec2(lab_account->getPosition().x + 55, size_rect_bg.height * 3 / 4));
 	txt_account->setAnchorPoint(Vec2(0, 0.5));
 	img_rect_bg->addChild(txt_account);
@@ -81,6 +82,7 @@ bool Login::init()
 
 	txt_pwd = TextField::create();
 	txt_pwd->setPlaceHolder("input your pwd");
+	txt_pwd->setText("123456");
 	txt_pwd->setPasswordEnabled(true);
 	txt_pwd->setPosition(Vec2(lab_pwd->getPosition().x + 55, size_rect_bg.height / 2));
 	txt_pwd->setAnchorPoint(Vec2(0, 0.5));

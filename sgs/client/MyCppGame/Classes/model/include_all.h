@@ -23,4 +23,7 @@
 
 extern std::list<std::shared_ptr<PPacket>> g_lstWrite;
 
+extern Player u_player;
+extern Room u_room;
+
 extern CSGSTXT SGSTXT;
