@@ -149,6 +149,10 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 		return;
 	}
 	std::shared_ptr<PPacket>& pkt = self->m_lstWrite.front();
+
+	const char* str = (pkt->data.c_str() + pkt->m_nCurLen);
+
+
 	size_t written = write(self->m_nfd, pkt->data.c_str() + pkt->m_nCurLen, pkt->data.length() - pkt->m_nCurLen);
 	if (written < 0) {
 		if (errno == EAGAIN || errno == EINPROGRESS || errno == EINTR) {

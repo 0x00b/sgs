@@ -215,6 +215,12 @@ int Game::ReqUserQuit(Player *player)
 	{
 		player->UpdateState(ST_PLAYER_OFFLINE);
 	}
+
+	if(ST_GM_PLAYER_NONE != player->m_nGameStatus && NULL != player->m_pRoom)
+	{
+		ReqQuitRoom(player);
+	}
+
 	delete player;
 	return 0;
 }
