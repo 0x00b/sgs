@@ -186,6 +186,15 @@ bool HelloWorld::init()
 	addChild(button_all[1]);
 	addChild(button_all[2]);
 
+	button_all[0]->addTouchEventListener(([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::ENDED:
+			Director::getInstance()->replaceScene(TransitionSlideInR::create(1.0f, SelectMode::createScene()));
+			break;
+		}
+	}));
+
 	auto listener_loginPicture = EventListenerTouchOneByOne::create();
 	listener_loginPicture->onTouchBegan = [sprite1](Touch *t, Event *event)
 	{

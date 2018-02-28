@@ -5,6 +5,8 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
+#include "Mode/SelectModeScene.h"
+
 class HelloWorld : public cocos2d::Scene
 {
 public:
