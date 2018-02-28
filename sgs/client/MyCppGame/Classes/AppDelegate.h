@@ -53,7 +53,7 @@ public:
     virtual void applicationWillEnterForeground();
 
 public:
-	static tcp::iostream skt;
+	//static tcp::iostream skt;
 	std::thread th_send;
 	std::thread th_receive;
 

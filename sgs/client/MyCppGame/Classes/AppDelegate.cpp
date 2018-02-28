@@ -31,8 +31,12 @@ static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
 //tcp::iostream AppDelegate::skt("10.14.115.244", "37373");
-tcp::iostream AppDelegate::skt("10.12.137.251", "37373");
+//tcp::iostream AppDelegate::skt("10.12.137.251", "37373"); 
 //tcp::iostream AppDelegate::skt;
+
+
+tcp::socket sock(*(new boost::asio::io_service()));
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.251"),37373);
 
 AppDelegate::AppDelegate() :
 	th_send(AppDelegate::func_send),
@@ -64,7 +68,16 @@ void AppDelegate::func_send()
 			continue;
 		}
 		std::shared_ptr<PPacket>& pkt = g_lstWrite.front();
-		skt.write(pkt->data.c_str() + pkt->m_nCurLen, pkt->data.length() - pkt->m_nCurLen);
+		//skt.write(pkt->data.c_str() + pkt->m_nCurLen, pkt->data.length() - pkt->m_nCurLen);
+		try
+		{
+			sock.write_some(boost::asio::buffer(pkt->data));
+		}
+		catch (const std::exception&)
+		{
+			sock.connect(ep);
+		}
+
 		g_lstWrite.pop_front();
 
 		return;
@@ -103,6 +116,16 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 {
 	switch (cmd)
 	{
+	case 4:
+		if (0 == pkt["code"].asInt())
+		{
+			MessageBox("1","");
+		}
+		else
+		{
+			MessageBox("2", "");
+		}
+		break;
 		default:
 		break;
 	}
@@ -123,7 +146,16 @@ void AppDelegate::func_receive()
 		root.clear();
 		pMsg.body.clear();
 		/* recv header*/
-		skt.read((char *)&(pMsg.header), sizeof(PHeader));
+		//skt.read((char *)&(pMsg.header), sizeof(PHeader));
+		try
+		{
+			sock.read_some(boost::asio::buffer(&pMsg.header,sizeof(PHeader)));
+		}
+		catch (const std::exception&)
+		{
+			sock.connect(ep);
+		}
+
 		pMsg.save();
 		if (pMsg.header.len == 0)
 		{
@@ -132,7 +164,14 @@ void AppDelegate::func_receive()
 		else if (pMsg.header.len <= MAX_RECV_BUF_SIZE)
 		{
 			pMsg.m_eStatus = STAT_BODY;
-			skt.read(pRecvBuf.get(), pMsg.header.len);
+			try
+			{
+				sock.read_some(boost::asio::buffer(pRecvBuf.get(), pMsg.header.len));
+			}
+			catch (const std::exception&)
+			{
+				sock.connect(ep);
+			}
 			pMsg.body.append(pRecvBuf.get(), pMsg.header.len);
 			reader->parse(pMsg.body.c_str(), pMsg.body.c_str() + pMsg.body.length(), &root, &err);
 		}
