@@ -46,24 +46,49 @@ bool SelectMode::init()
 	img_bg->addChild(img_slct_bg);
 	//添加选择模式背景图e
 
+	//中文显示s
+	//过时
+	//Dictionary* message = Dictionary::createWithContentsOfFile("fonts/ChineseStrings.xml");
+	//auto sixmodeValue = message->valueForKey("sixmode");    //根据key，获取value
+	//const char* sixmodeString = sixmodeValue->getCString();    //将value转化为字符串
+	//替代
+	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
+	auto twomodeString = message["twomode"].asString();
+	auto createhomeString = message["createhome"].asString();
+	auto fastenterString = message["fastenter"].asString();
+	auto searchhomeString = message["searchhome"].asString();
+	//中文显示e
+
 	//添加创建房间 快速加入 搜索房间三个按钮s
 	img_createhome = ui::ImageView::create("Bg/btn_bg.png");
-	img_createhome->setPosition(Vec2(origin.x + visibleSize.width / 2 - 168 * 2, origin.y + 55));
+	img_createhome->setPosition(Vec2(origin.x + visibleSize.width / 2 - 168 * 2, origin.y + 70));
 	img_bg->addChild(img_createhome);
 	img_createhome->setTouchEnabled(true);
 	img_createhome->addTouchEventListener(CC_CALLBACK_2(SelectMode::CreateHomePop, this));
 
+	auto lab_createhome = Label::createWithTTF(createhomeString, "fonts/FZBWKSK.TTF",22);
+	lab_createhome->setPosition(Vec2(origin.x + visibleSize.width / 2 - 168 * 2, origin.y + 70));
+	img_bg->addChild(lab_createhome);
+
 	img_fastenter = ui::ImageView::create("Bg/btn_bg.png");
-	img_fastenter->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 55));
+	img_fastenter->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 70));
 	img_bg->addChild(img_fastenter);
 	img_fastenter->setTouchEnabled(true);
 	img_fastenter->addTouchEventListener(CC_CALLBACK_2(SelectMode::DidFastEnter, this));
 
-	img_serchhome = ui::ImageView::create("Bg/btn_bg.png");
-	img_serchhome->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + 55));
-	img_bg->addChild(img_serchhome);
-	img_serchhome->setTouchEnabled(true);
-	img_serchhome->addTouchEventListener(CC_CALLBACK_2(SelectMode::SearchHomePop, this));
+	auto lab_fastenter = Label::createWithTTF(fastenterString, "fonts/FZBWKSK.TTF", 22);
+	lab_fastenter->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + 70));
+	img_bg->addChild(lab_fastenter);
+
+	img_searchhome = ui::ImageView::create("Bg/btn_bg.png");
+	img_searchhome->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + 70));
+	img_bg->addChild(img_searchhome);
+	img_searchhome->setTouchEnabled(true);
+	img_searchhome->addTouchEventListener(CC_CALLBACK_2(SelectMode::SearchHomePop, this));
+
+	auto lab_searchhome = Label::createWithTTF(searchhomeString, "fonts/FZBWKSK.TTF", 22);
+	lab_searchhome->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + 70));
+	img_bg->addChild(lab_searchhome);
 	//添加创建房间 快速加入 搜索房间三个按钮e
 
 
@@ -72,34 +97,39 @@ bool SelectMode::init()
 	img_back->setAnchorPoint(Vec2(0, 1));
 	img_back->setPosition(Vec2(origin.x, origin.y + visibleSize.height));
 	img_bg->addChild(img_back);
+
+	img_back->setTouchEnabled(true);
+	img_back->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::ENDED:
+			//切换场景s
+			Director::getInstance()->replaceScene(TransitionSlideInL::create(1.0f, HelloWorld::createScene()));
+			break;
+		}
+	});
 	//添加回退按钮e
 
-	//添加6人对战模式s
-	img_six = ui::ImageView::create("Mode/model_big_6.png");
-	img_six->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
-	img_bg->addChild(img_six);
-
-	/*Label* lab_sex = Label::createWithTTF("6 person", "fonts/Marker Felt.ttf", 24);
-	lab_sex->setColor(ccc3(139, 69, 19));
-	lab_sex->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 - 335 / 2));
-	img_bg->addChild(lab_sex);*/
-	//添加6人对战模式e
-
 	//添加2人对战模式s
-	img_two = ui::ImageView::create("Mode/model_small_2.png");
-	img_two->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + visibleSize.height / 2));
+	img_two = ui::ImageView::create("Mode/model_big_2.png");
+	img_two->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 	img_bg->addChild(img_two);
-
-	/*Label* lab_two = Label::createWithTTF("1 vs 1", "fonts/Marker Felt.ttf", 24);
-	lab_two->setColor(ccc3(139, 69, 19));
-	lab_two->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + visibleSize.height / 2 - 335 / 2));
-	img_bg->addChild(lab_two);*/
 	//添加2人对战模式e
+
+	//添加6人对战模式s
+	img_six = ui::ImageView::create("Mode/model_small_6.png");
+	img_six->setPosition(Vec2(origin.x + visibleSize.width / 2 + 168 * 2, origin.y + visibleSize.height / 2));
+	img_bg->addChild(img_six);
+	//添加6人对战模式e
 
 	//添加当前模式标签s
 	lab_slct_bg = ui::ImageView::create("Mode/model_label_bg.png");
 	lab_slct_bg->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 - 335 / 2));
 	img_bg->addChild(lab_slct_bg);
+
+	lab_slct_mode = Label::createWithTTF(twomodeString, "fonts/FZBWKSK.TTF", 36);
+	lab_slct_mode->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 - 335 / 2));
+	img_bg->addChild(lab_slct_mode);
 	//添加当前模式标签e
 
 	//给对战模式添加点击事件s
@@ -149,6 +179,10 @@ void SelectMode::AutoSlide(Ref* pSender, Widget::TouchEventType type) {
 }
 
 void SelectMode::change6ImageBig(Node* sender) {
+	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
+	auto sixmodeString = message["sixmode"].asString();
+	lab_slct_mode->setString(sixmodeString);
+
 	((ImageView*)sender)->loadTexture("Mode/model_big_6.png");
 }
 
@@ -157,6 +191,10 @@ void SelectMode::change6ImageSmall(Node* sender) {
 }
 
 void SelectMode::change2ImageBig(Node* sender) {
+	ValueMap message = FileUtils::getInstance()->getValueMapFromFile("fonts/ChineseStrings.xml");
+	auto twomodeString = message["twomode"].asString();
+	lab_slct_mode->setString(twomodeString);
+
 	((ImageView*)sender)->loadTexture("Mode/model_big_2.png");
 }
 

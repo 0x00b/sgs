@@ -19,6 +19,9 @@ public:
 	CREATE_FUNC(SearchHome);
 private:
 	ImageView* img_bg;
+	Button* btn_startsearch;		//搜索按钮
+private:
+	void closeAnimation(Node* pSender);	//执行动画后关闭层
 };
 
 #endif // __SEARCHHOME_LAYER_H__

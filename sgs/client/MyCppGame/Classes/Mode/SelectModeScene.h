@@ -7,6 +7,7 @@
 
 #include "Pop/SearchHomeLayer.h"
 #include "Home/ReadyHomeScene2.h"
+#include "HelloWorldScene.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -38,13 +39,17 @@ private:
 	void SearchHomePop(Ref* pSender, Widget::TouchEventType type);	//搜索房间弹出层
 
 private:
-	ui::ImageView* img_two;	//双人模式按钮
-	ui::ImageView* img_six; //六人模式按钮
-	ui::ImageView* lab_slct_bg;		//当前高亮的模式标签背景
-	ui::ImageView* img_createhome;	//创建房间
-	ui::ImageView* img_fastenter; //快速加入
-	ui::ImageView* img_serchhome;	//搜索房间
-	ui::ImageView* img_back;	//回退按钮
+	ImageView* img_two;	//双人模式按钮
+	ImageView* img_six; //六人模式按钮
+
+	ImageView* img_createhome;	//创建房间
+	ImageView* img_fastenter; //快速加入
+	ImageView* img_searchhome;	//搜索房间
+
+	ImageView* img_back;	//回退按钮
+
+	ImageView* lab_slct_bg;		//当前高亮的模式标签背景
+	Label* lab_slct_mode;	//当前选中模式的标签
 };
 
 #endif // __SELECTMODE_SCENE_H__
