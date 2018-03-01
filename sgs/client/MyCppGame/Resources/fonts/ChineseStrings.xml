@@ -32,4 +32,7 @@
 
 	<key>pwd</key>
  	<string>密码</string>
+
+	<key>homeid</key>
+ 	<string>房间号</string>
 </dict>
