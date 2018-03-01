@@ -73,6 +73,12 @@ bool ReadyHome::init()
 	img_bg->addChild(lab_table_name[1]);
 	//两个座位s
 
+	//房间号s
+	lab_homeid = Label::createWithTTF("", "fonts/FZBWKSK.TTF", 36);
+	lab_homeid->setPosition(Vec2(img_bg->getContentSize().width / 2, img_bg->getContentSize().height * 4 / 5));
+	img_bg->addChild(lab_homeid);
+	//房间号e
+
 	//准备按钮s
 	btn_ready = Button::create("Home/chapter_normal.png", "Home/chapter_selected.png", "Home/disabled_image.png");
 	btn_ready->setTitleText(SGSTXT["ready"]);
@@ -153,6 +159,7 @@ void ReadyHome::DidBack(Ref* pSender, Widget::TouchEventType type) {
 }
 
 void ReadyHome::UpdateReadyHome() {
+	lab_homeid->setString(std::to_string(u_room.m_nRoomID));	//显示房间号
 	for (int i = 0; i < 2;i++) {
 		lab_table_name[i]->setString("");
 		img_table_bg[i]->loadTexture("Home/generalface_mystery.png");

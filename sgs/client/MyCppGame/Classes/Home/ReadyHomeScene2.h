@@ -23,7 +23,7 @@ private:
 	ImageView* img_table_bg[8];	//玩家位
 	Label* lab_table_name[8];	//玩家名 用账号代做标志
 	Button* btn_ready;	//准备按钮
-
+	Label* lab_homeid;	//房间号
 private:
 	void DidBack(Ref* pSender, Widget::TouchEventType type);	//回退按钮
 public:
