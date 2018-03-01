@@ -23,7 +23,7 @@ int SGSGameLogic::Do(Player *player)
 {
     if (NULL != player)
     {
-        switch (player->m_iClient.m_iPacket.header.cmd)
+        switch (player->m_iClient.m_iPacket.header().cmd)
         {
         case GAME_OUT_CARD:
             break;
@@ -73,9 +73,9 @@ int SGSGameLogic::GameStart()
 
     root["code"] = (code); //
 
-    PPacket *packet = (new PPacket());
-    packet->body = root.toStyledString();
-    packet->pack(GAME_START);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+    packet.pack(GAME_START);
 
     m_pRoom->Broadcast(packet);
 
@@ -129,9 +129,9 @@ int SGSGameLogic::ReqOutCard(Player *player)
 	{
 		player->Get(root[SJPROTO[E_Player]]);
 	}
-	PPacket* packet = (new PPacket());
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_READY_BC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_READY_BC);
 
 	m_pRoom->Broadcast(packet);
 

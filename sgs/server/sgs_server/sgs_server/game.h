@@ -59,8 +59,8 @@ public:
 
 	int DeleteRoom(Room* room);
 
-	int Broadcast(PPacket* pkt);
-	int Unicast(Player* player,PPacket* pkt);
+	int Broadcast(PPacket& pkt);
+	int Unicast(Player* player,PPacket& pkt);
 
 	const Player* GetOLPlayer(int playerid);
 

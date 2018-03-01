@@ -71,7 +71,7 @@ public:
 	void Init();
 
 	int GetInfoByID();
-	int Send(std::shared_ptr<PPacket>& pkt);
+	int Send(PPacket& pkt);
 
 	int UpdateState(EPlayerStatus status);
 	int EnterRoom(Room* room);

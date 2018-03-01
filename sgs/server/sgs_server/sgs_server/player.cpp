@@ -92,7 +92,7 @@ void Player::Get(Json::Value& player)
 {
 	player[SPlayer[EPlayer_id]] 		= (m_nID);
 	player[SPlayer[EPlayer_account]] 	= (m_stAccount);	
-	player[SPlayer[EPlayer_passwd]] 	= (m_stPasswd);
+	//player[SPlayer[EPlayer_passwd]] 	= (m_stPasswd);
 	player[SPlayer[EPlayer_name]] 		= (m_stName);		
 	player[SPlayer[EPlayer_avatar]] 	= (m_stAvatar);		
 	player[SPlayer[EPlayer_registdate]] = (m_stRegistDate);	
@@ -116,7 +116,7 @@ int Player::SeatID()
 
 std::string &Player::GetProtoMsg()
 {
-	return m_iClient.m_iPacket.body;
+	return m_iClient.m_iPacket.body();
 }
 
 int Player::GetInfoByID()
@@ -126,7 +126,7 @@ int Player::GetInfoByID()
 /*
 pkt must call pack func before call this function
 */
-int Player::Send(std::shared_ptr<PPacket>& pkt)
+int Player::Send(PPacket& pkt)
 {
 	if (m_iClient.m_nfd > 0)
 	{
