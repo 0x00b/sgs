@@ -40,7 +40,7 @@ Room u_room;
 
 
 tcp::socket sock(*(new boost::asio::io_service()));
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.14.115.244"),37373);
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.251"),37373);
 
 void connectToSvr()
 {
