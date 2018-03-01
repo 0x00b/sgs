@@ -129,3 +129,17 @@ void ReadyHome::SitDown2(Ref* pSender, Widget::TouchEventType type) {
 		break;
 	}
 }
+
+void ReadyHome::UpdateReadyHome() {
+	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+	{
+		if ((*it).m_nSeatId == 0)
+		{
+			img_table_bg1->loadTexture("Home/generalface_soldier1.png");
+		}
+		else
+		{
+			img_table_bg2->loadTexture("Home/generalface_soldier1.png");
+		}
+	}
+}

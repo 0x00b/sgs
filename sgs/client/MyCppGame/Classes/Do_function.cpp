@@ -58,9 +58,14 @@ void Do_function::PLAYER_ENTER_ROOM_BC(Json::Value &pkt, int cmd)
 	{
 	//	if(u_player.)
 		u_room.Set(pkt[SJPROTO[E_Room]]);
-		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
-			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, ReadyHome::createScene()));
-		});
+		if (u_room.m_pMaster.m_stAccount == u_player.m_stAccount) {
+			((ReadyHome*)u_player.MyCurrentScene)->UpdateReadyHome();
+		}
+		else {
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, ReadyHome::createScene()));
+			});
+		}
 	}
 	else
 	{

@@ -28,6 +28,8 @@ private:
 	void DidBack(Ref* pSender, Widget::TouchEventType type);	//回退按钮
 	void SitDown1(Ref* pSender, Widget::TouchEventType type);	//在一号位坐下
 	void SitDown2(Ref* pSender, Widget::TouchEventType type);	//在二号位坐下
+public:
+	void UpdateReadyHome();	//新玩家进入是刷新Ui
 };
 
 #endif // __READYHOME_SCENE_H__

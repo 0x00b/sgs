@@ -61,7 +61,7 @@ void Room::Set(const Json::Value &proom)
 		p.Set(proom[SJPROTO[E_Player]][i]);
 		m_lstPlayers.push_back(p);
 	}
-	m_pMaster.Set(proom["master"]);
+	m_pMaster.m_stAccount = proom["master"].asString();
 }
 
 
