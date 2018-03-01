@@ -56,6 +56,10 @@ bool SearchHome::init()
 	img_bg->addChild(lab_startsearch);
 	//确定搜索按钮e
 
+	//房间号s
+
+	//房间号e
+
 	//初始化动画s
 	img_bg->setScale(0);
 
