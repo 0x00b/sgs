@@ -16,7 +16,7 @@ class PPacket;
 
 enum ERoomType
 {
-	ROOM_TYPE_3 = 3,
+	ROOM_TYPE_2 = 2,
 	ROOM_TYPE_6 = 6,
 	ROOM_TYPE_8 = 8,
 };
@@ -35,7 +35,8 @@ protected:
 
 public:
 
-	Player m_pMaster;	//room master
+	std::string m_stMaster;	//room master
+	std::string m_stNewPlayer;
 
 	std::list<Player> m_lstPlayers;//players in the room
 	std::string	m_stName;			//room's name
@@ -65,6 +66,8 @@ public:
 	//void Set(const proto::game::Room& proom);
 	void Get(Json::Value& proom);
 	void Set(const Json::Value& proom);
+
+	void reset();
 protected:
 
 private:

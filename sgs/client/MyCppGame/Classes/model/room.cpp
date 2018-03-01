@@ -40,30 +40,45 @@ void Room::Get(Json::Value& proom)
 	//}
 
 
-	m_pMaster.Get(proom["master"]);
+	//m_stMaster = proom["master"].asString();
 
 }
 
 void Room::Set(const Json::Value &proom)
 {
-	(m_stName)			=	proom[SRoom[ERoom_name]] 			.asString();
-	(m_eType)			=	(ERoomType)proom[SRoom[ERoom_type]] .asInt();
-	(m_nRoomID)			=	proom[SRoom[ERoom_room_id]] 		.asInt();
-	(m_nMaxPlayerCnt)	=	proom[SRoom[ERoom_max_player_cnt]] 	.asInt();
-	(m_nPlayerCnt)		=	proom[SRoom[ERoom_player_cnt]] 		.asInt();
-	(m_nMatchSeatWay)	=	proom[SRoom[ERoom_match_seat_way]] 	.asInt();
-	(m_nStatus)			=	proom[SRoom[ERoom_status]] 			.asInt();
+	reset();
+	(m_stName)			=	proom[SJPROTO[E_Room]][SRoom[ERoom_name]] 			.asString();
+	(m_eType)			=	(ERoomType)proom[SJPROTO[E_Room]][SRoom[ERoom_type]] .asInt();
+	(m_nRoomID)			=	proom[SJPROTO[E_Room]][SRoom[ERoom_room_id]] 		.asInt();
+	(m_nMaxPlayerCnt)	=	proom[SJPROTO[E_Room]][SRoom[ERoom_max_player_cnt]] 	.asInt();
+	(m_nPlayerCnt)		=	proom[SJPROTO[E_Room]][SRoom[ERoom_player_cnt]] 		.asInt();
+	(m_nMatchSeatWay)	=	proom[SJPROTO[E_Room]][SRoom[ERoom_match_seat_way]] 	.asInt();
+	(m_nStatus)			=	proom[SJPROTO[E_Room]][SRoom[ERoom_status]] 			.asInt();
 
 	m_lstPlayers.clear();
-	for (size_t i = 0; i < proom[SJPROTO[E_Player]].size(); i++)
+	for (size_t i = 0; i < proom[SJPROTO[E_Room]][SJPROTO[E_Player]].size(); i++)
 	{
 		Player p;
-		p.Set(proom[SJPROTO[E_Player]][i]);
+		p.Set(proom[SJPROTO[E_Room]][SJPROTO[E_Player]][i]);
 		m_lstPlayers.push_back(p);
 	}
-	m_pMaster.m_stAccount = proom["master"].asString();
+	m_stMaster = proom[SJPROTO[E_Room]]["master"].asString();
 }
 
+void Room::reset() {
+	m_stMaster.clear();	//room master
+	m_stNewPlayer.clear();
+
+	m_lstPlayers.clear();//players in the room
+	m_stName.clear();			//room's name
+	m_eType = ROOM_TYPE_2;				//room type
+
+	m_nRoomID = 0;
+	m_nMaxPlayerCnt = 0;			//max player cnt
+	m_nPlayerCnt = 0;				//current player cnt
+	m_nMatchSeatWay = 0;			//random or by order to give seat number
+	m_nStatus = 0;					//room's status
+}
 
 #if 0
 int Room::EnterRoom(Player *player)

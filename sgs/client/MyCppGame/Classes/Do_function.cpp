@@ -31,7 +31,7 @@ void Do_function::PLAYER_CREATE_ROOM_UC(Json::Value &pkt, int cmd)
 {
 	if (0 == pkt["code"].asInt())
 	{
-		u_room.Set(pkt[SJPROTO[E_Room]]);
+		u_room.Set(pkt);
 		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
 			u_player.MyCurrentScene = ReadyHome::createScene();
 			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, u_player.MyCurrentScene));
@@ -57,14 +57,15 @@ void Do_function::PLAYER_ENTER_ROOM_BC(Json::Value &pkt, int cmd)
 	if (0 == pkt["code"].asInt())
 	{
 	//	if(u_player.)
-		u_room.Set(pkt[SJPROTO[E_Room]]);
-		if (u_room.m_pMaster.m_stAccount == u_player.m_stAccount) {
-			((ReadyHome*)u_player.MyCurrentScene)->UpdateReadyHome();
-		}
-		else {
+		u_room.Set(pkt);
+		u_room.m_stNewPlayer = pkt["player"].asString();
+		if (u_room.m_stNewPlayer == u_player.m_stAccount) {
 			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
 				Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, ReadyHome::createScene()));
 			});
+		}
+		else {
+			((ReadyHome*)u_player.MyCurrentScene)->UpdateReadyHome();
 		}
 	}
 	else
