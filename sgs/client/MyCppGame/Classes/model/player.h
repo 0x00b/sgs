@@ -8,8 +8,9 @@ Description :
 #ifndef _SGS_PLAYER_H_
 #define _SGS_PLAYER_H_
 
+//#include "../Classes/model/"
 #include <iostream>
-
+#include "cocos2d.h"
 #include "jsonproto/jsonproto.h"
 #include "sgsgameattr.h"
 #include "./libs/json/json.h"
@@ -45,6 +46,8 @@ protected:
 public:
 	//objects
 	Room*  m_pRoom;						//entered room
+
+	cocos2d::Scene* MyCurrentScene;
 
 	std::string m_stAccount;			//account
 	std::string m_stPasswd;				//password

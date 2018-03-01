@@ -33,7 +33,8 @@ void Do_function::PLAYER_CREATE_ROOM_UC(Json::Value &pkt, int cmd)
 	{
 		u_room.Set(pkt[SJPROTO[E_Room]]);
 		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
-			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, ReadyHome::createScene()));
+			u_player.MyCurrentScene = ReadyHome::createScene();
+			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, u_player.MyCurrentScene));
 		});
 	}
 	else
@@ -42,10 +43,20 @@ void Do_function::PLAYER_CREATE_ROOM_UC(Json::Value &pkt, int cmd)
 	}
 }
 
+/*
+log(p.body.c_str());
+log(root["code"].asString().c_str());
+
+
+//	log("%d", root["code"].asInt());
+*/
+
 void Do_function::PLAYER_ENTER_ROOM_BC(Json::Value &pkt, int cmd)
 {
+	log("123");
 	if (0 == pkt["code"].asInt())
 	{
+	//	if(u_player.)
 		u_room.Set(pkt[SJPROTO[E_Room]]);
 		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
 			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, ReadyHome::createScene()));
