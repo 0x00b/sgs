@@ -103,6 +103,14 @@ void ReadyHome::DidBack(Ref* pSender, Widget::TouchEventType type) {
 	switch (type)
 	{
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
+		//退出房间消息s
+		Json::Value root;
+		std::shared_ptr<PPacket> p(new PPacket());
+		p->body = root.toStyledString();
+		p->pack(PLAYER_QUIT_ROOM);
+		g_lstWrite.push_back(p);
+		//退出房间消息e
+
 		auto director = Director::getInstance();
 		auto SelectModeScene = SelectMode::createScene();
 		director->replaceScene(TransitionSlideInL::create(0.5f, SelectModeScene));

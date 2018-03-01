@@ -199,16 +199,7 @@ void SelectMode::CreateHomePop(Ref* pSender, Widget::TouchEventType type) {
 		Json::Value root;
 		root[SRoom[ERoom_max_player_cnt]] = 2;
 		std::shared_ptr<PPacket> p(new PPacket());
-		try
-		{
-			p->body = root.toStyledString();
-		}
-		catch (std::exception e)
-		{
-			log("2222222222222\n");
-			log(e.what());
-			log("2222222222222\n");
-		}
+		p->body = root.toStyledString();
 		p->pack(PLAYER_CREATE_ROOM);
 		g_lstWrite.push_back(p);
 
@@ -221,7 +212,6 @@ void SelectMode::DidFastEnter(Ref* pSender, Widget::TouchEventType type) {
 	{
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
 		Json::Value root;
-		root[SRoom[ERoom_max_player_cnt]] = 2;
 		std::shared_ptr<PPacket> p(new PPacket());
 		p->body = root.toStyledString();
 		p->pack(PLAYER_MATCH_ROOM_FAST);

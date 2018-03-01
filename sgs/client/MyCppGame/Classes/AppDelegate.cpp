@@ -140,6 +140,9 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case PLAYER_ENTER_ROOM_BC:
 		Do_function::PLAYER_ENTER_ROOM_BC(pkt, cmd);
 		break;
+	case PLAYER_QUIT_ROOM_BC:
+		Do_function::PLAYER_QUIT_ROOM_BC(pkt, cmd);
+		break;
 	default:
 		break;
 	}
