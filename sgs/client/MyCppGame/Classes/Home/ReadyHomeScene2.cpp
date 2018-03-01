@@ -85,6 +85,35 @@ bool ReadyHome::init()
 		case ui::Widget::TouchEventType::ENDED:
 			if (btn_ready->getTitleText() == SGSTXT["cancel"]) {	//准备
 				btn_ready->setTitleText(SGSTXT["ready"]);
+				/*
+										Json::Value root;
+						std::shared_ptr<PPacket> p(new PPacket());
+						p->body = root.toStyledString();
+						p->pack(PLAYER_READY);
+						g_lstWrite.push_back(p);
+				*/
+				if (u_room.m_nPlayerCnt == 2)
+				{
+					int ready_num = 0;
+					for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+					{
+						if (it->m_nGameStatus == ST_GM_PLAYER_READY)
+						{
+							ready_num++;
+						}
+					}
+					if (ready_num==2)
+					{
+						Json::Value root;
+						std::shared_ptr<PPacket> p(new PPacket());
+						p->body = root.toStyledString();
+						p->pack(PLAYER_READY);
+						g_lstWrite.push_back(p);
+					}
+				}
+
+				//如果两个都准备则发送游戏开始信息
+
 			}
 			else if (btn_ready->getTitleText() == SGSTXT["ready"]) {	//取消准备
 				btn_ready->setTitleText(SGSTXT["cancel"]);
