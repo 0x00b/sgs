@@ -68,9 +68,9 @@ int Game::ReqRegist(Player *player)
 
 	root.clear();
 	root["code"] = (code); //
-	std::shared_ptr<PPacket> packet(new PPacket());
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_REGIST_UC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_REGIST_UC);
 	player->Send(packet);
 
 	/*proto::game::ReqRegist rgst;
@@ -155,9 +155,9 @@ int Game::ReqLogin(Player *player)
 		player->UpdateState(ST_PLAYER_ONLINE);
 		player->Get(root[SJPROTO[E_Player]]);
 	}
-	std::shared_ptr<PPacket> packet(new PPacket());
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_LOGIN_UC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_LOGIN_UC);
 	player->Send(packet);
 
 	return code;
@@ -193,9 +193,9 @@ int Game::ReqReady(Player *player)
 	{
 		player->Get(root[SJPROTO[E_Player]]);
 	}
-	PPacket *packet = (new PPacket());
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_READY_BC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_READY_BC);
 
 	player->m_pRoom->Broadcast(packet);
 
@@ -320,9 +320,9 @@ int Game::ReqCreateRoom(Player *player)
 	}
 
 	root["code"] = (code); //
-	std::shared_ptr<PPacket> packet(new PPacket());
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_CREATE_ROOM_UC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_CREATE_ROOM_UC);
 
 	player->Send(packet);
 
@@ -378,9 +378,9 @@ int Game::ReqEnterRoom(Player *player)
 	}
 
 	root["code"] = (code);
-	PPacket *packet = new PPacket();
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_ENTER_ROOM_BC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_ENTER_ROOM_BC);
 
 	if (0 == code)
 	{
@@ -388,8 +388,7 @@ int Game::ReqEnterRoom(Player *player)
 	}
 	else
 	{
-		std::shared_ptr<PPacket> sppacket(packet);
-		player->Send(sppacket);
+		player->Send(packet);
 	}
 
 	return code;
@@ -435,9 +434,9 @@ int Game::ReqQuitRoom(Player *player)
 	}
 
 	root["code"] = (code);
-	PPacket *packet = new PPacket();
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_QUIT_ROOM_BC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_QUIT_ROOM_BC);
 
 	if (0 == code)
 	{
@@ -451,8 +450,7 @@ int Game::ReqQuitRoom(Player *player)
 	}
 	else
 	{
-		std::shared_ptr<PPacket> sppacket(packet);
-		player->Send(sppacket);
+		player->Send(packet);
 	}
 
 	return code;
@@ -501,14 +499,15 @@ int Game::ReqEnterRoomFast(Player *player)
 	root.clear();
 	if (0 == code)
 	{
-		player->Get(root[SJPROTO[E_Player]]);
+		//player->Get(root[SJPROTO[E_Player]]);
+		root[SJPROTO[E_Player]] = player->m_stAccount;
 		room->Get(root[SJPROTO[E_Room]]);
 	}
 
 	root["code"] = (code);
-	PPacket *packet = new PPacket();
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_ENTER_ROOM_BC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_ENTER_ROOM_BC);
 
 	if (0 == code)
 	{
@@ -516,8 +515,7 @@ int Game::ReqEnterRoomFast(Player *player)
 	}
 	else
 	{
-		std::shared_ptr<PPacket> sppacket(packet);
-		player->Send(sppacket);
+		player->Send(packet);
 	}
 
 	return code;
@@ -557,29 +555,27 @@ int Game::ReqSearchRoom(Player *player)
 
 	root["code"] = (code);
 
-	std::shared_ptr<PPacket> packet(new PPacket());
-	packet->body = root.toStyledString();
-	packet->pack(PLAYER_SEARCH_ROOM_UC);
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(PLAYER_SEARCH_ROOM_UC);
 
 	player->Send(packet);
 
 	return code;
 }
 
-int Game::Broadcast(PPacket *pkt)
+int Game::Broadcast(PPacket& pkt)
 {
-	std::shared_ptr<PPacket> sptr(pkt);
 	for (std::map<int, Player *>::iterator player = m_mPlayers.begin(); player != m_mPlayers.end(); ++player)
 	{
-		player->second->Send(sptr);
+		player->second->Send(pkt);
 	}
 	return 0;
 }
 
-int Game::Unicast(Player *player, PPacket *pkt)
+int Game::Unicast(Player *player, PPacket& pkt)
 {
-	std::shared_ptr<PPacket> sptr(pkt);
-	player->Send(sptr);
+	player->Send(pkt);
 	return 0;
 }
 
@@ -697,7 +693,7 @@ int Game::Do(Player *player)
 {
 	int nRet = 0;
 
-	if (player->m_iClient.m_iPacket.header.cmd > GAME_START && player->m_pRoom)
+	if (player->m_iClient.m_iPacket.header().cmd > GAME_START && player->m_pRoom)
 	{
 		/*do game logic*/
 		nRet = player->m_pRoom->Do(player);
@@ -705,7 +701,7 @@ int Game::Do(Player *player)
 	else
 	{
 		/*do*/
-		switch (player->m_iClient.m_iPacket.header.cmd)
+		switch (player->m_iClient.m_iPacket.header().cmd)
 		{
 		case PLAYER_GET_FRIENDS:
 			nRet = ReqGetFriends(player);
@@ -760,7 +756,7 @@ int Game::Do(Player *player)
 		}
 	}
 
-	sgslog.info(FFL_s_d_d, "cmd:", player->m_iClient.m_iPacket.header.cmd, nRet);
+	sgslog.info(FFL_s_d_d, "cmd:", player->m_iClient.m_iPacket.header().cmd, nRet);
 	return nRet;
 }
 
@@ -768,9 +764,9 @@ int Game::AfterDo(Player *player)
 {
 	sgslog.info(FFLs);
 
-	player->m_iClient.m_iPacket.body.clear();
-	player->m_iClient.m_iPacket.m_nCurLen = 0;
-	player->m_iClient.m_iPacket.m_eStatus = STAT_HEADER;
+	player->m_iClient.m_iPacket.body().clear();
+	player->m_iClient.m_iPacket.curlen() = 0;
+	player->m_iClient.m_iPacket.status() = STAT_HEADER;
 
 	return 0;
 }
@@ -783,8 +779,8 @@ bool Game::ParseMsg(Player *player, void *msg, std::string &err)
 	static Json::CharReaderBuilder m_jBuilder;
 	static Json::CharReader *m_jReader = m_jBuilder.newCharReader();
 
-	nRet = m_jReader->parse(player->m_iClient.m_iPacket.body.c_str(),
-						  player->m_iClient.m_iPacket.body.c_str() + player->m_iClient.m_iPacket.body.length(), (Json::Value*)msg, &err);
+	nRet = m_jReader->parse(player->m_iClient.m_iPacket.body().c_str(),
+						  player->m_iClient.m_iPacket.body().c_str() + player->m_iClient.m_iPacket.body().length(), (Json::Value*)msg, &err);
 #else
 	//maybe protobuf
 

@@ -61,8 +61,8 @@ public:
 
 	int EnterRoom(Player* player);
 	int QuitRoom(Player* player);
-	int Broadcast(PPacket* pkt);
-	int Unicast(Player* player, PPacket* pkt);
+	int Broadcast(PPacket& pkt);
+	int Unicast(Player* player, PPacket& pkt);
 	int Ready(Player* player);
 
 	int CheckGameStart();

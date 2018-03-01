@@ -126,7 +126,8 @@ void Room::Get(Json::Value& proom)
 	}
 
 
-	m_pMaster->Get(proom["master"]);
+	//m_pMaster->Get(proom["master"]);
+	proom["master"] = m_pMaster->m_stAccount;
 
 }
 void Room::Set(const Json::Value &proom)
@@ -138,20 +139,18 @@ void Room::Set(const Json::Value &proom)
 	*/
 }
 
-int Room::Broadcast(PPacket* pkt)
+int Room::Broadcast(PPacket& pkt)
 {
-	std::shared_ptr<PPacket> sptr(pkt);
 	for (std::list<Player *>::iterator it = m_lstPlayers.begin(); it != m_lstPlayers.end(); ++it)
 	{
-		(*it)->Send(sptr);
+		(*it)->Send(pkt);
 	}
 	return 0;
 }
 
-int Room::Unicast(Player * player, PPacket* pkt)
+int Room::Unicast(Player * player, PPacket& pkt)
 {
-	std::shared_ptr<PPacket> sptr(pkt);
-	player->Send(sptr);
+	player->Send(pkt);
 	return 0;
 }
 

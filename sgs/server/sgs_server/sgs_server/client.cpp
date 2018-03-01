@@ -38,55 +38,55 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 
 	/* recv header*/
 	int   len;
-	if (STAT_HEADER == self->m_iPacket.m_eStatus)
+	if (STAT_HEADER == self->m_iPacket.status())
 	{
 		len = sizeof(PHeader);
 	}
 	/*recv body*/
 	else
 	{
-		len = self->m_iPacket.header.len;
+		len = self->m_iPacket.header().len;
 	}
 
-	int nRet = read(self->m_nfd, self->m_pRecvBuf, len - self->m_iPacket.m_nCurLen);
+	int nRet = read(self->m_nfd, self->m_pRecvBuf, len - self->m_iPacket.curlen());
 	if (nRet > 0)
 	{
 		bool bEnd = false;
-		if (STAT_HEADER == self->m_iPacket.m_eStatus)
+		if (STAT_HEADER == self->m_iPacket.status())
 		{
 			/*recv header*/
-			memcpy((char*)&self->m_iPacket.header + self->m_iPacket.m_nCurLen, 
+			memcpy((char*)&self->m_iPacket.header() + self->m_iPacket.curlen(), 
 				self->m_pRecvBuf, nRet);
-			self->m_iPacket.m_nCurLen += nRet;
-			if (self->m_iPacket.m_nCurLen == len)
+			self->m_iPacket.curlen() += nRet;
+			if (self->m_iPacket.curlen() == len)
 			{
 				self->m_iPacket.save();
-				self->m_iPacket.m_nCurLen = 0;
-				if (self->m_iPacket.header.len == 0)
+				self->m_iPacket.curlen() = 0;
+				if (self->m_iPacket.header().len == 0)
 				{
-					self->m_iPacket.m_eStatus = STAT_END;
+					self->m_iPacket.status() = STAT_END;
 					bEnd = true;
 				}
-				else if (self->m_iPacket.header.len <= MAX_RECV_BUF_SIZE)
+				else if (self->m_iPacket.header().len <= MAX_RECV_BUF_SIZE)
 				{
-					self->m_iPacket.m_eStatus = STAT_BODY;
+					self->m_iPacket.status() = STAT_BODY;
 				}
 				else{
 					//err
 				}
 			}
 		}
-		else if (STAT_BODY == self->m_iPacket.m_eStatus)
+		else if (STAT_BODY == self->m_iPacket.status())
 		{
 			/* recv body*/
-			if(self->m_iPacket.header.len > 0)
+			if(self->m_iPacket.header().len > 0)
 			{
-				self->m_iPacket.body.append(self->m_pRecvBuf, nRet);
-				self->m_iPacket.m_nCurLen += nRet;
-				if (len == self->m_iPacket.m_nCurLen)
+				self->m_iPacket.body().append(self->m_pRecvBuf, nRet);
+				self->m_iPacket.curlen() += nRet;
+				if (len == self->m_iPacket.curlen())
 				{
-					sgslog.info(FFL_s_s, "recv:", self->m_iPacket.body.c_str());
-					self->m_iPacket.m_eStatus = STAT_END;
+					sgslog.info(FFL_s_s, "recv:", self->m_iPacket.body().c_str());
+					self->m_iPacket.status() = STAT_END;
 					bEnd = true;
 				}
 			}
@@ -117,7 +117,7 @@ void Client::Read_cb(struct ev_loop * loop, ev_io * w, int revents)
 
 			if (time(NULL) - start > 1)
 			{
-				sgslog.warn(FFL_s_u, "slow cmd:", self->m_iPacket.header.cmd);
+				sgslog.warn(FFL_s_u, "slow cmd:", self->m_iPacket.header().cmd);
 			}
 
 		}
@@ -148,12 +148,14 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 		ev_io_stop(EV_A_ w);
 		return;
 	}
-	std::shared_ptr<PPacket>& pkt = self->m_lstWrite.front();
+	PPacket& pkt = self->m_lstWrite.front();	
 
-	const char* str = (pkt->data.c_str() + pkt->m_nCurLen);
+	size_t written = write(self->m_nfd, pkt.data().c_str() + pkt.curlen(), pkt.data().length() - pkt.curlen());
+	
+	
+	sgslog.info(FFL_d_d_d_d_s, self->m_nfd, pkt.header().cmd, pkt.data().length(),written, pkt.data().c_str() + sizeof(PHeader));
 
-
-	size_t written = write(self->m_nfd, pkt->data.c_str() + pkt->m_nCurLen, pkt->data.length() - pkt->m_nCurLen);
+	
 	if (written < 0) {
 		if (errno == EAGAIN || errno == EINPROGRESS || errno == EINTR) {
 			sgslog.warn(FFL_s_s,"write failed", strerror(errno));
@@ -164,9 +166,14 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 		g_app.m_pGame->ReqUserQuit(self->m_pPlayer);
 		return;
 	}
+	else if(0 == written)
+	{
 
-	pkt->m_nCurLen += written;
-	if ((std::size_t)pkt->m_nCurLen == pkt->data.length()) {
+	}
+
+	pkt.curlen() += written;
+	if ((std::size_t)pkt.curlen() == pkt.data().length())
+	{
 		self->m_lstWrite.pop_front();
 	}
 	return;
