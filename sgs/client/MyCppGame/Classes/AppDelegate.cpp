@@ -146,6 +146,9 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case PLAYER_READY_BC:
 		Do_function::PLAYER_READY_BC(pkt, cmd);
 		break;
+	case PLAYER_SEARCH_ROOM_UC:
+		Do_function::PLAYER_SEARCH_ROOM_UC(pkt, cmd);
+		break;
 	default:
 		break;
 	}

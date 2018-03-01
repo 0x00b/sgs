@@ -41,6 +41,8 @@ bool FightMain::init()
 	layer_bg->addChild(img_bg);
 	//±³¾°Í¼e
 
+	
+
 	//²âÊÔ
 	ImageView* img_my_hero = ImageView::create("Fight/liubei_big.png");
 	img_my_hero->setAnchorPoint(Vec2(1,0));
@@ -49,8 +51,13 @@ bool FightMain::init()
 
 	ImageView* img_my_hero_country = ImageView::create("Fight/SHUZI.png");
 	img_my_hero_country->setAnchorPoint(Vec2(0, 1));
-	img_my_hero_country->setPosition(Vec2(0, img_bg->getContentSize().height));
+	img_my_hero_country->setPosition(Vec2(0, img_my_hero->getContentSize().height));
 	img_my_hero->addChild(img_my_hero_country);
+
+
+	log("%f %f", visibleSize.width, visibleSize.height);
+	log("%f %f", img_bg->getContentSize().width, img_bg->getContentSize().height);
+	log("%f %f", img_my_hero->getContentSize().width, img_my_hero->getContentSize().height);
 
 	return true;
 }

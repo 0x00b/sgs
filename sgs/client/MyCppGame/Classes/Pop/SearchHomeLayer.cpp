@@ -52,9 +52,10 @@ bool SearchHome::init()
 	img_bg->addChild(btn_startsearch);
 	btn_startsearch->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		Json::Value root;
+		root[SRoom[ERoom_room_id]] = atoi(txt_homeid->getString().c_str());	//´«·¿¼äºÅ
 		std::shared_ptr<PPacket> p(new PPacket());
 		p->body = root.toStyledString();
-		p->pack(PLAYER_MATCH_ROOM);
+		p->pack(PLAYER_SEARCH_ROOM);
 		g_lstWrite.push_back(p);
 	});
 
