@@ -42,6 +42,10 @@ bool ReadyHome::init()
 	layer_bg->addChild(img_bg);
 	//添加背景e
 
+	//预加载图片s
+	TextureCache::getInstance()->addImage("Home/generalface_soldier1.png");
+	//预加载图片e
+
 	//添加回退按钮s
 	btn_back = Button::create("Bg/back_bg.png");
 	btn_back->setAnchorPoint(Vec2(0, 1));
@@ -52,17 +56,17 @@ bool ReadyHome::init()
 	//添加回退按钮e
 
 	//两个座位s
-	img_table_bg1 = ui::ImageView::create("Home/generalface_mystery.png");
-	img_table_bg1->setPosition(Vec2(origin.x + visibleSize.width / 2 - 172, origin.y + visibleSize.height / 2));
-	img_bg->addChild(img_table_bg1);
-	img_table_bg1->setTouchEnabled(true);
-	img_table_bg1->addTouchEventListener(CC_CALLBACK_2(ReadyHome::SitDown1, this));
+	img_table_bg[0] = ui::ImageView::create("Home/generalface_soldier1.png");
+	img_table_bg[0]->setPosition(Vec2(origin.x + visibleSize.width / 2 - 172, origin.y + visibleSize.height / 2));
+	img_bg->addChild(img_table_bg[0]);
+	img_table_bg[0]->setTouchEnabled(false);
+	img_table_bg[0]->addTouchEventListener(CC_CALLBACK_2(ReadyHome::SitDown1, this));
 
-	img_table_bg2 = ui::ImageView::create("Home/generalface_mystery.png");
-	img_table_bg2->setPosition(Vec2(origin.x + visibleSize.width / 2 + 172, origin.y + visibleSize.height / 2));
-	img_bg->addChild(img_table_bg2);
-	img_table_bg2->setTouchEnabled(true);
-	img_table_bg2->addTouchEventListener(CC_CALLBACK_2(ReadyHome::SitDown2, this));
+	img_table_bg[1] = ui::ImageView::create("Home/generalface_mystery.png");
+	img_table_bg[1]->setPosition(Vec2(origin.x + visibleSize.width / 2 + 172, origin.y + visibleSize.height / 2));
+	img_bg->addChild(img_table_bg[1]);
+	img_table_bg[1]->setTouchEnabled(false);
+	img_table_bg[1]->addTouchEventListener(CC_CALLBACK_2(ReadyHome::SitDown2, this));
 	//两个座位s
 
 	//开始按钮s
@@ -83,18 +87,8 @@ bool ReadyHome::init()
 	btn_ready->setPosition(Vec2(origin.x + visibleSize.width - 150, origin.y + visibleSize.height / 2));
 	img_bg->addChild(btn_ready);
 	//开始按钮e
-	
-	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
-	{
-		if ((*it).m_nSeatId == 0)
-		{
-			img_table_bg1->loadTexture("Home/generalface_soldier1.png");
-		}
-		else
-		{
-			img_table_bg2->loadTexture("Home/generalface_soldier1.png");
-		}
-	}
+
+	UpdateReadyHome();
 
 	return true;
 }
@@ -122,8 +116,8 @@ void ReadyHome::SitDown1(Ref* pSender, Widget::TouchEventType type) {
 	switch (type)
 	{
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
-		img_table_bg1->loadTexture("Home/generalface_soldier1.png");
-		img_table_bg2->loadTexture("Home/generalface_mystery.png");
+		img_table_bg[0]->loadTexture("Home/generalface_soldier1.png");
+		img_table_bg[1]->loadTexture("Home/generalface_mystery.png");
 		break;
 	}
 }
@@ -132,22 +126,18 @@ void ReadyHome::SitDown2(Ref* pSender, Widget::TouchEventType type) {
 	switch (type)
 	{
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
-		img_table_bg1->loadTexture("Home/generalface_mystery.png");
-		img_table_bg2->loadTexture("Home/generalface_soldier1.png");
+		img_table_bg[0]->loadTexture("Home/generalface_mystery.png");
+		img_table_bg[1]->loadTexture("Home/generalface_soldier1.png");
 		break;
 	}
 }
 
 void ReadyHome::UpdateReadyHome() {
+	for (int i = 0; i < 2;i++) {
+		img_table_bg[i]->loadTexture("Home/generalface_mystery.png");
+	}
 	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
 	{
-		if ((*it).m_nSeatId == 0)
-		{
-			img_table_bg1->loadTexture("Home/generalface_soldier1.png");
-		}
-		else
-		{
-			img_table_bg2->loadTexture("Home/generalface_soldier1.png");
-		}
+		img_table_bg[(*it).m_nSeatId]->loadTexture("Home/generalface_soldier1.png");
 	}
 }

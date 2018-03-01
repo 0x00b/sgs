@@ -20,8 +20,9 @@ public:
 
 private:
 	Button* btn_back;	//回退按钮
-	ImageView* img_table_bg1;	//一号位玩家
-	ImageView* img_table_bg2;	//二号位玩家
+	//ImageView* img_table_bg1;	//一号位玩家
+	//ImageView* img_table_bg2;	//二号位玩家
+	ImageView* img_table_bg[8];	//玩家位
 	Button* btn_ready;	//准备按钮
 
 private:
