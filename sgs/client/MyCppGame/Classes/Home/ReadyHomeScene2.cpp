@@ -92,8 +92,6 @@ bool ReadyHome::init()
 		}
 		else
 		{
-
-
 			img_table_bg2->loadTexture("Home/generalface_soldier1.png");
 		}
 	}
