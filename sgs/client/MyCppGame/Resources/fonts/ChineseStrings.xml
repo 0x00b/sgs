@@ -21,6 +21,9 @@
 	<key>ready</key>
  	<string>准备</string>	
 
+	<key>cancel</key>
+ 	<string>取消</string>
+
 	<key>login</key>
  	<string>登录</string>
 	
