@@ -50,6 +50,13 @@ bool SearchHome::init()
 	btn_startsearch = Button::create("Bg/btn_bg.png");
 	btn_startsearch->setPosition(Vec2(size_bg.width / 2, size_bg.height / 5));
 	img_bg->addChild(btn_startsearch);
+	btn_startsearch->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		Json::Value root;
+		std::shared_ptr<PPacket> p(new PPacket());
+		p->body = root.toStyledString();
+		p->pack(PLAYER_MATCH_ROOM);
+		g_lstWrite.push_back(p);
+	});
 
 	auto lab_startsearch = Label::createWithTTF(SGSTXT["startsearch"], "fonts/FZBWKSK.TTF", 22);
 	lab_startsearch->setPosition(Vec2(size_bg.width / 2, size_bg.height / 5));
@@ -57,7 +64,20 @@ bool SearchHome::init()
 	//确定搜索按钮e
 
 	//房间号s
+	Label* lab_homeid = Label::create(SGSTXT["homeid"], "fonts/FZBWKSK.TTF", 22);
+	lab_homeid->setPosition(Vec2(img_bg->getContentSize().width / 5, img_bg->getContentSize().height * 3 / 5));
+	img_bg->addChild(lab_homeid);
 
+	ImageView* img_homeid_bg = ImageView::create("Bg/txt_bg.png");
+	img_homeid_bg->setPosition(Vec2(lab_homeid->getPosition().x + 70, img_bg->getContentSize().height * 3 / 5));
+	img_homeid_bg->setAnchorPoint(Vec2(0, 0.5));
+	img_bg->addChild(img_homeid_bg);
+
+	txt_homeid = TextField::create();
+	txt_homeid->setPlaceHolder("input homeid");
+	txt_homeid->setPosition(Vec2(lab_homeid->getPosition().x + 75, img_bg->getContentSize().height * 3 / 5));
+	txt_homeid->setAnchorPoint(Vec2(0, 0.5));
+	img_bg->addChild(txt_homeid);
 	//房间号e
 
 	//初始化动画s

@@ -19,7 +19,7 @@ public:
 private:
 	ImageView* img_bg;
 	Button* btn_startsearch;		//搜索按钮
-	Label* lab_homeid;	//房间号标签
+	TextField* txt_homeid;	//密码
 private:
 	void closeAnimation(Node* pSender);	//执行动画后关闭层
 };
