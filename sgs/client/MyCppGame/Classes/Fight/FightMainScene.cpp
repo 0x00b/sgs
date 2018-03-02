@@ -40,24 +40,28 @@ bool FightMain::init()
 	img_bg->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 	layer_bg->addChild(img_bg);
 	//背景图e
-
 	
-
-	//测试
-	ImageView* img_my_hero = ImageView::create("Fight/liubei_big.png");
-	img_my_hero->setAnchorPoint(Vec2(1,0));
+	//右下角武将s
+	ImageView* img_my_hero = ImageView::create("Fight/hero_big/liubei.png");
+	img_my_hero->setAnchorPoint(Vec2(1, 0));
 	img_my_hero->setPosition(Vec2(img_bg->getContentSize().width, 0));
+
 	img_bg->addChild(img_my_hero);
 
 	ImageView* img_my_hero_country = ImageView::create("Fight/SHUZI.png");
 	img_my_hero_country->setAnchorPoint(Vec2(0, 1));
 	img_my_hero_country->setPosition(Vec2(0, img_my_hero->getContentSize().height));
+	//img_my_hero_country->setScale(visibleSize.width / 8 / img_my_hero->getContentSize().width);	//子控件随父控件缩放
 	img_my_hero->addChild(img_my_hero_country);
 
+	Label* lab_hero_name = Label::createWithTTF(SGSTXT["liubei"], "fonts/FZBWKSK.TTF", 36);
+	lab_hero_name->setTextColor(ccc4(0, 0, 0, 255));
+	lab_hero_name->setAnchorPoint(Vec2(0, 1));
+	lab_hero_name->setPosition(Vec2(0, img_my_hero->getContentSize().height - img_my_hero_country->getContentSize().height));
+	img_my_hero->addChild(lab_hero_name);
 
-	log("%f %f", visibleSize.width, visibleSize.height);
-	log("%f %f", img_bg->getContentSize().width, img_bg->getContentSize().height);
-	log("%f %f", img_my_hero->getContentSize().width, img_my_hero->getContentSize().height);
+	img_my_hero->setScale(visibleSize.width / 8 / img_my_hero->getContentSize().width);	//武将信息缩放到宽度1/8
+	//右下角武将e
 
 	return true;
 }
