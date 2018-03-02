@@ -53,24 +53,26 @@ log(root["code"].asString().c_str());
 
 void Do_function::PLAYER_ENTER_ROOM_BC(Json::Value &pkt, int cmd)
 {
-	log("123");
-	if (0 == pkt["code"].asInt())
+	if (0 == pkt["code"].asInt())	//成功
 	{
-	//	if(u_player.)
 		u_room.Set(pkt);
 		u_room.m_stNewPlayer = pkt["player"].asString();
 		if (u_room.m_stNewPlayer == u_player.m_stAccount) {
 			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
-				Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, ReadyHome::createScene()));
+				u_player.MyCurrentScene = ReadyHome::createScene();
+				Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, u_player.MyCurrentScene));
 			});
 		}
 		else {
 			((ReadyHome*)u_player.MyCurrentScene)->UpdateReadyHome();
 		}
 	}
-	else
+	else if(4 == pkt["code"].asInt())	//不存在房间
 	{
-		;
+		MessageBox("can't find home","findhome");
+	}
+	else if (4 == pkt["code"].asInt()) {	//房间人数已满
+		MessageBox("home if full", "findhome");
 	}
 }
 
@@ -88,6 +90,19 @@ void Do_function::PLAYER_READY_BC(Json::Value &pkt, int cmd) {
 	};
 }
 
+void Do_function::GAME_START(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt())
+	{
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {  
+		u_player.MyCurrentScene = FightMain::createScene();  //把游戏界面给程序 		创建游戏界面
+		Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, u_player.MyCurrentScene));
+	});
+	}
+	else
+	{
+		MessageBox("enter room failed!", "");
+	};
+}
 
 void Do_function::PLAYER_GET_GAME_MODE_UC(Json::Value &pkt, int cmd) {
 	;
