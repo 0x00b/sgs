@@ -163,13 +163,17 @@ void AppDelegate::func_receive()
 {
 	PPacket pMsg;
 	std::shared_ptr<char> pRecvBuf = std::shared_ptr<char>(new char[MAX_RECV_BUF_SIZE]);
+
 	Json::Value root;
 	std::string err;
 	Json::CharReaderBuilder builder;
 	Json::CharReader* reader = builder.newCharReader();
+//	int ret_receive = 0;
+	int ret_received;
 	while (exit_all)
 	{
 		root.clear();
+	//	memset(pRecvBuf, 0, MAX_RECV_BUF_SIZE);
 		pMsg.body.clear();
 		/* recv header*/
 		//skt.read((char *)&(pMsg.header), sizeof(PHeader));
@@ -189,15 +193,22 @@ void AppDelegate::func_receive()
 		}
 		else if (pMsg.header.len <= MAX_RECV_BUF_SIZE)
 		{
+	//		ret_receive = pMsg.header.len;
+			ret_received = 0;
 			pMsg.m_eStatus = STAT_BODY;
-			try
+			while (ret_received < pMsg.header.len)
 			{
-				sock.read_some(boost::asio::buffer(pRecvBuf.get(), pMsg.header.len));
+				try
+				{
+					ret_received +=sock.read_some(boost::asio::buffer(pRecvBuf.get()+ ret_received, pMsg.header.len-ret_received));
+					//strcat(pRecvBuf, pRecvBuf2);
+				}
+				catch (const std::exception&)
+				{
+					connectToSvr();
+				}
 			}
-			catch (const std::exception&)
-			{
-				connectToSvr();
-			}
+			log(pRecvBuf.get());
 			pMsg.body.append(pRecvBuf.get(), pMsg.header.len);
 			reader->parse(pMsg.body.c_str(), pMsg.body.c_str() + pMsg.body.length(), &root, &err);
 		}

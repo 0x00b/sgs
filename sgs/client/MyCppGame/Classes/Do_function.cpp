@@ -97,7 +97,8 @@ void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 		int i;
 		for (i = 0; i < 10; i++)
 		{
-			heroid[i]= pkt["hero"][i]["idhero"].asInt();
+			Json::Value v = pkt["hero"][i];
+			heroid[i]= v["idhero"].asInt();
 		}
 		Director::getInstance()->getScheduler()->performFunctionInCocosThread([&]() {    //idhero
 		u_player.MyCurrentScene = FightMain::createScene();  //把游戏界面给程序 		创建游戏界面
