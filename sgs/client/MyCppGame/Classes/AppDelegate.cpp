@@ -149,6 +149,8 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case PLAYER_SEARCH_ROOM_UC:
 		Do_function::PLAYER_SEARCH_ROOM_UC(pkt, cmd);
 		break;
+	case GAME_START:
+
 	default:
 		break;
 	}

@@ -3,6 +3,7 @@
 #include "../Classes/model/include_all.h"
 #include "HelloWorldScene.h"
 #include "../Classes/Home/ReadyHomeScene2.h"
+#include "../Classes/Fight/FightMainScene.h"
 
 class Do_function
 {
@@ -27,6 +28,7 @@ public:
 	static void PLAYER_SELECT_GAME_MODE_UC(Json::Value &pkt, int cmd);
 	static void PLAYER_GET_GAME_MODE_UC(Json::Value &pkt, int cmd);
 	static void PLAYER_CREATE_ROOM_UC(Json::Value &pkt, int cmd);
+	static void GAME_START(Json::Value &pkt, int cmd);
 };
 
 
