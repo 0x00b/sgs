@@ -6,7 +6,7 @@
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
 
-#define MAX_RECV_BUF_SIZE 4096
+#define MAX_RECV_BUF_SIZE 40960
 
 std::list<std::shared_ptr<PPacket>> g_lstWrite;
 
