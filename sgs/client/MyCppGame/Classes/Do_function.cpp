@@ -90,10 +90,10 @@ void Do_function::PLAYER_READY_BC(Json::Value &pkt, int cmd) {
 	};
 }
 
+		int heroid[10];
 void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 	if (0 == pkt["code"].asInt())
 	{
-		int heroid[10];
 		int i;
 		for (i = 0; i < 10; i++)
 		{
