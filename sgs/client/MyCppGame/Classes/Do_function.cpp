@@ -59,7 +59,8 @@ void Do_function::PLAYER_ENTER_ROOM_BC(Json::Value &pkt, int cmd)
 		u_room.m_stNewPlayer = pkt["player"].asString();
 		if (u_room.m_stNewPlayer == u_player.m_stAccount) {
 			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
-				Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, ReadyHome::createScene()));
+				u_player.MyCurrentScene = ReadyHome::createScene();
+				Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, u_player.MyCurrentScene));
 			});
 		}
 		else {

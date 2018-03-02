@@ -11,6 +11,8 @@ using namespace ui;
 class ReadyHome : public cocos2d::Scene
 {
 public:
+	~ReadyHome();
+
 	static cocos2d::Scene* createScene();
 
 	virtual bool init();
