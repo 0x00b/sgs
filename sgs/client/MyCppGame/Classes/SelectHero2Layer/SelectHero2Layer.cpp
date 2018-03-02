@@ -107,7 +107,7 @@ void SelectHero2Layer::ShowHero(int hero[10])
 	for (i = 0; i < 10; i++)
 	{
 		scale_x[i] = win.width / 6 / size_hero[i].width;
-		scale_y[i] = win.width * 0.4 / size_hero[i].height;
+		scale_y[i] = win.height * 0.4 / size_hero[i].height;
 		button_hero[i]->setScaleX(scale_x[i]);
 		button_hero[i]->setScaleY(scale_y[i]);
 		button_hero[i]->setAnchorPoint(Point(0, 0));

@@ -93,17 +93,16 @@ void Do_function::PLAYER_READY_BC(Json::Value &pkt, int cmd) {
 void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 	if (0 == pkt["code"].asInt())
 	{
-
-		Director::getInstance()->getScheduler()->performFunctionInCocosThread([&]() {    //idhero
-		u_player.MyCurrentScene = FightMain::createScene();  //把游戏界面给程序 		创建游戏界面
-		// 把10个武将给放上去
 		int heroid[10];
 		int i;
 		for (i = 0; i < 10; i++)
 		{
 			Json::Value v = pkt["hero"][i];
-			heroid[i] = v["idhero"].asInt();
+			heroid[i]= v["idhero"].asInt();
 		}
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([&]() {    //idhero
+		u_player.MyCurrentScene = FightMain::createScene();  //把游戏界面给程序 		创建游戏界面
+		// 把10个武将给放上去
 		(((FightMain *)u_player.MyCurrentScene)->selectHero)->ShowHero(heroid);
 		Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, u_player.MyCurrentScene));
 	});
