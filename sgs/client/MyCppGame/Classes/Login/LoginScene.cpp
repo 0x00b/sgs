@@ -55,7 +55,7 @@ bool Login::init()
 	//µÇÂ¼¿òe
 
 	//ÕËºÅÃÜÂës
-	Label* lab_account = Label::create(SGSTXT["account"], "fonts/FZBWKSK.TTF", 22);
+	Label* lab_account = Label::create(CSGSTXT::GET("account"), "fonts/FZBWKSK.TTF", 22);
 	lab_account->setPosition(Vec2(size_rect_bg.width / 5, size_rect_bg.height * 3 / 4));
 	img_rect_bg->addChild(lab_account);
 
@@ -71,7 +71,7 @@ bool Login::init()
 	txt_account->setAnchorPoint(Vec2(0, 0.5));
 	img_rect_bg->addChild(txt_account);
 
-	Label* lab_pwd = Label::create(SGSTXT["pwd"], "fonts/FZBWKSK.TTF", 22);
+	Label* lab_pwd = Label::create(CSGSTXT::GET("pwd"), "fonts/FZBWKSK.TTF", 22);
 	lab_pwd->setPosition(Vec2(size_rect_bg.width / 5, size_rect_bg.height / 2));
 	img_rect_bg->addChild(lab_pwd);
 
@@ -124,7 +124,7 @@ bool Login::init()
 		}
 	});
 
-	Label* lab_login = Label::create(SGSTXT["login"], "fonts/FZBWKSK.TTF", 22);
+	Label* lab_login = Label::create(CSGSTXT::GET("login"), "fonts/FZBWKSK.TTF", 22);
 	lab_login->setPosition(Vec2(size_rect_bg.width / 2, size_rect_bg.height / 5));
 	img_rect_bg->addChild(lab_login);
 	//µÇÂ¼°´Å¥e

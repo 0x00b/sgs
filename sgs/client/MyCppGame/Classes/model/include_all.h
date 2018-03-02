@@ -11,6 +11,7 @@
 #include "ui/CocosGUI.h"
 #include "ui/UIWidget.h"
 #include "cocos2d.h"
+#include "SimpleAudioEngine.h"
 
 #include "../jsonproto/jsonproto.h"
 
@@ -26,4 +27,4 @@ extern std::list<std::shared_ptr<PPacket>> g_lstWrite;
 extern Player u_player;
 extern Room u_room;
 
-extern CSGSTXT SGSTXT;
+//extern CSGSTXT SGSTXT;

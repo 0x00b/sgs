@@ -36,7 +36,7 @@ bool SearchHome::init()
 	//添加背景e
 
 	//中文显示s
-	auto searchhomeString = SGSTXT["searchhome"];
+	auto searchhomeString = CSGSTXT::GET("searchhome");
 	//中文显示e
 
 	//标题s
@@ -65,13 +65,13 @@ bool SearchHome::init()
 		
 	});
 
-	auto lab_startsearch = Label::createWithTTF(SGSTXT["startsearch"], "fonts/FZBWKSK.TTF", 22);
+	auto lab_startsearch = Label::createWithTTF(CSGSTXT::GET("startsearch"), "fonts/FZBWKSK.TTF", 22);
 	lab_startsearch->setPosition(Vec2(size_bg.width / 2, size_bg.height / 5));
 	img_bg->addChild(lab_startsearch);
 	//确定搜索按钮e
 
 	//房间号s
-	Label* lab_homeid = Label::create(SGSTXT["homeid"], "fonts/FZBWKSK.TTF", 22);
+	Label* lab_homeid = Label::create(CSGSTXT::GET("homeid"), "fonts/FZBWKSK.TTF", 22);
 	lab_homeid->setPosition(Vec2(img_bg->getContentSize().width / 5, img_bg->getContentSize().height * 3 / 5));
 	img_bg->addChild(lab_homeid);
 

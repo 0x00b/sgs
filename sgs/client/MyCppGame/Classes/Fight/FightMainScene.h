@@ -2,7 +2,6 @@
 #define __FIGHTMAIN_SCENE_H__
 
 #include "model/include_all.h"
-#include "SimpleAudioEngine.h"
 #include "SelectHero2Layer\SelectHero2Layer.h"
 
 USING_NS_CC;

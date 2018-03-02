@@ -1,7 +1,6 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "Login/LoginScene.h"
-#include "pvp.h"
 #include <memory>
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -299,11 +298,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	// create a scene. it's an autorelease object
 	auto scene = Login::createScene();
-	//auto pvp1 = pvp::createScene();
 	// run
 
 	director->runWithScene(scene);
-	//	director->runWithScene(pvp1);
 	return true;
 }
 

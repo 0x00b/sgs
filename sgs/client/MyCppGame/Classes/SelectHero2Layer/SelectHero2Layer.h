@@ -1,10 +1,9 @@
 #pragma once
 
-#include "../Classes/model/include_all.h"
-
-using namespace std;
+#include "model/include_all.h"
 
 USING_NS_CC;
+using namespace std;
 
 class SelectHero2Layer :public Layer
 {

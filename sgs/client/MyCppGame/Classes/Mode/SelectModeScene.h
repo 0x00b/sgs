@@ -1,12 +1,11 @@
 #ifndef __SELECTMODE_SCENE_H__
 #define __SELECTMODE_SCENE_H__
 
-#include "SimpleAudioEngine.h"
+#include "model/include_all.h"
 #include "Pop/SearchHomeLayer.h"
 #include "Home/ReadyHomeScene2.h"
 #include "HelloWorldScene.h"
 #include "AppDelegate.h"
-#include "../Classes/model/include_all.h"
 
 USING_NS_CC;
 using namespace ui;

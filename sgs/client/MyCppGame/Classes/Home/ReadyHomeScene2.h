@@ -1,9 +1,8 @@
 #ifndef __READYHOME_SCENE_H__
 #define __READYHOME_SCENE_H__
 
-#include "SimpleAudioEngine.h"
+#include "model/include_all.h"
 #include "Mode/SelectModeScene.h"
-#include "../Classes/model/include_all.h"
 
 USING_NS_CC;
 using namespace ui;

@@ -87,7 +87,7 @@ bool ReadyHome::init()
 
 	//准备按钮s
 	btn_ready = Button::create("Home/chapter_normal.png", "Home/chapter_selected.png", "Home/disabled_image.png");
-	btn_ready->setTitleText(SGSTXT["ready"]);
+	btn_ready->setTitleText(CSGSTXT::GET("ready"));
 	btn_ready->setTitleFontName("fonts/FZBWKSK.TTF");
 	btn_ready->setTitleFontSize(40);
 
@@ -97,12 +97,12 @@ bool ReadyHome::init()
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::ENDED:
-			if (btn_ready->getTitleText() == SGSTXT["cancel"]) {	//取消准备
-				btn_ready->setTitleText(SGSTXT["ready"]);
+			if (btn_ready->getTitleText() == CSGSTXT::GET("cancel")) {	//取消准备
+				btn_ready->setTitleText(CSGSTXT::GET("ready"));
 				root["ready"] = false;
 			}
-			else if (btn_ready->getTitleText() == SGSTXT["ready"]) {	//准备
-				btn_ready->setTitleText(SGSTXT["cancel"]);
+			else if (btn_ready->getTitleText() == CSGSTXT::GET("ready")) {	//准备
+				btn_ready->setTitleText(CSGSTXT::GET("cancel"));
 				root["ready"] = true;
 			}
 

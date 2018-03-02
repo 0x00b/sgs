@@ -1,6 +1,7 @@
 #include "SelectModeScene.h"
 
 USING_NS_CC;
+using namespace ui;
 
 Scene* SelectMode::createScene()
 {
@@ -45,10 +46,10 @@ bool SelectMode::init()
 	img_slct_bg->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 	img_bg->addChild(img_slct_bg);
 	//添加选择模式背景图e
-	auto twomodeString = SGSTXT["twomode"];
-	auto createhomeString = SGSTXT["createhome"];
-	auto fastenterString = SGSTXT["fastenter"];
-	auto searchhomeString = SGSTXT["searchhome"];
+	auto twomodeString = CSGSTXT::GET("twomode");
+	auto createhomeString = CSGSTXT::GET("createhome");
+	auto fastenterString = CSGSTXT::GET("fastenter");
+	auto searchhomeString = CSGSTXT::GET("searchhome");
 	//中文显示e
 
 	//添加创建房间 快速加入 搜索房间三个按钮s
@@ -167,7 +168,7 @@ void SelectMode::AutoSlide(Ref* pSender, Widget::TouchEventType type) {
 }
 
 void SelectMode::change6ImageBig(Node* sender) {
-	lab_slct_mode->setString(SGSTXT["sixmode"]);
+	lab_slct_mode->setString(CSGSTXT::GET("sixmode"));
 
 	((ImageView*)sender)->loadTexture("Mode/model_big_6.png");
 }
@@ -177,7 +178,7 @@ void SelectMode::change6ImageSmall(Node* sender) {
 }
 
 void SelectMode::change2ImageBig(Node* sender) {
-	lab_slct_mode->setString(SGSTXT["twomode"]);
+	lab_slct_mode->setString(CSGSTXT::GET("twomode"));
 
 	((ImageView*)sender)->loadTexture("Mode/model_big_2.png");
 }

@@ -54,7 +54,7 @@ bool FightMain::init()
 	//img_my_hero_country->setScale(visibleSize.width / 8 / img_my_hero->getContentSize().width);	//子控件随父控件缩放
 	img_my_hero->addChild(img_my_hero_country);
 
-	Label* lab_hero_name = Label::createWithTTF(SGSTXT["liubei"], "fonts/FZBWKSK.TTF", 36);
+	Label* lab_hero_name = Label::createWithTTF(CSGSTXT::GET("liubei"), "fonts/FZBWKSK.TTF", 36);
 	lab_hero_name->setTextColor(ccc4(0, 0, 0, 255));
 	lab_hero_name->setAnchorPoint(Vec2(0, 1));
 	lab_hero_name->setPosition(Vec2(0, img_my_hero->getContentSize().height - img_my_hero_country->getContentSize().height));

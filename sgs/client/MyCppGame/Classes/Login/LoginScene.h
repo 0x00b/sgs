@@ -1,11 +1,7 @@
 #ifndef __LOGIN_SCENE_H__
 #define __LOGIN_SCENE_H__
 
-
-#include "../Classes/model/include_all.h"
-
-#include "SimpleAudioEngine.h"
-
+#include "model/include_all.h"
 #include "HelloWorldScene.h"
 
 USING_NS_CC;
