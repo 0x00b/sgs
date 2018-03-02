@@ -53,10 +53,8 @@ log(root["code"].asString().c_str());
 
 void Do_function::PLAYER_ENTER_ROOM_BC(Json::Value &pkt, int cmd)
 {
-	log("123");
-	if (0 == pkt["code"].asInt())
+	if (0 == pkt["code"].asInt())	//成功
 	{
-	//	if(u_player.)
 		u_room.Set(pkt);
 		u_room.m_stNewPlayer = pkt["player"].asString();
 		if (u_room.m_stNewPlayer == u_player.m_stAccount) {
@@ -68,9 +66,12 @@ void Do_function::PLAYER_ENTER_ROOM_BC(Json::Value &pkt, int cmd)
 			((ReadyHome*)u_player.MyCurrentScene)->UpdateReadyHome();
 		}
 	}
-	else
+	else if(4 == pkt["code"].asInt())	//不存在房间
 	{
-		;
+		MessageBox("findhome","home is not find");
+	}
+	else if (4 == pkt["code"].asInt()) {	//房间人数已满
+		MessageBox("findhome", "home is full");
 	}
 }
 

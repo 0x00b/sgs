@@ -51,12 +51,18 @@ bool SearchHome::init()
 	btn_startsearch->setPosition(Vec2(size_bg.width / 2, size_bg.height / 5));
 	img_bg->addChild(btn_startsearch);
 	btn_startsearch->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		Json::Value root;
-		root[SRoom[ERoom_room_id]] = atoi(txt_homeid->getString().c_str());	//传房间号
-		std::shared_ptr<PPacket> p(new PPacket());
-		p->body = root.toStyledString();
-		p->pack(PLAYER_SEARCH_ROOM);
-		g_lstWrite.push_back(p);
+		switch (type)
+		{
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			Json::Value root;
+			root[SRoom[ERoom_room_id]] = atoi(txt_homeid->getString().c_str());	//传房间号
+			std::shared_ptr<PPacket> p(new PPacket());
+			p->body = root.toStyledString();
+			p->pack(PLAYER_ENTER_ROOM);
+			g_lstWrite.push_back(p);
+			break;
+		}
+		
 	});
 
 	auto lab_startsearch = Label::createWithTTF(SGSTXT["startsearch"], "fonts/FZBWKSK.TTF", 22);
