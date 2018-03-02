@@ -93,7 +93,7 @@ void SelectHero2Layer::ShowHero(int hero[10])
 
 	int i, j;
 
-	char name_pic[50]="SelectHero2/";
+	char name_pic[50];
 	char name2_pic[50];
 
 	for (i = 0; i < 10; i++)
