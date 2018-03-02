@@ -97,14 +97,13 @@ bool ReadyHome::init()
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::ENDED:
-			if (btn_ready->getTitleText() == SGSTXT["cancel"]) {	//准备
-				btn_ready->setTitleText(SGSTXT["ready"]);
-				root["ready"] = true;
-			}
-			else if (btn_ready->getTitleText() == SGSTXT["ready"]) {	//取消准备
-				btn_ready->setTitleText(SGSTXT["cancel"]);
+			if (btn_ready->getTitleText() == SGSTXT["cancel"]) {	//取消准备
 				btn_ready->setTitleText(SGSTXT["ready"]);
 				root["ready"] = false;
+			}
+			else if (btn_ready->getTitleText() == SGSTXT["ready"]) {	//准备
+				btn_ready->setTitleText(SGSTXT["cancel"]);
+				root["ready"] = true;
 			}
 
 			p->body = root.toStyledString();
