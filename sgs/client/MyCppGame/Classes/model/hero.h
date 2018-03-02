@@ -6,9 +6,8 @@ Copyright   : sgs
 Author      : lijun
 Date        : 2018.01.16
 Description :
-**************************************************/\
-
-#include <iostream>
+**************************************************/
+#include "../../include.h"
 
 enum E_COUNTRY
 {
@@ -56,6 +55,27 @@ enum E_SKILL
 
 };
 
+enum E_HERO_ID
+{
+	HERO_ID_NONE = 0,
+	HERO_ID_LIU_BEI,/*liu bei 1 id*/
+	HERO_ID_SUN_QUAN,
+	HERO_ID_CAO_CAO,
+	HERO_ID_GUAN_YU,
+	HERO_ID_ZHANG_FEI,
+	HERO_ID_LV_BU,
+	HERO_ID_ZHAO_YUN,
+	HERO_ID_LV_MENG,
+	HERO_ID_XU_CHU,
+	HERO_ID_MA_CHAO,
+	HERO_ID_ZHEN_JI,
+	HERO_ID_DA_QIAO,
+	HERO_ID_HUANG_YUE_YING,
+	HERO_ID_DIAO_CAN,
+	HERO_ID_ZHOU_YU,
+	HERO_ID_GUO_JIA,
+};
+
 class Hero
 {
 public:
@@ -82,9 +102,27 @@ public:
 	int skill_2_id;
 	int master_skill_id;
 
+	enum Role
+	{
+		ROLE_NONE,
+		ROLE_MASTER,			//主公
+		ROLE_LOYAL_OFFICER,	//忠臣
+		ROLE_GUILT_OFFICER,	//内奸
+		ROLE_BETRAY_OFFICER,	//反贼
+		ROLE_NUM,		//角色类型数量
+	};
+
+	Role role;
+
+	static std::vector<std::shared_ptr<Hero>> g_Heros;
+
 public:
 	Hero();
 	~Hero();
+
+	void Get(Json::Value& v);
+
+	static int GetALLhero();
 };
 
 #endif
