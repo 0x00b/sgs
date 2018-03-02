@@ -93,7 +93,7 @@ void Do_function::PLAYER_READY_BC(Json::Value &pkt, int cmd) {
 void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 	if (0 == pkt["code"].asInt())
 	{
-		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {  
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {    //idhero
 		u_player.MyCurrentScene = FightMain::createScene();  //把游戏界面给程序 		创建游戏界面
 		Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, u_player.MyCurrentScene));
 	});

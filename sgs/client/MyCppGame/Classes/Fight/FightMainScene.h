@@ -3,6 +3,7 @@
 
 #include "model/include_all.h"
 #include "SimpleAudioEngine.h"
+#include "SelectHero2Layer\SelectHero2Layer.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -13,6 +14,8 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(FightMain);
+
+	Layer *selectHero;
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

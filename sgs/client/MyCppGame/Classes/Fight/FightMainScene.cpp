@@ -63,5 +63,8 @@ bool FightMain::init()
 	img_my_hero->setScale(visibleSize.width / 8 / img_my_hero->getContentSize().width);	//武将信息缩放到宽度1/8
 	//右下角武将e
 
+	selectHero = SelectHero2Layer::create();
+	this->addChild(selectHero);
+
 	return true;
 }
