@@ -15,7 +15,7 @@ public:
 	virtual bool init();
 	CREATE_FUNC(FightMain);
 
-	Layer *selectHero;
+	SelectHero2Layer *selectHero;
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

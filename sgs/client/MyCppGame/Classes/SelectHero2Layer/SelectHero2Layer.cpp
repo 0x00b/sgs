@@ -24,7 +24,8 @@ bool SelectHero2Layer::init()
 	Sprite *backGround = Sprite::create("res/model_select_bg.png");
 	backGround->setPosition(0, 0);
 	backGround->setAnchorPoint(Point(0, 0));
-	Size mywinsize = Director::getInstance()->getWinSize();
+	Size mywinsize = Director::getInstance()->getWinSize(); 
+	win = mywinsize;
 	float winw = mywinsize.width; //获取屏幕宽度
 	float winh = mywinsize.height;//获取屏幕高度
 	float spx = backGround->getContentSize().width;
@@ -33,7 +34,7 @@ bool SelectHero2Layer::init()
 	backGround->setScaleY(winh / spy);
 	this->addChild(backGround);
 
-	setProgressTime(&progresstime1,mywinsize);   //初始化CCProgressTimer
+	setProgressTime(&progresstime1);   //初始化CCProgressTimer
 	this->addChild(progresstime1);
 
 	this->scheduleUpdate();        //调用定时器更新进度条
@@ -41,7 +42,7 @@ bool SelectHero2Layer::init()
 	return true;
 }
 
-void SelectHero2Layer::setProgressTime(CCProgressTimer **progresstime1,Size win)
+void SelectHero2Layer::setProgressTime(CCProgressTimer **progresstime1)
 {
 	CCSprite *psSprite1 = CCSprite::create("res/progress_timebar.png");  //利用精灵创建进度条，并设置一些属性
 	*progresstime1 = CCProgressTimer::create(psSprite1);
@@ -85,4 +86,50 @@ void SelectHero2Layer::update(float dt)
 	//	CCDirector::sharedDirector()->replaceScene(tScene);
 	}
 
+}
+
+void SelectHero2Layer::ShowHero(int hero[10])
+{
+
+	int i, j;
+
+	char name_pic[50]="SelectHero2/";
+	char name2_pic[50];
+
+	for (i = 0; i < 10; i++)
+	{
+		sprintf(name_pic, "SelectHero2/%d.png",hero[i]);  //   \\转义
+		sprintf(name2_pic, "SelectHero2/%d.png", hero[i]);
+		button_hero[i] = cocos2d::ui::Button::create(name_pic, name2_pic, name_pic);
+		size_hero[i] = button_hero[i]->getCustomSize();
+	}
+
+	for (i = 0; i < 10; i++)
+	{
+		scale_x[i] = win.width / 6 / size_hero[i].width;
+		scale_y[i] = win.width * 0.4 / size_hero[i].height;
+		button_hero[i]->setScaleX(scale_x[i]);
+		button_hero[i]->setScaleY(scale_y[i]);
+		button_hero[i]->setAnchorPoint(Point(0, 0));
+	}
+	
+	for (i = 0; i < 5; i++)
+	{
+		position[i].x = win.width/12+i*(win.width*13/(60));
+		position[i].y = win.height*0.5;
+		button_hero[i]->setPosition(position[i]);
+	}
+
+	for (i = 5; i < 10; i++)
+	{
+		position[i].x = win.width / 12 + (i-5)*(win.width * 13 / (60));;
+		position[i].y = win.height*0.15;
+		button_hero[i]->setPosition(position[i]);
+	}
+
+	for (i = 0; i < 10; i++)
+	{
+		this->addChild(button_hero[i]);
+	}
+	
 }

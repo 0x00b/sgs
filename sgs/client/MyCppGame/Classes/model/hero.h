@@ -7,8 +7,8 @@ Author      : lijun
 Date        : 2018.01.16
 Description :
 **************************************************/
-#include "../../include.h"
-
+//#include "../../include.h"
+#include <string>
 enum E_COUNTRY
 {
 	CTY_WEI = 1,
@@ -114,13 +114,13 @@ public:
 
 	Role role;
 
-	static std::vector<std::shared_ptr<Hero>> g_Heros;
+//	static std::vector<std::shared_ptr<Hero>> g_Heros;
 
 public:
 	Hero();
 	~Hero();
 
-	void Get(Json::Value& v);
+//	void Get(Json::Value& v);
 
 	static int GetALLhero();
 };

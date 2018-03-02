@@ -4,6 +4,7 @@
 #include "HelloWorldScene.h"
 #include "../Classes/Home/ReadyHomeScene2.h"
 #include "../Classes/Fight/FightMainScene.h"
+#include "../Classes/SelectHero2Layer/SelectHero2Layer.h"
 
 class Do_function
 {
