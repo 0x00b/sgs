@@ -18,7 +18,21 @@
 	<key>startsearch</key>
  	<string>开始搜索</string>
 
-	<key>liubei</key>
- 	<string>刘
-备</string>
+	<key>ready</key>
+ 	<string>准备</string>
+
+	<key>cancel</key>
+ 	<string>取消</string>
+
+	<key>account</key>
+ 	<string>账号</string>
+
+	<key>pwd</key>
+ 	<string>密码</string>
+
+	<key>login</key>
+ 	<string>登录</string>
+
+	<key>homeid</key>
+ 	<string>房间号</string>
 </dict>
