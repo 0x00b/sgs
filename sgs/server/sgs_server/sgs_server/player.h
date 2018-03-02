@@ -28,6 +28,13 @@ enum EPlayerGmStatus
 	ST_GM_PLAYER_PLAYING,
 };
 
+enum EPGmStatus
+{
+	ST_GM_NONE = 0,
+	ST_GM_START,
+	ST_GM_PLAYING,
+};
+
 /*
 */
 class Player

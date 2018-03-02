@@ -20,14 +20,15 @@ class SGSGameLogic : public GameLogic
 	void EnsureRoles();
 	void RandomCard();
 
-	void Do2PStart(Json::Value& root);
-	void Do6PStart(Json::Value& root);
+	int Do2PStart(Json::Value& root);
+	int Do6PStart(Json::Value& root);
 
 	int ReqOutCard(Player *player);
 	int ReqAbandonCard(Player *player);
 	int ReqUseSkill(Player *player);
 	int ReqCancelOutCard(Player *player);
 	int ReqSelectCard(Player *player);
+	int ReqSelectHero(Player *player);
 
   private:
 };

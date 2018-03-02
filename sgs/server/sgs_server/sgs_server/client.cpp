@@ -168,7 +168,8 @@ void Client::Write_cb(struct ev_loop * loop, ev_io * w, int revents)
 	}
 	else if(0 == written)
 	{
-
+		sgslog.warn(FFL_s, "fd closed!");
+		g_app.m_pGame->ReqUserQuit(self->m_pPlayer);
 	}
 
 	pkt.curlen() += written;

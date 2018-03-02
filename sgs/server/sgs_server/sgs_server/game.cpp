@@ -8,6 +8,8 @@
 #include "libs/json/json.h"
 #include "jsonproto/jsonproto.h"
 
+#include "libgamelogic/sgslogic/hero.h"
+
 #define ROOM_ID_END 1000000
 #define ROOM_ID_START 100000
 
@@ -23,10 +25,14 @@ Game::~Game()
 
 int Game::StartUp()
 {
-	if (Listen() == 0)
+	if (Listen() != 0)
 	{
-		return 0;
+		return -1;
 	}
+
+	//add some need init
+	Hero::GetALLhero();
+
 	return -1;
 }
 
@@ -216,9 +222,9 @@ int Game::ReqUserQuit(Player *player)
 		player->UpdateState(ST_PLAYER_OFFLINE);
 	}
 
-	if(ST_GM_PLAYER_NONE != player->m_nGameStatus && NULL != player->m_pRoom)
+	if(/*ST_GM_PLAYER_NONE != player->m_nGameStatus &&*/ NULL != player->m_pRoom)
 	{
-		ReqQuitRoom(player);
+		player->m_pRoom->QuitRoom(player);
 	}
 
 	delete player;
@@ -373,7 +379,8 @@ int Game::ReqEnterRoom(Player *player)
 	root.clear();
 	if (0 == code)
 	{
-		player->Get(root[SJPROTO[E_Player]]);
+		//player->Get(root[SJPROTO[E_Player]]);
+		root[SJPROTO[E_Player]] = player->m_stAccount;
 		room->second->Get(root[SJPROTO[E_Room]]);
 	}
 
@@ -413,17 +420,20 @@ int Game::ReqQuitRoom(Player *player)
 	}
 	else
 	{
-		room = m_mRooms.find(root[SRoom[ERoom_room_id]].asInt());
-		if (m_mRooms.end() != room)
+		if(NULL != player->m_pRoom)
 		{
-			if (0 != (quit_ret = room->second->QuitRoom(player)))
+			room = m_mRooms.find(player->m_pRoom->m_nRoomID);
+			if (m_mRooms.end() != room)
 			{
-				code = 0x02; //enter room failed
+				if (-1 == (quit_ret = room->second->QuitRoom(player)))
+				{
+					code = 0x02; //enter room failed
+				}
 			}
-		}
-		else
-		{
-			code = 0x04; //not find the room
+			else
+			{
+				code = 0x04; //not find the room
+			}
 		}
 	}
 
@@ -440,6 +450,7 @@ int Game::ReqQuitRoom(Player *player)
 
 	if (0 == code)
 	{
+		player->Send(packet);
 		room->second->Broadcast(packet);
 		//all quit room ,delete room
 		if (1 == quit_ret)

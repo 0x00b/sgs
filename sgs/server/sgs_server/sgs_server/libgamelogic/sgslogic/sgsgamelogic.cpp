@@ -21,6 +21,7 @@ SGSGameLogic::~SGSGameLogic()
 
 int SGSGameLogic::Do(Player *player)
 {
+    int code = 0;
     if (NULL != player)
     {
         switch (player->m_iClient.m_iPacket.header().cmd)
@@ -37,11 +38,14 @@ int SGSGameLogic::Do(Player *player)
             break;
         case GAME_SELECT_CARD:
             break;
+        case GAME_SELECT_HERO:
+            code = ReqSelectHero(player);
+            break;
         default:
             break;
         }
     }
-    return 0;
+    return code;
 }
 int SGSGameLogic::GameStart()
 {
@@ -56,11 +60,11 @@ int SGSGameLogic::GameStart()
     switch (m_pRoom->m_eType)
     {
     case ROOM_TYPE_2:
-        Do2PStart(root);
+        code = Do2PStart(root);
         break;
 
     case ROOM_TYPE_6:
-        Do6PStart(root);
+        code = Do6PStart(root);
         break;
 
     case ROOM_TYPE_8:
@@ -70,6 +74,10 @@ int SGSGameLogic::GameStart()
     }
 
     //广播结果
+    if(0 == code)
+    {
+        m_pRoom->m_nStatus = ST_GM_START;
+    }
 
     root["code"] = (code); //
 
@@ -98,13 +106,20 @@ void SGSGameLogic::RandomCard()
 void SGSGameLogic::EnsureRoles()
 {
 }
-void SGSGameLogic::Do2PStart(Json::Value &root)
+int SGSGameLogic::Do2PStart(Json::Value &root)
 {
-    //
+    int i = 0;
+    #define CAN_SELECT_HERO_CNT 10
+    for (std::vector<std::shared_ptr<Hero>>::iterator it = Hero::g_Heros.begin();i < CAN_SELECT_HERO_CNT && it != Hero::g_Heros.end() ;++i,++it)
+    {
+        (*it)->Get(root["hero"][i]);
+    }
+    return 0;
 }
 
-void SGSGameLogic::Do6PStart(Json::Value &root)
+int SGSGameLogic::Do6PStart(Json::Value &root)
 {
+    return 0;
 }
 
 int SGSGameLogic::ReqOutCard(Player *player)
@@ -158,6 +173,37 @@ int SGSGameLogic::ReqCancelOutCard(Player *player)
 int SGSGameLogic::ReqSelectCard(Player *player)
 {
     return 0;
+}
+
+int SGSGameLogic::ReqSelectHero(Player *player)
+{
+	int code = 0;
+	
+	Json::Value root;
+	std::string err;
+	
+	if (!Game::ParseMsg(player,&root,err))
+	{
+		code = 0x01;
+	}
+	else
+	{
+		int idhero = root["idhero"].asInt();
+	}
+
+	root.clear();
+	root["code"] = (code); //
+	if(0 == code)
+	{
+		//player->Get(root[SJPROTO[E_Player]]);
+	}
+	PPacket packet;
+	packet.body() = root.toStyledString(); 
+	packet.pack(GAME_SELECT_HERO_BC);
+
+	m_pRoom->Broadcast(packet);
+	
+	return code;
 }
 
 void SGSGameLogic::Init()

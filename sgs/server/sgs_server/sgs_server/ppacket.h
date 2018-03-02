@@ -67,6 +67,7 @@ public:
 
 	inline PHeader& header();
 	inline std::string& body();
+	inline std::string& body(std::string& str);
 	inline std::string& data();
 	inline PKT_STATUS& status();
 	inline int& curlen(); //recv length
@@ -85,6 +86,11 @@ PHeader &PPacket::header()
 std::string &PPacket::body()
 {
 	return m_pkt->body;
+}
+std::string &PPacket::body(std::string& str)
+{
+	 m_pkt->body = str;
+	 return m_pkt->body;
 }
 std::string &PPacket::data()
 {
