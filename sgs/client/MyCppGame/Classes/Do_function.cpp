@@ -69,10 +69,10 @@ void Do_function::PLAYER_ENTER_ROOM_BC(Json::Value &pkt, int cmd)
 	}
 	else if(4 == pkt["code"].asInt())	//不存在房间
 	{
-		MessageBox("findhome","home is not find");
+		MessageBox("can't find home","findhome");
 	}
 	else if (4 == pkt["code"].asInt()) {	//房间人数已满
-		MessageBox("findhome", "home is full");
+		MessageBox("home if full", "findhome");
 	}
 }
 
