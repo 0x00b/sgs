@@ -217,14 +217,15 @@ int Game::ReqReady(Player *player)
 int Game::ReqUserQuit(Player *player)
 {
 	m_mPlayers.erase(player->m_iClient.m_nfd);
-	if (ST_PLAYER_OFFLINE != player->m_nStatus && player->m_nID >= 0)
+	//if (ST_PLAYER_OFFLINE != player->m_nStatus && player->m_nID >= 0)
 	{
 		player->UpdateState(ST_PLAYER_OFFLINE);
 	}
 
 	if(/*ST_GM_PLAYER_NONE != player->m_nGameStatus &&*/ NULL != player->m_pRoom)
 	{
-		player->m_pRoom->QuitRoom(player);
+		//player->m_pRoom->QuitRoom(player);
+		ReqQuitRoom(player);
 	}
 
 	delete player;
@@ -414,11 +415,11 @@ int Game::ReqQuitRoom(Player *player)
 	Json::Value root;
 	std::string err;
 
-	if (!Game::ParseMsg(player,&root,err))
+//	if (!Game::ParseMsg(player,&root,err))
 	{
-		code = 0x01;
+//		code = 0x01;
 	}
-	else
+//	else
 	{
 		if(NULL != player->m_pRoom)
 		{

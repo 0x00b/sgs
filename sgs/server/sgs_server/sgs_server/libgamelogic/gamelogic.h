@@ -13,11 +13,11 @@ Description : GameLogic
 #include <list>
 #include <vector>
 
-#include "card.h"
+#include "sgslogic/sgscard.h"
 
 class Player;
 class Room;
-class GameAttr;
+class SGSGameAttr;
 
 class GameLogic
 {
@@ -26,13 +26,13 @@ private:
 
 protected:
 
-	std::map<Player*, std::shared_ptr<GameAttr>> m_mPlayer;	//all player in the room, one player match a GameAttr
-	std::vector<std::shared_ptr<Card>> m_vCards;			//current all card
+	std::map<Player*, std::shared_ptr<SGSGameAttr>> m_mPlayer;	//all player in the room, one player match a GameAttr
+	std::vector<std::shared_ptr<SGSCard>> m_vCards;			//current all card
 
 	Room* m_pRoom;	//this logic belongs to the room
 
 public:
-	static const std::shared_ptr<Card>* const g_lstCards; //must initial this into your cards
+	static const std::shared_ptr<SGSCard>* const g_lstCards; //must initial this into your cards
 
 	/*functions*/
 public:
