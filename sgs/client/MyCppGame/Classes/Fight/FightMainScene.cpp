@@ -181,7 +181,7 @@ bool FightMain::init()
 	//选中手牌时的确定 取消按钮e
 
 	selectHero = SelectHero2Layer::create();
-	this->addChild(selectHero);
+	this->addChild(selectHero,2,"selectHero");
 
 	return true;
 }

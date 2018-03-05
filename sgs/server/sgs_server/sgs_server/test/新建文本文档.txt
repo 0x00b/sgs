@@ -1,0 +1,98 @@
+	ev_timer                    start_timer;
+	ev_tstamp                   start_timer_stamp;
+
+	ev_timer                    preready_timer;
+	ev_tstamp                   preready_timer_stamp;
+
+	ev_timer                    dispatch_show_timer;
+	ev_tstamp                   dispatch_show_timer_stamp;
+
+	ev_timer                    out_show_timer;
+	ev_tstamp                   out_show_timer_stamp;
+
+	ev_timer                    dispatch_delay_timer;
+	ev_tstamp                   dispatch_delay_timer_stamp;
+
+	ev_timer                    out_delay_timer;
+	ev_tstamp                   out_delay_timer_stamp;
+
+	ev_timer					dissolve_room_timer;
+	ev_tstamp					dissolve_room_tstamp;
+
+	ev_timer                    send_videodata_timer;
+	ev_tstamp                   send_videodata_timer_stamp;
+
+	ev_timer                    send_dissroom_timer;
+	ev_tstamp                   send_dissroom_timer_stamp;
+
+	ev_timer                    game_restart_timer;
+	ev_tstamp                   game_restart_timer_stamp;
+
+	//Ê±ÖÓ»Øµ÷
+	static void start_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void preready_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void dispatch_show_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void out_show_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void dispatch_delay_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void out_delay_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void dissolve_room_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void Send_Video_Data_Timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void send_dissroom_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	static void game_restart_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents);
+	//timer 1
+	start_timer.data = this;
+	ev_timer_init(&start_timer, Table::start_timer_cb, start_timer_stamp, start_timer_stamp);
+
+	//timer 2
+	preready_timer.data = this;
+	ev_timer_init(&preready_timer, Table::preready_timer_cb, preready_timer_stamp, preready_timer_stamp);
+
+	//timer 3
+	dispatch_show_timer.data = this;
+	ev_timer_init(&dispatch_show_timer, Table::dispatch_show_timer_cb, dispatch_show_timer_stamp, dispatch_show_timer_stamp);
+
+	//timer 4
+	out_show_timer.data = this;
+	ev_timer_init(&out_show_timer, Table::out_show_timer_cb, out_show_timer_stamp, out_show_timer_stamp);
+
+	//timer 5
+	dispatch_delay_timer.data = this;
+	ev_timer_init(&dispatch_delay_timer, Table::dispatch_delay_timer_cb, dispatch_delay_timer_stamp, dispatch_delay_timer_stamp);
+
+	//timer 6
+	out_delay_timer.data = this;
+	ev_timer_init(&out_delay_timer, Table::out_delay_timer_cb, out_delay_timer_stamp, out_delay_timer_stamp);
+
+	//timer 7
+	dissolve_room_timer.data = this;
+	ev_timer_init(&dissolve_room_timer, Table::dissolve_room_timer_cb, dissolve_room_tstamp, dissolve_room_tstamp);
+
+	//timer 8
+	send_videodata_timer.data = this;
+	send_videodata_timer_stamp = 0.4;
+	ev_timer_init(&send_videodata_timer, Table::Send_Video_Data_Timer_cb, send_videodata_timer_stamp, send_videodata_timer_stamp);
+	//timer9
+	send_dissroom_timer.data = this;
+	send_dissroom_timer_stamp = 0.3;
+	ev_timer_init(&send_dissroom_timer, Table::send_dissroom_timer_cb, send_dissroom_timer_stamp, send_dissroom_timer_stamp);
+
+	game_restart_timer.data = this;
+	game_restart_timer_stamp = 3;
+	ev_timer_init(&game_restart_timer, Table::game_restart_timer_cb, game_restart_timer_stamp, game_restart_timer_stamp);
+
+
+	void Table::dispatch_show_timer_cb(struct ev_loop *loop, struct ev_timer *w, int revents)
+	{
+		Table *table = (Table*)w->data;
+		ev_timer_stop(zjh.loop, &table->dispatch_show_timer);
+		table->m_cbCurTimer = 0;
+		if (table->m_bCardOperated == false)
+		{
+			table->UpdateAbandonCard();
+		}
+		table->m_wCurrentUser = (table->m_wCurrentUser + 1) % (table->m_GamePlayer);
+		table->DispatchCardData(table->m_wCurrentUser);
+	}
+
+
+		ev_timer_again(zjh.loop, &game_restart_timer);

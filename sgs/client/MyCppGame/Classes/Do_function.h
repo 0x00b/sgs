@@ -30,7 +30,6 @@ public:
 	static void PLAYER_GET_GAME_MODE_UC(Json::Value &pkt, int cmd);
 	static void PLAYER_CREATE_ROOM_UC(Json::Value &pkt, int cmd);
 	static void GAME_START(Json::Value &pkt, int cmd);
+	static void GAME_SELECT_CARD_BC(Json::Value &pkt, int cmd);
+	static void GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd);
 };
-
-
-

@@ -1,5 +1,4 @@
 #include "room.h"
-#include "player.h"
 #include "ppacket.h"
 
 //Room::Room(int roomid, ERoomType type, const std::string& name, EMatchSeatWay eway):
@@ -78,6 +77,74 @@ void Room::reset() {
 	m_nPlayerCnt = 0;				//current player cnt
 	m_nMatchSeatWay = 0;			//random or by order to give seat number
 	m_nStatus = 0;					//room's status
+}
+
+void Room::SetTenSelectHero(const Json::Value& proom)
+{
+
+	/*
+	(m_stName)			=	proom[SJPROTO[E_Room]][SRoom[ERoom_name]] 			.asString();
+	(m_eType)			=	(ERoomType)proom[SJPROTO[E_Room]][SRoom[ERoom_type]] .asInt();
+	(m_nRoomID)			=	proom[SJPROTO[E_Room]][SRoom[ERoom_room_id]] 		.asInt();
+	(m_nMaxPlayerCnt)	=	proom[SJPROTO[E_Room]][SRoom[ERoom_max_player_cnt]] 	.asInt();
+	(m_nPlayerCnt)		=	proom[SJPROTO[E_Room]][SRoom[ERoom_player_cnt]] 		.asInt();
+	(m_nMatchSeatWay)	=	proom[SJPROTO[E_Room]][SRoom[ERoom_match_seat_way]] 	.asInt();
+	(m_nStatus)			=	proom[SJPROTO[E_Room]][SRoom[ERoom_status]] 			.asInt();
+	
+
+	std::string name;
+	std::string introduction;
+	std::string skill_1_name;
+	std::string skill_1_intro;
+	std::string skill_2_name;
+	std::string skill_2_intro;
+	std::string master_skill_name;
+	std::string master_skill_intro;
+	std::string remark;
+
+	int idhero;
+	int country;
+	int blood;
+	int difficuty;
+	int attack;
+	int defense;
+	int burst;
+	int control;
+	int assistant;
+	int skill_1_id;
+	int skill_2_id;
+	int master_skill_id;
+	*/
+
+	int i;
+	for (i = 0; i < 10; i++)
+	{
+		Json::Value v = proom["hero"][i];
+		TenSelectHero[i].name						= v["name"].asString();
+		TenSelectHero[i].introduction				= v["introduction"].asString();
+		TenSelectHero[i].skill_1_name				= v["skill_1_name"].asString();
+		TenSelectHero[i].skill_1_intro				= v["skill_1_intro"].asString();
+		TenSelectHero[i].skill_2_name				= v["skill_2_name"].asString();
+		TenSelectHero[i].skill_2_intro				= v["skill_2_intro"].asString();
+		TenSelectHero[i].master_skill_name			= v["master_skill_name"].asString();
+		TenSelectHero[i].master_skill_intro			= v["master_skill_intro"].asString();
+		TenSelectHero[i].remark						= v["remark"].asString();
+
+		TenSelectHero[i].idhero						= v["idhero"].asInt();
+		TenSelectHero[i].country					= v["country"].asInt();
+		TenSelectHero[i].blood						= v["blood"].asInt();
+		TenSelectHero[i].difficuty					= v["difficuty"].asInt();
+		TenSelectHero[i].attack						= v["attack"].asInt();
+		TenSelectHero[i].defense					= v["defense"].asInt();
+		TenSelectHero[i].burst						= v["burst"].asInt();
+		TenSelectHero[i].control					= v["control"].asInt();
+		TenSelectHero[i].assistant					= v["assistant"].asInt();
+		TenSelectHero[i].skill_1_id					= v["skill_1_id"].asInt();
+		TenSelectHero[i].skill_2_id					= v["skill_2_id"].asInt();
+		TenSelectHero[i].master_skill_id			= v["master_skill_id"].asInt();
+
+
+	}
 }
 
 #if 0

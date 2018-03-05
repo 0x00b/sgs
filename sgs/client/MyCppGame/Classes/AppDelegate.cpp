@@ -151,6 +151,9 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case GAME_START:
 		Do_function::GAME_START(pkt, cmd);
 		break;
+	case GAME_SELECT_HERO_BC:
+		Do_function::GAME_SELECT_HERO_BC(pkt, cmd);
+		break;
 	default:
 		break;
 	}
