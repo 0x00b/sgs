@@ -16,7 +16,7 @@ Description : include definitions and some headers
 enum SGSCMD
 {
 	/* */
-	PLAYER_START = 0,		
+	PLAYER_START = 0,
 	PLAYER_REGIST,			//player regist
 	PLAYER_REGIST_UC,		//player regist
 	PLAYER_LOGIN,			//player login
@@ -51,30 +51,31 @@ enum SGSCMD
 	PLAYER_CREATE_ROOM,		//player create a room
 	PLAYER_CREATE_ROOM_UC,		//player create a room
 
-	//add your cmd
-	
-	/* GAME CMD */
-	GAME_START = 1000,
-	
-	//add your game cmd
-	GAME_OUT_CARD,
-	GAME_OUT_CARD_BC,
-	GAME_ABANDON_CARD,
-	GAME_ABANDON_CARD_BC,
-	GAME_USE_SKILL,
-	GAME_USE_SKILL_BC,
-	GAME_CANCEL_OUT_CARD,
-	GAME_CANCEL_OUT_CARD_BC,
-	GAME_OUT_CARD_END,
-	GAME_OUT_CARD_END_BC,
-	GAME_SELECT_CARD,
-	GAME_SELECT_CARD_BC,
-	GAME_SELECT_HERO,
-	GAME_SELECT_HERO_BC,
-	GAME_EQUIP,
-	GAME_EQUIP_BC,
-	GAME_GAME_END,
+								//add your cmd
 
+								/* GAME CMD */
+								GAME_START = 1000,
+
+								//add your game cmd
+								GAME_OUT_CARD,
+								GAME_OUT_CARD_BC,
+								GAME_DISCARD,
+								GAME_DISCARD_BC,
+								GAME_USE_SKILL,
+								GAME_USE_SKILL_BC,
+								GAME_CANCEL_OUT_CARD,
+								GAME_CANCEL_OUT_CARD_BC,
+								GAME_PLAY_CARD_END,
+								GAME_PLAY_CARD_END_BC,
+								GAME_PLAY_CARD_BC,
+								GAME_SELECT_CARD,
+								GAME_SELECT_CARD_BC,
+								GAME_SELECT_HERO,
+								GAME_SELECT_HERO_BC,
+								GAME_EQUIP,
+								GAME_EQUIP_BC,
+								GAME_DEAL_BC,
+								GAME_GAME_END,
 
 };
 

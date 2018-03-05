@@ -122,9 +122,10 @@ void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 		u_room.SetTenSelectHero(pkt);
 	//	u_room.TenSelectHero;
 	//	MessageBox(u_room.TenSelectHero[0].name);
-	//	log("1231222222222222222222222222222222222\n");
-		log(u_room.TenSelectHero[0].name.c_str());
-	//	log("123222221111111111111111111111111111\n");
+		log("1231222222222222222222222222222222222\n");
+		log("1231222222222222222222222222222222222\n country:\n");
+		log(u_room.TenSelectHero[0].country);
+		log("123222221111111111111111111111111111\n");
 		Director::getInstance()->getScheduler()->performFunctionInCocosThread([&]() {    //idhero
 		u_player.MyCurrentScene = FightMain::createScene();  //把游戏界面给程序 		创建游戏界面
 		// 把10个武将给放上去
