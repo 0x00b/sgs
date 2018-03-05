@@ -10,6 +10,7 @@ Description :
 #include "jsonproto/jsonproto.h"
 #include "./libs/json/json.h"
 #include <list>
+#include "hero.h"
 #include "player.h"
 
 class PPacket;
@@ -48,6 +49,7 @@ public:
 	int m_nMatchSeatWay;			//random or by order to give seat number
 	int m_nStatus;					//room's status
 
+	Hero TenSelectHero[10];
 	//functions
 public:
 //	Room(int roomid,ERoomType type, const std::string& name, EMatchSeatWay eway);
@@ -58,12 +60,12 @@ public:
 	int Broadcast(PPacket* pkt);
 	int Unicast(Player* player, PPacket* pkt);
 	int Ready(Player* player);
-
 	int CheckGameStart();
 	
 
 	//void Get(proto::game::Room* proom);
 	//void Set(const proto::game::Room& proom);
+	void SetTenSelectHero(const Json::Value& proom);
 	void Get(Json::Value& proom);
 	void Set(const Json::Value& proom);
 
