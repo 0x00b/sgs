@@ -56,6 +56,7 @@ public:
 	std::string m_stRegistDate;			//
 	std::string m_stRemark;				//
 										//ints
+//	int m_nHeroid;
 	int m_nID;
 	int m_nExp;							//experience
 	int m_nSeatId;							//experience

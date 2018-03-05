@@ -64,7 +64,7 @@ bool FightMain::init()
 	//ÓÒÏÂ½ÇÎä½«e
 
 	selectHero = SelectHero2Layer::create();
-	this->addChild(selectHero);
+	this->addChild(selectHero,2,"selectHero");
 
 	return true;
 }

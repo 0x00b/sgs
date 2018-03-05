@@ -116,3 +116,31 @@ void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 void Do_function::PLAYER_GET_GAME_MODE_UC(Json::Value &pkt, int cmd) {
 	;
 }
+
+void Do_function::GAME_SELECT_CARD_BC(Json::Value &pkt, int cmd)
+{
+	if (0 == pkt["code"].asInt())
+	{
+		//
+		Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
+		layer->setVisible(false);
+	}
+	else
+	{
+		;
+	}
+}
+
+void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
+{
+	if (0 == pkt["code"].asInt())
+	{
+		//
+		Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
+		layer->setVisible(false);
+	}
+	else
+	{
+		;
+	}
+}
