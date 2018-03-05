@@ -177,9 +177,9 @@
 #define DESC_CT_ZHUA_HUANG_FD 	 	"《三国演义》：“曹操骑爪黄飞电马，引十万之众，与天子猎于许田。”"
 #define DESC_CT_ZI_XING 		 	"《魏志》陈思王表文帝曰：“臣于武皇帝世得大宛紫骍马一匹，教令习拜。"
 
-#define SH_SGS_CARD(card, name, desc) (std::shared_ptr<Card>((Card*)new SGSCard((card), (name), (desc))))
+#define SH_SGS_CARD(card, name, desc) (std::shared_ptr<SGSCard>(new SGSCard((card), (name), (desc))))
 
-const std::shared_ptr<Card>* const GameLogic::g_lstCards = new std::shared_ptr<Card>[SGSCard::CARD_CNT]
+const std::shared_ptr<SGSCard>* const GameLogic::g_lstCards = new std::shared_ptr<SGSCard>[SGSCard::CARD_CNT]
 {
 	/*A*/
 	/*方块*/SH_SGS_CARD(0x101, CT_JUE_DOU			,DESC_CT_JUE_DOU),

@@ -14,7 +14,17 @@ public:
 	virtual bool init();
 	CREATE_FUNC(FightMain);
 
-	SelectHero2Layer *selectHero;
+public:
+	SelectHero2Layer *selectHero;	//选择武将层指针
+private:
+	ImageView* img_my_hero;				//我方武将信息
+	ImageView* img_my_hero_country;
+	Label* lab_my_hero_name;
+	ImageView* img_enemy_hero;				//对方武将信息
+	ImageView* img_enemy_hero_country;
+	Label* lab_enemy_hero_name;
+public:
+	void UpdateHeroInfo();
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

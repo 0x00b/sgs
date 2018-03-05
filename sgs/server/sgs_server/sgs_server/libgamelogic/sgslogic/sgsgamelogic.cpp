@@ -5,14 +5,18 @@
 #include "sgsgamelogic.h"
 #include "sgsgameattr.h"
 #include "sgscard.h"
-#include "hero.h"
 #include "../../libs/json/json.h"
 #include "../../jsonproto/jsonproto.h"
 #include "../../game.h"
 
 extern const std::shared_ptr<Card> g_sgsCards[SGSCard::CARD_CNT];
 
-SGSGameLogic::SGSGameLogic()
+SHero::SHero(const std::shared_ptr<Hero> &hero) : m_bSelected(false),
+                                                  m_pHero(hero)
+{
+}
+SGSGameLogic::SGSGameLogic() : m_nSelected(0),
+                               m_nCurrPlayerID(0)
 {
 }
 SGSGameLogic::~SGSGameLogic()
@@ -109,9 +113,10 @@ void SGSGameLogic::EnsureRoles()
 int SGSGameLogic::Do2PStart(Json::Value &root)
 {
     int i = 0;
-    #define CAN_SELECT_HERO_CNT 10
-    for (std::vector<std::shared_ptr<Hero>>::iterator it = Hero::g_Heros.begin();i < CAN_SELECT_HERO_CNT && it != Hero::g_Heros.end() ;++i,++it)
+    m_vSelcectHero.clear();
+    for (std::vector<std::shared_ptr<Hero>>::iterator it = Hero::g_Heros.begin();i < P2P_CAN_SELECT_HERO_CNT && it != Hero::g_Heros.end() ;++i,++it)
     {
+        m_vSelcectHero.push_back(std::shared_ptr<SHero>(new SHero(*it)));
         (*it)->Get(root["hero"][i]);
     }
     return 0;
@@ -181,17 +186,44 @@ int SGSGameLogic::ReqSelectHero(Player *player)
 	
 	Json::Value root;
 	std::string err;
-	
-	if (!Game::ParseMsg(player,&root,err))
-	{
-		code = 0x01;
-	}
-	else
-	{
-		int idhero = root["idhero"].asInt();
-	}
+    if (m_nCurrPlayerID == player->m_nID)
+    {
+        if (!Game::ParseMsg(player, &root, err))
+        {
+            code = 0x01;
+        }
+        else
+        {
+            int idhero = root.get("idhero", 0).asInt();
+            for (std::vector<std::shared_ptr<SHero>>::iterator it = m_vSelcectHero.begin(); it != m_vSelcectHero.end(); ++it)
+            {
+                if (idhero == (*it)->m_pHero->idhero)
+                {
+                    if ((*it)->m_bSelected)
+                    {
+                        code = 0x02; //已经被选择
+                    }
+                    else
+                    {
+                        m_mPlayer[player]->m_vHeros.push_back(std::shared_ptr<Hero>(new Hero(*((*it)->m_pHero))));
+                        (*it)->m_bSelected = true;
+                        m_nSelected++;
+                        if (m_nSelected == P2P_HERO_CNT)
+                        {
+                            
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        code = 0x04;
+    }
 
-	root.clear();
+    root.clear();
 	root["code"] = (code); //
 	if(0 == code)
 	{
@@ -222,12 +254,12 @@ void SGSGameLogic::InitCard()
 int SGSGameLogic::Enter(Player *player)
 {
     int nRet = 0;
-    std::shared_ptr<GameAttr> gm_attr = std::shared_ptr<GameAttr>(new (std::nothrow) SGSGameAttr());
+    std::shared_ptr<SGSGameAttr> gm_attr = std::shared_ptr<SGSGameAttr>(new (std::nothrow) SGSGameAttr());
     if (NULL != gm_attr && (size_t)m_pRoom->m_nMaxPlayerCnt > m_mPlayer.size())
     {
         int seat[8];
         memset(seat, 0x00, sizeof(seat));
-        for (std::map<Player *, std::shared_ptr<GameAttr>>::iterator it = m_mPlayer.begin(); it != m_mPlayer.end(); ++it)
+        for (std::map<Player *, std::shared_ptr<SGSGameAttr>>::iterator it = m_mPlayer.begin(); it != m_mPlayer.end(); ++it)
         {
             seat[it->second->m_nSeatId]++;
         }
@@ -268,7 +300,7 @@ int SGSGameLogic::Enter(Player *player)
         }
         else
         {
-            m_mPlayer.insert(std::pair<Player *, std::shared_ptr<GameAttr>>(player, (gm_attr)));
+            m_mPlayer.insert(std::pair<Player *, std::shared_ptr<SGSGameAttr>>(player, (gm_attr)));
         }
     }
 

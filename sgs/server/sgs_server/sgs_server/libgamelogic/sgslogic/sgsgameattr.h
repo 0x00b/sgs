@@ -9,6 +9,7 @@ Description : SGSCard
 #define _SGS_SGS_GAME_ATTR_H_
 
 #include "../gameattr.h"
+#include <vector>
 
 class Hero;
 
@@ -20,6 +21,8 @@ class SGSGameAttr: public GameAttr
   protected:
   public:
     std::shared_ptr<Hero> m_pHero;
+    std::vector<std::shared_ptr<Hero>> m_vHeros;
+
     int m_nBlood = 0;
 
     /*functions*/

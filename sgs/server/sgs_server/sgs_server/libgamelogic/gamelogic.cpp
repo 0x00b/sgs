@@ -1,5 +1,5 @@
 #include "gamelogic.h"
-#include "gameattr.h"
+#include "sgslogic/sgsgameattr.h"
 
 GameLogic::GameLogic()
 {
@@ -25,7 +25,7 @@ int GameLogic::Leave(Player *player)
 
 int GameLogic::GetSeatID(Player *player)
 {
-    std::map<Player*, std::shared_ptr<GameAttr>>::iterator it_player = m_mPlayer.find(player);
+    std::map<Player*, std::shared_ptr<SGSGameAttr>>::iterator it_player = m_mPlayer.find(player);
 
     if(m_mPlayer.end() != it_player)
     {
