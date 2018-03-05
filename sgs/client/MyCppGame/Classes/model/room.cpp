@@ -120,29 +120,32 @@ void Room::SetTenSelectHero(const Json::Value& proom)
 	for (i = 0; i < 10; i++)
 	{
 		Json::Value v = proom["hero"][i];
-		TenSelectHero[i].name						= v["name"].asString();
-		TenSelectHero[i].introduction				= v["introduction"].asString();
-		TenSelectHero[i].skill_1_name				= v["skill_1_name"].asString();
-		TenSelectHero[i].skill_1_intro				= v["skill_1_intro"].asString();
-		TenSelectHero[i].skill_2_name				= v["skill_2_name"].asString();
-		TenSelectHero[i].skill_2_intro				= v["skill_2_intro"].asString();
-		TenSelectHero[i].master_skill_name			= v["master_skill_name"].asString();
-		TenSelectHero[i].master_skill_intro			= v["master_skill_intro"].asString();
-		TenSelectHero[i].remark						= v["remark"].asString();
+		int idhero = v.get("idhero", 0).asInt();
+		if (idhero < 10)
+		{
+			TenSelectHero[idhero].name = v["name"].asString();
+			TenSelectHero[idhero].introduction = v["introduction"].asString();
+			TenSelectHero[idhero].skill_1_name = v["skill_1_name"].asString();
+			TenSelectHero[idhero].skill_1_intro = v["skill_1_intro"].asString();
+			TenSelectHero[idhero].skill_2_name = v["skill_2_name"].asString();
+			TenSelectHero[idhero].skill_2_intro = v["skill_2_intro"].asString();
+			TenSelectHero[idhero].master_skill_name = v["master_skill_name"].asString();
+			TenSelectHero[idhero].master_skill_intro = v["master_skill_intro"].asString();
+			TenSelectHero[idhero].remark = v["remark"].asString();
 
-		TenSelectHero[i].idhero						= v["idhero"].asInt();
-		TenSelectHero[i].country					= v["country"].asInt();
-		TenSelectHero[i].blood						= v["blood"].asInt();
-		TenSelectHero[i].difficuty					= v["difficuty"].asInt();
-		TenSelectHero[i].attack						= v["attack"].asInt();
-		TenSelectHero[i].defense					= v["defense"].asInt();
-		TenSelectHero[i].burst						= v["burst"].asInt();
-		TenSelectHero[i].control					= v["control"].asInt();
-		TenSelectHero[i].assistant					= v["assistant"].asInt();
-		TenSelectHero[i].skill_1_id					= v["skill_1_id"].asInt();
-		TenSelectHero[i].skill_2_id					= v["skill_2_id"].asInt();
-		TenSelectHero[i].master_skill_id			= v["master_skill_id"].asInt();
-
+			TenSelectHero[idhero].idhero = idhero;// v["idhero"].asInt();
+			TenSelectHero[idhero].country = v["country"].asInt();
+			TenSelectHero[idhero].blood = v["blood"].asInt();
+			TenSelectHero[idhero].difficuty = v["difficuty"].asInt();
+			TenSelectHero[idhero].attack = v["attack"].asInt();
+			TenSelectHero[idhero].defense = v["defense"].asInt();
+			TenSelectHero[idhero].burst = v["burst"].asInt();
+			TenSelectHero[idhero].control = v["control"].asInt();
+			TenSelectHero[idhero].assistant = v["assistant"].asInt();
+			TenSelectHero[idhero].skill_1_id = v["skill_1_id"].asInt();
+			TenSelectHero[idhero].skill_2_id = v["skill_2_id"].asInt();
+			TenSelectHero[idhero].master_skill_id = v["master_skill_id"].asInt();
+		}
 
 	}
 }

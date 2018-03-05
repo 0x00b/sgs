@@ -34,8 +34,13 @@ private:
 	ProgressTimer* pt_0;	//我方出手定时
 	ProgressTimer* pt_1;	//敌方出手定时
 
+	Sprite* sp_handcard[20];	//当前手牌
+	int i_current_card = -1;	//当前选中的手牌编号
 public:
-	void UpdateHeroInfo();
+	void InitHeroInfo();
+	bool onTouchHandCardBegan(Touch* touch, Event* event);
+	void onTouchHandCardMoved(Touch* touch, Event* event);
+	bool onTouchHandCardEnded(Touch* touch, Event* event);
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

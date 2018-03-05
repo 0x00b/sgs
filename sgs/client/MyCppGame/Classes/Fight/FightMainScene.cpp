@@ -1,5 +1,4 @@
 #include "FightMainScene.h"
-#include <iostream>
 
 USING_NS_CC;
 using namespace ui;
@@ -44,24 +43,24 @@ bool FightMain::init()
 	//背景图e
 
 	//右下角我方武将s
-	img_hero[0] = ImageView::create("Fight/hero_big/liubei.png");
+	img_hero[0] = ImageView::create("Fight/hero_big/1.png");
 	img_hero[0]->setAnchorPoint(Vec2(1, 0));
-	img_hero[0]->setPosition(Vec2(img_bg->getContentSize().width, 0));
+	img_hero[0]->setPosition(Vec2(origin.x + visibleSize.width, 0));
 	img_bg->addChild(img_hero[0]);
 
-	img_hero_info_bg[0] = ImageView::create("Fight/shu.png");
+	img_hero_info_bg[0] = ImageView::create("Fight/info_bg_2.png");
 	img_hero_info_bg[0]->setAnchorPoint(Vec2(0, 1));
 	img_hero_info_bg[0]->setPosition(Vec2(0, img_hero[0]->getContentSize().height));
 	img_hero[0]->addChild(img_hero_info_bg[0]);
 	img_hero_info_bg[0]->setScaleX(2);
 	img_hero_info_bg[0]->setScaleY(3);
 
-	img_hero_country[0] = ImageView::create("Fight/SHUZI.png");
+	img_hero_country[0] = ImageView::create("Fight/country_zi_2.png");
 	img_hero_country[0]->setAnchorPoint(Vec2(0, 1));
 	img_hero_country[0]->setPosition(Vec2(0, img_hero[0]->getContentSize().height));
 	img_hero[0]->addChild(img_hero_country[0]);
 
-	lab_hero_name[0] = Label::createWithTTF(CSGSTXT::GET("liubei"), "fonts/FZBWKSK.TTF", 36);
+	lab_hero_name[0] = Label::createWithTTF(CSGSTXT::GET("1"), "fonts/FZBWKSK.TTF", 36);
 	lab_hero_name[0]->setTextColor(ccc4(0, 0, 0, 255));
 	lab_hero_name[0]->setAnchorPoint(Vec2(0, 1));
 	lab_hero_name[0]->setPosition(Vec2(10, img_hero[0]->getContentSize().height - img_hero_country[0]->getContentSize().height));
@@ -78,9 +77,9 @@ bool FightMain::init()
 	img_handcard_num_bg[0]->addChild(lab_handcard_num[0]);
 
 	img_hero[0]->setScale(visibleSize.width / 8 / img_hero[0]->getContentSize().width);	//武将信息缩放到宽度1/8
-																						//右下角我方武将e
+	//右下角我方武将e
 
-																						//我方出手定时s
+	//我方出手定时s
 	Sprite* sp_pt_my = Sprite::create("Fight/progress_timebar.png");
 	pt_0 = ProgressTimer::create(sp_pt_my);
 	pt_0->setScaleX(visibleSize.width / 2 / pt_0->getContentSize().width);
@@ -95,27 +94,27 @@ bool FightMain::init()
 										//Vec2(x,y)：表示宽度还有 x 比例的图片还未显示，高度还有 y 比例的图片还未显示，用作显示进度条。
 
 	pt_0->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行动画
-																  //我方出手定时e
+	//我方出手定时e
 
-																  //中上方敌方武将s
-	img_hero[1] = ImageView::create("Fight/hero_big/sunshangxiang.png");
+	//中上方敌方武将s
+	img_hero[1] = ImageView::create("Fight/hero_big/1.png");
 	img_hero[1]->setAnchorPoint(Vec2(0.5, 1));
 	img_hero[1]->setPosition(Vec2(img_bg->getContentSize().width / 2, img_bg->getContentSize().height));
 	img_bg->addChild(img_hero[1]);
 
-	img_hero_info_bg[1] = ImageView::create("Fight/wu.png");
+	img_hero_info_bg[1] = ImageView::create("Fight/info_bg_2.png");
 	img_hero_info_bg[1]->setAnchorPoint(Vec2(0, 1));
 	img_hero_info_bg[1]->setPosition(Vec2(0, img_hero[0]->getContentSize().height));
 	img_hero[1]->addChild(img_hero_info_bg[1]);
 	img_hero_info_bg[1]->setScaleX(2);
 	img_hero_info_bg[1]->setScaleY(3);
 
-	img_hero_country[1] = ImageView::create("Fight/WUZI.png");
+	img_hero_country[1] = ImageView::create("Fight/country_zi_2.png");
 	img_hero_country[1]->setAnchorPoint(Vec2(0, 1));
 	img_hero_country[1]->setPosition(Vec2(0, img_hero[1]->getContentSize().height));
 	img_hero[1]->addChild(img_hero_country[1]);
 
-	lab_hero_name[1] = Label::createWithTTF(CSGSTXT::GET("sunshangxiang"), "fonts/FZBWKSK.TTF", 36);
+	lab_hero_name[1] = Label::createWithTTF(CSGSTXT::GET("1"), "fonts/FZBWKSK.TTF", 36);
 	lab_hero_name[1]->setTextColor(ccc4(0, 0, 0, 255));
 	lab_hero_name[1]->setAnchorPoint(Vec2(0, 1));
 	lab_hero_name[1]->setPosition(Vec2(10, img_hero[1]->getContentSize().height - img_hero_country[1]->getContentSize().height));
@@ -132,34 +131,43 @@ bool FightMain::init()
 	img_handcard_num_bg[1]->addChild(lab_handcard_num[1]);
 
 	img_hero[1]->setScale(visibleSize.width / 8 / img_hero[1]->getContentSize().width);	//武将信息缩放到宽度1/8
-																						//中上方敌方武将e
+	//中上方敌方武将e
 
-																						//敌方出手定时s
+	//敌方出手定时s
 	Sprite* sp_pt_enemy = Sprite::create("Fight/progress_timebar.png");
 	pt_1 = ProgressTimer::create(sp_pt_enemy);
 	pt_1->setScaleX(img_hero[1]->getContentSize().width / pt_1->getContentSize().width);
 	pt_1->setScaleY(0.2);
 	pt_1->setAnchorPoint(Vec2(0, 1));
-	pt_1->setPosition(Vec2(0, -1));
+	pt_1->setPosition(Vec2(0, -10));
 	img_hero[1]->addChild(pt_1);
 
 	pt_1->setType(ProgressTimer::Type::BAR);	//条形进度条
 	pt_1->setMidpoint(Vec2(0, 1));	//中心位置
 	pt_1->setBarChangeRate(Vec2(1, 0));	//用作条形进度条显示的图片所占比例
-										//Vec2(x,y)：表示宽度还有 x 比例的图片还未显示，高度还有 y 比例的图片还未显示，用作显示进度条。
 
-	ProgressFromTo* to1 = ProgressFromTo::create(15.0f, 100.0f, 0.0f);	//进度条动画	出手时间15秒
-	pt_1->runAction(to1); //执行动画
-						  //敌方出手定时e
+	pt_1->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行动画
+	//敌方出手定时e
 
-						  //我方手牌s
-	Sprite* sp_handcard[20];
-	for (int i = 0; i < 5; i++) {
+	//我方手牌s
+	//Sprite* sp_handcard[20];
+	for (int i = 0; i < 6; i++) {
 		sp_handcard[i] = Sprite::create("Fight/card/baguazhen.png");
 		sp_handcard[i]->setAnchorPoint(Vec2(0, 0));
 		sp_handcard[i]->setPosition(origin.x + visibleSize.width / 4 + i * sp_handcard[i]->getContentSize().width * 0.5, origin.y);
 		img_bg->addChild(sp_handcard[i]);
 		sp_handcard[i]->setScale(0.5);
+
+		sp_handcard[i]->setTag(i);
+
+		// 给背景容器添加拖拽事件s
+		auto touchHandCardListener = EventListenerTouchOneByOne::create();//单指操作监听 也有多点操作
+		touchHandCardListener->setSwallowTouches(true);//设置事件吞没 事件分发机制
+		touchHandCardListener->onTouchBegan = CC_CALLBACK_2(FightMain::onTouchHandCardBegan, this);
+		touchHandCardListener->onTouchMoved = CC_CALLBACK_2(FightMain::onTouchHandCardMoved, this);
+		touchHandCardListener->onTouchEnded = CC_CALLBACK_2(FightMain::onTouchHandCardEnded, this);
+		//将事件绑定到控件上
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchHandCardListener->clone(), sp_handcard[i]);
 	}
 	//我方手牌e
 
@@ -187,34 +195,75 @@ bool FightMain::init()
 	return true;
 }
 
-void FightMain::UpdateHeroInfo() {
-	//设置敌我武将信息
-	/*img_hero[0]->loadTexture("Fight/hero_big/sunquan.png");
-	img_hero_info_bg[0]->loadTexture("Fight/wu.png");
-	img_hero_country[0]->loadTexture("Fight/WUZI.png");
-	lab_hero_name[0]->setString(CSGSTXT::GET("sunquan"));
-	lab_handcard_num[0]->setString("4");
-
-	img_hero[1]->loadTexture("Fight/hero_big/caocao.png");
-	img_hero_info_bg[1]->loadTexture("Fight/wei.png");
-	img_hero_country[1]->loadTexture("Fight/WEIZI.png");
-	lab_hero_name[1]->setString(CSGSTXT::GET("caocao"));
-	lab_handcard_num[1]->setString("4");*/
-
+void FightMain::InitHeroInfo() {
+	//初始化敌我武将信息
 	int i = 0;
 	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); i++,++it)
 	{
-		img_hero[i]->loadTexture(std::string("Fight/hero_big/")+std::to_string((*it).m_oGameAttr.m_pHero->idhero)+".png");
-		img_hero_info_bg[i]->loadTexture(std::string("Fight/info_bg_")+std::to_string((*it).m_oGameAttr.m_pHero->country)+".png");
-		img_hero_country[i]->loadTexture(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
-		lab_hero_name[i]->setString(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
-		lab_handcard_num[i]->setString("0");
-
-		log("i=%d,id=%d", i,(*it).m_oGameAttr.m_pHero->idhero);
-		log("i=%d,country=%d", i,(*it).m_oGameAttr.m_pHero->country);
-		log((std::string("Fight/hero_big/") + std::to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png").c_str());
-		log((std::string("Fight/info_bg_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png").c_str());
-		log((std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png").c_str());
-		log(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()).c_str());
+		if (u_player.m_nSeatId == (*it).m_nSeatId) {
+			img_hero[0]->loadTexture(std::string("Fight/hero_big/") + std::to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
+			img_hero_info_bg[0]->loadTexture(std::string("Fight/info_bg_")+std::to_string((*it).m_oGameAttr.m_pHero->country)+".png");
+			img_hero_country[0]->loadTexture(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+			lab_hero_name[0]->setString(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
+			lab_handcard_num[0]->setString("0");
+		}
+		else {
+			img_hero[1]->loadTexture(std::string("Fight/hero_big/") + std::to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
+			img_hero_info_bg[1]->loadTexture(std::string("Fight/info_bg_")+std::to_string((*it).m_oGameAttr.m_pHero->country)+".png");
+			img_hero_country[1]->loadTexture(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+			lab_hero_name[1]->setString(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
+			lab_handcard_num[1]->setString("0");
+		}
 	}
+}
+
+bool FightMain::onTouchHandCardBegan(Touch* touch, Event* event) {
+	//被点击对象
+	auto target = (ImageView*)event->getCurrentTarget();
+	//将点击坐标转换到目标坐标系上去
+	Vec2 touchPos = touch->getLocation();
+	Vec2 locationInNode = target->convertToNodeSpace(touchPos);
+	//构建一个目标对象的矩形
+	Size s = target->getContentSize();
+	Rect rect = Rect(0, 0, s.width, s.height);
+	//判断点击是否发生在目标对象内
+	if (rect.containsPoint(locationInNode)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void FightMain::onTouchHandCardMoved(Touch* touch, Event* event) {
+
+}
+
+bool FightMain::onTouchHandCardEnded(Touch* touch, Event* event) {
+	Sprite* target = (Sprite*)event->getCurrentTarget();
+
+	if (i_current_card == target->getTag()) {	//点的牌已经被选中
+		Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
+		Vec2 posSrc = sp_handcard[i_current_card]->getPosition();
+		Vec2 posDes = posSrc + diff;
+		sp_handcard[i_current_card]->setPosition(posDes);
+		i_current_card = -1;
+	}
+	else {	//点的是未选中的牌
+		if (i_current_card != -1) {	//如果之前有牌被选中
+			Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
+			Vec2 posSrc = sp_handcard[i_current_card]->getPosition();
+			Vec2 posDes = posSrc + diff;
+			sp_handcard[i_current_card]->setPosition(posDes);
+		}
+
+		Vec2 diff = Vec2(0, 20);	//选中的牌向上突出
+		Vec2 posSrc = target->getPosition();
+		Vec2 posDes = posSrc + diff;
+		target->setPosition(posDes);
+
+		i_current_card = target->getTag();
+	}
+
+	return true;
 }

@@ -162,7 +162,7 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 	if (0 == pkt["code"].asInt())
 	{
 		//
-		Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
+		//Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
 	//	
 		int u_seatid = pkt["seatid"].asInt();
 		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
@@ -170,13 +170,17 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 			if (it->m_nSeatId == u_seatid)
 			{
 				//u_player.m_nSeatId = it->m_nSeatId;
-				it->m_oGameAttr.m_pHero->idhero = pkt["idhero"].asInt();
+				*it->m_oGameAttr.m_pHero = u_room.TenSelectHero[ pkt.get("idhero", 0).asInt()];
+				break;
 			}
 		}
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+			((FightMain*)(u_player.MyCurrentScene))->InitHeroInfo();	//更新选中的武将
+		});
 		if (u_seatid == u_player.m_nSeatId)
 		{
-			layer->setVisible(false);
-			((FightMain*)(u_player.MyCurrentScene))->UpdateHeroInfo();	//更新选中的武将
+			((FightMain*)u_player.MyCurrentScene)->selectHero->removeFromParentAndCleanup(true);
+			//layer->setVisible(false);
 		}
 		else
 		{

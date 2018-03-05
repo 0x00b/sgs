@@ -39,7 +39,7 @@ Room u_room;
 
 
 tcp::socket sock(*(new boost::asio::io_service()));
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.251"),37373);
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.14.115.244"),37373);
 
 void connectToSvr()
 {
@@ -265,7 +265,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto glview = director->getOpenGLView();
 	if (!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-		glview = GLViewImpl::createWithRect("MyCppGame", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+		glview = GLViewImpl::createWithRect("MyCppGame", cocos2d::Rect(0, 0, 960, 640));
 #else
 		glview = GLViewImpl::create("MyCppGame");
 #endif
