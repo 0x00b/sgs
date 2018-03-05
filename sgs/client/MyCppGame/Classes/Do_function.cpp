@@ -164,9 +164,21 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 		Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
 	//	
 		int u_seatid = pkt["seatid"].asInt();
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (it->m_nSeatId == u_seatid)
+			{
+				//u_player.m_nSeatId = it->m_nSeatId;
+				it->m_oGameAttr.m_pHero->idhero = pkt["idhero"].asInt();
+			}
+		}
 		if (u_seatid == u_player.m_nSeatId)
 		{
 			layer->setVisible(false);
+		}
+		else
+		{
+			;
 		}
 	}
 	else
