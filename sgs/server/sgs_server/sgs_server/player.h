@@ -61,6 +61,8 @@ public:
 	std::string m_stRegistDate;			//
 	std::string m_stRemark;				//
 										//ints
+	int m_nSeatId;						//seat id
+
 	int m_nID;
 	int m_nExp;							//experience
 										//
@@ -69,9 +71,8 @@ public:
 	char m_chSex;						//sex
 	char m_nStatus;						//player's status
 	char m_nGameStatus;					//player's gaming status
-
 	//functions
-public:
+  public:
 	Player();
 	Player(int fd, std::string stIP);
 	virtual ~Player();

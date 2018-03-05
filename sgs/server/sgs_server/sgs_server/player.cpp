@@ -38,6 +38,8 @@ void Player::Init()
 	m_stAvatar.clear();				//head picture
 	m_stRegistDate.clear();			//
 	m_stRemark.clear();				//
+	
+	m_nSeatId = -1;
 										//ints
 	m_nID = -1;
 	m_nExp = 0;							//experience
@@ -107,11 +109,13 @@ void Player::Get(Json::Value& player)
 }
 int Player::SeatID()
 {
+	return m_nSeatId;
+	/*
 	if (NULL != m_pRoom)
 	{
 		return m_pRoom->m_pGmLgic->GetSeatID(this);
 	}
-	return -1;
+	return -1;*/
 }
 
 std::string &Player::GetProtoMsg()

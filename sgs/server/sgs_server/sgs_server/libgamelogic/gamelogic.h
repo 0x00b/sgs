@@ -26,7 +26,7 @@ private:
 
 protected:
 
-	std::map<Player*, std::shared_ptr<SGSGameAttr>> m_mPlayer;	//all player in the room, one player match a GameAttr
+	std::map<int, std::shared_ptr<SGSGameAttr>> m_mPlayer;	//all player in the room, one player match a GameAttr
 	std::vector<std::shared_ptr<SGSCard>> m_vCards;			//current all card
 
 	Room* m_pRoom;	//this logic belongs to the room

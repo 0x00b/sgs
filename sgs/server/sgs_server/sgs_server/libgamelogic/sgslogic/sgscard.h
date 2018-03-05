@@ -10,7 +10,7 @@ Description : SGSCard
 
 #include "../card.h"
 
-class SGSCard: private Card
+class SGSCard: public Card
 {
     /*varibles*/
   private:

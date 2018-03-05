@@ -321,6 +321,8 @@ int daemonize()
 	signal(SIGTERM, SIG_DFL); /* Die on SIGTERM */
 	signal(SIGPIPE, SIG_IGN);
 
+    //signal(SIGSEGV, SIG_DFL);
+
 	/* change working directory */
 	//if (chdir("/") < 0)
 	//    exit(1);

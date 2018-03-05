@@ -1,7 +1,6 @@
 #include "gameattr.h"
 
-GameAttr::GameAttr():
-  m_nSeatId(-1)
+GameAttr::GameAttr()
 {
   m_lstPlayerCards.clear();
 }

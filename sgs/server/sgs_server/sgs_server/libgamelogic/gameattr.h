@@ -10,8 +10,9 @@ Description : GameAttr
 
 #include <list>
 #include <memory>
+#include "../player.h"
 
-class Card;
+class SGSCard;
 
 class GameAttr
 {
@@ -19,9 +20,9 @@ class GameAttr
 private:
 protected:
 public:
-  int m_nSeatId;
-  std::list<std::shared_ptr<Card>> m_lstPlayerCards; //all card
 
+  std::list<std::shared_ptr<SGSCard>> m_lstPlayerCards; //all card
+  Player* m_player;
   /*functions*/
 public:
   GameAttr();

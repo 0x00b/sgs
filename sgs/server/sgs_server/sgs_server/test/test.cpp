@@ -4,7 +4,12 @@
 int main()
 {
 
+    //signal(SIGSEGV, SIG_DFL);
+
     srand(time(NULL));
+
+    int* pn = NULL;
+    *pn = 10;
 
     for (int i = 0; i < 100; i++)
     {
