@@ -204,11 +204,17 @@ void FightMain::UpdateHeroInfo() {
 	int i = 0;
 	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); i++,++it)
 	{
-		img_hero[i]->loadTexture(std::string( "Fight/hero_big/")+std::to_string((*it).m_oGameAttr.m_pHero->idhero)+".png");
+		img_hero[i]->loadTexture(std::string("Fight/hero_big/")+std::to_string((*it).m_oGameAttr.m_pHero->idhero)+".png");
 		img_hero_info_bg[i]->loadTexture(std::string("Fight/info_bg_")+std::to_string((*it).m_oGameAttr.m_pHero->country)+".png");
 		img_hero_country[i]->loadTexture(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
 		lab_hero_name[i]->setString(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
 		lab_handcard_num[i]->setString("0");
-		
+
+		log("i=%d,id=%d", i,(*it).m_oGameAttr.m_pHero->idhero);
+		log("i=%d,country=%d", i,(*it).m_oGameAttr.m_pHero->country);
+		log((std::string("Fight/hero_big/") + std::to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png").c_str());
+		log((std::string("Fight/info_bg_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png").c_str());
+		log((std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png").c_str());
+		log(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()).c_str());
 	}
 }

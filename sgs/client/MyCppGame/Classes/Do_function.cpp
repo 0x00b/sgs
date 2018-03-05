@@ -149,8 +149,6 @@ void Do_function::GAME_SELECT_CARD_BC(Json::Value &pkt, int cmd)
 		//
 		Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
 		layer->setVisible(false);
-
-		((FightMain*)(u_player.MyCurrentScene))->UpdateHeroInfo();	//更新选中的武将
 	}
 	else
 	{
@@ -177,6 +175,7 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 		if (u_seatid == u_player.m_nSeatId)
 		{
 			layer->setVisible(false);
+			((FightMain*)(u_player.MyCurrentScene))->UpdateHeroInfo();	//更新选中的武将
 		}
 		else
 		{
