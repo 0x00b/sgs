@@ -15,7 +15,7 @@ public:
 	static cocos2d::ValueMap message;
 
 	static void Init();
-	static std::string GET(char* key);
+	static std::string GET(const char* key);
 	std::string operator[](char* key);
 private:
 

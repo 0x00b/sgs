@@ -1,4 +1,5 @@
 #include "FightMainScene.h"
+#include <iostream>
 
 USING_NS_CC;
 using namespace ui;
@@ -188,7 +189,7 @@ bool FightMain::init()
 
 void FightMain::UpdateHeroInfo() {
 	//设置敌我武将信息
-	img_hero[0]->loadTexture("Fight/hero_big/sunquan.png");
+	/*img_hero[0]->loadTexture("Fight/hero_big/sunquan.png");
 	img_hero_info_bg[0]->loadTexture("Fight/wu.png");
 	img_hero_country[0]->loadTexture("Fight/WUZI.png");
 	lab_hero_name[0]->setString(CSGSTXT::GET("sunquan"));
@@ -198,5 +199,16 @@ void FightMain::UpdateHeroInfo() {
 	img_hero_info_bg[1]->loadTexture("Fight/wei.png");
 	img_hero_country[1]->loadTexture("Fight/WEIZI.png");
 	lab_hero_name[1]->setString(CSGSTXT::GET("caocao"));
-	lab_handcard_num[1]->setString("4");
+	lab_handcard_num[1]->setString("4");*/
+
+	int i = 0;
+	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); i++,++it)
+	{
+		img_hero[i]->loadTexture(std::string( "Fight/hero_big/")+std::to_string((*it).m_oGameAttr.m_pHero->idhero)+".png");
+		img_hero_info_bg[i]->loadTexture(std::string("Fight/info_bg_")+std::to_string((*it).m_oGameAttr.m_pHero->country)+".png");
+		img_hero_country[i]->loadTexture(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+		lab_hero_name[i]->setString(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
+		lab_handcard_num[i]->setString("0");
+		
+	}
 }

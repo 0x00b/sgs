@@ -36,99 +36,74 @@
 	<key>homeid</key>
  	<string>房间号</string>
 
-	<key>liubei</key>
+	<key>confirm</key>
+ 	<string>确认</string>
+
+	<key>1</key>
  	<string>刘
 备</string>
 
-	<key>caocao</key>
- 	<string>曹
-操</string>
-
-	<key>sunquan</key>
+	<key>2</key>
  	<string>孙
 权</string>
 
-	<key>daqiao</key>
- 	<string>大
-乔</string>
+	<key>3</key>
+ 	<string>曹
+操</string>
 
-	<key>diaochan</key>
- 	<string>貂
-蝉</string>
-
-	<key>ganning</key>
- 	<string>甘
-宁</string>
-
-	<key>guanyu</key>
+	<key>4</key>
  	<string>关
 羽</string>
 
-	<key>guojia</key>
- 	<string>郭
-嘉</string>
+	<key>5</key>
+ 	<string>张
+飞</string>
 
-	<key>huangyueying</key>
+	<key>6</key>
+ 	<string>吕
+布</string>
+
+	<key>7</key>
+ 	<string>赵
+云</string>
+
+	<key>8</key>
+ 	<string>吕
+蒙</string>
+
+	<key>9</key>
+ 	<string>许
+褚</string>
+
+	<key>11</key>
+ 	<string>甄
+姬</string>
+
+	<key>10</key>
+ 	<string>马
+超</string>
+
+	
+	<key>12</key>
+ 	<string>大
+乔</string>
+
+	<key>13</key>
  	<string>黄
 月
 英</string>
 
-	<key>huatuo</key>
- 	<string>华
-佗</string>
+	<key>14</key>
+ 	<string>貂
+蝉</string>
 
-	<key>luxun</key>
- 	<string>陆
-逊</string>
-
-	<key>lvbu</key>
- 	<string>吕
-布</string>
-
-	<key>lvmeng</key>
- 	<string>吕
-蒙</string>
-
-	<key>machao</key>
- 	<string>马
-超</string>
-
-	<key>simayi</key>
- 	<string>司
-马
-懿</string>
-
-	<key>sunshangxiang</key>
- 	<string>孙
-尚
-香</string>
-
-	<key>xiahoudun</key>
- 	<string>夏
-侯
-惇</string>
-
-	<key>xuchu</key>
- 	<string>许
-褚</string>
-
-	<key>zhangfei</key>
- 	<string>张
-飞</string>
-
-	<key>zhangliang</key>
- 	<string>张
-良</string>
-
-	<key>zhaoyun</key>
- 	<string>赵
-云</string>
-
-	<key>zhenji</key>
- 	<string>甄
-姬</string>
-
-	<key>zhouyu</key>
+	<key>15</key>
  	<string>周
 瑜</string>
+
+
+	<key>16</key>
+ 	<string>郭
+嘉</string>
+
 </dict>

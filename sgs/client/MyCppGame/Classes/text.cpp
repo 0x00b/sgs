@@ -27,7 +27,7 @@ std::string CSGSTXT::operator[](char* key)
 {
 	return  message[key].asString();
 }
-std::string CSGSTXT::GET(char* key)
+std::string CSGSTXT::GET(const char* key)
 {
 	if (!init)
 	{
