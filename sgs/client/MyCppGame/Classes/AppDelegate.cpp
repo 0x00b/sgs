@@ -213,7 +213,7 @@ void AppDelegate::func_receive()
 					connectToSvr();
 				}
 			}
-			log("%s",pRecvBuf.get());
+			//log("%s",pRecvBuf.get());
 			pMsg.body.append(pRecvBuf.get(), pMsg.header.len);
 			reader->parse(pMsg.body.c_str(), pMsg.body.c_str() + pMsg.body.length(), &root, &err);
 		}

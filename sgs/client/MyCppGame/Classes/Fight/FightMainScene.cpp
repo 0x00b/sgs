@@ -298,29 +298,32 @@ void FightMain::UpdateHandCard() {
 				sp_handcard[i]->setPosition(origin.x + visibleSize.width / 4 + i * sp_handcard[i]->getContentSize().width * 0.5, origin.y);
 				img_bg->addChild(sp_handcard[i]);
 				sp_handcard[i]->setScale(0.5);
-				
-				int clr = (*it_c)->color();
-				if (clr <= SGSCard::CARD_CLR_HEART)
-				{
-					snprintf(name, 12, "red_%02x", (*it_c)->value());
-				}
-				else
-				{
-					snprintf(name, 12, "black_%02x", (*it_c)->value());
-				}
+				log("%s", (std::string("Fight/card/") + name + ".png").c_str());
 
+				snprintf(name, 12, "flower_%x", (*it_c)->color());
 				img_handcard_flowercolor[i] = ImageView::create(std::string("Fight/card/") + name + ".png");
 				img_handcard_flowercolor[i]->setAnchorPoint(Vec2(0, 1));
 				img_handcard_flowercolor[i]->setPosition(Vec2(5, sp_handcard[i]->getContentSize().height - 10));
 				sp_handcard[i]->addChild(img_handcard_flowercolor[i]);
 				img_handcard_flowercolor[i]->setScale(2);
+				log("%s",(std::string("Fight/card/") + name + ".png").c_str());
 
-				snprintf(name, 12, "flower_%02x", (*it_c)->color());
+				int clr = (*it_c)->color();
+				if (clr <= SGSCard::CARD_CLR_HEART)
+				{
+					snprintf(name, 12, "red_%x", (*it_c)->value());
+				}
+				else
+				{
+					snprintf(name, 12, "black_%x", (*it_c)->value());
+				}
+
 				img_handcard_num[i] = ImageView::create(std::string("Fight/card/") + name + ".png");
 				img_handcard_num[i]->setAnchorPoint(Vec2(0, 1));
-				img_handcard_num[i]->setPosition(Vec2(0, sp_handcard[i]->getContentSize().height - 10 - img_handcard_num[i]->getContentSize().height));
+				img_handcard_num[i]->setPosition(Vec2(0, sp_handcard[i]->getContentSize().height - 10 - img_handcard_flowercolor[i]->getContentSize().height));
 				sp_handcard[i]->addChild(img_handcard_num[i]);
 				img_handcard_num[i]->setScale(2);
+				log("%s", (std::string("Fight/card/") + name + ".png").c_str());
 
 				sp_handcard[i]->setTag(i);
 

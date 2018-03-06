@@ -120,6 +120,7 @@ void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 			Json::Value v = pkt["hero"][i];
 			heroid[i]= v["idhero"].asInt();
 		}
+		u_room.m_nStatus = 2;
 		u_room.SetTenSelectHero(pkt);
 	//	u_room.TenSelectHero;
 	//	MessageBox(u_room.TenSelectHero[0].name);
@@ -194,7 +195,7 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 	if (0 == pkt["code"].asInt())
 	{
 		//
-		//Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
+		Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
 	//	
 		int u_seatid = pkt["seatid"].asInt();
 		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
@@ -211,8 +212,8 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 		});
 		if (u_seatid == u_player.m_nSeatId)
 		{
-			((FightMain*)u_player.MyCurrentScene)->selectHero->removeFromParentAndCleanup(true);
-			//layer->setVisible(false);
+			//((FightMain*)u_player.MyCurrentScene)->selectHero->removeFromParentAndCleanup(true);
+			layer->setVisible(false);
 		}
 		else
 		{
