@@ -26,10 +26,10 @@ class SGSCard: public Card
       TYPE_MASK   = 0x000F00,
       FUNC_MASK   = 0xFF0000,
 
-      CARD_CLR_BLOCK = 0x000,
-      CARD_CLR_HEART = 0x010,
-      CARD_CLR_PLUM  = 0x020,
-      CARD_CLR_SPADE = 0x030,
+      CARD_CLR_BLOCK = 0x00,
+      CARD_CLR_HEART = 0x01,
+      CARD_CLR_PLUM  = 0x02,
+      CARD_CLR_SPADE = 0x03,
     };
 
     enum CARD_TYPE
@@ -95,15 +95,15 @@ int SGSCard::value() const
 }
 int SGSCard::color() const
 {
-	return (card_ & COLOR_MASK);
+	return (card_ & COLOR_MASK)>>4;
 }
 int SGSCard::type() const
 {
-	return (card_ & TYPE_MASK);
+	return (card_ & TYPE_MASK)>>8;
 }
 int SGSCard::func() const
 {
-  return  (card_ & FUNC_MASK);
+  return  (card_ & FUNC_MASK)>>16;
 }
 
 #endif
