@@ -26,6 +26,7 @@ private:
 	Label* lab_hero_name[2];
 	ImageView* img_handcard_num_bg[2];	//我方手牌数背景
 	Label* lab_handcard_num[2];	//我方手牌数
+	ImageView* img_blood[2][4];	//血 最多五个 在初始化武将信息的时候初始化
 
 	ImageView* img_enemy_hero;				//对方武将信息
 	ImageView* img_enemy_hero_info_bg;	//用于在武将国家和姓名的背景色
@@ -37,7 +38,8 @@ private:
 	ProgressTimer* pt_0;	//我方出手定时
 	ProgressTimer* pt_1;	//敌方出手定时
 
-	Sprite* sp_handcard[20];	//当前手牌
+	Sprite* sp_handcard[20];	//手牌
+	int i_current_card_num;	//当前手牌数
 	ImageView* img_handcard_num[20];	//点数
 	ImageView* img_handcard_flowercolor[20];	//花色
 	int i_current_card = -1;	//当前选中的手牌编号

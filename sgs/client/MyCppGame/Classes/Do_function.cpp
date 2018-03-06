@@ -246,7 +246,9 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 						it_card = it->m_oGameAttr.m_lstPlayerCards.erase(it_card);
 						if (u_player.m_nSeatId == u_seatid)
 						{
-							((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+							Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+								((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+							});
 						}
 						break;
 					}
