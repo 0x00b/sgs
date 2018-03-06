@@ -178,7 +178,10 @@ void Do_function::GAME_DEAL_BC(Json::Value &pkt, int cmd) {
 				break;
 			}
 		}
-		; //座位号
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {	//更新手牌
+			((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+		});
+		//座位号
 	}
 	else
 	{

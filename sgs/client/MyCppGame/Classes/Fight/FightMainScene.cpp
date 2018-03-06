@@ -37,7 +37,7 @@ bool FightMain::init()
 	//背景层e
 
 	//背景图s
-	ImageView* img_bg = ImageView::create("Bg/scene_bg.png");
+	img_bg = ImageView::create("Bg/scene_bg.png");
 	img_bg->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 	layer_bg->addChild(img_bg);
 	//背景图e
@@ -278,4 +278,52 @@ bool FightMain::onTouchHandCardEnded(Touch* touch, Event* event) {
 	}
 
 	return true;
+}
+
+void FightMain::UpdateHandCard() {
+	for (std::list<Player>::iterator it_p = u_room.m_lstPlayers.begin(); it_p != u_room.m_lstPlayers.end();  ++it_p) {
+		if (u_player.m_nSeatId == (*it_p).m_nSeatId) {
+			int i = 0;
+			for (std::list<std::shared_ptr<SGSCard>>::iterator it_c = (*it_p).m_oGameAttr.m_lstPlayerCards.begin(); it_c != (*it_p).m_oGameAttr.m_lstPlayerCards.end(); ++i, ++it_c) {
+
+				auto visibleSize = Director::getInstance()->getVisibleSize();
+				Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+				//////////////////////////////////
+				char name[12];
+
+				snprintf(name, 12, "%x", (*it_c)->func());
+				sp_handcard[i] = Sprite::create(std::string("Fight/card/") + name + ".png");
+				sp_handcard[i]->setAnchorPoint(Vec2(0, 0));
+				sp_handcard[i]->setPosition(origin.x + visibleSize.width / 4 + i * sp_handcard[i]->getContentSize().width * 0.5, origin.y);
+				img_bg->addChild(sp_handcard[i]);
+				sp_handcard[i]->setScale(0.5);
+
+				snprintf(name, 12, "%x", (*it_c)->value());
+				img_handcard_flowercolor[i] = ImageView::create(std::string("Fight/card/") + name + ".png");
+				img_handcard_flowercolor[i]->setAnchorPoint(Vec2(0, 1));
+				img_handcard_flowercolor[i]->setPosition(Vec2(5, sp_handcard[i]->getContentSize().height - 10));
+				sp_handcard[i]->addChild(img_handcard_flowercolor[i]);
+				img_handcard_flowercolor[i]->setScale(2);
+
+				snprintf(name, 12, "%x", (*it_c)->color());
+				img_handcard_num[i] = ImageView::create(std::string("Fight/card/") + name + ".png");
+				img_handcard_num[i]->setAnchorPoint(Vec2(0, 1));
+				img_handcard_num[i]->setPosition(Vec2(0, sp_handcard[i]->getContentSize().height - 10 - img_handcard_num[i]->getContentSize().height));
+				sp_handcard[i]->addChild(img_handcard_num[i]);
+				img_handcard_num[i]->setScale(2);
+
+				sp_handcard[i]->setTag(i);
+
+				// 给背景容器添加拖拽事件s
+				auto touchHandCardListener = EventListenerTouchOneByOne::create();//单指操作监听 也有多点操作
+				touchHandCardListener->setSwallowTouches(true);//设置事件吞没 事件分发机制
+				touchHandCardListener->onTouchBegan = CC_CALLBACK_2(FightMain::onTouchHandCardBegan, this);
+				touchHandCardListener->onTouchMoved = CC_CALLBACK_2(FightMain::onTouchHandCardMoved, this);
+				touchHandCardListener->onTouchEnded = CC_CALLBACK_2(FightMain::onTouchHandCardEnded, this);
+				//将事件绑定到控件上
+				Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchHandCardListener->clone(), sp_handcard[i]);
+			}
+		}
+	}
 }

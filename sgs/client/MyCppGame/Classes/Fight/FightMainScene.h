@@ -3,6 +3,7 @@
 
 #include "model/include_all.h"
 #include "SelectHero2Layer\SelectHero2Layer.h"
+#include "./model/sgscard.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -17,6 +18,8 @@ public:
 public:
 	SelectHero2Layer *selectHero;	//选择武将层指针
 private:
+	ImageView* img_bg;	//背景图
+
 	ImageView* img_hero[2];				//我方武将信息
 	ImageView* img_hero_info_bg[2];	//用于在武将国家和姓名的背景色
 	ImageView* img_hero_country[2];
@@ -39,10 +42,13 @@ private:
 	ImageView* img_handcard_flowercolor[20];	//花色
 	int i_current_card = -1;	//当前选中的手牌编号
 public:
-	void InitHeroInfo();
-	bool onTouchHandCardBegan(Touch* touch, Event* event);
+	void InitHeroInfo();				//初始化敌我武将信息
+
+	bool onTouchHandCardBegan(Touch* touch, Event* event);		//手牌的触摸事件
 	void onTouchHandCardMoved(Touch* touch, Event* event);
 	bool onTouchHandCardEnded(Touch* touch, Event* event);
+
+	void UpdateHandCard();
 };
 
 #endif // __FIGHTMAIN_SCENE_H__
