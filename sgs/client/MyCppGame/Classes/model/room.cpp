@@ -120,7 +120,7 @@ void Room::SetTenSelectHero(const Json::Value& proom)
 	for (i = 0; i < 10; i++)
 	{
 		Json::Value v = proom["hero"][i];
-		int idhero = v.get("idhero", 0).asInt();
+		int idhero = v.get("idhero", 0).asInt()-1;
 		if (idhero < 10)
 		{
 			TenSelectHero[idhero].name = v["name"].asString();
@@ -133,7 +133,7 @@ void Room::SetTenSelectHero(const Json::Value& proom)
 			TenSelectHero[idhero].master_skill_intro = v["master_skill_intro"].asString();
 			TenSelectHero[idhero].remark = v["remark"].asString();
 
-			TenSelectHero[idhero].idhero = idhero;// v["idhero"].asInt();
+			TenSelectHero[idhero].idhero = v.get("idhero", 0).asInt();// v["idhero"].asInt();
 			TenSelectHero[idhero].country = v["country"].asInt();
 			TenSelectHero[idhero].blood = v["blood"].asInt();
 			TenSelectHero[idhero].difficuty = v["difficuty"].asInt();

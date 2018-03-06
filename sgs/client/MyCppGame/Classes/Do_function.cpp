@@ -202,7 +202,7 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 			if (it->m_nSeatId == u_seatid)
 			{
 				//u_player.m_nSeatId = it->m_nSeatId;
-				*it->m_oGameAttr.m_pHero = u_room.TenSelectHero[ pkt.get("idhero", 0).asInt()];
+				*it->m_oGameAttr.m_pHero = u_room.TenSelectHero[ pkt.get("idhero", 0).asInt()-1];
 				break;
 			}
 		}
