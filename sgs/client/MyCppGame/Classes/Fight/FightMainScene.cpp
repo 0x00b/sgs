@@ -200,7 +200,7 @@ bool FightMain::init()
 	lab_cancel->setPosition(pt_0->getPosition() - Vec2(-btn_confirm->getContentSize().width * 1.5, 30));
 	img_bg->addChild(lab_cancel);
 	//选中手牌时的确定 取消按钮e
-
+	btn_confirm->addTouchEventListener(CC_CALLBACK_2(FightMain::btn_confirm_card, this));
 	selectHero = SelectHero2Layer::create();
 	this->addChild(selectHero,2,"selectHero");
 
@@ -283,7 +283,27 @@ bool FightMain::onTouchHandCardEnded(Touch* touch, Event* event) {
 void FightMain::btn_confirm_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type)
 {
 	Json::Value root;
-	root["card"] = i_current_card;
+	int card_i = 0;
+	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+	{
+		if (it->m_nSeatId == u_player.m_nSeatId)
+		{
+			for (std::list<std::shared_ptr<SGSCard>>::iterator it_card = it->m_oGameAttr.m_lstPlayerCards.begin(); it_card != it->m_oGameAttr.m_lstPlayerCards.end();)
+			{
+				if (card_i == i_current_card)
+				{
+					root["card"] = (*it_card)->card();
+					break;
+				}
+				else
+				{
+					card_i++;
+					it_card++;
+				}
+			}
+			break;
+		}
+	}
 	std::shared_ptr<PPacket> p(new PPacket());
 	switch (type)
 	{

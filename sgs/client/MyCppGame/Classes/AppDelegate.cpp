@@ -157,6 +157,9 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case GAME_DEAL_BC:
 		Do_function::GAME_DEAL_BC(pkt, cmd);
 		break;
+	case GAME_OUT_CARD_BC:
+		Do_function::GAME_OUT_CARD_BC(pkt, cmd);
+		break;
 	default:
 		break;
 	}
