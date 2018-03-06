@@ -35,6 +35,8 @@ private:
 	ProgressTimer* pt_1;	//敌方出手定时
 
 	Sprite* sp_handcard[20];	//当前手牌
+	ImageView* img_handcard_num[20];	//点数
+	ImageView* img_handcard_flowercolor[20];	//花色
 	int i_current_card = -1;	//当前选中的手牌编号
 public:
 	void InitHeroInfo();

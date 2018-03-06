@@ -158,6 +158,18 @@ bool FightMain::init()
 		img_bg->addChild(sp_handcard[i]);
 		sp_handcard[i]->setScale(0.5);
 
+		img_handcard_flowercolor[i] = ImageView::create("Fight/card/flower_1.png");
+		img_handcard_flowercolor[i]->setAnchorPoint(Vec2(0, 1));
+		img_handcard_flowercolor[i]->setPosition(Vec2(5, sp_handcard[i]->getContentSize().height - 10));
+		sp_handcard[i]->addChild(img_handcard_flowercolor[i]);
+		img_handcard_flowercolor[i]->setScale(2);
+
+		img_handcard_num[i] = ImageView::create("Fight/card/black_1.png");
+		img_handcard_num[i]->setAnchorPoint(Vec2(0, 1));
+		img_handcard_num[i]->setPosition(Vec2(0, sp_handcard[i]->getContentSize().height - 10 - img_handcard_num[i]->getContentSize().height));
+		sp_handcard[i]->addChild(img_handcard_num[i]);
+		img_handcard_num[i]->setScale(2);
+
 		sp_handcard[i]->setTag(i);
 
 		// 给背景容器添加拖拽事件s
