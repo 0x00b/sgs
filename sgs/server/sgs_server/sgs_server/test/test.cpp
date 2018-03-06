@@ -1,12 +1,27 @@
 #include "../include.h"
 #include "../ppacket.cpp"
 
+class Test
+{
+    public:
+        int a;
+
+};
 int main()
 {
 
     //signal(SIGSEGV, SIG_DFL);
 
     srand(time(NULL));
+
+    std::map<int, std::shared_ptr<Test>> m;
+
+    if(m.find(0) == m.end()){
+        //
+        printf("no find");
+    }
+
+    m[0]->a = 0;
 
     int* pn = NULL;
     *pn = 10;

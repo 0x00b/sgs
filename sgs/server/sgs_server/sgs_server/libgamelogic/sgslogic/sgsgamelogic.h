@@ -37,6 +37,8 @@ public:
 
 	virtual void Reset();
 	virtual void Init();
+	
+	bool HasSeat(int seatid);
 
 	void InitCard();
 

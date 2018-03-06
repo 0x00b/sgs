@@ -216,19 +216,22 @@ int Game::ReqReady(Player *player)
 
 int Game::ReqUserQuit(Player *player)
 {
-	m_mPlayers.erase(player->m_iClient.m_nfd);
-	//if (ST_PLAYER_OFFLINE != player->m_nStatus && player->m_nID >= 0)
-	{
-		player->UpdateState(ST_PLAYER_OFFLINE);
-	}
-
+	int code  = 0;
+	player->UpdateState(ST_PLAYER_OFFLINE);
 	if(/*ST_GM_PLAYER_NONE != player->m_nGameStatus &&*/ NULL != player->m_pRoom)
 	{
 		//player->m_pRoom->QuitRoom(player);
-		ReqQuitRoom(player);
+		code = ReqQuitRoom(player);
+	}
+	if(0 == code)
+	{
+		m_mPlayers.erase(player->m_iClient.m_nfd);
+		//if (ST_PLAYER_OFFLINE != player->m_nStatus && player->m_nID >= 0)
+		{
+		}
+		delete player;
 	}
 
-	delete player;
 	return 0;
 }
 
@@ -458,6 +461,10 @@ int Game::ReqQuitRoom(Player *player)
 		{
 			m_mRooms.erase(room);
 			delete room->second;
+		}
+		else if (2 == quit_ret)
+		{
+			code = 0x08;
 		}
 	}
 	else

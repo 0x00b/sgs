@@ -12,7 +12,7 @@ Room::Room(GameLogic* plogic, int roomid, ERoomType type, const std::string& nam
 	m_nMaxPlayerCnt(type),
 	m_nPlayerCnt(0),
 	m_nMatchSeatWay(eway),
-	m_nStatus(0)
+	m_nStatus(ROOM_ST_NONE)
 {
 	m_lstPlayers.clear();
 }
@@ -48,26 +48,33 @@ int Room::EnterRoom(Player *player)
 
 int Room::QuitRoom(Player *player)
 {
-	if(NULL != player)
+	if (NULL != player)
 	{
-		m_pGmLgic->Leave(player);
-		m_lstPlayers.remove(player);
-		m_nPlayerCnt--;
-		player->QuitRoom();
-		
-		if (0 >= m_nPlayerCnt)
+		if (ROOM_ST_READY >= m_nStatus)
 		{
-			//all player quit
-			return 1;
+			m_pGmLgic->Leave(player);
+			m_lstPlayers.remove(player);
+			m_nPlayerCnt--;
+			player->QuitRoom();
+
+			if (0 >= m_nPlayerCnt)
+			{
+				//all player quit
+				return 1;
+			}
+			else
+			{
+				if (player == m_pMaster) // mstart quit , need to select a new master
+				{
+					m_pMaster = m_lstPlayers.front(); //
+				}
+			}
+			return 0;
 		}
 		else
 		{
-			if (player == m_pMaster) // mstart quit , need to select a new master
-			{
-				m_pMaster = m_lstPlayers.front(); //
-			}
+			return 2;
 		}
-		return 0;
 	}
 	return -1;
 }
@@ -184,6 +191,7 @@ int Room::CheckGameStart()
 		if (ready_cnt == m_nMaxPlayerCnt)
 		{
 			//start game
+			m_nStatus = ROOM_ST_START;
 			m_pGmLgic->GameStart();
 		}
 	}

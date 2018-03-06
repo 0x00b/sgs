@@ -30,6 +30,7 @@ enum EMatchSeatWay
 enum ERoomStatus
 {
 	ROOM_ST_NONE = 0,
+	ROOM_ST_READY,
 	ROOM_ST_START,
 	ROOM_ST_PLAYING,
 };

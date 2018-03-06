@@ -30,6 +30,12 @@ SGSGameLogic::~SGSGameLogic()
     ev_timer_stop(g_app.m_pLoop, &play_timer);
 }
 
+bool SGSGameLogic::HasSeat(int seatid)
+{
+    std::map<int, std::shared_ptr<SGSGameAttr>>::iterator it = m_mPlayer.find(seatid);
+    return ( it == m_mPlayer.end());
+}
+
 void SGSGameLogic::Init()
 {
 }
@@ -61,7 +67,7 @@ int SGSGameLogic::Do(Player *player)
             break;
         case GAME_CANCEL_OUT_CARD:
             break;
-        case GAME_OUT_CARD_END:
+        case GAME_PLAY_CARD_END:
             break;
         case GAME_SELECT_CARD:
             break;
@@ -84,22 +90,39 @@ void SGSGameLogic::play_timer_cb(struct ev_loop *loop, struct ev_timer *w, int r
 	Json::Value root;
     root.clear();
     int seatid = gl->m_pCurrPlayer->SeatID();
-    SGSGameAttr& ga = *gl->m_mPlayer[seatid];
-    for (int i = ga.m_pHero->blood; i < (int)ga.m_lstPlayerCards.size(); ++i)
+
+    std::map<int, std::shared_ptr<SGSGameAttr>>::iterator it = gl->m_mPlayer.find(seatid);
+    if (it != gl->m_mPlayer.end())
     {
-        root["cards"][i] = ga.m_lstPlayerCards.back()->card();
-        ga.m_lstPlayerCards.pop_back();
+        SGSGameAttr &ga = *it->second;
+        for (int i = ga.m_pHero->blood; i < (int)ga.m_lstPlayerCards.size(); ++i)
+        {
+            root["cards"][i] = ga.m_lstPlayerCards.back()->card();
+            ga.m_lstPlayerCards.pop_back();
+        }
+        root["code"] = (code); //
+        PPacket packet;
+        packet.body() = root.toStyledString();
+        packet.pack(GAME_DISCARD_BC);
+
+        gl->m_pRoom->Broadcast(packet);
+
+        //下一个人出牌
+        seatid = (seatid + 1) % gl->m_pRoom->m_eType;
+        if (gl->m_mPlayer.find(seatid) != gl->m_mPlayer.end())
+        {
+            gl->m_pCurrPlayer = gl->m_mPlayer[seatid]->m_player;
+            gl->PlayCardUC(gl->m_pCurrPlayer);
+        }
+        else
+        {
+            //有人退出啦
+        }
     }
-	root["code"] = (code); //
-	PPacket packet;
-	packet.body() = root.toStyledString(); 
-	packet.pack(GAME_DISCARD_BC);
-
-    gl->m_pRoom->Broadcast(packet);
-
-    //下一个人出牌
-    gl->m_pCurrPlayer = gl->m_mPlayer[(seatid + 1) % gl->m_pRoom->m_eType]->m_player;
-    gl->PlayCardUC(gl->m_pCurrPlayer);
+    else
+    {
+        code = 0x08;
+    }
 
     return;
 }
@@ -238,20 +261,28 @@ int SGSGameLogic::ReqDiscard(Player *player)
 	Json::Value root;
 	std::string err;
 
-    if (!m_mPlayer[player->SeatID()]->m_bSelectedHero)
+    std::map<int, std::shared_ptr<SGSGameAttr>>::iterator it = m_mPlayer.find(player->SeatID());
+    if (it != m_mPlayer.end())
     {
-        if (!Game::ParseMsg(player, &root, err))
+        if (!it->second->m_bSelectedHero)
         {
-            code = 0x01;
-        }
-        else
-        {
-            for (int i = 0; i < root["cards"].size(); ++i)
+            if (!Game::ParseMsg(player, &root, err))
             {
-                //root["cards"][i] = ga.m_lstPlayerCards.back()->card();
-                //ga.m_lstPlayerCards.pop_back();
+                code = 0x01;
+            }
+            else
+            {
+                for (int i = 0; i < root["cards"].size(); ++i)
+                {
+                    //root["cards"][i] = ga.m_lstPlayerCards.back()->card();
+                    //ga.m_lstPlayerCards.pop_back();
+                }
             }
         }
+    }
+    else
+    {
+        code = 0x08;
     }
     root["code"] = (code); //
 	PPacket packet;
@@ -281,44 +312,53 @@ int SGSGameLogic::ReqSelectHero(Player *player)
 	Json::Value root;
 	std::string err;
     bool gm_start = false; //开始发牌
-    if (!m_mPlayer[player->SeatID()]->m_bSelectedHero)
+
+    std::map<int, std::shared_ptr<SGSGameAttr>>::iterator sga = m_mPlayer.find(player->SeatID());
+    if (sga != m_mPlayer.end())
     {
-        if (!Game::ParseMsg(player, &root, err))
+        if (!sga->second->m_bSelectedHero)
         {
-            code = 0x01;
-        }
-        else
-        {
-            int idhero = root.get("idhero", 0).asInt();
-            for (std::vector<std::shared_ptr<SHero>>::iterator it = m_vSelcectHero.begin(); it != m_vSelcectHero.end(); ++it)
+            if (!Game::ParseMsg(player, &root, err))
             {
-                if (idhero == (*it)->m_pHero->idhero)
+                code = 0x01;
+            }
+            else
+            {
+                int idhero = root.get("idhero", 0).asInt();
+                for (std::vector<std::shared_ptr<SHero>>::iterator it = m_vSelcectHero.begin(); it != m_vSelcectHero.end(); ++it)
                 {
-                    /*if ((*it)->m_bSelected)
+                    if (idhero == (*it)->m_pHero->idhero)
+                    {
+                        /*if ((*it)->m_bSelected)
                     {
                         code = 0x02; //已经被选择
                     }
                     else*/
-                    {
-                        //m_mPlayer[player]->m_vHeros.push_back(std::shared_ptr<Hero>(new Hero(*((*it)->m_pHero))));
-                        m_mPlayer[player->SeatID()]->m_pHero = std::shared_ptr<Hero>(new Hero(*((*it)->m_pHero)));
-                        m_mPlayer[player->SeatID()]->m_bSelectedHero = true;
-                        (*it)->m_bSelected = true;
-                        m_nSelected++;
-                        if (m_nSelected == P2P_HERO_CNT)
                         {
-                            //选择完英雄之后开始游戏
-                            gm_start = true;
+                            //m_mPlayer[player]->m_vHeros.push_back(std::shared_ptr<Hero>(new Hero(*((*it)->m_pHero))));
+                            sga->second->m_pHero = std::shared_ptr<Hero>(new Hero(*((*it)->m_pHero)));
+                            sga->second->m_bSelectedHero = true;
+                            (*it)->m_bSelected = true;
+                            m_nSelected++;
+                            if (m_nSelected == P2P_HERO_CNT)
+                            {
+                                //选择完英雄之后开始游戏
+                                gm_start = true;
+                            }
                         }
+                        break;
                     }
-                    break;
                 }
             }
+        }
+        else
+        {
+            code = 0x04;
         }
     }
     else
     {
-        code = 0x04;
+        code = 0x08;
     }
 
     root.clear();
@@ -326,7 +366,7 @@ int SGSGameLogic::ReqSelectHero(Player *player)
 	if(0 == code)
 	{
         root["seatid"] = player->SeatID();
-        root["idhero"] = m_mPlayer[player->SeatID()]->m_pHero->idhero;
+        root["idhero"] = sga->second->m_pHero->idhero;
 	}
 	PPacket packet;
 	packet.body() = root.toStyledString(); 
@@ -373,7 +413,7 @@ int SGSGameLogic::StartDeal() //开始发牌
     //开始出牌
     m_pCurrPlayer = m_mPlayer[0]->m_player;
     PlayCardUC(m_pCurrPlayer);
-    ev_timer_again(g_app.m_pLoop, &play_timer);
+
     return 0;
 }
 
