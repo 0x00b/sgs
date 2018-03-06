@@ -156,7 +156,7 @@ void SelectHero2Layer::select_hero_0(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 1;
+		u_player.m_oGameAttr.m_pHero->idhero = 1;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -179,7 +179,7 @@ void SelectHero2Layer::select_hero_1(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 2;
+		u_player.m_oGameAttr.m_pHero->idhero = 2;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -202,7 +202,7 @@ void SelectHero2Layer::select_hero_2(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 3;
+		u_player.m_oGameAttr.m_pHero->idhero = 3;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -225,7 +225,7 @@ void SelectHero2Layer::select_hero_3(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 4;
+		u_player.m_oGameAttr.m_pHero->idhero = 4;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -248,7 +248,7 @@ void SelectHero2Layer::select_hero_4(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 5;
+		u_player.m_oGameAttr.m_pHero->idhero = 5;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -271,7 +271,7 @@ void SelectHero2Layer::select_hero_5(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 6;
+		u_player.m_oGameAttr.m_pHero->idhero = 6;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -294,7 +294,7 @@ void SelectHero2Layer::select_hero_6(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 7;
+		u_player.m_oGameAttr.m_pHero->idhero = 7;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -317,7 +317,7 @@ void SelectHero2Layer::select_hero_7(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 8;
+		u_player.m_oGameAttr.m_pHero->idhero = 8;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -340,7 +340,7 @@ void SelectHero2Layer::select_hero_8(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 9;
+		u_player.m_oGameAttr.m_pHero->idhero = 9;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);
@@ -363,7 +363,7 @@ void SelectHero2Layer::select_hero_9(Ref* sender, cocos2d::ui::Widget::TouchEven
 	case ui::Widget::TouchEventType::BEGAN:
 		break;
 	case ui::Widget::TouchEventType::ENDED:
-		//u_player.m_oGameAttr.m_pHero->idhero = 10;
+		u_player.m_oGameAttr.m_pHero->idhero = 10;
 		p->body = root.toStyledString();
 		p->pack(GAME_SELECT_HERO);
 		g_lstWrite.push_back(p);

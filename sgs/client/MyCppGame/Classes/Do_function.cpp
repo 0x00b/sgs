@@ -1,6 +1,7 @@
 #include "Do_function.h"
 #include "AppDelegate.h"
 #include "../Classes/model/sgscard.h"
+#include "Fight\FightMainScene.h"
 
 
 Do_function::Do_function()
@@ -223,5 +224,41 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 	else
 	{
 		;
+	}
+}
+
+
+void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
+{
+	if (0 == pkt["code"].asInt())
+	{
+		//
+		int card_num = pkt["card"].asInt();
+		int u_seatid = pkt["seatid"].asInt();
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{//std::list<std::shared_ptr<SGSCard>> m_lstPlayerCards; //all card
+			if (it->m_nSeatId == u_seatid)
+			{
+				for (std::list<std::shared_ptr<SGSCard>>::iterator it_card = it->m_oGameAttr.m_lstPlayerCards.begin(); it_card != it->m_oGameAttr.m_lstPlayerCards.end();)
+				{
+					if ((*it_card)->card()==card_num)
+					{
+						it_card = it->m_oGameAttr.m_lstPlayerCards.erase(it_card);
+						if (u_player.m_nSeatId == u_seatid)
+						{
+							((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+						}
+						break;
+					}
+					else
+						it_card++;
+				}
+				break;
+			}
+		}
+	}
+	else
+	{
+		log("failed");
 	}
 }

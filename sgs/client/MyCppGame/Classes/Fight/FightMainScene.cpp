@@ -184,7 +184,7 @@ bool FightMain::init()
 	//我方手牌e
 
 	//选中手牌时的确定 取消按钮s
-	Button* btn_confirm = Button::create("Bg/btn_bg.png");
+	btn_confirm = Button::create("Bg/btn_bg.png");
 	btn_confirm->setPosition(pt_0->getPosition() - Vec2(btn_confirm->getContentSize().width * 1.5, 30));
 	img_bg->addChild(btn_confirm);
 
@@ -278,6 +278,28 @@ bool FightMain::onTouchHandCardEnded(Touch* touch, Event* event) {
 	}
 
 	return true;
+}
+
+void FightMain::btn_confirm_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	Json::Value root;
+	root["card"] = i_current_card;
+	std::shared_ptr<PPacket> p(new PPacket());
+	switch (type)
+	{
+	case ui::Widget::TouchEventType::BEGAN:
+		break;
+	case ui::Widget::TouchEventType::ENDED:
+		p->body = root.toStyledString();
+		p->pack(GAME_OUT_CARD);
+		g_lstWrite.push_back(p);
+		//		this->setVisible(false);
+		break;
+	case ui::Widget::TouchEventType::MOVED:
+		break;
+	default:
+		break;
+	}
 }
 
 void FightMain::UpdateHandCard() {
