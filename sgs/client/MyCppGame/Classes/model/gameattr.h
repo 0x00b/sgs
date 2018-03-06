@@ -11,7 +11,7 @@ Description : GameAttr
 #include <list>
 #include <memory>
 
-class Card;
+class SGSCard;
 
 class GameAttr
 {
@@ -20,7 +20,7 @@ private:
 protected:
 public:
   int m_nSeatId;
-  std::list<std::shared_ptr<Card>> m_lstPlayerCards; //all card
+  std::list<std::shared_ptr<SGSCard>> m_lstPlayerCards; //all card
 
   /*functions*/
 public:

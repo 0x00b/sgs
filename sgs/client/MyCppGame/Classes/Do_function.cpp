@@ -1,5 +1,6 @@
 #include "Do_function.h"
 #include "AppDelegate.h"
+#include "../Classes/model/sgscard.h"
 
 
 Do_function::Do_function()
@@ -155,6 +156,34 @@ void Do_function::GAME_SELECT_CARD_BC(Json::Value &pkt, int cmd)
 	{
 		;
 	}
+}
+
+void Do_function::GAME_DEAL_BC(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt())
+	{
+		int u_seatid = pkt["seatid"].asInt();
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (it->m_nSeatId == u_seatid)
+			{
+				//u_player.m_nSeatId = it->m_nSeatId;
+				int i;
+				Json::Value & cards = pkt["cards"];
+				for (i = 0; i<cards.size(); i++)
+				{
+					Json::Value v = cards[i];
+					SGSCard *a = new SGSCard(v.asInt());
+					it->m_oGameAttr.m_lstPlayerCards.push_back(std::shared_ptr<SGSCard>(a));
+				}
+				break;
+			}
+		}
+		; //×ùÎ»ºÅ
+	}
+	else
+	{
+		MessageBox("deal failed!", "");
+	};
 }
 
 void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
