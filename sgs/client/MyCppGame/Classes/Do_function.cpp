@@ -271,7 +271,15 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
 	if (0 == pkt["code"].asInt()) {
 		if (pkt["seatid"] == u_player.m_nSeatId) {
+			int i;
+			Json::Value & cards = pkt["cards"];
+			for (i = 0; i<cards.size(); i++)
+			{
+				SGSCard *a = new SGSCard(cards[i].asInt());
+				u_player.m_oGameAttr.m_lstPlayerCards.push_back(std::shared_ptr<SGSCard>(a));
+			}
 			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
 				((FightMain *)u_player.MyCurrentScene)->ShowMyBtnAndTimer();
 			});
 		}
