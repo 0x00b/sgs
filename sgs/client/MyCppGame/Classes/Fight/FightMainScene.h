@@ -62,6 +62,8 @@ public:
 	void ShowMyBtnAndTimer();		//显示我的按钮和定时器
 	void HideMyBtnAndTimer();		//隐藏我的按钮和定时器
 	void ShowEnemyTimer();			//显示对手定时器
+
+	void setStatus(int i);
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

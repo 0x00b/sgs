@@ -282,12 +282,14 @@ void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
 				((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
 				((FightMain *)u_player.MyCurrentScene)->ShowMyBtnAndTimer();
 			});
+			((FightMain *)u_player.MyCurrentScene)->setStatus(1);
 		}
 		else {
 			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
 				((FightMain *)u_player.MyCurrentScene)->HideMyBtnAndTimer();
 				((FightMain *)u_player.MyCurrentScene)->ShowEnemyTimer();
 			});
+			((FightMain *)u_player.MyCurrentScene)->setStatus(0);
 		}
 	}
 }

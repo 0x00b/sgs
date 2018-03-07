@@ -254,58 +254,58 @@ bool FightMain::onTouchHandCardEnded(Touch* touch, Event* event) {
 
 	if (status != 0) {
 		bool is_click = false;
-		int i;
+	int i;
+	for (i = 0; i < status; ++i) {
+		if (i_current_card[i] == target->getTag()) {
+			is_click = true;
+			break;
+		}
+	}
+	if (is_click) {	//点的牌已经被选中
+		Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
+		Vec2 posSrc = sp_handcard[i_current_card[i]]->getPosition();
+		Vec2 posDes = posSrc + diff;
+		sp_handcard[i_current_card[i]]->setPosition(posDes);
+
+		//前移
+		//i_current_card[i] = -1;
+		for (int j = i; j < status - 1; ++j) {
+			i_current_card[j] = i_current_card[j + 1];
+		}
+		i_current_card[status - 1] = -1;
+	}
+	else {	//点的是未选中的牌
+		bool is_full = true;
 		for (i = 0; i < status; ++i) {
-			if (i_current_card[i] == target->getTag()) {
-				is_click = true;
+			if (i_current_card[i] == -1) {
+				is_full = false;
 				break;
 			}
 		}
-		if (is_click) {	//点的牌已经被选中
+		if (is_full) {	//如果选择的牌已经达到上限status
 			Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
-			Vec2 posSrc = sp_handcard[i_current_card[i]]->getPosition();
+			Vec2 posSrc = sp_handcard[i_current_card[0]]->getPosition();
 			Vec2 posDes = posSrc + diff;
-			sp_handcard[i_current_card[i]]->setPosition(posDes);
+			sp_handcard[i_current_card[0]]->setPosition(posDes);
 
-			//前移
-			//i_current_card[i] = -1;
-			for (int j = i; j < status - 1; ++j) {
-				i_current_card[j] = i_current_card[j + 1];
+			for (int i = 0; i < status - 1; ++i) {
+				i_current_card[i] = i_current_card[i + 1];
 			}
-			i_current_card[status - 1] = -1;
-		}
-		else {	//点的是未选中的牌
-			bool is_full = true;
-			for (i = 0; i < status; ++i) {
-				if (i_current_card[i] == -1) {
-					is_full = false;
-					break;
-				}
-			}
-			if (is_full) {	//如果选择的牌已经达到上限status
-				Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
-				Vec2 posSrc = sp_handcard[i_current_card[0]]->getPosition();
-				Vec2 posDes = posSrc + diff;
-				sp_handcard[i_current_card[0]]->setPosition(posDes);
-
-				for (int i = 0; i < status - 1; ++i) {
-					i_current_card[i] = i_current_card[i + 1];
-				}
-				--i;
-			}
-
-			Vec2 diff = Vec2(0, 20);	//没达到上限
-			Vec2 posSrc = target->getPosition();
-			Vec2 posDes = posSrc + diff;
-			target->setPosition(posDes);
-
-			i_current_card[i] = target->getTag();
+			--i;
 		}
 
-		//for (int i = 0; i < status; ++i) {
-		//	log("%d ", i_current_card[i]);
-		//}
-		//log("\n");
+		Vec2 diff = Vec2(0, 20);	//没达到上限
+		Vec2 posSrc = target->getPosition();
+		Vec2 posDes = posSrc + diff;
+		target->setPosition(posDes);
+
+		i_current_card[i] = target->getTag();
+	}
+
+	//for (int i = 0; i < status; ++i) {
+	//	log("%d ", i_current_card[i]);
+	//}
+	//log("\n");
 	}
 
 	return true;
@@ -420,7 +420,6 @@ void FightMain::UpdateHandCard() {
 			}
 		}
 	}
-	status = 0;
 	for (int i = 0; i < 20; ++i) {
 		i_current_card[i] = -1;	//重置手牌全部未选中
 	}
@@ -452,4 +451,8 @@ void FightMain::HideMyBtnAndTimer() {
 }
 void FightMain::ShowEnemyTimer() {
 	pt_1->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行敌方定时器
+}
+
+void FightMain::setStatus(int i) {
+	status = i;
 }
