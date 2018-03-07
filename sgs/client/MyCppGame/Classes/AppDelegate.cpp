@@ -39,7 +39,7 @@ Room u_room;
 
 
 tcp::socket sock(*(new boost::asio::io_service()));
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.251"),37373);
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.144"),37373);
 
 #include <stdio.h>
 #include <stdlib.h>
