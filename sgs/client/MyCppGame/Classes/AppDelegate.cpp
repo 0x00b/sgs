@@ -46,8 +46,8 @@ tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.251"),37373);
 
 std::string m_to_string(int n)
 {
-	char buffer[14];
-	snprintf(buffer, 14,"%d", n);
+	char buffer[12];
+	snprintf(buffer, 12,"%d", n);
 	return buffer;
 }
 void connectToSvr()
@@ -167,7 +167,9 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 		Do_function::GAME_DEAL_BC(pkt, cmd);
 		break;
 	case GAME_OUT_CARD_BC:
-		Do_function::GAME_OUT_CARD_BC(pkt, cmd);
+		Do_function::GAME_OUT_CARD_BC(pkt, cmd);	//点击出牌
+	case GAME_PLAY_CARD_BC:
+		Do_function::GAME_PLAY_CARD_BC(pkt, cmd);	//轮到谁出牌
 		break;
 	default:
 		break;

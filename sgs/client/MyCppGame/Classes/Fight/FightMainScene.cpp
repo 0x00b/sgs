@@ -51,6 +51,11 @@ bool FightMain::init()
 }
 
 void FightMain::InitHeroInfo() {
+	//初始化当前选中手牌
+	status = 0;
+	for (int i = 0; i < 20; ++i) {
+		i_current_card[i] = -1;
+	}
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -118,7 +123,7 @@ void FightMain::InitHeroInfo() {
 			pt_0->setMidpoint(Vec2(0, 1));	//中心位置
 			pt_0->setBarChangeRate(Vec2(1, 0));	//用作条形进度条显示的图片所占比例
 
-			pt_0->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行动画
+			//pt_0->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行动画
 			//我方出手定时e
 
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -132,20 +137,22 @@ void FightMain::InitHeroInfo() {
 			btn_confirm = Button::create("Bg/btn_bg.png");
 			btn_confirm->setPosition(pt_0->getPosition() - Vec2(btn_confirm->getContentSize().width * 1.5, 30));
 			img_bg->addChild(btn_confirm);
+			btn_confirm->setTitleText(CSGSTXT::GET("confirm"));
+			btn_confirm->setTitleFontName("fonts/FZBWKSK.TTF");
+			btn_confirm->setTitleFontSize(36);
 
-			Label* lab_confirm = Label::createWithTTF(CSGSTXT::GET("confirm"), "fonts/FZBWKSK.TTF", 36);
-			lab_confirm->setPosition(pt_0->getPosition() - Vec2(btn_confirm->getContentSize().width * 1.5, 30));
-			img_bg->addChild(lab_confirm);
-
-			Button* btn_cancel = Button::create("Bg/btn_bg.png");
+			btn_cancel = Button::create("Bg/btn_bg.png");
 			btn_cancel->setPosition(pt_0->getPosition() - Vec2(-btn_confirm->getContentSize().width * 1.5, 30));
 			img_bg->addChild(btn_cancel);
-
-			Label* lab_cancel = Label::createWithTTF(CSGSTXT::GET("cancel"), "fonts/FZBWKSK.TTF", 36);
-			lab_cancel->setPosition(pt_0->getPosition() - Vec2(-btn_confirm->getContentSize().width * 1.5, 30));
-			img_bg->addChild(lab_cancel);
+			btn_cancel->setTitleText(CSGSTXT::GET("cancel"));
+			btn_cancel->setTitleFontName("fonts/FZBWKSK.TTF");
+			btn_cancel->setTitleFontSize(36);
 
 			btn_confirm->addTouchEventListener(CC_CALLBACK_2(FightMain::btn_confirm_card, this));
+			btn_cancel->addTouchEventListener(CC_CALLBACK_2(FightMain::btn_cancel_card, this));
+
+			btn_confirm->setVisible(false);
+			btn_cancel->setVisible(false);
 			//选中手牌时的确定 取消按钮e
 		}
 		else {
@@ -207,7 +214,7 @@ void FightMain::InitHeroInfo() {
 			pt_1->setMidpoint(Vec2(0, 1));	//中心位置
 			pt_1->setBarChangeRate(Vec2(1, 0));	//用作条形进度条显示的图片所占比例
 
-			pt_1->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行动画
+			//pt_1->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行动画
 			//敌方出手定时e
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -245,27 +252,60 @@ void FightMain::onTouchHandCardMoved(Touch* touch, Event* event) {
 bool FightMain::onTouchHandCardEnded(Touch* touch, Event* event) {
 	Sprite* target = (Sprite*)event->getCurrentTarget();
 
-	if (i_current_card == target->getTag()) {	//点的牌已经被选中
-		Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
-		Vec2 posSrc = sp_handcard[i_current_card]->getPosition();
-		Vec2 posDes = posSrc + diff;
-		sp_handcard[i_current_card]->setPosition(posDes);
-		i_current_card = -1;
-	}
-	else {	//点的是未选中的牌
-		if (i_current_card != -1) {	//如果之前有牌被选中
+	if (status != 0) {
+		bool is_click = false;
+		int i;
+		for (i = 0; i < status; ++i) {
+			if (i_current_card[i] == target->getTag()) {
+				is_click = true;
+				break;
+			}
+		}
+		if (is_click) {	//点的牌已经被选中
 			Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
-			Vec2 posSrc = sp_handcard[i_current_card]->getPosition();
+			Vec2 posSrc = sp_handcard[i_current_card[i]]->getPosition();
 			Vec2 posDes = posSrc + diff;
-			sp_handcard[i_current_card]->setPosition(posDes);
+			sp_handcard[i_current_card[i]]->setPosition(posDes);
+
+			//前移
+			//i_current_card[i] = -1;
+			for (int j = i; j < status - 1; ++j) {
+				i_current_card[j] = i_current_card[j + 1];
+			}
+			i_current_card[status - 1] = -1;
+		}
+		else {	//点的是未选中的牌
+			bool is_full = true;
+			for (i = 0; i < status; ++i) {
+				if (i_current_card[i] == -1) {
+					is_full = false;
+					break;
+				}
+			}
+			if (is_full) {	//如果选择的牌已经达到上限status
+				Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
+				Vec2 posSrc = sp_handcard[i_current_card[0]]->getPosition();
+				Vec2 posDes = posSrc + diff;
+				sp_handcard[i_current_card[0]]->setPosition(posDes);
+
+				for (int i = 0; i < status - 1; ++i) {
+					i_current_card[i] = i_current_card[i + 1];
+				}
+				--i;
+			}
+
+			Vec2 diff = Vec2(0, 20);	//没达到上限
+			Vec2 posSrc = target->getPosition();
+			Vec2 posDes = posSrc + diff;
+			target->setPosition(posDes);
+
+			i_current_card[i] = target->getTag();
 		}
 
-		Vec2 diff = Vec2(0, 20);	//选中的牌向上突出
-		Vec2 posSrc = target->getPosition();
-		Vec2 posDes = posSrc + diff;
-		target->setPosition(posDes);
-
-		i_current_card = target->getTag();
+		//for (int i = 0; i < status; ++i) {
+		//	log("%d ", i_current_card[i]);
+		//}
+		//log("\n");
 	}
 
 	return true;
@@ -281,7 +321,7 @@ void FightMain::btn_confirm_card(Ref* sender, cocos2d::ui::Widget::TouchEventTyp
 		{
 			for (std::list<std::shared_ptr<SGSCard>>::iterator it_card = it->m_oGameAttr.m_lstPlayerCards.begin(); it_card != it->m_oGameAttr.m_lstPlayerCards.end();)
 			{
-				if (card_i == i_current_card)
+				if (card_i == i_current_card[0])
 				{
 					root["card"] = (*it_card)->card();
 					break;
@@ -313,13 +353,17 @@ void FightMain::btn_confirm_card(Ref* sender, cocos2d::ui::Widget::TouchEventTyp
 	}
 }
 
+void FightMain::btn_cancel_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
+
+}
+
 void FightMain::UpdateHandCard() {
 	for (int i = 0; i < i_current_card_num; ++i) {	//清空之前的手牌
 		sp_handcard[i]->removeFromParentAndCleanup(true);
 	}
 
 	for (std::list<Player>::iterator it_p = u_room.m_lstPlayers.begin(); it_p != u_room.m_lstPlayers.end();  ++it_p) {
-		if (u_player.m_nSeatId == (*it_p).m_nSeatId) {
+		if (u_player.m_nSeatId == (*it_p).m_nSeatId) {	//修改我的手牌信息
 			i_current_card_num = (*it_p).m_oGameAttr.m_lstPlayerCards.size();	//现在的手牌数
 			int i = 0;
 			for (std::list<std::shared_ptr<SGSCard>>::iterator it_c = (*it_p).m_oGameAttr.m_lstPlayerCards.begin(); it_c != (*it_p).m_oGameAttr.m_lstPlayerCards.end(); ++i, ++it_c) {
@@ -376,5 +420,36 @@ void FightMain::UpdateHandCard() {
 			}
 		}
 	}
-	i_current_card = -1;	//重置手牌全部未选中
+	status = 0;
+	for (int i = 0; i < 20; ++i) {
+		i_current_card[i] = -1;	//重置手牌全部未选中
+	}
+}
+
+void FightMain::UpdateFightInfo() {
+	//更新血量
+	int blood[2] = { 2, 1 };
+	int max_blood[2] = { 4,4 };
+	for (int i = 0; i < 2; ++i) {
+		for (int j = 0; j < blood[i]; ++j) {
+			img_blood[i][j]->loadTexture("Fight/blood_have.png");
+		}
+		for (int j = blood[i]; j < max_blood[i]; ++j) {
+			img_blood[i][j]->loadTexture("Fight/blood_lose.png");
+		}
+	}
+}
+
+void FightMain::ShowMyBtnAndTimer() {
+	btn_confirm->setVisible(true);
+	btn_cancel->setVisible(true);
+
+	pt_0->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行我的定时器
+}
+void FightMain::HideMyBtnAndTimer() {
+	btn_confirm->setVisible(false);
+	btn_cancel->setVisible(false);
+}
+void FightMain::ShowEnemyTimer() {
+	pt_1->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行敌方定时器
 }

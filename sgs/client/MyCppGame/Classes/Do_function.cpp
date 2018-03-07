@@ -253,14 +253,33 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 						break;
 					}
 					else
-						it_card++;
+						++it_card;
 				}
 				break;
+			}
+			else {
+
 			}
 		}
 	}
 	else
 	{
 		log("failed");
+	}
+}
+
+void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt()) {
+		if (pkt["seatid"] == u_player.m_nSeatId) {
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->ShowMyBtnAndTimer();
+			});
+		}
+		else {
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->HideMyBtnAndTimer();
+				((FightMain *)u_player.MyCurrentScene)->ShowEnemyTimer();
+			});
+		}
 	}
 }
