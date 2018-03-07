@@ -142,7 +142,7 @@ void ReadyHome::DidBack(Ref* pSender, Widget::TouchEventType type) {
 }
 
 void ReadyHome::UpdateReadyHome() {
-	lab_homeid->setString(std::to_string(u_room.m_nRoomID));	//显示房间号
+	lab_homeid->setString(m_to_string(u_room.m_nRoomID));	//显示房间号
 	for (int i = 0; i < 2;i++) {
 		lab_table_name[i]->setString("");
 		img_table_bg[i]->loadTexture("Home/generalface_mystery.png");

@@ -61,24 +61,24 @@ void FightMain::InitHeroInfo() {
 	{
 		if (u_player.m_nSeatId == (*it).m_nSeatId) {
 			//右下角我方武将s
-			img_hero[0] = ImageView::create(std::string("Fight/hero_big/") + std::to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
+			img_hero[0] = ImageView::create(std::string("Fight/hero_big/") + m_to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
 			img_hero[0]->setAnchorPoint(Vec2(1, 0));
 			img_hero[0]->setPosition(Vec2(origin.x + visibleSize.width, 0));
 			img_bg->addChild(img_hero[0]);
 
-			img_hero_info_bg[0] = ImageView::create(std::string("Fight/info_bg_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+			img_hero_info_bg[0] = ImageView::create(std::string("Fight/info_bg_") + m_to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
 			img_hero_info_bg[0]->setAnchorPoint(Vec2(0, 1));
 			img_hero_info_bg[0]->setPosition(Vec2(0, img_hero[0]->getContentSize().height));
 			img_hero[0]->addChild(img_hero_info_bg[0]);
 			img_hero_info_bg[0]->setScaleX(2);
 			img_hero_info_bg[0]->setScaleY(3);
 
-			img_hero_country[0] = ImageView::create(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+			img_hero_country[0] = ImageView::create(std::string("Fight/country_zi_") + m_to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
 			img_hero_country[0]->setAnchorPoint(Vec2(0, 1));
 			img_hero_country[0]->setPosition(Vec2(0, img_hero[0]->getContentSize().height));
 			img_hero[0]->addChild(img_hero_country[0]);
 
-			lab_hero_name[0] = Label::createWithTTF(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()), "fonts/FZBWKSK.TTF", 36);
+			lab_hero_name[0] = Label::createWithTTF(CSGSTXT::GET(m_to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()), "fonts/FZBWKSK.TTF", 36);
 			lab_hero_name[0]->setTextColor(ccc4(0, 0, 0, 255));
 			lab_hero_name[0]->setAnchorPoint(Vec2(0, 1));
 			lab_hero_name[0]->setPosition(Vec2(10, img_hero[0]->getContentSize().height - img_hero_country[0]->getContentSize().height));
@@ -122,10 +122,10 @@ void FightMain::InitHeroInfo() {
 			//我方出手定时e
 
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			/*img_hero[0]->loadTexture(std::string("Fight/hero_big/") + std::to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
-			img_hero_info_bg[0]->loadTexture(std::string("Fight/info_bg_")+std::to_string((*it).m_oGameAttr.m_pHero->country)+".png");
-			img_hero_country[0]->loadTexture(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
-			lab_hero_name[0]->setString(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
+			/*img_hero[0]->loadTexture(std::string("Fight/hero_big/") + m_to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
+			img_hero_info_bg[0]->loadTexture(std::string("Fight/info_bg_")+m_to_string((*it).m_oGameAttr.m_pHero->country)+".png");
+			img_hero_country[0]->loadTexture(std::string("Fight/country_zi_") + m_to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+			lab_hero_name[0]->setString(CSGSTXT::GET(m_to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
 			lab_handcard_num[0]->setString("0");*/
 
 			//选中手牌时的确定 取消按钮s
@@ -150,24 +150,24 @@ void FightMain::InitHeroInfo() {
 		}
 		else {
 			//中上方敌方武将s
-			img_hero[1] = ImageView::create(std::string("Fight/hero_big/") + std::to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
+			img_hero[1] = ImageView::create(std::string("Fight/hero_big/") + m_to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
 			img_hero[1]->setAnchorPoint(Vec2(0.5, 1));
 			img_hero[1]->setPosition(Vec2(img_bg->getContentSize().width / 2, img_bg->getContentSize().height));
 			img_bg->addChild(img_hero[1]);
 
-			img_hero_info_bg[1] = ImageView::create(std::string("Fight/info_bg_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+			img_hero_info_bg[1] = ImageView::create(std::string("Fight/info_bg_") + m_to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
 			img_hero_info_bg[1]->setAnchorPoint(Vec2(0, 1));
 			img_hero_info_bg[1]->setPosition(Vec2(0, img_hero[1]->getContentSize().height));
 			img_hero[1]->addChild(img_hero_info_bg[1]);
 			img_hero_info_bg[1]->setScaleX(2);
 			img_hero_info_bg[1]->setScaleY(3);
 
-			img_hero_country[1] = ImageView::create(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+			img_hero_country[1] = ImageView::create(std::string("Fight/country_zi_") + m_to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
 			img_hero_country[1]->setAnchorPoint(Vec2(0, 1));
 			img_hero_country[1]->setPosition(Vec2(0, img_hero[1]->getContentSize().height));
 			img_hero[1]->addChild(img_hero_country[1]);
 
-			lab_hero_name[1] = Label::createWithTTF(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()), "fonts/FZBWKSK.TTF", 36);
+			lab_hero_name[1] = Label::createWithTTF(CSGSTXT::GET(m_to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()), "fonts/FZBWKSK.TTF", 36);
 			lab_hero_name[1]->setTextColor(ccc4(0, 0, 0, 255));
 			lab_hero_name[1]->setAnchorPoint(Vec2(0, 1));
 			lab_hero_name[1]->setPosition(Vec2(10, img_hero[1]->getContentSize().height - img_hero_country[1]->getContentSize().height));
@@ -211,10 +211,10 @@ void FightMain::InitHeroInfo() {
 			//敌方出手定时e
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			/*img_hero[1]->loadTexture(std::string("Fight/hero_big/") + std::to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
-			img_hero_info_bg[1]->loadTexture(std::string("Fight/info_bg_")+std::to_string((*it).m_oGameAttr.m_pHero->country)+".png");
-			img_hero_country[1]->loadTexture(std::string("Fight/country_zi_") + std::to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
-			lab_hero_name[1]->setString(CSGSTXT::GET(std::to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
+			/*img_hero[1]->loadTexture(std::string("Fight/hero_big/") + m_to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
+			img_hero_info_bg[1]->loadTexture(std::string("Fight/info_bg_")+m_to_string((*it).m_oGameAttr.m_pHero->country)+".png");
+			img_hero_country[1]->loadTexture(std::string("Fight/country_zi_") + m_to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+			lab_hero_name[1]->setString(CSGSTXT::GET(m_to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
 			lab_handcard_num[1]->setString("0");*/
 		}
 	}

@@ -41,6 +41,15 @@ Room u_room;
 tcp::socket sock(*(new boost::asio::io_service()));
 tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.251"),37373);
 
+#include <stdio.h>
+#include <stdlib.h>
+
+std::string m_to_string(int n)
+{
+	char buffer[14];
+	snprintf(buffer, 14,"%d", n);
+	return buffer;
+}
 void connectToSvr()
 {
 	try
