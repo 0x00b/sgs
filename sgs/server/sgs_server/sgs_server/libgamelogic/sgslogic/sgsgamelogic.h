@@ -28,6 +28,14 @@ public:
 	int m_nCurrPlayerSeat;
 	int m_nPlayerSeat;
 	SGSCard m_oLastCard;
+	int m_nStatus;
+	
+	enum GM_STATUS
+	{
+		PLAYER_NONE,
+		PLAYER_PLAY_CARD,
+		PLAYER_DISCARD
+	};
 
 	ev_timer play_timer;
 	ev_tstamp play_timer_stamp;

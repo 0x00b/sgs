@@ -20,8 +20,9 @@ SHero::SHero(const std::shared_ptr<Hero> &hero) : m_bSelected(false),
 {
 }
 SGSGameLogic::SGSGameLogic() : m_nSelected(0),
-                               play_timer_stamp(15),
-                               discard_timer_stamp(15)
+                               m_nStatus(PLAYER_NONE),
+                               play_timer_stamp(3),
+                               discard_timer_stamp(10)
 {
     play_timer.data = this;
     ev_timer_init(&play_timer, SGSGameLogic::play_timer_cb, play_timer_stamp, play_timer_stamp);
@@ -32,6 +33,7 @@ SGSGameLogic::SGSGameLogic() : m_nSelected(0),
 SGSGameLogic::~SGSGameLogic()
 {
     ev_timer_stop(g_app.m_pLoop, &play_timer);
+    ev_timer_stop(g_app.m_pLoop, &discard_timer);
 }
 
 bool SGSGameLogic::HasSeat(int seatid)
@@ -105,12 +107,15 @@ void SGSGameLogic::discard_timer_cb(struct ev_loop *loop, struct ev_timer *w, in
     if (it != gl->m_mPlayer.end())
     {
         SGSGameAttr &ga = *it->second;
-        for (int i = ga.m_pHero->blood; i < (int)ga.m_lstPlayerCards.size(); ++i)
+        int cnt = (int)ga.m_lstPlayerCards.size() - ga.m_pHero->blood;
+        for (int i = 0 ; i < cnt; ++i)
         {
             root["cards"][i] = ga.m_lstPlayerCards.back()->card();
             ga.m_lstPlayerCards.pop_back();
         }
         root["code"] = (code); //
+        root["seatid"] = (ga.m_player->SeatID()); //
+        root["card_cnt"] = ga.m_lstPlayerCards.size();
         PPacket packet;
         packet.body() = root.toStyledString();
         packet.pack(GAME_DISCARD_BC);
@@ -240,7 +245,7 @@ int SGSGameLogic::PlayCardUC(int seat)
     {
         Deal(*tsga->second, root, 2);
     }
-
+    m_nStatus = PLAYER_PLAY_CARD;
     m_nCurrPlayerSeat = m_nCurrOutSeat = seat;
 
     root["code"] = code; //
@@ -262,12 +267,13 @@ int SGSGameLogic::DisCardUC(Player *player)
     int seat = player->SeatID();
 
     std::map<int, std::shared_ptr<SGSGameAttr>>::iterator sga = m_mPlayer.find(seat);
-    if (sga == m_mPlayer.end())
+    if (sga != m_mPlayer.end())
     {
-        if (sga->second->m_nBlood < (int)sga->second->m_lstPlayerCards.size() )
+        if (sga->second->m_pHero->blood < (int)sga->second->m_lstPlayerCards.size() )
         {
             //弃牌
-            sga->second->m_nDiscardCnt = sga->second->m_lstPlayerCards.size() - sga->second->m_nBlood;
+            m_nStatus = PLAYER_DISCARD;
+            sga->second->m_nDiscardCnt = sga->second->m_lstPlayerCards.size() - sga->second->m_pHero->blood;
             root["discard_cnt"] = sga->second->m_nDiscardCnt;
         }
         else
@@ -286,7 +292,7 @@ int SGSGameLogic::DisCardUC(Player *player)
     root["seatid"] = seat;
     PPacket packet;
     packet.body() = root.toStyledString();
-    packet.pack(GAME_PLAY_CARD_BC);
+    packet.pack(GAME_DISCARD_UC);
 
     m_pRoom->Unicast(player, packet);
     //开始出牌
@@ -311,42 +317,48 @@ int SGSGameLogic::ReqPlayCard(Player *player)
     std::map<int, std::shared_ptr<SGSGameAttr>>::iterator sga = m_mPlayer.end();
     std::list<std::shared_ptr<SGSCard>>::iterator it;
     int seat = player->SeatID();
-	
-	if (!Game::ParseMsg(player,&root,err))
-	{
-		code = 0x01;
-	}
-	else
-	{
-        if (seat == m_nCurrPlayerSeat)
+    if (PLAYER_PLAY_CARD == m_nStatus)
+    {
+        if (!Game::ParseMsg(player, &root, err))
         {
-            card = root["card"].asInt();
-            sga = m_mPlayer.find(seat);
-            if (sga != m_mPlayer.end())
+            code = 0x01;
+        }
+        else
+        {
+            if (seat == m_nCurrPlayerSeat)
             {
-                std::list<std::shared_ptr<SGSCard>> &lstcard = sga->second->m_lstPlayerCards;
-                for (  it = lstcard.begin(); it != lstcard.end(); ++it)
+                card = root["card"].asInt();
+                sga = m_mPlayer.find(seat);
+                if (sga != m_mPlayer.end())
                 {
-                    if ((*it)->card() == card)
+                    std::list<std::shared_ptr<SGSCard>> &lstcard = sga->second->m_lstPlayerCards;
+                    for (it = lstcard.begin(); it != lstcard.end(); ++it)
                     {
-                        find = true;
-                        break;
+                        if ((*it)->card() == card)
+                        {
+                            find = true;
+                            break;
+                        }
                     }
+                }
+                else
+                {
+                    code = 0x04;
+                }
+                if (!find)
+                {
+                    code = 0x08;
                 }
             }
             else
             {
-                code = 0x04;
-            }
-            if (!find)
-            {
-                code = 0x08;
+                code = 0x10;
             }
         }
-        else
-        {
-            code = 0x10;
-        }
+    }
+    else
+    {
+        code = 0x11;
     }
 
     if (0 == code && find)
@@ -449,51 +461,61 @@ int SGSGameLogic::ReqDiscard(Player *player)
 	std::string err;
 
     std::map<int, std::shared_ptr<SGSGameAttr>>::iterator sga = m_mPlayer.find(player->SeatID());
-    if (sga != m_mPlayer.end())
+
+    if (PLAYER_DISCARD == m_nStatus)
     {
-        if (!Game::ParseMsg(player, &root, err))
+        if (sga != m_mPlayer.end())
         {
-            code = 0x01;
-        }
-        else
-        {
-            Json::Value &cards = root["cards"];
-            if (sga->second->m_nDiscardCnt == (int)cards.size())
+            if (!Game::ParseMsg(player, &root, err))
             {
-                int i = 0;
-                std::list<std::shared_ptr<SGSCard>> &lstcard = sga->second->m_lstPlayerCards;
-                for (; i < (int)cards.size(); ++i)
-                {
-                    for (std::list<std::shared_ptr<SGSCard>>::iterator it = lstcard.begin(); it != lstcard.end(); )
-                    {
-                        if ((*it)->card() == cards[i].asInt())
-                        {
-                            it = lstcard.erase(it);
-                            break;
-                        }
-                        else
-                        {
-                            ++it;
-                        }
-                    }
-                }
-                if (i != sga->second->m_nDiscardCnt)
-                {
-                    code = 0x08;
-                }
+                code = 0x01;
             }
             else
             {
-                code  = 0x02;
+                Json::Value &cards = root["cards"];
+                if (sga->second->m_nDiscardCnt == (int)cards.size())
+                {
+                    int i = 0;
+                    std::list<std::shared_ptr<SGSCard>> &lstcard = sga->second->m_lstPlayerCards;
+                    for (; i < (int)cards.size(); ++i)
+                    {
+                        for (std::list<std::shared_ptr<SGSCard>>::iterator it = lstcard.begin(); it != lstcard.end();)
+                        {
+                            if ((*it)->card() == cards[i].asInt())
+                            {
+                                result["cards"][i] = (*it)->card();
+                                it = lstcard.erase(it);
+                                break;
+                            }
+                            else
+                            {
+                                ++it;
+                            }
+                        }
+                    }
+                    if (i != sga->second->m_nDiscardCnt)
+                    {
+                        code = 0x08;
+                    }
+                }
+                else
+                {
+                    code = 0x02;
+                }
             }
+            result["card_cnt"] = sga->second->m_lstPlayerCards.size();
         }
-        result["card_cnt"] = sga->second->m_lstPlayerCards.size();
+        else
+        {
+            code = 0x04;
+        }
     }
     else
     {
-        code = 0x04;
+        code = 0x10;
     }
     result["code"] = (code); //
+    result["seatid"] = (player->SeatID()); //
 	PPacket packet;
 	packet.body() = result.toStyledString(); 
 	packet.pack(GAME_DISCARD_BC);
