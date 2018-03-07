@@ -1,5 +1,7 @@
 #include "Do_function.h"
 #include "AppDelegate.h"
+#include "../Classes/model/sgscard.h"
+#include "Fight\FightMainScene.h"
 
 
 Do_function::Do_function()
@@ -119,6 +121,7 @@ void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 			Json::Value v = pkt["hero"][i];
 			heroid[i]= v["idhero"].asInt();
 		}
+		u_room.m_nStatus = 2;
 		u_room.SetTenSelectHero(pkt);
 	//	u_room.TenSelectHero;
 	//	MessageBox(u_room.TenSelectHero[0].name);
@@ -157,12 +160,43 @@ void Do_function::GAME_SELECT_CARD_BC(Json::Value &pkt, int cmd)
 	}
 }
 
+void Do_function::GAME_DEAL_BC(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt())
+	{
+		int u_seatid = pkt["seatid"].asInt();
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (it->m_nSeatId == u_seatid)
+			{
+				//u_player.m_nSeatId = it->m_nSeatId;
+				int i;
+				Json::Value & cards = pkt["cards"];
+				for (i = 0; i<cards.size(); i++)
+				{
+					Json::Value v = cards[i];
+					SGSCard *a = new SGSCard(v.asInt());
+					it->m_oGameAttr.m_lstPlayerCards.push_back(std::shared_ptr<SGSCard>(a));
+				}
+				break;
+			}
+		}
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {	//更新手牌
+			((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+		});
+		//座位号
+	}
+	else
+	{
+		MessageBox("deal failed!", "");
+	};
+}
+
 void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 {
 	if (0 == pkt["code"].asInt())
 	{
 		//
-		//Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
+		Layer *layer = (Layer*)u_player.MyCurrentScene->getChildByName("selectHero");
 	//	
 		int u_seatid = pkt["seatid"].asInt();
 		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
@@ -170,7 +204,7 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 			if (it->m_nSeatId == u_seatid)
 			{
 				//u_player.m_nSeatId = it->m_nSeatId;
-				*it->m_oGameAttr.m_pHero = u_room.TenSelectHero[ pkt.get("idhero", 0).asInt()];
+				*it->m_oGameAttr.m_pHero = u_room.TenSelectHero[ pkt.get("idhero", 0).asInt()-1];
 				break;
 			}
 		}
@@ -179,8 +213,8 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 		});
 		if (u_seatid == u_player.m_nSeatId)
 		{
-			((FightMain*)u_player.MyCurrentScene)->selectHero->removeFromParentAndCleanup(true);
-			//layer->setVisible(false);
+			//((FightMain*)u_player.MyCurrentScene)->selectHero->removeFromParentAndCleanup(true);
+			layer->setVisible(false);
 		}
 		else
 		{
@@ -190,5 +224,79 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 	else
 	{
 		;
+	}
+}
+
+
+void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
+{
+	if (0 == pkt["code"].asInt())
+	{
+		//
+		int card_num = pkt["card"].asInt();
+		int u_seatid = pkt["seatid"].asInt();
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{//std::list<std::shared_ptr<SGSCard>> m_lstPlayerCards; //all card
+			if (it->m_nSeatId == u_seatid)
+			{
+				for (std::list<std::shared_ptr<SGSCard>>::iterator it_card = it->m_oGameAttr.m_lstPlayerCards.begin(); it_card != it->m_oGameAttr.m_lstPlayerCards.end();)
+				{
+					if ((*it_card)->card()==card_num)
+					{
+						it_card = it->m_oGameAttr.m_lstPlayerCards.erase(it_card);
+						if (u_player.m_nSeatId == u_seatid)
+						{
+							Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+								((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+							});
+						}
+						break;
+					}
+					else
+						++it_card;
+				}
+				break;
+			}
+			else {
+
+			}
+		}
+	}
+	else
+	{
+		log("failed");
+	}
+}
+
+void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt()) {
+		if (pkt["seatid"] == u_player.m_nSeatId) {
+			int i;
+			Json::Value & cards = pkt["cards"];
+			for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+			{//std::list<std::shared_ptr<SGSCard>> m_lstPlayerCards; //all card
+				if (it->m_nSeatId == u_player.m_nSeatId)
+				{
+					for (i = 0; i < cards.size(); i++)
+					{
+						SGSCard *a = new SGSCard(cards[i].asInt());
+						(*it).m_oGameAttr.m_lstPlayerCards.push_back(std::shared_ptr<SGSCard>(a));
+					}
+					break;
+				}
+			}
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+				((FightMain *)u_player.MyCurrentScene)->ShowMyBtnAndTimer();
+			});
+			((FightMain *)u_player.MyCurrentScene)->setStatus(1);
+		}
+		else {
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->HideMyBtnAndTimer();
+				((FightMain *)u_player.MyCurrentScene)->ShowEnemyTimer();
+			});
+			((FightMain *)u_player.MyCurrentScene)->setStatus(0);
+		}
 	}
 }

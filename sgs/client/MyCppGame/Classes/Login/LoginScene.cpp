@@ -101,8 +101,8 @@ bool Login::init()
 
 			//Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, HelloWorld::createScene()));
 
-			log(txt_account->getString().c_str());
-			log(txt_pwd->getString().c_str());
+			//log(txt_account->getString().c_str());
+			//log(txt_pwd->getString().c_str());
 
 			if (txt_account->getStringLength() >= 3 && txt_account->getStringLength() <= 15 &&
 				txt_pwd->getStringLength() >= 3 && txt_pwd->getStringLength() <= 15) {

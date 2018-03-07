@@ -7,8 +7,8 @@ using boost::asio::ip::tcp;
 
 #ifdef WIN32  
 #define CCSleep(t)  Sleep(t)  
-#elif defined (IOS || ANDROID)  
-#define CCSleep(t)  USleep(t)  
+#else
+#define CCSleep(t)  sleep(t)  
 #endif  
 
 

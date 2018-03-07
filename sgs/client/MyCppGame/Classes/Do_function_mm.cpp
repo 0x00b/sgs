@@ -19,7 +19,8 @@ void Do_function::PLAYER_QUIT_ROOM_BC(Json::Value &pkt, int cmd) {
 					break;
 				}
 			}
-			((ReadyHome*)u_player.MyCurrentScene)->UpdateReadyHome();
+			if(u_room.m_nStatus < 2)
+				((ReadyHome*)u_player.MyCurrentScene)->UpdateReadyHome();
 		}
 		/*u_room.Set(pkt);
 		u_room.m_stNewPlayer = pkt["player"].asString();

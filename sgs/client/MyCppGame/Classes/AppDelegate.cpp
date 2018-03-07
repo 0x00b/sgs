@@ -39,8 +39,17 @@ Room u_room;
 
 
 tcp::socket sock(*(new boost::asio::io_service()));
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.251"),37373);
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.144"),37373);
 
+#include <stdio.h>
+#include <stdlib.h>
+
+std::string m_to_string(int n)
+{
+	char buffer[12];
+	snprintf(buffer, 12,"%d", n);
+	return buffer;
+}
 void connectToSvr()
 {
 	try
@@ -154,6 +163,14 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case GAME_SELECT_HERO_BC:
 		Do_function::GAME_SELECT_HERO_BC(pkt, cmd);
 		break;
+	case GAME_DEAL_BC:
+		Do_function::GAME_DEAL_BC(pkt, cmd);
+		break;
+	case GAME_OUT_CARD_BC:
+		Do_function::GAME_OUT_CARD_BC(pkt, cmd);	//点击出牌
+	case GAME_PLAY_CARD_BC:
+		Do_function::GAME_PLAY_CARD_BC(pkt, cmd);	//轮到谁出牌
+		break;
 	default:
 		break;
 	}
@@ -210,7 +227,7 @@ void AppDelegate::func_receive()
 					connectToSvr();
 				}
 			}
-			log(pRecvBuf.get());
+			//log("%s",pRecvBuf.get());
 			pMsg.body.append(pRecvBuf.get(), pMsg.header.len);
 			reader->parse(pMsg.body.c_str(), pMsg.body.c_str() + pMsg.body.length(), &root, &err);
 		}
