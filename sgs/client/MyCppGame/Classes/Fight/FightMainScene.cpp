@@ -690,7 +690,7 @@ void FightMain::show_shan(int i)
 	auto *action = Sequence::create(
 		Repeat::create(animate, 1),
 		CallFuncN::create(CC_CALLBACK_1(FightMain::hid_shan, this)), NULL);
-	animation_sha->runAction(action);
+	animation_shan->runAction(action);
 }
 
 void FightMain::show_tao(int i)
