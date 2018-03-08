@@ -519,9 +519,9 @@ void FightMain::UpdateHandCard() {
 	}
 }
 
-void FightMain::UpdateFightInfo() {
+void FightMain::UpdateFightInfo(int i, int blood) {
 	//¸üÐÂÑªÁ¿
-	int blood[2] = { 2, 1 };
+	/*int blood[2] = { 2, 1 };
 	int max_blood[2] = { 4,4 };
 	for (int i = 0; i < 2; ++i) {
 		for (int j = 0; j < blood[i]; ++j) {
@@ -530,7 +530,14 @@ void FightMain::UpdateFightInfo() {
 		for (int j = blood[i]; j < max_blood[i]; ++j) {
 			img_blood[i][j]->loadTexture("Fight/blood_lose.png");
 		}
+	}*/
+
+	for (int j = 0; j < blood; ++j) {
+		img_blood[i][j]->loadTexture("Fight/blood_have.png");
 	}
+	/*for (int j = blood; j < max_blood[i]; ++j) {
+		img_blood[i][j]->loadTexture("Fight/blood_lose.png");
+	}*/
 }
 
 void FightMain::ShowMyBtnAndTimer() {

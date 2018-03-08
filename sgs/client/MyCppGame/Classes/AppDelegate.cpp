@@ -179,6 +179,8 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case GAME_CANCEL_OUT_CARD:
 		Do_function::GAME_CANCEL_OUT_CARD_BC(pkt,cmd);
 		break;
+	case GAME_CHANGE_BLOOD:	//广播 一人血量变化
+		Do_function::GAME_CHANGE_BLOOD(pkt,cmd);
 	default:
 		break;
 	}

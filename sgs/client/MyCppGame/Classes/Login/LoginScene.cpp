@@ -76,6 +76,7 @@ bool Login::init()
 	//log(path.c_str());
 	//读取user.txt显示上次登录的用户名
 	std::string str = FileUtils::getInstance()->getStringFromFile(path);
+	//std::string str_account;
 	txt_account->setString(str);
 	//获取可写路径e
 
@@ -109,7 +110,8 @@ bool Login::init()
 
 			//保存用户名到文件
 			std::string path = FileUtils::getInstance()->getWritablePath() + "user.txt";
-			const std::string str = txt_account->getString();
+			std::string str = txt_account->getString();
+			//str = str + " " + txt_pwd->getString();
 			FileUtils::getInstance()->writeStringToFile(str, path);
 			//保存用户名到user.txt
 

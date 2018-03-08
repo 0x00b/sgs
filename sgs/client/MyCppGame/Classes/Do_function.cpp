@@ -437,3 +437,16 @@ void Do_function::GAME_CANCEL_OUT_CARD_BC(Json::Value &pkt, int cmd) {
 		
 	}
 }
+
+void Do_function::GAME_CHANGE_BLOOD(Json::Value &pkt, int cmd) {
+	if (pkt["seatid"].asInt() == u_player.m_nSeatId) {		//我的血量变化
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() { //更新我的手牌数
+			((FightMain *)u_player.MyCurrentScene)->UpdateFightInfo(0, pkt["blood"].asInt());
+		});
+	}
+	else {	//对手血量变化
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() { //更新我的手牌数
+			((FightMain *)u_player.MyCurrentScene)->UpdateFightInfo(1, pkt["blood"].asInt());
+		});
+	}
+}
