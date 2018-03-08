@@ -20,20 +20,20 @@ public:
 private:
 	ImageView* img_bg;	//背景图
 
-	ImageView* img_hero[2];				//我方武将信息
+	ImageView* img_hero[2];				//武将信息
 	ImageView* img_hero_info_bg[2];	//用于在武将国家和姓名的背景色
 	ImageView* img_hero_country[2];
 	Label* lab_hero_name[2];
-	ImageView* img_handcard_num_bg[2];	//我方手牌数背景
-	Label* lab_handcard_num[2];	//我方手牌数
+	ImageView* img_handcard_num_bg[2];	//手牌数背景
+	Label* lab_handcard_num[2];	//手牌数
 	ImageView* img_blood[2][4];	//血 最多四个 在初始化武将信息的时候初始化
 
-	ImageView* img_enemy_hero;				//对方武将信息
-	ImageView* img_enemy_hero_info_bg;	//用于在武将国家和姓名的背景色
-	ImageView* img_enemy_hero_country;
-	Label* lab_enemy_hero_name;
-	ImageView* img_enemy_handcard_num_bg;	//敌方手牌数背景
-	Label* lab_enemy_handcard_num;	//敌方手牌数
+	//ImageView* img_enemy_hero;				//对方武将信息
+	//ImageView* img_enemy_hero_info_bg;	//用于在武将国家和姓名的背景色
+	//ImageView* img_enemy_hero_country;
+	//Label* lab_enemy_hero_name;
+	//ImageView* img_enemy_handcard_num_bg;	//敌方手牌数背景
+	//Label* lab_enemy_handcard_num;	//敌方手牌数
 
 	ProgressTimer* pt_0;	//我方出手定时
 	ProgressTimer* pt_1;	//敌方出手定时
@@ -49,7 +49,7 @@ private:
 	Button* btn_confirm;  //确定
 	Button* btn_cancel;  //取消
 
-	std::list<Sprite *> sp_out_cards;	//出的牌 保留3秒
+	Label* lab_now_stage;	//显示当前阶段的标签
 public:
 	void InitHeroInfo();				//初始化敌我武将信息
 
@@ -68,6 +68,9 @@ public:
 	void setStatus(int i);
 	int getStatus();
 	void setStage(int i);
+
+	void UpdateHandCardNum(int i,int cnt);		//更新手牌数 第一个参数0代表我 1代表对手 第二个参数未张数
+	void UpdateStageLab(std::string stage_name);	//更新当前阶段
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

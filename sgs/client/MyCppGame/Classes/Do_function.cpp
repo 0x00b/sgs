@@ -183,7 +183,15 @@ void Do_function::GAME_DEAL_BC(Json::Value &pkt, int cmd) {
 		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {	//更新手牌
 			((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
 		});
+
+		//更新手牌数
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {	//更新对手手牌数
+			((FightMain *)u_player.MyCurrentScene)->UpdateHandCardNum(0, pkt["card_cnt"].asInt());
+			((FightMain *)u_player.MyCurrentScene)->UpdateHandCardNum(1, pkt["card_cnt"].asInt());
+		});
+
 		//座位号
+
 	}
 	else
 	{
@@ -261,6 +269,23 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 
 			}
 		}
+		//更新手牌数
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (u_player.m_nSeatId == pkt["seatid"].asInt())
+			{
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() { //更新我的手牌数
+					((FightMain *)u_player.MyCurrentScene)->UpdateHandCardNum(0, pkt["card_cnt"].asInt());
+				});
+				break;
+			}
+			else {
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {	//更新对手手牌数
+					((FightMain *)u_player.MyCurrentScene)->UpdateHandCardNum(1, pkt["card_cnt"].asInt());
+				});
+				break;
+			}
+		}
 	}
 	else
 	{
@@ -301,6 +326,38 @@ void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
 			((FightMain *)u_player.MyCurrentScene)->setStatus(0);	//不能点击牌
 			((FightMain *)u_player.MyCurrentScene)->setStage(3);	//当前处于等待状态
 		}
+		//更新手牌数
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (u_player.m_nSeatId == pkt["seatid"].asInt())
+			{
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() { //更新我的手牌数
+					((FightMain *)u_player.MyCurrentScene)->UpdateHandCardNum(0, pkt["card_cnt"].asInt());
+				});
+				break;
+			}
+			else {
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {	//更新对手手牌数
+					((FightMain *)u_player.MyCurrentScene)->UpdateHandCardNum(1, pkt["card_cnt"].asInt());
+				});
+				break;
+			}
+		}
+		//更新当前阶段
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (u_player.m_nSeatId == pkt["seatid"].asInt())
+			{
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() { //更新我的手牌数
+					((FightMain *)u_player.MyCurrentScene)->UpdateStageLab(CSGSTXT::GET("outcard"));
+				});
+			}
+			else {
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {	//更新对手手牌数
+					((FightMain *)u_player.MyCurrentScene)->UpdateStageLab(CSGSTXT::GET("wait"));
+				});
+			}
+		}
 	}
 }
 
@@ -311,6 +368,11 @@ void Do_function::GAME_DISCARD_UC(Json::Value &pkt, int cmd) {
 	((FightMain *)u_player.MyCurrentScene)->setStatus(pkt["discard_cnt"].asInt());
 	log("%d",pkt["discard_cnt"].asInt());
 	((FightMain *)u_player.MyCurrentScene)->setStage(2);
+
+	//更新当前阶段
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() { //更新我的手牌数
+		((FightMain *)u_player.MyCurrentScene)->UpdateStageLab(CSGSTXT::GET("discard"));
+	});
 }
 
 void Do_function::GAME_DISCARD_BC(Json::Value &pkt, int cmd) {
@@ -342,5 +404,28 @@ void Do_function::GAME_DISCARD_BC(Json::Value &pkt, int cmd) {
 		}else {	//其他玩家弃牌
 
 		}
+		//更新手牌数
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (u_player.m_nSeatId == pkt["seatid"].asInt())
+			{
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() { //更新我的手牌数
+					((FightMain *)u_player.MyCurrentScene)->UpdateHandCardNum(0, pkt["card_cnt"].asInt());
+				});
+				break;
+			}
+			else {
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {	//更新对手手牌数
+					((FightMain *)u_player.MyCurrentScene)->UpdateHandCardNum(1, pkt["card_cnt"].asInt());
+				});
+				break;
+			}
+		}
+	}
+}
+
+void Do_function::GAME_CANCEL_OUT_CARD_BC(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt()) {
+		
 	}
 }

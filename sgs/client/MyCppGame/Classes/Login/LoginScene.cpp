@@ -66,10 +66,18 @@ bool Login::init()
 
 	txt_account = TextField::create();
 	txt_account->setPlaceHolder("input your account");
-	txt_account->setText("waterm1");
 	txt_account->setPosition(Vec2(lab_account->getPosition().x + 55, size_rect_bg.height * 3 / 4));
 	txt_account->setAnchorPoint(Vec2(0, 0.5));
 	img_rect_bg->addChild(txt_account);
+
+	//获取可写路径s
+	//C:/Users/mm/AppData/Local/studycocos2dx/
+	std::string path = FileUtils::getInstance()->getWritablePath() + "user.txt";
+	log(path.c_str());
+	//读取user.txt显示上次登录的用户名
+	std::string str = FileUtils::getInstance()->getStringFromFile(path);
+	txt_account->setString(str);
+	//获取可写路径e
 
 	Label* lab_pwd = Label::create(CSGSTXT::GET("pwd"), "fonts/FZBWKSK.TTF", 22);
 	lab_pwd->setPosition(Vec2(size_rect_bg.width / 5, size_rect_bg.height / 2));
@@ -98,6 +106,12 @@ bool Login::init()
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::ENDED:
+
+			//保存用户名到文件
+			std::string path = FileUtils::getInstance()->getWritablePath() + "user.txt";
+			const std::string str = txt_account->getString();
+			FileUtils::getInstance()->writeStringToFile(str, path);
+			//保存用户名到user.txt
 
 			//Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, HelloWorld::createScene()));
 

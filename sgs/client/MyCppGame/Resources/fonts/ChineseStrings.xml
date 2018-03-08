@@ -39,6 +39,15 @@
 	<key>confirm</key>
  	<string>确认</string>
 
+	<key>outcard</key>
+ 	<string>出牌阶段</string>
+
+	<key>discard</key>
+ 	<string>弃牌阶段</string>
+
+	<key>wait</key>
+ 	<string>对手回合</string>
+
 	<key>1</key>
  	<string>刘
 备</string>

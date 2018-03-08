@@ -176,6 +176,8 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 		break;
 	case GAME_DISCARD_BC:
 		Do_function::GAME_DISCARD_BC(pkt, cmd);
+	case GAME_CANCEL_OUT_CARD:
+		Do_function::GAME_CANCEL_OUT_CARD_BC(pkt,cmd);
 		break;
 	default:
 		break;
@@ -321,6 +323,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//}
 
 	register_all_packages();
+
+	//加载背景音乐s
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/gameTable_usually.mp3");//预加载音乐文件
+	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.5);//一半音量
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/gameTable_usually.mp3", true);//true为循环播放
+	//加载背景音乐e
+
+	//加载音效s
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/passbutton.mp3");
+	//加载音效e
 
 	// create a scene. it's an autorelease object
 	auto scene = Login::createScene();

@@ -135,6 +135,13 @@ void FightMain::InitHeroInfo() {
 			lab_hero_name[0]->setString(CSGSTXT::GET(m_to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
 			lab_handcard_num[0]->setString("0");*/
 
+			//显示当前阶段s
+			lab_now_stage = Label::createWithTTF("","fonts/FZBWKSK.TTF",36);
+			lab_now_stage->setPosition(pt_0->getPosition() - Vec2(0, 30));
+			img_bg->addChild(lab_now_stage);
+			//显示当前阶段s
+
+
 			//选中手牌时的确定 取消按钮s
 			btn_confirm = Button::create("Bg/btn_bg.png");
 			btn_confirm->setPosition(pt_0->getPosition() - Vec2(btn_confirm->getContentSize().width * 1.5, 30));
@@ -400,7 +407,46 @@ void FightMain::btn_confirm_card(Ref* sender, cocos2d::ui::Widget::TouchEventTyp
 }
 
 void FightMain::btn_cancel_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type) {
+	if (stage == 1) {	//出牌
+		Json::Value root;
 
+		std::shared_ptr<PPacket> p(new PPacket());
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			p->body = root.toStyledString();
+			p->pack(GAME_CANCEL_OUT_CARD);
+			g_lstWrite.push_back(p);
+			//		this->setVisible(false);
+			break;
+		case ui::Widget::TouchEventType::MOVED:
+			break;
+		default:
+			break;
+		}
+	}
+	else if (stage == 2) {	//弃牌
+		Json::Value root;
+
+		std::shared_ptr<PPacket> p(new PPacket());
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			p->body = root.toStyledString();
+			p->pack(GAME_CANCEL_OUT_CARD);
+			g_lstWrite.push_back(p);
+			//		this->setVisible(false);
+			break;
+		case ui::Widget::TouchEventType::MOVED:
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void FightMain::UpdateHandCard() {
@@ -496,6 +542,7 @@ void FightMain::HideMyBtnAndTimer() {
 	btn_cancel->setVisible(false);
 
 	pt_0->stopAllActions(); //隐藏我的定时器
+	pt_0->setPercentage(0);
 }
 void FightMain::ShowEnemyTimer() {
 	pt_1->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行敌方定时器
@@ -503,6 +550,7 @@ void FightMain::ShowEnemyTimer() {
 
 void FightMain::HideEnemyTimer() {
 	pt_1->stopAllActions();	//隐藏敌方定时器
+	pt_1->setPercentage(0);
 }
 
 void FightMain::setStatus(int i) {
@@ -515,4 +563,12 @@ int FightMain::getStatus() {
 
 void FightMain::setStage(int i) {
 	stage = i;
+}
+
+void FightMain::UpdateHandCardNum(int i, int cnt) {
+	lab_handcard_num[i]->setString(m_to_string(cnt));
+}
+
+void FightMain::UpdateStageLab(std::string stage_name) {
+	lab_now_stage->setString(stage_name);
 }
