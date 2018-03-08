@@ -25,6 +25,18 @@ bool FightMain::init()
 		return false;
 	}
 
+	//animation_sha = Sprite::create("Bg/back_bg.png");
+	animation_sha = Sprite::create();
+	animation_shan = Sprite::create();
+	animation_tao = Sprite::create();
+	animation_sha->setAnchorPoint(Point(0, 0));
+	animation_shan->setAnchorPoint(Point(0, 0));
+	animation_tao->setAnchorPoint(Point(0, 0));
+
+	animation_sha->setPosition(200, 300);
+	animation_shan->setPosition(200, 300);
+	animation_tao->setPosition(200, 300);
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	win  = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -48,7 +60,9 @@ bool FightMain::init()
 	selectHero = SelectHero2Layer::create();
 	this->addChild(selectHero,2,"selectHero");
 	Vec_create();  //当桃闪杀放入缓冲区
-
+	addChild(animation_sha);
+	addChild(animation_shan);
+	addChild(animation_tao);
 	return true;
 }
 
@@ -588,7 +602,9 @@ void FightMain::Vec_create()
 	animation_shan->setAnchorPoint(Point(0, 0));
 	animation_tao->setAnchorPoint(Point(0, 0));
 	auto cache = SpriteFrameCache::getInstance();  // 创建一个缓存单例
-	cache->addSpriteFramesWithFile("animation/TXsha/TXsha0.plist");   //通过plist配置文件添加一组精灵帧
+	auto cache_1 = SpriteFrameCache::getInstance();  // 创建一个缓存单例
+	auto cache_2 = SpriteFrameCache::getInstance();  // 创建一个缓存单例
+	cache->addSpriteFramesWithFile("animation/TXSha/TXSha0.plist");   //通过plist配置文件添加一组精灵帧
 	char name[50];
 	memset(name, 0, 50);
 	for (int i = 0; i < 9; i++)
@@ -596,27 +612,27 @@ void FightMain::Vec_create()
 		sprintf(name, "sha_000%d.png", i);
 		sha_vec.pushBack(cache->getSpriteFrameByName(name));
 	}  //把大的图一部分一部分的切出来放进vec
-	cache->addSpriteFramesWithFile("animation/TXsha/TXsha1.plist");
+	cache->addSpriteFramesWithFile("animation/TXSha/TXSha1.plist");
 	sprintf(name, "sha_0009.png");
 	sha_vec.pushBack(cache->getSpriteFrameByName(name));  //shan_00000.png
 
-	cache->addSpriteFramesWithFile("animation/TXShan/TXShan0.plist");   //通过plist配置文件添加一组精灵帧
+	cache_1->addSpriteFramesWithFile("animation/TXShan/TXShan0.plist");   //通过plist配置文件添加一组精灵帧
 
-	memset(name, 0, 20);
+	memset(name, 0, 50);
 	for (int i = 0; i < 9; i++)
 	{
 		sprintf(name, "shan_0000%d.png", i);
-		sha_vec.pushBack(cache->getSpriteFrameByName(name));
+		shan_vec.pushBack(cache_1->getSpriteFrameByName(name));
 	}  //把大的图一部分一部分的切出来放进vec
 
 
-	cache->addSpriteFramesWithFile("animation/TXTao/TXTao0.plist");   //通过plist配置文件添加一组精灵帧
+	cache_2->addSpriteFramesWithFile("animation/TXTao/TXTao0.plist");   //通过plist配置文件添加一组精灵帧
 
-	memset(name, 0, 20);
+	memset(name, 0, 50);
 	for (int i = 0; i < 9; i++)
 	{
 		sprintf(name, "tao_0000%d.png", i);
-		tao_vec.pushBack(cache->getSpriteFrameByName(name));
+		tao_vec.pushBack(cache_2->getSpriteFrameByName(name));
 	}  //把大的图一部分一部分的切出来放进vec
 }
 
@@ -637,14 +653,18 @@ void FightMain::hid_tao(Node* sender)  //将桃的精灵隐藏
 
 void FightMain::show_sha(int i)
 {
+	float x, y;
 	if (0 == i)  // 0的时候自己向对面
 	{
-		animation_sha->setPosition(win.width/2,win.height/5);
+		x = win.width / 2;
+		y = win.height / 5;
 	}
 	else
 	{
-		animation_sha->setPosition(win.width / 2, win.height * 4 / 5);
+		x = win.width / 2;
+		y = win.height * 3.5 / 5;
 	}
+	animation_sha->setPosition(x, y);
 	animation_sha->setVisible(true);
 	auto animation = Animation::createWithSpriteFrames(sha_vec, 0.1f);  //动画的配置
 	auto animate = Animate::create(animation); //包装成动作
@@ -662,7 +682,7 @@ void FightMain::show_shan(int i)
 	}
 	else
 	{
-		animation_shan->setPosition(win.width / 2, win.height * 4 / 5);
+		animation_shan->setPosition(win.width / 2, win.height * 3.5 / 5);
 	}
 	animation_shan->setVisible(true);
 	auto animation = Animation::createWithSpriteFrames(shan_vec, 0.1f);  //动画的配置
@@ -681,7 +701,7 @@ void FightMain::show_tao(int i)
 	}
 	else
 	{
-		animation_tao->setPosition(win.width / 2, win.height * 4 / 5);
+		animation_tao->setPosition(win.width / 2, win.height * 3.5 / 5);
 	}
 	animation_tao->setVisible(true);
 	auto animation = Animation::createWithSpriteFrames(sha_vec, 0.1f);  //动画的配置
