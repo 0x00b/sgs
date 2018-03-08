@@ -287,6 +287,7 @@ void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
 			}
 			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
 				((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+				((FightMain *)u_player.MyCurrentScene)->HideEnemyTimer();
 				((FightMain *)u_player.MyCurrentScene)->ShowMyBtnAndTimer();
 			});
 			((FightMain *)u_player.MyCurrentScene)->setStatus(1);	//可以点击一张牌

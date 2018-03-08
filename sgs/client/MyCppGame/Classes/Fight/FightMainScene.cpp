@@ -494,9 +494,15 @@ void FightMain::ShowMyBtnAndTimer() {
 void FightMain::HideMyBtnAndTimer() {
 	btn_confirm->setVisible(false);
 	btn_cancel->setVisible(false);
+
+	pt_0->stopAllActions(); //隐藏我的定时器
 }
 void FightMain::ShowEnemyTimer() {
 	pt_1->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行敌方定时器
+}
+
+void FightMain::HideEnemyTimer() {
+	pt_1->stopAllActions();	//隐藏敌方定时器
 }
 
 void FightMain::setStatus(int i) {

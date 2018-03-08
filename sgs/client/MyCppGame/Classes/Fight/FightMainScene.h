@@ -63,6 +63,7 @@ public:
 	void ShowMyBtnAndTimer();		//显示我的按钮和定时器
 	void HideMyBtnAndTimer();		//隐藏我的按钮和定时器
 	void ShowEnemyTimer();			//显示对手定时器
+	void HideEnemyTimer();			//隐藏对手定时器
 
 	void setStatus(int i);
 	int getStatus();
