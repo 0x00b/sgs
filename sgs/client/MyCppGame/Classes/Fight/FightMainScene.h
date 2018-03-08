@@ -18,8 +18,14 @@ public:
 public:
 	SelectHero2Layer *selectHero;	//选择武将层指针
 private:
+	Size win;
+	Vector<SpriteFrame*> sha_vec;
+	Vector<SpriteFrame*> shan_vec;
+	Vector<SpriteFrame*> tao_vec;
+	Sprite *animation_sha;
+	Sprite *animation_shan;
+	Sprite *animation_tao;
 	ImageView* img_bg;	//背景图
-
 	ImageView* img_hero[2];				//武将信息
 	ImageView* img_hero_info_bg[2];	//用于在武将国家和姓名的背景色
 	ImageView* img_hero_country[2];
@@ -52,7 +58,7 @@ private:
 	Label* lab_now_stage;	//显示当前阶段的标签
 public:
 	void InitHeroInfo();				//初始化敌我武将信息
-
+	void Vec_create();
 	bool onTouchHandCardBegan(Touch* touch, Event* event);		//手牌的触摸事件
 	void onTouchHandCardMoved(Touch* touch, Event* event);
 	bool onTouchHandCardEnded(Touch* touch, Event* event);
@@ -64,6 +70,14 @@ public:
 	void HideMyBtnAndTimer();		//隐藏我的按钮和定时器
 	void ShowEnemyTimer();			//显示对手定时器
 	void HideEnemyTimer();			//隐藏对手定时器
+
+	void hid_sha(Node* sender);   //将杀的精灵隐藏
+	void hid_shan(Node* sender);  //将闪的精灵隐藏
+	void hid_tao(Node* sender);  //将桃的精灵隐藏
+	void show_sha(int i);  //显示杀
+	void show_shan(int i); //显示闪
+	void show_tao(int i);  //显示桃
+
 
 	void setStatus(int i);
 	int getStatus();
