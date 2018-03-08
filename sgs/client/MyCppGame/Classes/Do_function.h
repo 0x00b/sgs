@@ -35,4 +35,6 @@ public:
 	static void GAME_DEAL_BC(Json::Value &pkt, int cmd);
 	static void GAME_OUT_CARD_BC(Json::Value &pkt, int cmd);
 	static void GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd);
+	static void GAME_DISCARD_UC(Json::Value &pkt, int cmd);
+	static void GAME_DISCARD_BC(Json::Value &pkt, int cmd);
 };

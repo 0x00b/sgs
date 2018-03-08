@@ -76,6 +76,7 @@ enum SGSCMD
 								GAME_EQUIP_BC,
 								GAME_DEAL_BC,
 								GAME_GAME_END,
+								GAME_DISCARD_UC
 
 };
 

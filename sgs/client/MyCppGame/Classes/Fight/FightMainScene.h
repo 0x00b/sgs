@@ -38,7 +38,8 @@ private:
 	ProgressTimer* pt_0;	//我方出手定时
 	ProgressTimer* pt_1;	//敌方出手定时
 
-	int status;				//当前可以点的牌数量 抽牌 出牌 弃牌
+	int stage;	//当前处于的阶段 出牌 弃牌 0：初始化 1：出牌 2：弃牌 3：对手回合 等待
+	int status;				//当前可以点的牌数量
 	Sprite* sp_handcard[20];	//手牌
 	int i_current_card_num;	//当前手牌数
 	ImageView* img_handcard_num[20];	//点数
@@ -64,6 +65,8 @@ public:
 	void ShowEnemyTimer();			//显示对手定时器
 
 	void setStatus(int i);
+	int getStatus();
+	void setStage(int i);
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

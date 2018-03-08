@@ -51,6 +51,8 @@ bool FightMain::init()
 }
 
 void FightMain::InitHeroInfo() {
+	//初始化当前阶段
+	stage = 0;
 	//初始化当前选中手牌
 	status = 0;
 	for (int i = 0; i < 20; ++i) {
@@ -313,43 +315,87 @@ bool FightMain::onTouchHandCardEnded(Touch* touch, Event* event) {
 
 void FightMain::btn_confirm_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type)
 {
-	Json::Value root;
-	int card_i = 0;
-	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
-	{
-		if (it->m_nSeatId == u_player.m_nSeatId)
+	if (stage == 1) {	//出牌
+		Json::Value root;
+		int card_i = 0;
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
 		{
-			for (std::list<std::shared_ptr<SGSCard>>::iterator it_card = it->m_oGameAttr.m_lstPlayerCards.begin(); it_card != it->m_oGameAttr.m_lstPlayerCards.end();)
+			if (it->m_nSeatId == u_player.m_nSeatId)
 			{
-				if (card_i == i_current_card[0])
+				for (std::list<std::shared_ptr<SGSCard>>::iterator it_card = it->m_oGameAttr.m_lstPlayerCards.begin(); it_card != it->m_oGameAttr.m_lstPlayerCards.end();)
 				{
-					root["card"] = (*it_card)->card();
-					break;
+					if (card_i == i_current_card[0])
+					{
+						root["card"] = (*it_card)->card();
+						break;
+					}
+					else
+					{
+						card_i++;
+						it_card++;
+					}
 				}
-				else
-				{
-					card_i++;
-					it_card++;
-				}
+				break;
 			}
+		}
+		std::shared_ptr<PPacket> p(new PPacket());
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			p->body = root.toStyledString();
+			p->pack(GAME_OUT_CARD);
+			g_lstWrite.push_back(p);
+			//		this->setVisible(false);
+			break;
+		case ui::Widget::TouchEventType::MOVED:
+			break;
+		default:
 			break;
 		}
 	}
-	std::shared_ptr<PPacket> p(new PPacket());
-	switch (type)
-	{
-	case ui::Widget::TouchEventType::BEGAN:
-		break;
-	case ui::Widget::TouchEventType::ENDED:
-		p->body = root.toStyledString();
-		p->pack(GAME_OUT_CARD);
-		g_lstWrite.push_back(p);
-		//		this->setVisible(false);
-		break;
-	case ui::Widget::TouchEventType::MOVED:
-		break;
-	default:
-		break;
+	else if (stage == 2) {	//弃牌
+		Json::Value root;
+		int card_i = 0;
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (it->m_nSeatId == u_player.m_nSeatId)
+			{
+				for (int i = 0; i < status; ++i) {
+					card_i = 0;
+					for (std::list<std::shared_ptr<SGSCard>>::iterator it_card = it->m_oGameAttr.m_lstPlayerCards.begin(); it_card != it->m_oGameAttr.m_lstPlayerCards.end();)
+					{
+						if (card_i == i_current_card[i])
+						{
+							root["cards"][i] = (*it_card)->card();
+							break;
+						}
+						else
+						{
+							card_i++;
+							it_card++;
+						}
+					}
+				}
+				break;
+			}
+		}
+		std::shared_ptr<PPacket> p(new PPacket());
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			p->body = root.toStyledString();
+			p->pack(GAME_DISCARD);
+			g_lstWrite.push_back(p);
+			break;
+		case ui::Widget::TouchEventType::MOVED:
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -455,4 +501,12 @@ void FightMain::ShowEnemyTimer() {
 
 void FightMain::setStatus(int i) {
 	status = i;
+}
+
+int FightMain::getStatus() {
+	return status;
+}
+
+void FightMain::setStage(int i) {
+	stage = i;
 }

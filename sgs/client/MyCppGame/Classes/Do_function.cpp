@@ -289,14 +289,57 @@ void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
 				((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
 				((FightMain *)u_player.MyCurrentScene)->ShowMyBtnAndTimer();
 			});
-			((FightMain *)u_player.MyCurrentScene)->setStatus(1);
+			((FightMain *)u_player.MyCurrentScene)->setStatus(1);	//可以点击一张牌
+			((FightMain *)u_player.MyCurrentScene)->setStage(1);	//当前处于出牌阶段
 		}
 		else {
 			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
 				((FightMain *)u_player.MyCurrentScene)->HideMyBtnAndTimer();
 				((FightMain *)u_player.MyCurrentScene)->ShowEnemyTimer();
 			});
-			((FightMain *)u_player.MyCurrentScene)->setStatus(0);
+			((FightMain *)u_player.MyCurrentScene)->setStatus(0);	//不能点击牌
+			((FightMain *)u_player.MyCurrentScene)->setStage(3);	//当前处于等待状态
+		}
+	}
+}
+
+void Do_function::GAME_DISCARD_UC(Json::Value &pkt, int cmd) {
+	Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+		((FightMain *)u_player.MyCurrentScene)->ShowMyBtnAndTimer();
+	});
+	((FightMain *)u_player.MyCurrentScene)->setStatus(pkt["discard_cnt"].asInt());
+	log("%d",pkt["discard_cnt"].asInt());
+	((FightMain *)u_player.MyCurrentScene)->setStage(2);
+}
+
+void Do_function::GAME_DISCARD_BC(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt()) {
+		log("%d", pkt["cards"].size());
+		if (pkt["seatid"].asInt() == u_player.m_nSeatId) {		//是我弃牌
+			for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+			{
+				if (it->m_nSeatId == pkt["seatid"].asInt())	//玩家列表中找到我
+				{
+					for (int i = 0; i < pkt["cards"].size(); ++i) {
+						for (std::list<std::shared_ptr<SGSCard>>::iterator it_card = it->m_oGameAttr.m_lstPlayerCards.begin(); it_card != it->m_oGameAttr.m_lstPlayerCards.end();)
+						{
+							if ((*it_card)->card() == pkt["cards"][i].asInt())
+							{
+								it_card = it->m_oGameAttr.m_lstPlayerCards.erase(it_card);
+								break;
+							}
+							else
+								++it_card;
+						}
+					}
+					break;
+				}
+			}
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateHandCard();
+			});
+		}else {	//其他玩家弃牌
+
 		}
 	}
 }
