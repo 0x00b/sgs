@@ -68,8 +68,11 @@ public:
 
 	int StartDeal();//开始发牌
 	int Deal(SGSGameAttr& player, Json::Value& v, int cnt);//给player发牌
-	int PlayCardUC(int seat);
+	int PlayCardUC(int seat, int deal = 0);
 	int DisCardUC(Player* player);
+	int ChangeBloodBC(int seat, int blood);
+	int CanContinuePlayCard(int seat);
+	int GameEnd(int winseat);
 
 	int ReqPlayCard(Player *player);
 	int ReqDiscard(Player *player);
@@ -84,7 +87,7 @@ public:
 
 	int DealCard_Tao(int seat, int to_seat);
 	int DealCard_Sha(int seat, int to_seat);
-	int DealCard_Shan(int seat);
+	int DealCard_Shan(int seat, int to_seat);
 
 
 private:

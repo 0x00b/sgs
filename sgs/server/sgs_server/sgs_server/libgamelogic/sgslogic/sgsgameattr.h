@@ -22,10 +22,12 @@ public:
   std::shared_ptr<Hero> m_pHero;
   std::vector<std::shared_ptr<Hero>> m_vHeros;
 
-  bool m_bSelectedHero;
+  int m_nBlood;//保存最大血量值
   int m_nToMeCard;
   int m_nStatus;
   int m_nDiscardCnt;
+  bool m_bSelectedHero;
+  bool m_bCanSha;
   
   virtual void Reset();
 

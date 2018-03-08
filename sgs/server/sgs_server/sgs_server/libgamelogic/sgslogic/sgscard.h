@@ -36,6 +36,7 @@ class SGSCard: public Card
     {
       CARD_TYPE_EX            = 0x300,
       
+      CARD_NONE               = 0XFF,
       CARD_SHAN               = 0x00,
       CARD_SHA                = 0x01,
       CARD_TAO                = 0x02,
@@ -84,6 +85,7 @@ class SGSCard: public Card
     inline virtual int type() const;
     inline virtual int func() const;
 
+    static int func(int card);
     SGSCard& operator=(int card);
 
   protected:
@@ -109,5 +111,4 @@ int SGSCard::func() const
 {
   return  (card_ & FUNC_MASK)>>12;
 }
-
 #endif

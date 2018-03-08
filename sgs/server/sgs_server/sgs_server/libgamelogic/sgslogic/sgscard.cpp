@@ -338,3 +338,8 @@ SGSCard::SGSCard(int card, const std::string name, const std::string desc) : Car
 SGSCard::~SGSCard()
 {
 }
+
+int SGSCard::func(int card)
+{
+  return  (card & FUNC_MASK)>>12;
+}
