@@ -704,7 +704,7 @@ void FightMain::show_tao(int i)
 		animation_tao->setPosition(win.width / 2, win.height * 3.5 / 5);
 	}
 	animation_tao->setVisible(true);
-	auto animation = Animation::createWithSpriteFrames(sha_vec, 0.1f);  //动画的配置
+	auto animation = Animation::createWithSpriteFrames(tao_vec, 0.1f);  //动画的配置
 	auto animate = Animate::create(animation); //包装成动作
 	auto *action = Sequence::create(
 		Repeat::create(animate, 1),
