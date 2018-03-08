@@ -329,3 +329,14 @@ SGSCard::~SGSCard()
 {
 }
 
+
+SGSCard &SGSCard::operator=(int card)
+{
+	card_ = card;
+	return *this;
+}
+
+int SGSCard::func(int card)
+{
+	return  (card & FUNC_MASK) >> 12;
+}
