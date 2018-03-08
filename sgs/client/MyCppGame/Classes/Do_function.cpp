@@ -243,6 +243,53 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 		//
 		int card_num = pkt["card"].asInt();
 		int u_seatid = pkt["seatid"].asInt();
+		switch (SGSCard::func(card_num))
+		{
+		case SGSCard::CARD_SHA:
+		if (u_seatid == u_player.m_nSeatId)
+		{
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->show_sha(0);
+			});
+		}
+		else
+		{
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->show_sha(1);
+			});
+		}
+		break;
+		case SGSCard::CARD_SHAN:
+			if (u_seatid == u_player.m_nSeatId)
+			{
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+					((FightMain *)u_player.MyCurrentScene)->show_shan(0);
+				});
+			}
+			else
+			{
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+					((FightMain *)u_player.MyCurrentScene)->show_shan(1);
+				});
+			}
+			; break;
+		case SGSCard::CARD_TAO:
+			if (u_seatid == u_player.m_nSeatId)
+			{
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+					((FightMain *)u_player.MyCurrentScene)->show_tao(0);
+				});
+			}
+			else
+			{
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+					((FightMain *)u_player.MyCurrentScene)->show_tao(1);
+				});
+			}
+			; break;
+		default:
+			break;
+		}
 		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
 		{//std::list<std::shared_ptr<SGSCard>> m_lstPlayerCards; //all card
 			if (it->m_nSeatId == u_seatid)
