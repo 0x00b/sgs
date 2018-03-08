@@ -22,9 +22,9 @@ private:
 	Vector<SpriteFrame*> sha_vec;
 	Vector<SpriteFrame*> shan_vec;
 	Vector<SpriteFrame*> tao_vec;
-	Sprite *animation_sha;
-	Sprite *animation_shan;
-	Sprite *animation_tao;
+	Sprite *animation_sha = Sprite::create();
+	Sprite *animation_shan = Sprite::create();
+	Sprite *animation_tao = Sprite::create();
 	ImageView* img_bg;	//背景图
 	ImageView* img_hero[2];				//武将信息
 	ImageView* img_hero_info_bg[2];	//用于在武将国家和姓名的背景色
