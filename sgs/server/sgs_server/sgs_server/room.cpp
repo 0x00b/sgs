@@ -50,7 +50,7 @@ int Room::QuitRoom(Player *player)
 {
 	if (NULL != player)
 	{
-		if (ROOM_ST_READY >= m_nStatus)
+		//if (ROOM_ST_READY >= m_nStatus)
 		{
 			m_pGmLgic->Leave(player);
 			m_lstPlayers.remove(player);
@@ -71,9 +71,9 @@ int Room::QuitRoom(Player *player)
 			}
 			return 0;
 		}
-		else
+		//else
 		{
-			return 2;
+		//	return 2;
 		}
 	}
 	return -1;

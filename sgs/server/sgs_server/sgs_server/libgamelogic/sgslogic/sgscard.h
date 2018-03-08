@@ -21,10 +21,10 @@ class SGSCard: public Card
 
     enum CARD_VALUE
     {
-      VALLUE_MASK = 0x00000F,
-      COLOR_MASK  = 0x0000F0,
-      TYPE_MASK   = 0x000F00,
-      FUNC_MASK   = 0xFF0000,
+      VALLUE_MASK = 0x0000F,
+      COLOR_MASK  = 0x000F0,
+      TYPE_MASK   = 0x00F00,
+      FUNC_MASK   = 0xFF000,
 
       CARD_CLR_BLOCK = 0x00,
       CARD_CLR_HEART = 0x01,
@@ -74,6 +74,8 @@ class SGSCard: public Card
 
     /*functions*/
   public:
+    SGSCard();
+    SGSCard(int card);
     SGSCard(int card, const std::string name = (""), const std::string desc = (""));
     virtual ~SGSCard();
     
@@ -81,6 +83,8 @@ class SGSCard: public Card
     inline virtual int color() const;
     inline virtual int type() const;
     inline virtual int func() const;
+
+    SGSCard& operator=(int card);
 
   protected:
   
@@ -103,7 +107,7 @@ int SGSCard::type() const
 }
 int SGSCard::func() const
 {
-  return  (card_ & FUNC_MASK)>>16;
+  return  (card_ & FUNC_MASK)>>12;
 }
 
 #endif
