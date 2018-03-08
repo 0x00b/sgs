@@ -40,7 +40,7 @@ void Do_function::PLAYER_CREATE_ROOM_UC(Json::Value &pkt, int cmd)
 		}
 		else
 		{
-			log("no player");
+			//log("no player");
 		}
 	//	u_player.m_nSeatId = u_room.m_lstPlayers
 		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
@@ -125,10 +125,10 @@ void Do_function::GAME_START(Json::Value &pkt, int cmd) {
 		u_room.SetTenSelectHero(pkt);
 	//	u_room.TenSelectHero;
 	//	MessageBox(u_room.TenSelectHero[0].name);
-		log("1231222222222222222222222222222222222\n");
+		/*log("1231222222222222222222222222222222222\n");
 		log("1231222222222222222222222222222222222\n country:\n");
 		log(u_room.TenSelectHero[0].country);
-		log("123222221111111111111111111111111111\n");
+		log("123222221111111111111111111111111111\n");*/
 		Director::getInstance()->getScheduler()->performFunctionInCocosThread([&]() {    //idhero
 		u_player.MyCurrentScene = FightMain::createScene();  //把游戏界面给程序 		创建游戏界面
 		// 把10个武将给放上去
@@ -195,8 +195,8 @@ void Do_function::GAME_DEAL_BC(Json::Value &pkt, int cmd) {
 	}
 	else
 	{
-		MessageBox("deal failed!", "");
-	};
+		log("GAME_DEAL_BC %d", pkt["code"].asInt());
+	}
 }
 
 void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
@@ -231,7 +231,7 @@ void Do_function::GAME_SELECT_HERO_BC(Json::Value &pkt, int cmd)
 	}
 	else
 	{
-		;
+		//log("GAME_SELECT_HERO_BC %d", pkt["code"].asInt());
 	}
 }
 
@@ -289,7 +289,7 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 	}
 	else
 	{
-		log("failed");
+		log("GAME_OUT_CARD_BC %d", pkt["code"].asInt());
 	}
 }
 
@@ -359,6 +359,10 @@ void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
 			}
 		}
 	}
+	else
+	{
+		log("GAME_PLAY_CARD_BC %d", pkt["code"].asInt());
+	}
 }
 
 void Do_function::GAME_DISCARD_UC(Json::Value &pkt, int cmd) {
@@ -366,7 +370,7 @@ void Do_function::GAME_DISCARD_UC(Json::Value &pkt, int cmd) {
 		((FightMain *)u_player.MyCurrentScene)->ShowMyBtnAndTimer();
 	});
 	((FightMain *)u_player.MyCurrentScene)->setStatus(pkt["discard_cnt"].asInt());
-	log("%d",pkt["discard_cnt"].asInt());
+	//log("%d",pkt["discard_cnt"].asInt());
 	((FightMain *)u_player.MyCurrentScene)->setStage(2);
 
 	//更新当前阶段
@@ -377,7 +381,7 @@ void Do_function::GAME_DISCARD_UC(Json::Value &pkt, int cmd) {
 
 void Do_function::GAME_DISCARD_BC(Json::Value &pkt, int cmd) {
 	if (0 == pkt["code"].asInt()) {
-		log("%d", pkt["cards"].size());
+		//log("%d", pkt["cards"].size());
 		if (pkt["seatid"].asInt() == u_player.m_nSeatId) {		//是我弃牌
 			for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
 			{
@@ -421,6 +425,10 @@ void Do_function::GAME_DISCARD_BC(Json::Value &pkt, int cmd) {
 				break;
 			}
 		}
+	}
+	else
+	{
+		log("GAME_DISCARD_BC %d", pkt["code"].asInt());
 	}
 }
 

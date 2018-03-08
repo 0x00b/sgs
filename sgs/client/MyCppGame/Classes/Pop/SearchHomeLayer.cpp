@@ -20,8 +20,8 @@ bool SearchHome::init()
 		return false;
 	}
 	this->setColor(ccc3(128,128,128));
-	log("%f %f", this->getContentSize().width, this->getContentSize().height);
-	log("%f %f", this->getPosition().x, this->getPosition().y);
+	//log("%f %f", this->getContentSize().width, this->getContentSize().height);
+	//log("%f %f", this->getPosition().x, this->getPosition().y);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -98,13 +98,13 @@ bool SearchHome::init()
 	auto listener_closepop = EventListenerTouchOneByOne::create();
 	listener_closepop->onTouchBegan = [&](Touch *t, Event *event)
 	{
-		log("listener_closepop Began");
+		//log("listener_closepop Began");
 
 		return true;
 	};
 	listener_closepop->onTouchEnded = [&](Touch *t, Event *event)
 	{
-		log("listener_closepop Ended");
+		//log("listener_closepop Ended");
 		auto seq = Sequence::create(ScaleTo::create(0.3, 0), CallFuncN::create(CC_CALLBACK_1(SearchHome::closeAnimation, this)), NULL);
 		img_bg->runAction(seq);
 		return true;

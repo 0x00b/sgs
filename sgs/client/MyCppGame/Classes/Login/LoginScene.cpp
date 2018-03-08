@@ -73,7 +73,7 @@ bool Login::init()
 	//获取可写路径s
 	//C:/Users/mm/AppData/Local/studycocos2dx/
 	std::string path = FileUtils::getInstance()->getWritablePath() + "user.txt";
-	log(path.c_str());
+	//log(path.c_str());
 	//读取user.txt显示上次登录的用户名
 	std::string str = FileUtils::getInstance()->getStringFromFile(path);
 	txt_account->setString(str);

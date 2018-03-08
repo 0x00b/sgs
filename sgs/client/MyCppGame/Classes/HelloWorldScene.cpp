@@ -202,7 +202,7 @@ bool HelloWorld::init()
 		{
 
 			//using boost::asio::ip::tcp;
-			log("a");
+			//log("a");
 		}
 		return false;
 	};

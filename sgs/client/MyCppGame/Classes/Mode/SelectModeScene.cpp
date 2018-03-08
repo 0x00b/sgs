@@ -134,7 +134,7 @@ bool SelectMode::init()
 }
 
 void SelectMode::AutoSlide(Ref* pSender, Widget::TouchEventType type) {
-	log("click");
+	//log("click");
 
 	switch (type)
 	{
