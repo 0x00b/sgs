@@ -39,7 +39,7 @@ Room u_room;
 
 
 tcp::socket sock(*(new boost::asio::io_service()));
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.207"),37373);
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.14.115.244"),37373);
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -327,14 +327,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	register_all_packages();
 
 	//加载背景音乐s
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/gameTable_usually.mp3");//预加载音乐文件
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sound/springOfTheEastLogin.mp3");//预加载音乐文件
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.5);//一半音量
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/gameTable_usually.mp3", true);//true为循环播放
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/springOfTheEastLogin.mp3", true);//true为循环播放
 	//加载背景音乐e
 
 	//加载音效s
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/passbutton.mp3");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/hurt_no.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/sha.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/shan.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/tao.mp3");
 	//加载音效e
 
 	// create a scene. it's an autorelease object

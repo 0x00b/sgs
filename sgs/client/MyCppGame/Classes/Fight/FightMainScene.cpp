@@ -55,6 +55,38 @@ bool FightMain::init()
 	layer_bg->addChild(img_bg);
 	//背景图e
 
+	//添加一个复选框 用于控制背景音乐s
+	CheckBox* cb_bg_music = CheckBox::create("Sound/check_box_normal.png",
+		"Sound/check_box_normal_press.png",
+		"Sound/check_box_active.png",
+		"Sound/check_box_normal_disable.png",
+		"Sound/check_box_active_disable.png");
+	cb_bg_music->setAnchorPoint(Vec2(1, 1));
+	cb_bg_music->setPosition(Vec2(origin.x+visibleSize.width - 10,origin.y+visibleSize.height - 10));
+	img_bg->addChild(cb_bg_music);
+	cb_bg_music->setScale(0.5);
+	cb_bg_music->setSelected(true);
+
+	cb_bg_music->addEventListener([](Ref* pSender, CheckBox::EventType type) {
+		switch (type)
+		{
+		case cocos2d::ui::CheckBox::EventType::SELECTED:
+			CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+			break;
+		case cocos2d::ui::CheckBox::EventType::UNSELECTED:
+			CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+			break;
+		default:
+			break;
+		}
+	});//注意这里监听器不是触摸监听器
+
+	Label* lab_bg_music = Label::createWithTTF(CSGSTXT::GET("bgmusic"),"fonts/FZBWKSK.TTF",18);
+	lab_bg_music->setAnchorPoint(Vec2(1,1));
+	lab_bg_music->setPosition(Vec2(origin.x + visibleSize.width - 10 - cb_bg_music->getContentSize().width, origin.y + visibleSize.height - 10));
+	img_bg->addChild(lab_bg_music);
+	//添加一个复选框 用于控制背景音乐e
+
 	i_current_card_num = 0;	//初始化手牌数为0
 
 	selectHero = SelectHero2Layer::create();
@@ -653,6 +685,10 @@ void FightMain::hid_tao(Node* sender)  //将桃的精灵隐藏
 
 void FightMain::show_sha(int i)
 {
+	//杀音效s
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/sha.mp3", false);
+	//杀音效e
+
 	float x, y;
 	if (0 == i)  // 0的时候自己向对面
 	{
@@ -676,6 +712,9 @@ void FightMain::show_sha(int i)
 
 void FightMain::show_shan(int i)
 {
+	//闪音效s
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/shan.mp3", false);
+
 	if (0 == i)  // 0的时候自己向对面
 	{
 		animation_shan->setPosition(win.width / 2, win.height / 5);
@@ -695,6 +734,9 @@ void FightMain::show_shan(int i)
 
 void FightMain::show_tao(int i)
 {
+	//桃音效s
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/tao.mp3", false);
+
 	if (0 == i)  // 0的时候自己向对面
 	{
 		animation_tao->setPosition(win.width / 2, win.height / 5);
