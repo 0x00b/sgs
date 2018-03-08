@@ -20,7 +20,7 @@ class SGSGameAttr: public GameAttr
   protected:
   public:
     std::shared_ptr<Hero> m_pHero;
-    int m_nBlood = 0;
+    int m_nMaxBlood = 0;
 
     /*functions*/
   public:
