@@ -16,31 +16,37 @@ public:
 
 
 
+/*************************************************
+* Class		: SGSGameLogic
+* Description	: 游戏逻辑处理类
+* Author		: lijun
+* Create Date	: 2018.1.17
+**************************************************/
 class SGSGameLogic : public GameLogic
 {
 public:
 	static const int P2P_CAN_SELECT_HERO_CNT = 10;
 	static const int P2P_HERO_CNT = 2;
-	std::vector<std::shared_ptr<SHero>> m_vSelcectHero;
-	int m_nSelected; //已经选择的英雄
+	std::vector<std::shared_ptr<SHero>> m_vSelcectHero;//可选择的武将
+	int m_nSelected; 				//已经选择的英雄数量
 
-	int m_nCurrOutSeat;
-	int m_nCurrPlayerSeat;
-	int m_nPlayerSeat;
-	SGSCard m_oLastCard;
-	int m_nStatus;
+	int m_nCurrOutSeat;				//当前出牌的玩家
+	int m_nCurrPlayerSeat;			//当前回合是谁的
+	//int m_nPlayerSeat;				
+	SGSCard m_oLastCard;			//当前回合的牌
+	int m_nStatus;					//状态是
 	
 	enum GM_STATUS
 	{
-		PLAYER_NONE,
-		PLAYER_PLAY_CARD,
-		PLAYER_DISCARD
+		PLAYER_NONE,				//玩家无操作
+		PLAYER_PLAY_CARD,			//玩家打牌
+		PLAYER_DISCARD				//弃牌阶段
 	};
 
-	ev_timer play_timer;
-	ev_tstamp play_timer_stamp;
+	ev_timer play_timer;			//打牌定时器
+	ev_tstamp play_timer_stamp;		
 
-	ev_timer discard_timer;
+	ev_timer discard_timer;			//弃牌定时器
 	ev_tstamp discard_timer_stamp;
 
 public:
@@ -85,10 +91,10 @@ public:
 	int CanPlayCard(Player* player ,int card);
 
 	int DealCard(int card, int seat, Json::Value& root);
-
 	int DealCard_Tao(int seat, int to_seat);
 	int DealCard_Sha(int seat, int to_seat);
 	int DealCard_Shan(int seat, int to_seat);
+	int DealCard_WuZhongSY(int seat);
 
 
 private:
