@@ -241,6 +241,9 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 {
 	if (0 == pkt["code"].asInt())
 	{
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+			((FightMain *)u_player.MyCurrentScene)->OutCardPool(pkt["card"].asInt());
+		});
 		//
 		int card_num = pkt["card"].asInt();
 		int u_seatid = pkt["seatid"].asInt();
@@ -405,6 +408,26 @@ void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
 					((FightMain *)u_player.MyCurrentScene)->UpdateStageLab(CSGSTXT::GET("wait"));
 				});
 			}
+		}
+		
+		if (pkt["seatid"].asInt() == u_player.m_nSeatId) {	//是我
+			switch (pkt["to_me_card"].asInt()) {
+			case SGSCard::CARD_NONE:
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+					((FightMain *)u_player.MyCurrentScene)->UpdateReminder(CSGSTXT::GET("pleaseout"));
+				});
+				break;
+			case SGSCard::CARD_SHA:
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+					((FightMain *)u_player.MyCurrentScene)->UpdateReminder(CSGSTXT::GET("enemyuse") + CSGSTXT::GET("sha") + CSGSTXT::GET("please") + CSGSTXT::GET("shan"));
+				});
+				break;
+			}
+		}
+		else { //不是我
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateReminder("");
+			});
 		}
 	}
 	else

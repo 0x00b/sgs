@@ -38,7 +38,7 @@ bool FightMain::init()
 	animation_tao->setPosition(200, 300);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-	win  = Director::getInstance()->getVisibleSize();
+	win = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	/////////////////////////////
@@ -62,7 +62,7 @@ bool FightMain::init()
 		"Sound/check_box_normal_disable.png",
 		"Sound/check_box_active_disable.png");
 	cb_bg_music->setAnchorPoint(Vec2(1, 1));
-	cb_bg_music->setPosition(Vec2(origin.x+visibleSize.width - 10,origin.y+visibleSize.height - 10));
+	cb_bg_music->setPosition(Vec2(origin.x + visibleSize.width - 10, origin.y + visibleSize.height - 10));
 	img_bg->addChild(cb_bg_music);
 	cb_bg_music->setScale(0.5);
 	cb_bg_music->setSelected(true);
@@ -81,8 +81,8 @@ bool FightMain::init()
 		}
 	});//注意这里监听器不是触摸监听器
 
-	Label* lab_bg_music = Label::createWithTTF(CSGSTXT::GET("bgmusic"),"fonts/FZBWKSK.TTF",18);
-	lab_bg_music->setAnchorPoint(Vec2(1,1));
+	Label* lab_bg_music = Label::createWithTTF(CSGSTXT::GET("bgmusic"), "fonts/FZBWKSK.TTF", 18);
+	lab_bg_music->setAnchorPoint(Vec2(1, 1));
 	lab_bg_music->setPosition(Vec2(origin.x + visibleSize.width - 10 - cb_bg_music->getContentSize().width, origin.y + visibleSize.height - 10));
 	img_bg->addChild(lab_bg_music);
 	//添加一个复选框 用于控制背景音乐e
@@ -90,7 +90,7 @@ bool FightMain::init()
 	i_current_card_num = 0;	//初始化手牌数为0
 
 	selectHero = SelectHero2Layer::create();
-	this->addChild(selectHero,2,"selectHero");
+	this->addChild(selectHero, 2, "selectHero");
 	Vec_create();  //当桃闪杀放入缓冲区
 	addChild(animation_sha);
 	addChild(animation_shan);
@@ -112,7 +112,7 @@ void FightMain::InitHeroInfo() {
 
 	//初始化敌我武将信息
 	int i = 0;
-	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); i++,++it)
+	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); i++, ++it)
 	{
 		if (u_player.m_nSeatId == (*it).m_nSeatId) {
 			//右下角我方武将s
@@ -158,9 +158,9 @@ void FightMain::InitHeroInfo() {
 			}
 
 			img_hero[0]->setScale(visibleSize.width / 8 / img_hero[0]->getContentSize().width);	//武将信息缩放到宽度1/8
-			//右下角我方武将e
+																								//右下角我方武将e
 
-			//我方出手定时s
+																								//我方出手定时s
 			Sprite* sp_pt_my = Sprite::create("Fight/progress_timebar.png");
 			pt_0 = ProgressTimer::create(sp_pt_my);
 			pt_0->setScaleX(visibleSize.width / 2 / pt_0->getContentSize().width);
@@ -173,18 +173,18 @@ void FightMain::InitHeroInfo() {
 			pt_0->setMidpoint(Vec2(0, 1));	//中心位置
 			pt_0->setBarChangeRate(Vec2(1, 0));	//用作条形进度条显示的图片所占比例
 
-			//pt_0->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行动画
-			//我方出手定时e
+												//pt_0->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行动画
+												//我方出手定时e
 
-			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			/*img_hero[0]->loadTexture(std::string("Fight/hero_big/") + m_to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
-			img_hero_info_bg[0]->loadTexture(std::string("Fight/info_bg_")+m_to_string((*it).m_oGameAttr.m_pHero->country)+".png");
-			img_hero_country[0]->loadTexture(std::string("Fight/country_zi_") + m_to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
-			lab_hero_name[0]->setString(CSGSTXT::GET(m_to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
-			lab_handcard_num[0]->setString("0");*/
+												///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+												/*img_hero[0]->loadTexture(std::string("Fight/hero_big/") + m_to_string((*it).m_oGameAttr.m_pHero->idhero) + ".png");
+												img_hero_info_bg[0]->loadTexture(std::string("Fight/info_bg_")+m_to_string((*it).m_oGameAttr.m_pHero->country)+".png");
+												img_hero_country[0]->loadTexture(std::string("Fight/country_zi_") + m_to_string((*it).m_oGameAttr.m_pHero->country) + ".png");
+												lab_hero_name[0]->setString(CSGSTXT::GET(m_to_string((*it).m_oGameAttr.m_pHero->idhero).c_str()));
+												lab_handcard_num[0]->setString("0");*/
 
-			//显示当前阶段s
-			lab_now_stage = Label::createWithTTF("","fonts/FZBWKSK.TTF",36);
+												//显示当前阶段s
+			lab_now_stage = Label::createWithTTF("", "fonts/FZBWKSK.TTF", 36);
 			lab_now_stage->setPosition(pt_0->getPosition() - Vec2(0, 30));
 			img_bg->addChild(lab_now_stage);
 			//显示当前阶段s
@@ -256,9 +256,9 @@ void FightMain::InitHeroInfo() {
 			}
 
 			img_hero[1]->setScale(visibleSize.width / 8 / img_hero[1]->getContentSize().width);	//武将信息缩放到宽度1/8
-			//中上方敌方武将e
+																								//中上方敌方武将e
 
-			//敌方出手定时s
+																								//敌方出手定时s
 			Sprite* sp_pt_enemy = Sprite::create("Fight/progress_timebar.png");
 			pt_1 = ProgressTimer::create(sp_pt_enemy);
 			pt_1->setScaleX(img_hero[1]->getContentSize().width / pt_1->getContentSize().width);
@@ -282,6 +282,9 @@ void FightMain::InitHeroInfo() {
 			lab_handcard_num[1]->setString("0");*/
 		}
 	}
+	lab_reminder = Label::create("", "fonts/FZBWKSK.TTF", 18);
+	lab_reminder->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 - 100));
+	img_bg->addChild(lab_reminder);
 }
 
 bool FightMain::onTouchHandCardBegan(Touch* touch, Event* event) {
@@ -311,58 +314,58 @@ bool FightMain::onTouchHandCardEnded(Touch* touch, Event* event) {
 
 	if (status != 0) {
 		bool is_click = false;
-	int i;
-	for (i = 0; i < status; ++i) {
-		if (i_current_card[i] == target->getTag()) {
-			is_click = true;
-			break;
-		}
-	}
-	if (is_click) {	//点的牌已经被选中
-		Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
-		Vec2 posSrc = sp_handcard[i_current_card[i]]->getPosition();
-		Vec2 posDes = posSrc + diff;
-		sp_handcard[i_current_card[i]]->setPosition(posDes);
-
-		//前移
-		//i_current_card[i] = -1;
-		for (int j = i; j < status - 1; ++j) {
-			i_current_card[j] = i_current_card[j + 1];
-		}
-		i_current_card[status - 1] = -1;
-	}
-	else {	//点的是未选中的牌
-		bool is_full = true;
+		int i;
 		for (i = 0; i < status; ++i) {
-			if (i_current_card[i] == -1) {
-				is_full = false;
+			if (i_current_card[i] == target->getTag()) {
+				is_click = true;
 				break;
 			}
 		}
-		if (is_full) {	//如果选择的牌已经达到上限status
+		if (is_click) {	//点的牌已经被选中
 			Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
-			Vec2 posSrc = sp_handcard[i_current_card[0]]->getPosition();
+			Vec2 posSrc = sp_handcard[i_current_card[i]]->getPosition();
 			Vec2 posDes = posSrc + diff;
-			sp_handcard[i_current_card[0]]->setPosition(posDes);
+			sp_handcard[i_current_card[i]]->setPosition(posDes);
 
-			for (int i = 0; i < status - 1; ++i) {
-				i_current_card[i] = i_current_card[i + 1];
+			//前移
+			//i_current_card[i] = -1;
+			for (int j = i; j < status - 1; ++j) {
+				i_current_card[j] = i_current_card[j + 1];
 			}
-			--i;
+			i_current_card[status - 1] = -1;
+		}
+		else {	//点的是未选中的牌
+			bool is_full = true;
+			for (i = 0; i < status; ++i) {
+				if (i_current_card[i] == -1) {
+					is_full = false;
+					break;
+				}
+			}
+			if (is_full) {	//如果选择的牌已经达到上限status
+				Vec2 diff = Vec2(0, -20);	//之前选中的牌向下回退
+				Vec2 posSrc = sp_handcard[i_current_card[0]]->getPosition();
+				Vec2 posDes = posSrc + diff;
+				sp_handcard[i_current_card[0]]->setPosition(posDes);
+
+				for (int i = 0; i < status - 1; ++i) {
+					i_current_card[i] = i_current_card[i + 1];
+				}
+				--i;
+			}
+
+			Vec2 diff = Vec2(0, 20);	//没达到上限
+			Vec2 posSrc = target->getPosition();
+			Vec2 posDes = posSrc + diff;
+			target->setPosition(posDes);
+
+			i_current_card[i] = target->getTag();
 		}
 
-		Vec2 diff = Vec2(0, 20);	//没达到上限
-		Vec2 posSrc = target->getPosition();
-		Vec2 posDes = posSrc + diff;
-		target->setPosition(posDes);
-
-		i_current_card[i] = target->getTag();
-	}
-
-	//for (int i = 0; i < status; ++i) {
-	//	log("%d ", i_current_card[i]);
-	//}
-	//log("\n");
+		//for (int i = 0; i < status; ++i) {
+		//	log("%d ", i_current_card[i]);
+		//}
+		//log("\n");
 	}
 
 	return true;
@@ -502,7 +505,7 @@ void FightMain::UpdateHandCard() {
 		sp_handcard[i]->removeFromParentAndCleanup(true);
 	}
 
-	for (std::list<Player>::iterator it_p = u_room.m_lstPlayers.begin(); it_p != u_room.m_lstPlayers.end();  ++it_p) {
+	for (std::list<Player>::iterator it_p = u_room.m_lstPlayers.begin(); it_p != u_room.m_lstPlayers.end(); ++it_p) {
 		if (u_player.m_nSeatId == (*it_p).m_nSeatId) {	//修改我的手牌信息
 			i_current_card_num = (*it_p).m_oGameAttr.m_lstPlayerCards.size();	//现在的手牌数
 			int i = 0;
@@ -570,12 +573,12 @@ void FightMain::UpdateFightInfo(int i, int blood, int max_blood) {
 	/*int blood[2] = { 2, 1 };
 	int max_blood[2] = { 4,4 };
 	for (int i = 0; i < 2; ++i) {
-		for (int j = 0; j < blood[i]; ++j) {
-			img_blood[i][j]->loadTexture("Fight/blood_have.png");
-		}
-		for (int j = blood[i]; j < max_blood[i]; ++j) {
-			img_blood[i][j]->loadTexture("Fight/blood_lose.png");
-		}
+	for (int j = 0; j < blood[i]; ++j) {
+	img_blood[i][j]->loadTexture("Fight/blood_have.png");
+	}
+	for (int j = blood[i]; j < max_blood[i]; ++j) {
+	img_blood[i][j]->loadTexture("Fight/blood_lose.png");
+	}
 	}*/
 
 	for (int j = 0; j < blood; ++j) {
@@ -768,4 +771,74 @@ void FightMain::GameEnd(int i) {
 		Layer* layer_end = FightEndLose::create();
 		this->addChild(layer_end);
 	}
+}
+
+void FightMain::UpdateReminder(std::string reminder) {
+	lab_reminder->setString(reminder);
+}
+
+void FightMain::OutCardPool(SGSCard card) {
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	if (sp_out_card_old != NULL)sp_out_card_old->removeFromParentAndCleanup(true);	//old还没被清空 需要先移除之前的old
+
+	if (sp_out_card != NULL) {
+		sp_out_card_old = sp_out_card;	//old被清空
+		Sequence* seq1 = Sequence::create(MoveBy::create(0.5, Vec2(-sp_out_card->getContentSize().width / 2, 0)), CallFuncN::create(CC_CALLBACK_1(FightMain::WaitToFadeOut, this)), NULL);
+		sp_out_card_old->runAction(seq1);
+	}
+
+	//初始化一张牌
+	/*card.func();
+	card.color();
+	card.value();*/
+	char name[12];
+
+	snprintf(name, 12, "%02x", card.func());
+	sp_out_card = Sprite::create(std::string("Fight/card/") + name + ".png");
+	sp_out_card->setAnchorPoint(Vec2(0.5, 0.5));
+	sp_out_card->setPosition(Vec2(img_bg->getContentSize().width/2,img_bg->getContentSize().height/2 - 20));
+	img_bg->addChild(sp_out_card);
+	sp_out_card->setScale(0.5);
+
+	snprintf(name, 12, "flower_%x", card.color());
+	img_out_card_flower = ImageView::create(std::string("Fight/card/") + name + ".png");
+	img_out_card_flower->setAnchorPoint(Vec2(0, 1));
+	img_out_card_flower->setPosition(Vec2(5, sp_out_card->getContentSize().height - 10));
+	sp_out_card->addChild(img_out_card_flower);
+	img_out_card_flower->setScale(2);
+
+	int clr = card.color();
+	if (clr <= SGSCard::CARD_CLR_HEART)
+	{
+		snprintf(name, 12, "red_%x", card.value());
+	}
+	else
+	{
+		snprintf(name, 12, "black_%x", card.value());
+	}
+
+	img_out_card_Num = ImageView::create(std::string("Fight/card/") + name + ".png");
+	img_out_card_Num->setAnchorPoint(Vec2(0, 1));
+	img_out_card_Num->setPosition(Vec2(0, sp_out_card->getContentSize().height - 10 - img_out_card_flower->getContentSize().height));
+	sp_out_card->addChild(img_out_card_Num);
+	img_out_card_Num->setScale(2);
+			
+	//初始化一张牌
+	//sp_out_card = Sprite::create("Fight/card/1.png");
+	//sp_out_card->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2 - 20));
+	//img_bg->addChild(sp_out_card);
+
+	Sequence* seq2 = Sequence::create(MoveBy::create(0.5, Vec2(0, 20)), NULL);
+	sp_out_card->runAction(seq2);
+}
+
+void FightMain::WaitToFadeOut(Node* sender) {
+	this->schedule(schedule_selector(FightMain::DeleteOutCard), 0.0f, 0, 2.0f);
+}
+
+void FightMain::DeleteOutCard(float ft) {
+	sp_out_card_old->removeFromParentAndCleanup(true);
+	sp_out_card_old = NULL;
 }

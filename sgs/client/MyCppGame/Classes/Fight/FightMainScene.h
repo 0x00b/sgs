@@ -36,12 +36,12 @@ private:
 	Label* lab_handcard_num[2];	//手牌数
 	ImageView* img_blood[2][4];	//血 最多四个 在初始化武将信息的时候初始化
 
-	//ImageView* img_enemy_hero;				//对方武将信息
-	//ImageView* img_enemy_hero_info_bg;	//用于在武将国家和姓名的背景色
-	//ImageView* img_enemy_hero_country;
-	//Label* lab_enemy_hero_name;
-	//ImageView* img_enemy_handcard_num_bg;	//敌方手牌数背景
-	//Label* lab_enemy_handcard_num;	//敌方手牌数
+								//ImageView* img_enemy_hero;				//对方武将信息
+								//ImageView* img_enemy_hero_info_bg;	//用于在武将国家和姓名的背景色
+								//ImageView* img_enemy_hero_country;
+								//Label* lab_enemy_hero_name;
+								//ImageView* img_enemy_handcard_num_bg;	//敌方手牌数背景
+								//Label* lab_enemy_handcard_num;	//敌方手牌数
 
 	ProgressTimer* pt_0;	//我方出手定时
 	ProgressTimer* pt_1;	//敌方出手定时
@@ -58,6 +58,11 @@ private:
 	Button* btn_cancel;  //取消
 
 	Label* lab_now_stage;	//显示当前阶段的标签
+	Label* lab_reminder;	//提示语
+	Sprite* sp_out_card;	//出牌池新牌
+	ImageView* img_out_card_flower;
+	ImageView* img_out_card_Num;
+	Sprite* sp_out_card_old;	//出牌池旧牌
 public:
 	void InitHeroInfo();				//初始化敌我武将信息
 	void Vec_create();
@@ -67,7 +72,7 @@ public:
 	void btn_confirm_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type);	//出牌确认事件
 	void btn_cancel_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type);	//出牌取消事件
 	void UpdateHandCard();			//更新手牌
-	void UpdateFightInfo(int i,int blood,int max_blood);			//更新 对战信息 血量 第一个参数0代表我 1代表对手 第二个参数代表血量 第三个参数最大血量
+	void UpdateFightInfo(int i, int blood, int max_blood);			//更新 对战信息 血量 第一个参数0代表我 1代表对手 第二个参数代表血量 第三个参数最大血量
 	void ShowMyBtnAndTimer();		//显示我的按钮和定时器
 	void HideMyBtnAndTimer();		//隐藏我的按钮和定时器
 	void ShowEnemyTimer();			//显示对手定时器
@@ -85,9 +90,14 @@ public:
 	int getStatus();
 	void setStage(int i);
 
-	void UpdateHandCardNum(int i,int cnt);		//更新手牌数 第一个参数0代表我 1代表对手 第二个参数代表手牌张数
+	void UpdateHandCardNum(int i, int cnt);		//更新手牌数 第一个参数0代表我 1代表对手 第二个参数代表手牌张数
 	void UpdateStageLab(std::string stage_name);	//更新当前阶段
 	void GameEnd(int i);		//游戏结束	0代表胜利 1代表失败
+
+	void UpdateReminder(std::string reminder);	//更新提示语
+	void OutCardPool(SGSCard card);		//更新出牌池
+	void WaitToFadeOut(Node* sender);			//2秒后消失
+	void DeleteOutCard(float ft);				//释放旧牌
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

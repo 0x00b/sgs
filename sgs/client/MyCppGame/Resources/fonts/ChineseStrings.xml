@@ -51,6 +51,27 @@
 	<key>bgmusic</key>
  	<string>背景音乐</string>
 
+	<key>enemyuse</key>
+ 	<string>对手使用了</string>
+
+	<key>myuse</key>
+ 	<string>我使用了</string>
+
+	<key>please</key>
+ 	<string>请出</string>
+
+	<key>pleaseout</key>
+ 	<string>请出牌</string>
+
+	<key>sha</key>
+ 	<string>杀</string>
+
+	<key>shan</key>
+ 	<string>闪</string>
+
+	<key>tao</key>
+ 	<string>桃</string>
+
 	<key>1</key>
  	<string>刘
 备</string>
