@@ -80,6 +80,7 @@ public:
 	int ReqCancelOutCard(Player *player);
 	int ReqSelectCard(Player *player);
 	int ReqSelectHero(Player *player);
+	int ReqChat(Player *player);
 
 	int CanPlayCard(Player* player ,int card);
 

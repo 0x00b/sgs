@@ -105,6 +105,8 @@ int SGSGameLogic::Do(Player *player)
         case GAME_SELECT_HERO:
             code = ReqSelectHero(player);
             break;
+        case GAME_CHAT:
+            code = ReqChat(player);
         default:
             break;
         }
@@ -965,6 +967,37 @@ int SGSGameLogic::GameEnd(int winseat)
 
     return 0;
 }
+
+int SGSGameLogic::ReqChat(Player *player)
+{
+    int code  = 0;
+	Json::Value root;
+    std::string err;
+
+    if (!Game::ParseMsg(player, &root, err))
+    {
+        code = 0x01;
+        root["code"] = code;
+        root["seatid"] = player->SeatID();
+        PPacket packet;
+        packet.body() = root.toStyledString();
+        packet.pack(GAME_CHAT_BC);
+
+        m_pRoom->Unicast(player, packet);
+    }
+    else
+    {
+        root["code"] = code;
+        root["seatid"] = player->SeatID();
+        PPacket packet;
+        packet.body() = root.toStyledString();
+        packet.pack(GAME_CHAT_BC);
+
+        m_pRoom->Broadcast(packet);
+    }
+    return code;
+}
+
 int SGSGameLogic::Enter(Player *player)
 {
     int nRet = 0;
