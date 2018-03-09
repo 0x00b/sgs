@@ -39,7 +39,7 @@ Room u_room;
 
 
 tcp::socket sock(*(new boost::asio::io_service()));  // 10.12.137.172
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.172"),37373);
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.14.115.244"),37373);
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -184,6 +184,9 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 		break;
 	case GAME_GAME_END:
 		Do_function::GAME_GAME_END(pkt, cmd);
+		break;
+	case GAME_CHAT_BC:
+		Do_function::GAME_CHAT_BC(pkt, cmd);
 		break;
 	default:
 		break;

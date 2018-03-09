@@ -547,3 +547,31 @@ void Do_function::GAME_GAME_END(Json::Value &pkt, int cmd) {
 		}
 	}
 }
+
+void Do_function::GAME_CHAT_BC(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt()) {
+		int seatid = pkt["seatid"].asInt();
+		string message = pkt["message"].asString();
+		string name;
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (it->m_nSeatId == seatid)
+			{
+				name = it->m_stAccount;
+				break;
+			}
+		}
+		message = name + ":" + message;
+		int list_num = u_room.m_chat_message.size();
+		if (list_num == 8)
+		{
+			u_room.m_chat_message.pop_front();
+		}
+		u_room.m_chat_message.push_back(message);
+		((FightMain *)u_player.MyCurrentScene)->UpdateChat();
+	}
+	else
+	{
+		log("send failed!");
+	}
+}

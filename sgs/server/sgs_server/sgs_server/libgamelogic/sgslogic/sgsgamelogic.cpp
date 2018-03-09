@@ -53,7 +53,9 @@ void SGSGameLogic::InitCard()
     {
         if (g_lstCards[i]->func() != SGSCard::CARD_SHA 
         && g_lstCards[i]->func() != SGSCard::CARD_SHAN 
-        && g_lstCards[i]->func() != SGSCard::CARD_TAO)
+        && g_lstCards[i]->func() != SGSCard::CARD_TAO
+        && g_lstCards[i]->func() != SGSCard::CARD_WU_ZHONG_SHENG_YOU
+        )
         {
             continue;
         }
@@ -67,6 +69,7 @@ void SGSGameLogic::Reset()
 
     m_pRoom->m_nStatus = ROOM_ST_NONE;
     m_oLastCard = SGSCard::CARD_NONE;
+    m_nSelected = 0;
     for (std::list<Player *>::iterator it = m_pRoom->m_lstPlayers.begin(); it != m_pRoom->m_lstPlayers.end(); ++it)
     {
         (*it)->m_nGameStatus = ST_GM_PLAYER_NONE;
@@ -176,21 +179,26 @@ void SGSGameLogic::play_timer_cb(struct ev_loop *loop, struct ev_timer *w, int r
         std::map<int, std::shared_ptr<SGSGameAttr>>::iterator sga = gl->m_mPlayer.find(seatid);
         if (sga != gl->m_mPlayer.end())
         {
-        //有人对我出了牌，需要处理
-        if (sga->second->m_nToMeCard == SGSCard::CARD_SHA || sga->second->m_nToMeCard == SGSCard::CARD_NAN_MAN_RU_QIN)
-        {
-            --sga->second->m_pHero->blood;
-            gl->ChangeBloodBC(seatid, sga->second->m_pHero->blood);
+            //有人对我出了牌，需要处理
             if (0 == sga->second->m_pHero->blood)
             {
                 gl->GameEnd(gl->m_nCurrPlayerSeat);
                 return;
             }
-        }
-        // if (0 == CanContinuePlayCard(m_nCurrPlayerSeat))
-        {
-            gl->PlayCardUC(gl->m_nCurrPlayerSeat);
-        } /*
+            else if (sga->second->m_nToMeCard == SGSCard::CARD_SHA || sga->second->m_nToMeCard == SGSCard::CARD_NAN_MAN_RU_QIN)
+            {
+                --sga->second->m_pHero->blood;
+                gl->ChangeBloodBC(seatid, sga->second->m_pHero->blood);
+                if (0 == sga->second->m_pHero->blood)
+                {
+                    gl->PlayCardUC(seatid);
+                    return;
+                }
+            }
+            // if (0 == CanContinuePlayCard(m_nCurrPlayerSeat))
+            {
+                gl->PlayCardUC(gl->m_nCurrPlayerSeat);
+            } /*
         else
         {
             m_nCurrPlayerSeat = (m_nCurrPlayerSeat + 1) % m_pRoom->m_nMaxPlayerCnt;
@@ -295,8 +303,12 @@ int SGSGameLogic::PlayCardUC(int seat, int deal)
         {
             Deal(*tsga->second, root, 2);
             tsga->second->m_bCanSha = true;
+            root["to_me_card"] = tsga->second->m_nToMeCard = SGSCard::CARD_NONE;
         }
-        root["to_me_card"] = tsga->second->m_nToMeCard; //
+        else
+        {
+            root["to_me_card"] = tsga->second->m_nToMeCard; //
+        }
         root["card_cnt"] = tsga->second->m_lstPlayerCards.size();
     }
     m_nStatus = PLAYER_PLAY_CARD;
@@ -382,6 +394,8 @@ int SGSGameLogic::CanPlayCard(Player *player, int card)
                 {
                     code = 0x08;
                 }
+                break;
+            case SGSCard::CARD_WU_ZHONG_SHENG_YOU:
                 break;
             default:
                 code = 0x10;
@@ -526,9 +540,39 @@ int SGSGameLogic::DealCard(int card, int seat, Json::Value& root)
     case SGSCard::CARD_TAO:
         code = DealCard_Tao(seat, seat);
         break;
+    case SGSCard::CARD_WU_ZHONG_SHENG_YOU:
+        code = DealCard_WuZhongSY(seat);
+        break;
     default:
         break;
     }
+    return code;
+}
+int SGSGameLogic::DealCard_WuZhongSY(int seat)
+{
+    int code = 0;
+    std::map<int, std::shared_ptr<SGSGameAttr>>::iterator sga = m_mPlayer.find(seat);
+    if (sga != m_mPlayer.end())
+    {
+        Json::Value root;
+        SGSGameAttr &ga = *sga->second;
+        Deal(ga, root, 2);
+
+        root["seatid"] = seat;
+
+        PPacket packet;
+        packet.body() = root.toStyledString();
+        packet.pack(GAME_DEAL_BC);
+
+        m_pRoom->Broadcast(packet);
+        
+        PlayCardUC(seat);
+    }
+    else
+    {
+        code = 0x01;
+    }
+
     return code;
 }
 
@@ -607,7 +651,7 @@ int SGSGameLogic::DealCard_Shan(int seat,int to_seat)
             }
             else if (ga.m_nToMeCard == SGSCard::CARD_WANG_JIAN_QI_FA)
             {
-                ga.m_nToMeCard = 0;
+                ga.m_nToMeCard = SGSCard::CARD_NONE;
                 PlayCardUC(m_nCurrPlayerSeat);
             }
             else
@@ -734,13 +778,20 @@ int SGSGameLogic::ReqCancelOutCard(Player *player)
             {
                 ev_timer_stop(g_app.m_pLoop, &play_timer);
                 //有人对我出了牌，需要处理
-                if (sga->second->m_nToMeCard == SGSCard::CARD_SHA || sga->second->m_nToMeCard == SGSCard::CARD_NAN_MAN_RU_QIN)
+                if(0 == sga->second->m_pHero->blood)
+                {
+                    return GameEnd(m_nCurrPlayerSeat);
+                }
+                else if (sga->second->m_nToMeCard == SGSCard::CARD_SHA || sga->second->m_nToMeCard == SGSCard::CARD_NAN_MAN_RU_QIN)
                 {
                     --sga->second->m_pHero->blood;
                     ChangeBloodBC(seat, sga->second->m_pHero->blood);
+                    sga->second->m_nToMeCard = SGSCard::CARD_NONE;
+                    m_oLastCard = SGSCard::CARD_NONE;
                     if (0 == sga->second->m_pHero->blood)
                     {
-                        return GameEnd(m_nCurrPlayerSeat);
+                        return PlayCardUC(m_nCurrOutSeat);
+                        //return GameEnd(m_nCurrPlayerSeat);
                     }
                 }
                 // if (0 == CanContinuePlayCard(m_nCurrPlayerSeat))
