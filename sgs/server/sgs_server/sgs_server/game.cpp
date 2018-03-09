@@ -5,6 +5,7 @@
 #include "room.h"
 #include "libgamelogic/sgslogic/sgsgamelogic.h"
 #include "main.h"
+#include "./libgamelogic/proto.h"
 #include "libs/json/json.h"
 #include "jsonproto/jsonproto.h"
 

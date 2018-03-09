@@ -1,6 +1,6 @@
 #include "../../include.h"
 #include "../../player.h"
-#include "../../main.h"
+#include "../proto.h"
 #include "../../room.h"
 #include "sgsgamelogic.h"
 #include "sgsgameattr.h"
