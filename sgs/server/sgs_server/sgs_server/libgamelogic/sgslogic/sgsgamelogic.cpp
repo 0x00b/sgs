@@ -303,8 +303,12 @@ int SGSGameLogic::PlayCardUC(int seat, int deal)
         {
             Deal(*tsga->second, root, 2);
             tsga->second->m_bCanSha = true;
+            root["to_me_card"] = tsga->second->m_nToMeCard = SGSCard::CARD_NONE;
         }
-        root["to_me_card"] = tsga->second->m_nToMeCard; //
+        else
+        {
+            root["to_me_card"] = tsga->second->m_nToMeCard; //
+        }
         root["card_cnt"] = tsga->second->m_lstPlayerCards.size();
     }
     m_nStatus = PLAYER_PLAY_CARD;
@@ -647,7 +651,7 @@ int SGSGameLogic::DealCard_Shan(int seat,int to_seat)
             }
             else if (ga.m_nToMeCard == SGSCard::CARD_WANG_JIAN_QI_FA)
             {
-                ga.m_nToMeCard = 0;
+                ga.m_nToMeCard = SGSCard::CARD_NONE;
                 PlayCardUC(m_nCurrPlayerSeat);
             }
             else
