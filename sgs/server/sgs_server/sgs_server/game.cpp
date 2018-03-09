@@ -217,7 +217,7 @@ int Game::ReqReady(Player *player)
 int Game::ReqUserQuit(Player *player)
 {
 	int code  = 0;
-	player->UpdateState(ST_PLAYER_OFFLINE);
+	//player->UpdateState(ST_PLAYER_OFFLINE);
 	if(/*ST_GM_PLAYER_NONE != player->m_nGameStatus &&*/ NULL != player->m_pRoom)
 	{
 		//player->m_pRoom->QuitRoom(player);

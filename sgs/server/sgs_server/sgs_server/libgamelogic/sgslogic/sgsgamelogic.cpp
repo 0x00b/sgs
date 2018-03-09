@@ -64,6 +64,21 @@ void SGSGameLogic::Reset()
 {
     ev_timer_stop(g_app.m_pLoop, &play_timer);
     ev_timer_stop(g_app.m_pLoop, &discard_timer);
+
+    m_pRoom->m_nStatus = ROOM_ST_NONE;
+    m_oLastCard = SGSCard::CARD_NONE;
+    for (std::list<Player *>::iterator it = m_pRoom->m_lstPlayers.begin(); it != m_pRoom->m_lstPlayers.end(); ++it)
+    {
+        (*it)->m_nGameStatus = ST_GM_PLAYER_NONE;
+    }
+
+    for (std::map<int, std::shared_ptr<SGSGameAttr>>::iterator it = m_mPlayer.begin(); it != m_mPlayer.end(); ++it)
+    {
+        it->second->m_bSelectedHero = false;
+        it->second->m_lstPlayerCards.clear();
+        it->second->m_bCanSha = true;
+        it->second->m_nToMeCard = SGSCard::CARD_NONE;
+    }
 }
 int SGSGameLogic::Do(Player *player)
 {
@@ -357,7 +372,17 @@ int SGSGameLogic::CanPlayCard(Player *player, int card)
                     code = 0x02;
                 }
                 break;
+            case SGSCard::CARD_SHAN:
+                code = 0x04;
+                break;
+            case SGSCard::CARD_TAO:
+                if(sga->second->m_pHero->blood >= sga->second->m_nBlood)
+                {
+                    code = 0x08;
+                }
+                break;
             default:
+                code = 0x10;
                 break;
             }
         }
@@ -866,7 +891,7 @@ int SGSGameLogic::ChangeBloodBC(int seat, int blood)
     root["blood"] = blood;
     PPacket packet;
     packet.body() = root.toStyledString();
-    packet.pack(GAME_DEAL_BC);
+    packet.pack(GAME_CHANGE_BLOOD_BC);
 
     return m_pRoom->Broadcast(packet);
 }
@@ -929,7 +954,6 @@ int SGSGameLogic::GameEnd(int winseat)
 	Json::Value root;
 
     root.clear();
-    root["code"] = (0); //
     root["seatid"] = winseat;
     PPacket packet;
     packet.body() = root.toStyledString();
