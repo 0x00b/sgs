@@ -28,13 +28,13 @@ bool FightEndLose::init()
 	// 3. add your codes below...
 
 	//添加背景s
-	img_bg = ImageView::create("Fight/game_settlement_lose.png");
+	img_bg = ImageView::create("Fight/game_settlement_lost.png");
 	img_bg->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 2));
 	this->addChild(img_bg);
 	//添加背景e
 
 	//胜利标识s
-	ImageView* img_win = ImageView::create("Fight/settlement_lose.png");
+	ImageView* img_win = ImageView::create("Fight/settlement_lost.png");
 	img_win->setPosition(Vec2(img_bg->getContentSize().width / 2, img_bg->getContentSize().height / 2));
 	img_bg->addChild(img_win);
 	//胜利标识e

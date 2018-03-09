@@ -760,11 +760,11 @@ void FightMain::GameEnd(int i) {
 	}
 	HideMyBtnAndTimer();		//隐藏我的按钮和定时器
 
-	if (0) {
+	if (i == 0) {
 		Layer* layer_end = FightEndWin::create();
 		this->addChild(layer_end);
 	}
-	else if (1) {
+	else if (i == 1) {
 		Layer* layer_end = FightEndLose::create();
 		this->addChild(layer_end);
 	}
