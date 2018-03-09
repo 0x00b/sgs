@@ -19,7 +19,7 @@ bool SearchHome::init()
 	{
 		return false;
 	}
-	this->setColor(ccc3(128,128,128));
+	//this->setColor(ccc3(128,128,128));
 	//log("%f %f", this->getContentSize().width, this->getContentSize().height);
 	//log("%f %f", this->getPosition().x, this->getPosition().y);
 

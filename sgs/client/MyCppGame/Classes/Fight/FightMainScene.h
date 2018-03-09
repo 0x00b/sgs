@@ -4,6 +4,8 @@
 #include "model/include_all.h"
 #include "SelectHero2Layer\SelectHero2Layer.h"
 #include "./model/sgscard.h"
+#include "Fight/FightEndLoseLayer.h"
+#include "Fight/FightEndWinLayer.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -85,6 +87,7 @@ public:
 
 	void UpdateHandCardNum(int i,int cnt);		//更新手牌数 第一个参数0代表我 1代表对手 第二个参数代表手牌张数
 	void UpdateStageLab(std::string stage_name);	//更新当前阶段
+	void GameEnd(int i);		//游戏结束	0代表胜利 1代表失败
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

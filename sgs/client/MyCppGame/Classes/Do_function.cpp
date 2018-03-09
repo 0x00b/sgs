@@ -509,3 +509,18 @@ void Do_function::GAME_CHANGE_BLOOD(Json::Value &pkt, int cmd) {
 		});
 	}
 }
+
+void Do_function::GAME_GAME_END(Json::Value &pkt, int cmd) {
+	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it) {
+		if (pkt["seatid"].asInt() == u_player.m_nSeatId) {
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+				((FightMain *)u_player.MyCurrentScene)->GameEnd(0);
+			});
+		}
+		else {
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+				((FightMain *)u_player.MyCurrentScene)->GameEnd(1);
+			});
+		}
+	}
+}

@@ -38,8 +38,8 @@ Room u_room;
 //tcp::iostream AppDelegate::skt;
 
 
-tcp::socket sock(*(new boost::asio::io_service()));
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.14.115.244"),37373);
+tcp::socket sock(*(new boost::asio::io_service()));  // 10.12.137.172
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.172"),37373);
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -181,6 +181,10 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 		break;
 	case GAME_CHANGE_BLOOD:	//广播 一人血量变化
 		Do_function::GAME_CHANGE_BLOOD(pkt,cmd);
+		break;
+	case GAME_GAME_END:
+		Do_function::GAME_GAME_END(pkt, cmd);
+		break;
 	default:
 		break;
 	}
@@ -338,6 +342,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/sha.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/shan.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/tao.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_win.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_lose.mp3");
 	//加载音效e
 
 	// create a scene. it's an autorelease object

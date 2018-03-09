@@ -55,6 +55,7 @@ void Room::Set(const Json::Value &proom)
 	(m_nStatus)			=	proom[SJPROTO[E_Room]][SRoom[ERoom_status]] 			.asInt();
 
 	m_lstPlayers.clear();
+	
 	for (size_t i = 0; i < proom[SJPROTO[E_Room]][SJPROTO[E_Player]].size(); i++)
 	{
 		Player p;
@@ -71,7 +72,7 @@ void Room::reset() {
 	m_lstPlayers.clear();//players in the room
 	m_stName.clear();			//room's name
 	m_eType = ROOM_TYPE_2;				//room type
-
+	chat_message.clear();   // room chat messasge
 	m_nRoomID = 0;
 	m_nMaxPlayerCnt = 0;			//max player cnt
 	m_nPlayerCnt = 0;				//current player cnt

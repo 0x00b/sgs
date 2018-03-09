@@ -40,6 +40,7 @@ public:
 	std::string m_stNewPlayer;
 
 	std::list<Player> m_lstPlayers;//players in the room
+	std::list<std::string> chat_message;  //chat message
 	std::string	m_stName;			//room's name
 	ERoomType m_eType;				//room type
 

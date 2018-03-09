@@ -753,3 +753,19 @@ void FightMain::show_tao(int i)
 		CallFuncN::create(CC_CALLBACK_1(FightMain::hid_tao, this)), NULL);
 	animation_tao->runAction(action);
 }
+
+void FightMain::GameEnd(int i) {
+	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it) {
+		it->m_oGameAttr.m_lstPlayerCards.clear();
+	}
+	HideMyBtnAndTimer();		//隐藏我的按钮和定时器
+
+	if (i == 0) {
+		Layer* layer_end = FightEndWin::create();
+		this->addChild(layer_end);
+	}
+	else if (i == 1) {
+		Layer* layer_end = FightEndLose::create();
+		this->addChild(layer_end);
+	}
+}
