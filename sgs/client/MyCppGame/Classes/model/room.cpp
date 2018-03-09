@@ -72,7 +72,7 @@ void Room::reset() {
 	m_lstPlayers.clear();//players in the room
 	m_stName.clear();			//room's name
 	m_eType = ROOM_TYPE_2;				//room type
-	chat_message.clear();   // room chat messasge
+	m_chat_message.clear();   // room chat messasge
 	m_nRoomID = 0;
 	m_nMaxPlayerCnt = 0;			//max player cnt
 	m_nPlayerCnt = 0;				//current player cnt

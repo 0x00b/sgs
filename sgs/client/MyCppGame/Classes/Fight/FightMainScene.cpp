@@ -95,6 +95,29 @@ bool FightMain::init()
 	addChild(animation_sha);
 	addChild(animation_shan);
 	addChild(animation_tao);
+
+	Size size_chat;
+	chat_bg = Sprite::create("Fight/chat_bg.png");
+	size_chat = chat_bg->getContentSize();
+	chat_bg->setScaleX(win.width / 3.5 / size_chat.width);
+	chat_bg->setScaleY(win.height / 2.3 / size_chat.height);
+	chat_bg->setAnchorPoint(Point(0, 0));
+	chat_bg->setPosition(0, 0);
+		
+	txt_chat = TextField::create();
+	txt_chat->setPlaceHolder("input");
+	txt_chat->setPosition(Point(win.width/10,0));
+	txt_chat->setAnchorPoint(Point(0,0));
+	addChild(chat_bg);
+	addChild(txt_chat);
+	for (int i = 0; i < 8; i++)
+	{
+		chat[i] = Label::create("", "", 16);
+		chat[i]->setPosition(Vec2(win.width / 10, win.height/2.5/9*(i+1)));
+		chat[i]->setAnchorPoint(Point(0, 0));
+		addChild(chat[i]);
+	}
+	txt_chat->addEventListener(CC_CALLBACK_2(FightMain::textFieldEvent, this));
 	return true;
 }
 
@@ -767,5 +790,53 @@ void FightMain::GameEnd(int i) {
 	else if (i == 1) {
 		Layer* layer_end = FightEndLose::create();
 		this->addChild(layer_end);
+	}
+}
+
+void FightMain::UpdateChat()
+{
+	int i=0;
+	int list_size;
+	list_size = u_room.m_chat_message.size();
+	for (std::list<string>::iterator it = u_room.m_chat_message.begin(); it != u_room.m_chat_message.end(); ++it)
+	{
+		i++;
+		chat[list_size - i]->setString(it->c_str());
+	}
+	for (; i < 8; i++)
+	{
+		chat[i]->setString("");
+	}
+}
+
+// 0-7
+
+void FightMain::textFieldEvent(Ref * pSender, TextField::EventType type)
+{
+	Json::Value root;
+	std::shared_ptr<PPacket> p(new PPacket());
+	switch (type)
+	{
+		case TextField::EventType::ATTACH_WITH_IME:
+			break;
+		case TextField::EventType::DETACH_WITH_IME:
+			//MessageBox("123","123");
+		{
+			string text = txt_chat->getString();
+			if (text == "")
+			{
+				break;
+			}
+			root["message"] = text;
+			p->body = root.toStyledString();
+			p->pack(GAME_CHAT);
+			g_lstWrite.push_back(p);
+			txt_chat->setString("");
+		}
+			break;
+		case TextField::EventType::INSERT_TEXT:
+			break;
+		case TextField::EventType::DELETE_BACKWARD:
+			break;
 	}
 }

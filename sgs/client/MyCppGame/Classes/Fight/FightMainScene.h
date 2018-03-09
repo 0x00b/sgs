@@ -21,6 +21,11 @@ public:
 	SelectHero2Layer *selectHero;	//选择武将层指针
 private:
 	Size win;
+	TextField* txt_chat;	//聊天
+
+	Label* chat[8];
+
+	Sprite *chat_bg; //聊天背景
 	Vector<SpriteFrame*> sha_vec;
 	Vector<SpriteFrame*> shan_vec;
 	Vector<SpriteFrame*> tao_vec;
@@ -79,12 +84,13 @@ public:
 	void show_sha(int i);  //显示杀
 	void show_shan(int i); //显示闪
 	void show_tao(int i);  //显示桃
-
+	void UpdateChat();  //更新聊天界面
 
 	void setStatus(int i);
 	int getStatus();
 	void setStage(int i);
 
+	void textFieldEvent(Ref * pSender, TextField::EventType type);  //textfield的回调函数
 	void UpdateHandCardNum(int i,int cnt);		//更新手牌数 第一个参数0代表我 1代表对手 第二个参数代表手牌张数
 	void UpdateStageLab(std::string stage_name);	//更新当前阶段
 	void GameEnd(int i);		//游戏结束	0代表胜利 1代表失败
