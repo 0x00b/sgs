@@ -38,8 +38,8 @@ Room u_room;
 //tcp::iostream AppDelegate::skt;
 
 
-tcp::socket sock(*(new boost::asio::io_service()));
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.14.115.244"),37373);
+tcp::socket sock(*(new boost::asio::io_service()));  // 10.12.137.172
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.172"),37373);
 
 #include <stdio.h>
 #include <stdlib.h>
