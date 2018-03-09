@@ -65,7 +65,7 @@ public:
 	void btn_confirm_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type);	//出牌确认事件
 	void btn_cancel_card(Ref* sender, cocos2d::ui::Widget::TouchEventType type);	//出牌取消事件
 	void UpdateHandCard();			//更新手牌
-	void UpdateFightInfo();			//更新 对战信息 血量
+	void UpdateFightInfo(int i,int blood,int max_blood);			//更新 对战信息 血量 第一个参数0代表我 1代表对手 第二个参数代表血量 第三个参数最大血量
 	void ShowMyBtnAndTimer();		//显示我的按钮和定时器
 	void HideMyBtnAndTimer();		//隐藏我的按钮和定时器
 	void ShowEnemyTimer();			//显示对手定时器
@@ -83,7 +83,7 @@ public:
 	int getStatus();
 	void setStage(int i);
 
-	void UpdateHandCardNum(int i,int cnt);		//更新手牌数 第一个参数0代表我 1代表对手 第二个参数未张数
+	void UpdateHandCardNum(int i,int cnt);		//更新手牌数 第一个参数0代表我 1代表对手 第二个参数代表手牌张数
 	void UpdateStageLab(std::string stage_name);	//更新当前阶段
 };
 

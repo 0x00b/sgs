@@ -48,6 +48,9 @@
 	<key>wait</key>
  	<string>对手回合</string>
 
+	<key>bgmusic</key>
+ 	<string>背景音乐</string>
+
 	<key>1</key>
  	<string>刘
 备</string>

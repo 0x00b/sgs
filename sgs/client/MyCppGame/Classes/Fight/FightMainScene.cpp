@@ -25,6 +25,18 @@ bool FightMain::init()
 		return false;
 	}
 
+	//animation_sha = Sprite::create("Bg/back_bg.png");
+	animation_sha = Sprite::create();
+	animation_shan = Sprite::create();
+	animation_tao = Sprite::create();
+	animation_sha->setAnchorPoint(Point(0, 0));
+	animation_shan->setAnchorPoint(Point(0, 0));
+	animation_tao->setAnchorPoint(Point(0, 0));
+
+	animation_sha->setPosition(200, 300);
+	animation_shan->setPosition(200, 300);
+	animation_tao->setPosition(200, 300);
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	win  = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -43,12 +55,46 @@ bool FightMain::init()
 	layer_bg->addChild(img_bg);
 	//背景图e
 
+	//添加一个复选框 用于控制背景音乐s
+	CheckBox* cb_bg_music = CheckBox::create("Sound/check_box_normal.png",
+		"Sound/check_box_normal_press.png",
+		"Sound/check_box_active.png",
+		"Sound/check_box_normal_disable.png",
+		"Sound/check_box_active_disable.png");
+	cb_bg_music->setAnchorPoint(Vec2(1, 1));
+	cb_bg_music->setPosition(Vec2(origin.x+visibleSize.width - 10,origin.y+visibleSize.height - 10));
+	img_bg->addChild(cb_bg_music);
+	cb_bg_music->setScale(0.5);
+	cb_bg_music->setSelected(true);
+
+	cb_bg_music->addEventListener([](Ref* pSender, CheckBox::EventType type) {
+		switch (type)
+		{
+		case cocos2d::ui::CheckBox::EventType::SELECTED:
+			CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+			break;
+		case cocos2d::ui::CheckBox::EventType::UNSELECTED:
+			CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+			break;
+		default:
+			break;
+		}
+	});//注意这里监听器不是触摸监听器
+
+	Label* lab_bg_music = Label::createWithTTF(CSGSTXT::GET("bgmusic"),"fonts/FZBWKSK.TTF",18);
+	lab_bg_music->setAnchorPoint(Vec2(1,1));
+	lab_bg_music->setPosition(Vec2(origin.x + visibleSize.width - 10 - cb_bg_music->getContentSize().width, origin.y + visibleSize.height - 10));
+	img_bg->addChild(lab_bg_music);
+	//添加一个复选框 用于控制背景音乐e
+
 	i_current_card_num = 0;	//初始化手牌数为0
 
 	selectHero = SelectHero2Layer::create();
 	this->addChild(selectHero,2,"selectHero");
 	Vec_create();  //当桃闪杀放入缓冲区
-
+	addChild(animation_sha);
+	addChild(animation_shan);
+	addChild(animation_tao);
 	return true;
 }
 
@@ -519,9 +565,9 @@ void FightMain::UpdateHandCard() {
 	}
 }
 
-void FightMain::UpdateFightInfo() {
+void FightMain::UpdateFightInfo(int i, int blood, int max_blood) {
 	//更新血量
-	int blood[2] = { 2, 1 };
+	/*int blood[2] = { 2, 1 };
 	int max_blood[2] = { 4,4 };
 	for (int i = 0; i < 2; ++i) {
 		for (int j = 0; j < blood[i]; ++j) {
@@ -530,6 +576,13 @@ void FightMain::UpdateFightInfo() {
 		for (int j = blood[i]; j < max_blood[i]; ++j) {
 			img_blood[i][j]->loadTexture("Fight/blood_lose.png");
 		}
+	}*/
+
+	for (int j = 0; j < blood; ++j) {
+		img_blood[i][j]->loadTexture("Fight/blood_have.png");
+	}
+	for (int j = blood; j < max_blood; ++j) {
+		img_blood[i][j]->loadTexture("Fight/blood_lose.png");
 	}
 }
 
@@ -581,7 +634,9 @@ void FightMain::Vec_create()
 	animation_shan->setAnchorPoint(Point(0, 0));
 	animation_tao->setAnchorPoint(Point(0, 0));
 	auto cache = SpriteFrameCache::getInstance();  // 创建一个缓存单例
-	cache->addSpriteFramesWithFile("animation/TXsha/TXsha0.plist");   //通过plist配置文件添加一组精灵帧
+	auto cache_1 = SpriteFrameCache::getInstance();  // 创建一个缓存单例
+	auto cache_2 = SpriteFrameCache::getInstance();  // 创建一个缓存单例
+	cache->addSpriteFramesWithFile("animation/TXSha/TXSha0.plist");   //通过plist配置文件添加一组精灵帧
 	char name[50];
 	memset(name, 0, 50);
 	for (int i = 0; i < 9; i++)
@@ -589,27 +644,27 @@ void FightMain::Vec_create()
 		sprintf(name, "sha_000%d.png", i);
 		sha_vec.pushBack(cache->getSpriteFrameByName(name));
 	}  //把大的图一部分一部分的切出来放进vec
-	cache->addSpriteFramesWithFile("animation/TXsha/TXsha1.plist");
+	cache->addSpriteFramesWithFile("animation/TXSha/TXSha1.plist");
 	sprintf(name, "sha_0009.png");
 	sha_vec.pushBack(cache->getSpriteFrameByName(name));  //shan_00000.png
 
-	cache->addSpriteFramesWithFile("animation/TXShan/TXShan0.plist");   //通过plist配置文件添加一组精灵帧
+	cache_1->addSpriteFramesWithFile("animation/TXShan/TXShan0.plist");   //通过plist配置文件添加一组精灵帧
 
-	memset(name, 0, 20);
+	memset(name, 0, 50);
 	for (int i = 0; i < 9; i++)
 	{
 		sprintf(name, "shan_0000%d.png", i);
-		sha_vec.pushBack(cache->getSpriteFrameByName(name));
+		shan_vec.pushBack(cache_1->getSpriteFrameByName(name));
 	}  //把大的图一部分一部分的切出来放进vec
 
 
-	cache->addSpriteFramesWithFile("animation/TXTao/TXTao0.plist");   //通过plist配置文件添加一组精灵帧
+	cache_2->addSpriteFramesWithFile("animation/TXTao/TXTao0.plist");   //通过plist配置文件添加一组精灵帧
 
-	memset(name, 0, 20);
+	memset(name, 0, 50);
 	for (int i = 0; i < 9; i++)
 	{
 		sprintf(name, "tao_0000%d.png", i);
-		tao_vec.pushBack(cache->getSpriteFrameByName(name));
+		tao_vec.pushBack(cache_2->getSpriteFrameByName(name));
 	}  //把大的图一部分一部分的切出来放进vec
 }
 
@@ -630,14 +685,22 @@ void FightMain::hid_tao(Node* sender)  //将桃的精灵隐藏
 
 void FightMain::show_sha(int i)
 {
+	//杀音效s
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/sha.mp3", false);
+	//杀音效e
+
+	float x, y;
 	if (0 == i)  // 0的时候自己向对面
 	{
-		animation_sha->setPosition(win.width/2,win.height/5);
+		x = win.width / 2;
+		y = win.height / 5;
 	}
 	else
 	{
-		animation_sha->setPosition(win.width / 2, win.height * 4 / 5);
+		x = win.width / 2;
+		y = win.height * 3.5 / 5;
 	}
+	animation_sha->setPosition(x, y);
 	animation_sha->setVisible(true);
 	auto animation = Animation::createWithSpriteFrames(sha_vec, 0.1f);  //动画的配置
 	auto animate = Animate::create(animation); //包装成动作
@@ -649,13 +712,16 @@ void FightMain::show_sha(int i)
 
 void FightMain::show_shan(int i)
 {
+	//闪音效s
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/shan.mp3", false);
+
 	if (0 == i)  // 0的时候自己向对面
 	{
 		animation_shan->setPosition(win.width / 2, win.height / 5);
 	}
 	else
 	{
-		animation_shan->setPosition(win.width / 2, win.height * 4 / 5);
+		animation_shan->setPosition(win.width / 2, win.height * 3.5 / 5);
 	}
 	animation_shan->setVisible(true);
 	auto animation = Animation::createWithSpriteFrames(shan_vec, 0.1f);  //动画的配置
@@ -663,21 +729,24 @@ void FightMain::show_shan(int i)
 	auto *action = Sequence::create(
 		Repeat::create(animate, 1),
 		CallFuncN::create(CC_CALLBACK_1(FightMain::hid_shan, this)), NULL);
-	animation_sha->runAction(action);
+	animation_shan->runAction(action);
 }
 
 void FightMain::show_tao(int i)
 {
+	//桃音效s
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/tao.mp3", false);
+
 	if (0 == i)  // 0的时候自己向对面
 	{
 		animation_tao->setPosition(win.width / 2, win.height / 5);
 	}
 	else
 	{
-		animation_tao->setPosition(win.width / 2, win.height * 4 / 5);
+		animation_tao->setPosition(win.width / 2, win.height * 3.5 / 5);
 	}
 	animation_tao->setVisible(true);
-	auto animation = Animation::createWithSpriteFrames(sha_vec, 0.1f);  //动画的配置
+	auto animation = Animation::createWithSpriteFrames(tao_vec, 0.1f);  //动画的配置
 	auto animate = Animate::create(animation); //包装成动作
 	auto *action = Sequence::create(
 		Repeat::create(animate, 1),

@@ -76,7 +76,10 @@ bool Login::init()
 	//log(path.c_str());
 	//读取user.txt显示上次登录的用户名
 	std::string str = FileUtils::getInstance()->getStringFromFile(path);
-	txt_account->setString(str);
+	std::string str_account =str.substr(0, str.find(" "));
+	std::string str_pwd = str.substr(str.find(" ")+1, str.length());
+	
+	txt_account->setString(str_account);
 	//获取可写路径e
 
 	Label* lab_pwd = Label::create(CSGSTXT::GET("pwd"), "fonts/FZBWKSK.TTF", 22);
@@ -90,7 +93,7 @@ bool Login::init()
 
 	txt_pwd = TextField::create();
 	txt_pwd->setPlaceHolder("input your pwd");
-	txt_pwd->setText("123456");
+	txt_pwd->setString(str_pwd);
 	txt_pwd->setPasswordEnabled(true);
 	txt_pwd->setPosition(Vec2(lab_pwd->getPosition().x + 55, size_rect_bg.height / 2));
 	txt_pwd->setAnchorPoint(Vec2(0, 0.5));
@@ -109,7 +112,8 @@ bool Login::init()
 
 			//保存用户名到文件
 			std::string path = FileUtils::getInstance()->getWritablePath() + "user.txt";
-			const std::string str = txt_account->getString();
+			std::string str = txt_account->getString();
+			str = str + " " + txt_pwd->getString();
 			FileUtils::getInstance()->writeStringToFile(str, path);
 			//保存用户名到user.txt
 

@@ -76,8 +76,8 @@ enum SGSCMD
 								GAME_EQUIP_BC,
 								GAME_DEAL_BC,
 								GAME_GAME_END,
-								GAME_DISCARD_UC
-
+								GAME_DISCARD_UC,
+								GAME_CHANGE_BLOOD,
 };
 
 #endif // !_SGSG_MAIN_H_
