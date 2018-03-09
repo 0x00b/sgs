@@ -78,6 +78,8 @@ enum SGSCMD
 								GAME_GAME_END,
 								GAME_DISCARD_UC,
 								GAME_CHANGE_BLOOD,
+								GAME_CHAT,
+								GAME_CHAT_BC,
 };
 
 #endif // !_SGSG_MAIN_H_

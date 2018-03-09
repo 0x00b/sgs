@@ -753,3 +753,17 @@ void FightMain::show_tao(int i)
 		CallFuncN::create(CC_CALLBACK_1(FightMain::hid_tao, this)), NULL);
 	animation_tao->runAction(action);
 }
+
+void FightMain::GameEnd(int i) {
+	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it) {
+		it->m_oGameAttr.m_lstPlayerCards.clear();
+	}
+	if (0) {
+		Layer* layer_end = FightEndWin::create();
+		this->addChild(layer_end);
+	}
+	else if (1) {
+		Layer* layer_end = FightEndLose::create();
+		this->addChild(layer_end);
+	}
+}

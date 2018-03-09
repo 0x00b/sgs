@@ -181,6 +181,10 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 		break;
 	case GAME_CHANGE_BLOOD:	//广播 一人血量变化
 		Do_function::GAME_CHANGE_BLOOD(pkt,cmd);
+		break;
+	case GAME_GAME_END:
+		Do_function::GAME_GAME_END(pkt, cmd);
+		break;
 	default:
 		break;
 	}
@@ -338,6 +342,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/sha.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/shan.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/tao.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_win.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_lose.mp3");
 	//加载音效e
 
 	// create a scene. it's an autorelease object

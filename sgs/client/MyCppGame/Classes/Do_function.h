@@ -39,4 +39,5 @@ public:
 	static void GAME_DISCARD_BC(Json::Value &pkt, int cmd);
 	static void Do_function::GAME_CANCEL_OUT_CARD_BC(Json::Value &pkt, int cmd);
 	static void Do_function::GAME_CHANGE_BLOOD(Json::Value &pkt, int cmd);
+	static void Do_function::GAME_GAME_END(Json::Value &pkt, int cmd);
 };
