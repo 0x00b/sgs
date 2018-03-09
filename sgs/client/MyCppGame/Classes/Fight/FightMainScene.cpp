@@ -758,6 +758,8 @@ void FightMain::GameEnd(int i) {
 	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it) {
 		it->m_oGameAttr.m_lstPlayerCards.clear();
 	}
+	HideMyBtnAndTimer();		//隐藏我的按钮和定时器
+
 	if (0) {
 		Layer* layer_end = FightEndWin::create();
 		this->addChild(layer_end);
