@@ -5,6 +5,7 @@
 #include "../Classes/Home/ReadyHomeScene2.h"
 #include "../Classes/Fight/FightMainScene.h"
 #include "../Classes/SelectHero2Layer/SelectHero2Layer.h"
+#include "Login/LoginScene.h"
 
 class Do_function
 {
@@ -37,7 +38,9 @@ public:
 	static void GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd);
 	static void GAME_DISCARD_UC(Json::Value &pkt, int cmd);
 	static void GAME_DISCARD_BC(Json::Value &pkt, int cmd);
-	static void Do_function::GAME_CANCEL_OUT_CARD_BC(Json::Value &pkt, int cmd);
-	static void Do_function::GAME_CHANGE_BLOOD(Json::Value &pkt, int cmd);
-	static void Do_function::GAME_GAME_END(Json::Value &pkt, int cmd);
+	static void GAME_CANCEL_OUT_CARD_BC(Json::Value &pkt, int cmd);
+	static void GAME_CHANGE_BLOOD(Json::Value &pkt, int cmd);
+	static void GAME_GAME_END(Json::Value &pkt, int cmd);
+	static void GAME_CHAT_BC(Json::Value &pkt, int cmd);
+	static void GAME_EQUIP_BC(Json::Value &pkt, int cmd);
 };

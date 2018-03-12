@@ -2,7 +2,16 @@
 #include "AppDelegate.h"
 
 void Do_function::PLAYER_REGIST_UC(Json::Value &pkt, int cmd){
-
+	if (0 == pkt["code"].asInt())
+	{
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, Login::createScene()));
+		});
+	}
+	else
+	{
+		MessageBox("Register failed!", "");
+	}
 }
 
 void Do_function::PLAYER_QUIT_ROOM_BC(Json::Value &pkt, int cmd) {

@@ -241,6 +241,9 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 {
 	if (0 == pkt["code"].asInt())
 	{
+		Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+			((FightMain *)u_player.MyCurrentScene)->OutCardPool(pkt["card"].asInt());
+		});
 		//
 		int card_num = pkt["card"].asInt();
 		int u_seatid = pkt["seatid"].asInt();
@@ -288,6 +291,16 @@ void Do_function::GAME_OUT_CARD_BC(Json::Value &pkt, int cmd)
 				});
 			}
 			; break;
+		case SGSCard::CARD_WU_ZHONG_SHENG_YOU:
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->show_wuzhongshengyou();
+			});
+			break;
+		case SGSCard::CARD_GUO_HE_CHAI_QIAO:
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->show_guohechaiqiao();
+			});
+			break;
 		default:
 			break;
 		}
@@ -406,6 +419,26 @@ void Do_function::GAME_PLAY_CARD_BC(Json::Value &pkt, int cmd) {
 				});
 			}
 		}
+		
+		if (pkt["seatid"].asInt() == u_player.m_nSeatId) {	//是我
+			switch (pkt["to_me_card"].asInt()) {
+			case SGSCard::CARD_NONE:
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+					((FightMain *)u_player.MyCurrentScene)->UpdateReminder(CSGSTXT::GET("pleaseout"));
+				});
+				break;
+			case SGSCard::CARD_SHA:
+				Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+					((FightMain *)u_player.MyCurrentScene)->UpdateReminder(CSGSTXT::GET("enemyuse") + CSGSTXT::GET("sha") + CSGSTXT::GET("please") + CSGSTXT::GET("shan"));
+				});
+				break;
+			}
+		}
+		else { //不是我
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateReminder("");
+			});
+		}
 	}
 	else
 	{
@@ -523,4 +556,55 @@ void Do_function::GAME_GAME_END(Json::Value &pkt, int cmd) {
 			});
 		}
 	}
+}
+
+void Do_function::GAME_CHAT_BC(Json::Value &pkt, int cmd) {
+	if (0 == pkt["code"].asInt()) {
+		int seatid = pkt["seatid"].asInt();
+		string message = pkt["message"].asString();
+		string name;
+		for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it)
+		{
+			if (it->m_nSeatId == seatid)
+			{
+				name = it->m_stAccount;
+				break;
+			}
+		}
+		message = name + ":" + message;
+		int list_num = u_room.m_chat_message.size();
+		if (list_num == 8)
+		{
+			u_room.m_chat_message.pop_front();
+		}
+		u_room.m_chat_message.push_back(message);
+		((FightMain *)u_player.MyCurrentScene)->UpdateChat();
+	}
+	else
+	{
+		log("send failed!");
+	}
+}
+
+void Do_function::GAME_EQUIP_BC(Json::Value &pkt, int cmd) {
+	//pkt["type"].asInt();	//0有问题 1穿装备 2脱装备
+	if (u_player.m_nSeatId == pkt["seatid"].asInt()) {	//我的装备
+		switch (pkt["equipment"].asInt()) {
+		case SGSCard::CARD_ZHU_GE_LIAN_LU:
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateEquipment(0, SGSCard::CARD_ZHU_GE_LIAN_LU, pkt["type"].asInt());
+			});
+			break;
+		}
+	}
+	else {	//对方装备
+		switch (pkt["equipment"].asInt()) {
+		case SGSCard::CARD_ZHU_GE_LIAN_LU:
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateEquipment(1, SGSCard::CARD_ZHU_GE_LIAN_LU, pkt["type"].asInt());
+			});
+			break;
+		}
+	}
+	
 }

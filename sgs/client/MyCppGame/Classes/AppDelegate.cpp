@@ -58,6 +58,7 @@ void connectToSvr()
 	}
 	catch (const std::exception&)
 	{
+		CCSleep(1000);
 		MessageBox("connect sever err!","");
 	}
 }
@@ -88,7 +89,7 @@ void AppDelegate::func_send()
 	while (exit_all)
 	{
 		if (g_lstWrite.empty()) {
-			CCSleep(10);
+			//CCSleep(10);
 			continue;
 		}
 		std::shared_ptr<PPacket>& pkt = g_lstWrite.front();
@@ -184,6 +185,15 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 		break;
 	case GAME_GAME_END:
 		Do_function::GAME_GAME_END(pkt, cmd);
+		break;
+	case GAME_CHAT_BC:
+		Do_function::GAME_CHAT_BC(pkt, cmd);
+		break;
+	case PLAYER_REGIST_UC:
+		Do_function::PLAYER_REGIST_UC(pkt, cmd);
+		break;
+	case GAME_EQUIP_BC:
+		Do_function::GAME_EQUIP_BC(pkt, cmd);
 		break;
 	default:
 		break;
@@ -296,7 +306,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto glview = director->getOpenGLView();
 	if (!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-		glview = GLViewImpl::createWithRect("MyCppGame", cocos2d::Rect(0, 0, 960, 640));
+		glview = GLViewImpl::createWithRect("MyCppGame", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
 #else
 		glview = GLViewImpl::create("MyCppGame");
 #endif
@@ -344,6 +354,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/tao.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_win.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_lose.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/wuzhongshengyou.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/guohechaiqiao.mp3");
 	//º”‘ÿ“Ù–ße
 
 	// create a scene. it's an autorelease object
