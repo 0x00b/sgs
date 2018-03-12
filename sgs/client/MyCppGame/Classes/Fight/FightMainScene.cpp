@@ -934,7 +934,7 @@ void FightMain::textFieldEvent(Ref * pSender, TextField::EventType type)
 	}
 }
 
-void FightMain::UpdateEquipment(int i, SGSCard::CARD_TYPE card) {
+void FightMain::UpdateEquipment(int i, SGSCard::CARD_TYPE card,int type) {
 	switch (card)
 	{
 	case SGSCard::CARD_TYPE_EX:
@@ -976,8 +976,13 @@ void FightMain::UpdateEquipment(int i, SGSCard::CARD_TYPE card) {
 	case SGSCard::CARD_SHAN_DIAN_EX:
 		break;
 	case SGSCard::CARD_ZHU_GE_LIAN_LU:
-		img_equipment[i][0]->loadTexture("Fight/equipment/zhugelianlu.png");
-		img_equipment[i][0]->setVisible(true);
+		if (type == 1) {
+			img_equipment[i][0]->loadTexture("Fight/equipment/zhugelianlu.png");
+			img_equipment[i][0]->setVisible(true);
+		}
+		else if (type == 2) {
+			img_equipment[i][0]->setVisible(false);
+		}
 		break;
 	case SGSCard::CARD_BA_GUA_ZHEN:
 		break;

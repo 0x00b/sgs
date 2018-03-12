@@ -107,7 +107,7 @@ public:
 	void WaitToFadeOut(Node* sender);			//2秒后消失
 	void DeleteOutCard(float ft);				//释放旧牌
 
-	void UpdateEquipment(int i, SGSCard::CARD_TYPE card);	//更新装备
+	void UpdateEquipment(int i, SGSCard::CARD_TYPE card,int type);	//更新装备
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

@@ -577,11 +577,12 @@ void Do_function::GAME_CHAT_BC(Json::Value &pkt, int cmd) {
 }
 
 void Do_function::GAME_EQUIP_BC(Json::Value &pkt, int cmd) {
+	//pkt["type"].asInt();	//0有问题 1穿装备 2脱装备
 	if (u_player.m_nSeatId == pkt["seatid"].asInt()) {	//我的装备
 		switch (pkt["equipment"].asInt()) {
 		case SGSCard::CARD_ZHU_GE_LIAN_LU:
-			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
-				((FightMain *)u_player.MyCurrentScene)->UpdateEquipment(0, SGSCard::CARD_ZHU_GE_LIAN_LU);
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateEquipment(0, SGSCard::CARD_ZHU_GE_LIAN_LU, pkt["type"].asInt());
 			});
 			break;
 		}
@@ -589,8 +590,8 @@ void Do_function::GAME_EQUIP_BC(Json::Value &pkt, int cmd) {
 	else {	//对方装备
 		switch (pkt["equipment"].asInt()) {
 		case SGSCard::CARD_ZHU_GE_LIAN_LU:
-			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
-				((FightMain *)u_player.MyCurrentScene)->UpdateEquipment(1, SGSCard::CARD_ZHU_GE_LIAN_LU);
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateEquipment(1, SGSCard::CARD_ZHU_GE_LIAN_LU, pkt["type"].asInt());
 			});
 			break;
 		}
