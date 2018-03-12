@@ -115,6 +115,7 @@ bool FightMain::init()
 		chat[i] = Label::create("", "", 16);
 		chat[i]->setPosition(Vec2(win.width / 10, win.height/2.5/9*(i+1)));
 		chat[i]->setAnchorPoint(Point(0, 0));
+		chat[i]->setColor(Color3B(0, 0, 0));
 		addChild(chat[i]);
 	}
 	txt_chat->addEventListener(CC_CALLBACK_2(FightMain::textFieldEvent, this));
@@ -784,6 +785,7 @@ void FightMain::GameEnd(int i) {
 	for (std::list<Player>::iterator it = u_room.m_lstPlayers.begin(); it != u_room.m_lstPlayers.end(); ++it) {
 		it->m_oGameAttr.m_lstPlayerCards.clear();
 	}
+	u_room.m_chat_message.clear();
 	HideMyBtnAndTimer();		//隐藏我的按钮和定时器
 
 	if (i == 0) {
