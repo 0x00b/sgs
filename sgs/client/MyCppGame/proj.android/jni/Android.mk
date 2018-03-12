@@ -32,7 +32,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp\
 				   ../../Classes/Do_function.cpp\
 				   ../../Classes/Do_function_mm.cpp\
 				   ../../Classes/ppacket.cpp\
-				   ../../Classes/text.cpp
+				   ../../Classes/text.cpp\
+				   ../../Classes/Login/RegisterScene.cpp
 				   
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes\
