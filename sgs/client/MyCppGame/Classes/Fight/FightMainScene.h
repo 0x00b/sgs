@@ -40,6 +40,7 @@ private:
 	ImageView* img_handcard_num_bg[2];	//手牌数背景
 	Label* lab_handcard_num[2];	//手牌数
 	ImageView* img_blood[2][4];	//血 最多四个 在初始化武将信息的时候初始化
+	ImageView* img_equipment[2][4];	//装备 武器 防具 加一马 减一马
 
 								//ImageView* img_enemy_hero;				//对方武将信息
 								//ImageView* img_enemy_hero_info_bg;	//用于在武将国家和姓名的背景色
@@ -105,6 +106,8 @@ public:
 	void OutCardPool(SGSCard card);		//更新出牌池
 	void WaitToFadeOut(Node* sender);			//2秒后消失
 	void DeleteOutCard(float ft);				//释放旧牌
+
+	void UpdateEquipment(int i, SGSCard::CARD_TYPE card);	//更新装备
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

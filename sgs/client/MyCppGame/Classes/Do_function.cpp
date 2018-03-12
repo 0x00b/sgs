@@ -575,3 +575,25 @@ void Do_function::GAME_CHAT_BC(Json::Value &pkt, int cmd) {
 		log("send failed!");
 	}
 }
+
+void Do_function::GAME_EQUIP_BC(Json::Value &pkt, int cmd) {
+	if (u_player.m_nSeatId == pkt["seatid"].asInt()) {	//我的装备
+		switch (pkt["equipment"].asInt()) {
+		case SGSCard::CARD_ZHU_GE_LIAN_LU:
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateEquipment(0, SGSCard::CARD_ZHU_GE_LIAN_LU);
+			});
+			break;
+		}
+	}
+	else {	//对方装备
+		switch (pkt["equipment"].asInt()) {
+		case SGSCard::CARD_ZHU_GE_LIAN_LU:
+			Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+				((FightMain *)u_player.MyCurrentScene)->UpdateEquipment(1, SGSCard::CARD_ZHU_GE_LIAN_LU);
+			});
+			break;
+		}
+	}
+	
+}

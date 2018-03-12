@@ -181,6 +181,15 @@ void FightMain::InitHeroInfo() {
 				img_blood[0][i]->setScale(2);
 			}
 
+			for (int i = 0; i < (*it).m_oGameAttr.m_pHero->blood; i++) {
+				img_equipment[0][i] = ImageView::create("Fight/equipment/zhugelianlu.png");
+				img_equipment[0][i]->setAnchorPoint(Vec2(0.5, 0));
+				img_equipment[0][i]->setScale(img_hero[0]->getContentSize().width / img_equipment[0][i]->getContentSize().width);
+				img_equipment[0][i]->setPosition(Vec2(img_hero[0]->getContentSize().width / 2, img_hero[0]->getContentSize().height + 5 + img_equipment[0][i]->getContentSize().height));
+				img_hero[0]->addChild(img_equipment[0][i]);
+				img_equipment[0][i]->setVisible(false);
+			}
+
 			img_hero[0]->setScale(visibleSize.width / 8 / img_hero[0]->getContentSize().width);	//武将信息缩放到宽度1/8
 																								//右下角我方武将e
 
@@ -277,6 +286,15 @@ void FightMain::InitHeroInfo() {
 				img_blood[1][i]->setPosition(Vec2(img_hero[1]->getContentSize().width - img_blood[1][i]->getContentSize().width * 2 * i - 5, img_hero[1]->getContentSize().height - 5));
 				img_hero[1]->addChild(img_blood[1][i]);
 				img_blood[1][i]->setScale(2);
+			}
+
+			for (int i = 0; i < (*it).m_oGameAttr.m_pHero->blood; i++) {
+				img_equipment[1][i] = ImageView::create("Fight/equipment/zhugelianlu.png");
+				img_equipment[1][i]->setAnchorPoint(Vec2(1, 1));
+				img_equipment[1][i]->setScale(img_hero[1]->getContentSize().width / img_equipment[1][i]->getContentSize().width);
+				img_equipment[1][i]->setPosition(Vec2(-5, img_hero[1]->getContentSize().height - 5 - img_equipment[1][i]->getContentSize().height));
+				img_hero[1]->addChild(img_equipment[1][i]);
+				img_equipment[1][i]->setVisible(false);
 			}
 
 			img_hero[1]->setScale(visibleSize.width / 8 / img_hero[1]->getContentSize().width);	//武将信息缩放到宽度1/8
@@ -913,5 +931,87 @@ void FightMain::textFieldEvent(Ref * pSender, TextField::EventType type)
 			break;
 		case TextField::EventType::DELETE_BACKWARD:
 			break;
+	}
+}
+
+void FightMain::UpdateEquipment(int i, SGSCard::CARD_TYPE card) {
+	switch (card)
+	{
+	case SGSCard::CARD_TYPE_EX:
+		break;
+	case SGSCard::CARD_NONE:
+		break;
+	case SGSCard::CARD_SHAN:
+		break;
+	case SGSCard::CARD_SHA:
+		break;
+	case SGSCard::CARD_TAO:
+		break;
+	case SGSCard::CARD_JUE_DOU:
+		break;
+	case SGSCard::CARD_WANG_JIAN_QI_FA:
+		break;
+	case SGSCard::CARD_TAO_YUAN_JIE_YI:
+		break;
+	case SGSCard::CARD_GUO_HE_CHAI_QIAO:
+		break;
+	case SGSCard::CARD_SHUN_SHOU_QIAN_YANG:
+		break;
+	case SGSCard::CARD_WU_ZHONG_SHENG_YOU:
+		break;
+	case SGSCard::CARD_JIE_DAO_SHA_REN:
+		break;
+	case SGSCard::CARD_WU_GU_FENG_DENG:
+		break;
+	case SGSCard::CARD_NAN_MAN_RU_QIN:
+		break;
+	case SGSCard::CARD_WU_XIE_KE_JI:
+		break;
+	case SGSCard::CARD_WU_XIE_KE_JI_EX:
+		break;
+	case SGSCard::CARD_LE_BU_SI_SHU:
+		break;
+	case SGSCard::CARD_SHAN_DIAN:
+		break;
+	case SGSCard::CARD_SHAN_DIAN_EX:
+		break;
+	case SGSCard::CARD_ZHU_GE_LIAN_LU:
+		img_equipment[i][0]->loadTexture("Fight/equipment/zhugelianlu.png");
+		img_equipment[i][0]->setVisible(true);
+		break;
+	case SGSCard::CARD_BA_GUA_ZHEN:
+		break;
+	case SGSCard::CARD_HANG_BING_JIAN:
+		break;
+	case SGSCard::CARD_REN_WANG_DUN:
+		break;
+	case SGSCard::CARD_QING_LONG_YYD:
+		break;
+	case SGSCard::CARD_CI_XIONG_SGJ:
+		break;
+	case SGSCard::CARD_JUE_YING:
+		break;
+	case SGSCard::CARD_QI_LIN_GONG:
+		break;
+	case SGSCard::CARD_CHI_TU:
+		break;
+	case SGSCard::CARD_DI_LU:
+		break;
+	case SGSCard::CARD_GUA_SHI_FU:
+		break;
+	case SGSCard::CARD_QING_GANG_JIAN:
+		break;
+	case SGSCard::CARD_ZHAN_BA_SHE_MAO:
+		break;
+	case SGSCard::CARD_FANG_TIAN_HUA_J:
+		break;
+	case SGSCard::CARD_DA_WAN:
+		break;
+	case SGSCard::CARD_ZHUA_HUANG_FD:
+		break;
+	case SGSCard::CARD_ZI_XING:
+		break;
+	default:
+		break;
 	}
 }

@@ -147,5 +147,24 @@ bool Login::init()
 	img_rect_bg->addChild(lab_login);
 	//µÇÂ¼°´Å¥e
 
+	//×¢²á°´Å¥
+	Button* btn_register = Button::create("Bg/btn_bg.png");
+	btn_register->setAnchorPoint(Vec2(1,0));
+	btn_register->setPosition(Vec2(img_bg->getContentSize().width, 0));
+	img_bg->addChild(btn_register);
+	btn_register->setTitleFontName("fonts/FZBWKSK.TTF");
+	btn_register->setTitleFontSize(22);
+	btn_register->setTitleText(CSGSTXT::GET("register"));
+
+	btn_register->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::ENDED:
+
+			Director::getInstance()->replaceScene(TransitionSlideInL::create(0.5f, Register::createScene()));
+			break;
+		}
+	});
+
 	return true;
 }

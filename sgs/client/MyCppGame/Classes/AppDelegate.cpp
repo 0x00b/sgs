@@ -188,6 +188,12 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case GAME_CHAT_BC:
 		Do_function::GAME_CHAT_BC(pkt, cmd);
 		break;
+	case PLAYER_REGIST_UC:
+		Do_function::PLAYER_REGIST_UC(pkt, cmd);
+		break;
+	case GAME_EQUIP_BC:
+		Do_function::GAME_EQUIP_BC(pkt, cmd);
+		break;
 	default:
 		break;
 	}

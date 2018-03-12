@@ -30,6 +30,9 @@
 	<key>pwd</key>
  	<string>密码</string>
 
+	<key>pwdagain</key>
+ 	<string>重复密码</string>
+
 	<key>login</key>
  	<string>登录</string>
 
@@ -50,6 +53,9 @@
 
 	<key>bgmusic</key>
  	<string>背景音乐</string>
+	
+	<key>register</key>
+ 	<string>注册</string>
 
 	<key>enemyuse</key>
  	<string>对手使用了</string>

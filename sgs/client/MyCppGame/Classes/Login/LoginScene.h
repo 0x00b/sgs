@@ -3,6 +3,7 @@
 
 #include "model/include_all.h"
 #include "HelloWorldScene.h"
+#include "RegisterScene.h"
 
 USING_NS_CC;
 using namespace ui;
