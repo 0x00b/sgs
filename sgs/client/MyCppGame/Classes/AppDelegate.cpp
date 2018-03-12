@@ -58,6 +58,7 @@ void connectToSvr()
 	}
 	catch (const std::exception&)
 	{
+		CCSleep(1000);
 		MessageBox("connect sever err!","");
 	}
 }
@@ -88,7 +89,7 @@ void AppDelegate::func_send()
 	while (exit_all)
 	{
 		if (g_lstWrite.empty()) {
-			CCSleep(10);
+			//CCSleep(10);
 			continue;
 		}
 		std::shared_ptr<PPacket>& pkt = g_lstWrite.front();
@@ -354,6 +355,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_win.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_lose.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/wuzhongshengyou.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/guohechaiqiao.mp3");
 	//º”‘ÿ“Ù–ße
 
 	// create a scene. it's an autorelease object

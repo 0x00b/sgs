@@ -108,6 +108,9 @@ public:
 	void DeleteOutCard(float ft);				//释放旧牌
 
 	void UpdateEquipment(int i, SGSCard::CARD_TYPE card,int type);	//更新装备
+
+	void show_wuzhongshengyou();
+	void show_guohechaiqiao();
 };
 
 #endif // __FIGHTMAIN_SCENE_H__

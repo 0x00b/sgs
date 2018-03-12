@@ -1020,3 +1020,11 @@ void FightMain::UpdateEquipment(int i, SGSCard::CARD_TYPE card,int type) {
 		break;
 	}
 }
+
+void FightMain::show_wuzhongshengyou() {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/wuzhongshengyou.mp3", false);
+}
+
+void FightMain::show_guohechaiqiao() {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Sound/guohechaiqiao.mp3", false);
+}
