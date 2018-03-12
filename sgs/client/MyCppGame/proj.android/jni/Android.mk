@@ -33,7 +33,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp\
 				   ../../Classes/Do_function_mm.cpp\
 				   ../../Classes/ppacket.cpp\
 				   ../../Classes/text.cpp\
-				   ../../Classes/Login/RegisterScene.cpp
+				   ../../Classes/Login/RegisterScene.cpp\
+				   ../../Classes/Fight/FightEndLoseLayer.cpp\
+				   ../../Classes/Fight/FightEndWinLayer.cpp\
+
 				   
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes\
