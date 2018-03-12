@@ -39,7 +39,7 @@ Room u_room;
 
 
 tcp::socket sock(*(new boost::asio::io_service()));  // 10.12.137.172
-tcp::endpoint ep(boost::asio::ip::address::from_string("10.14.115.244"),37373);
+tcp::endpoint ep(boost::asio::ip::address::from_string("10.12.137.172"),37373);
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -347,6 +347,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/tao.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_win.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/gameResult_lose.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("Sound/wuzhongshengyou.mp3");
 	//º”‘ÿ“Ù–ße
 
 	// create a scene. it's an autorelease object
