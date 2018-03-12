@@ -56,6 +56,7 @@ public:
 	int	ReqQuitRoom(Player* player);
 	int ReqEnterRoomFast(Player* player);
 	int ReqSearchRoom(Player* player);
+	int ReqHeroDetail(Player *player);
 
 	int DeleteRoom(Room* room);
 
