@@ -99,10 +99,10 @@ bool FightMain::init()
 	Size size_chat;
 	chat_bg = Sprite::create("Fight/chat_bg.png");
 	size_chat = chat_bg->getContentSize();
-	chat_bg->setScaleX(win.width / 3.5 / size_chat.width);
+	chat_bg->setScaleX(win.width / 4.3 / size_chat.width);
 	chat_bg->setScaleY(win.height / 2.3 / size_chat.height);
 	chat_bg->setAnchorPoint(Point(0, 0));
-	chat_bg->setPosition(0, 0);
+	chat_bg->setPosition(Vec2(origin.x,origin.y));
 		
 	txt_chat = TextField::create();
 	txt_chat->setPlaceHolder("input");
