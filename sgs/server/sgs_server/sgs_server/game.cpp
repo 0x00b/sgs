@@ -222,7 +222,7 @@ int Game::ReqUserQuit(Player *player)
 	if(/*ST_GM_PLAYER_NONE != player->m_nGameStatus &&*/ NULL != player->m_pRoom)
 	{
 		//player->m_pRoom->QuitRoom(player);
-		//code = ReqQuitRoom(player);
+		code = ReqQuitRoom(player);
 	}
 	if(0 == code)
 	{
@@ -232,11 +232,11 @@ int Game::ReqUserQuit(Player *player)
 			it->second->m_nStatus = ST_PLAYER_OFFLINE;
 		}
 
-		//m_mPlayers.erase(player->m_iClient.m_nfd);
+		m_mPlayers.erase(player->m_iClient.m_nfd);
 		//if (ST_PLAYER_OFFLINE != player->m_nStatus && player->m_nID >= 0)
 		{
 		}
-		//delete player;
+		delete player;
 	}
 
 	return 0;

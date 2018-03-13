@@ -61,6 +61,7 @@ public:
 
 	virtual void Reset();
 	virtual void Init();
+	virtual int Leave(Player* player);
 	
 	bool HasSeat(int seatid);
 

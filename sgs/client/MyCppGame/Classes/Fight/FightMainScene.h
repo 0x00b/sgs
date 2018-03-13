@@ -69,6 +69,8 @@ private:
 	ImageView* img_out_card_flower;
 	ImageView* img_out_card_Num;
 	Sprite* sp_out_card_old;	//出牌池旧牌
+
+	Button* btn_skill;	//技能
 public:
 	void InitHeroInfo();				//初始化敌我武将信息
 	void Vec_create();
