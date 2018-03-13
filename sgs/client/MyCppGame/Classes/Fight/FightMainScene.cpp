@@ -647,11 +647,16 @@ void FightMain::ShowMyBtnAndTimer() {
 	pt_0->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行我的定时器
 }
 void FightMain::HideMyBtnAndTimer() {
-	btn_confirm->setVisible(false);
-	btn_cancel->setVisible(false);
-
-	pt_0->stopAllActions(); //隐藏我的定时器
-	pt_0->setPercentage(0);
+	if (btn_confirm != NULL) {
+		btn_confirm->setVisible(false);
+	}
+	if (btn_cancel != NULL) {
+		btn_cancel->setVisible(false);
+	}
+	if (pt_0 != NULL) {
+		pt_0->stopAllActions(); //隐藏我的定时器
+		pt_0->setPercentage(0);
+	}
 }
 void FightMain::ShowEnemyTimer() {
 	pt_1->runAction(ProgressFromTo::create(15.0f, 100.0f, 0.0f)); //执行敌方定时器
@@ -817,11 +822,11 @@ void FightMain::GameEnd(int i) {
 
 	if (i == 0) {
 		Layer* layer_end = FightEndWin::create();
-		this->addChild(layer_end);
+		this->addChild(layer_end,3);
 	}
 	else if (i == 1) {
 		Layer* layer_end = FightEndLose::create();
-		this->addChild(layer_end);
+		this->addChild(layer_end,3);
 	}
 }
 
