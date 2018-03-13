@@ -87,6 +87,7 @@ public:
 	int ReqSelectCard(Player *player);
 	int ReqSelectHero(Player *player);
 	int ReqChat(Player *player);
+	
 
 	int CanPlayCard(Player* player ,int card);
 
@@ -95,7 +96,9 @@ public:
 	int DealCard_Sha(int seat, int to_seat);
 	int DealCard_Shan(int seat, int to_seat);
 	int DealCard_WuZhongSY(int seat);
-
+	int DealCard_ZhuGeLL(int seat);
+	int DealCard_GuoHeCQ(int seat, int to_seat);
+	
 
 private:
 };

@@ -50,6 +50,9 @@ enum SGSCMD
 	PLAYER_GET_GAME_MODE_UC,	//player get game mode
 	PLAYER_CREATE_ROOM,		//player create a room
 	PLAYER_CREATE_ROOM_UC,		//player create a room
+	
+	GAME_HERO_DETAIL,
+	GAME_HERO_DETAIL_UC,
 
 	//add your cmd
 };

@@ -132,7 +132,7 @@ pkt must call pack func before call this function
 */
 int Player::Send(PPacket& pkt)
 {
-	if (m_iClient.m_nfd > 0)
+	if (m_iClient.m_nfd > 0 && m_nStatus != ST_PLAYER_OFFLINE)
 	{
 		m_iClient.m_lstWrite.push_back(pkt);
 		ev_io_start(g_app.m_pLoop, &m_iClient.m_ev_write);

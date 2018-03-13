@@ -10,6 +10,7 @@
 #include "../../game.h"
 #include "../../app.h"
 
+#include <algorithm>
 
 extern App g_app;
 
@@ -49,15 +50,26 @@ void SGSGameLogic::Init()
 void SGSGameLogic::InitCard()
 {
     m_vCards.clear();
+    int cnt = 0 ;
     for (int i = 0; i < SGSCard::CARD_CNT; ++i)
     {
         if (g_lstCards[i]->func() != SGSCard::CARD_SHA 
         && g_lstCards[i]->func() != SGSCard::CARD_SHAN 
         && g_lstCards[i]->func() != SGSCard::CARD_TAO
         && g_lstCards[i]->func() != SGSCard::CARD_WU_ZHONG_SHENG_YOU
+        && g_lstCards[i]->func() != SGSCard::CARD_ZHU_GE_LIAN_LU
+        && g_lstCards[i]->func() != SGSCard::CARD_GUO_HE_CHAI_QIAO
         )
         {
             continue;
+        }
+        if(g_lstCards[i]->func() == SGSCard::CARD_GUO_HE_CHAI_QIAO)
+        {
+            cnt++;
+            if(cnt > 4)
+            {
+                continue;
+            }
         }
         m_vCards.push_back(g_lstCards[i]);
     }
@@ -81,6 +93,7 @@ void SGSGameLogic::Reset()
         it->second->m_lstPlayerCards.clear();
         it->second->m_bCanSha = true;
         it->second->m_nToMeCard = SGSCard::CARD_NONE;
+        it->second->m_lstEquip.clear();
     }
 }
 int SGSGameLogic::Do(Player *player)
@@ -110,6 +123,7 @@ int SGSGameLogic::Do(Player *player)
             break;
         case GAME_CHAT:
             code = ReqChat(player);
+            break;
         default:
             break;
         }
@@ -395,6 +409,17 @@ int SGSGameLogic::CanPlayCard(Player *player, int card)
                     code = 0x08;
                 }
                 break;
+            case SGSCard::CARD_ZHU_GE_LIAN_LU:
+                break;
+            case SGSCard::CARD_GUO_HE_CHAI_QIAO:
+            {
+                std::map<int, std::shared_ptr<SGSGameAttr>>::iterator tga = m_mPlayer.find((seat + 1) % m_pRoom->m_nMaxPlayerCnt);
+                if (tga->second->m_lstEquip.end() == std::find(tga->second->m_lstEquip.begin(), tga->second->m_lstEquip.end(), SGSCard::CARD_ZHU_GE_LIAN_LU))
+                {
+                    code = 0x11;
+                }
+            }
+            break;
             case SGSCard::CARD_WU_ZHONG_SHENG_YOU:
                 break;
             default:
@@ -543,11 +568,93 @@ int SGSGameLogic::DealCard(int card, int seat, Json::Value& root)
     case SGSCard::CARD_WU_ZHONG_SHENG_YOU:
         code = DealCard_WuZhongSY(seat);
         break;
+    case SGSCard::CARD_ZHU_GE_LIAN_LU:
+        code = DealCard_ZhuGeLL(seat);
+        break;
+    case SGSCard::CARD_GUO_HE_CHAI_QIAO:
+        code = DealCard_GuoHeCQ(seat, (seat + 1) % m_pRoom->m_nMaxPlayerCnt);
+        break;
     default:
         break;
     }
     return code;
 }
+
+
+int SGSGameLogic::DealCard_GuoHeCQ(int seat, int to_seat)
+{
+    int code = 0;
+    std::map<int, std::shared_ptr<SGSGameAttr>>::iterator sga = m_mPlayer.find(to_seat);
+    if (sga != m_mPlayer.end())
+    {
+        Json::Value root;
+        SGSGameAttr &ga = *sga->second;
+        root["seatid"] = to_seat;
+        root["type"] = 2;//拆卸装备
+        
+        std::list<int>::iterator zzll;//装备
+        if(ga.m_lstEquip.end() != (zzll = std::find(ga.m_lstEquip.begin(), ga.m_lstEquip.end(),  SGSCard::CARD_ZHU_GE_LIAN_LU)))
+        {
+            ga.m_lstEquip.erase(zzll);
+            root["equipment"] = SGSCard::CARD_ZHU_GE_LIAN_LU;
+        }
+        else
+        {
+            code = 0x02;
+        }
+        root["code"] = seat;
+
+        PPacket packet;
+        packet.body() = root.toStyledString();
+        packet.pack(GAME_EQUIP_BC);
+
+        m_pRoom->Broadcast(packet);
+        
+        PlayCardUC(seat);
+    }
+    else
+    {
+        code = 0x01;
+    }
+
+    return code;
+}
+
+
+int SGSGameLogic::DealCard_ZhuGeLL(int seat)
+{
+    int code = 0;
+    std::map<int, std::shared_ptr<SGSGameAttr>>::iterator sga = m_mPlayer.find(seat);
+    if (sga != m_mPlayer.end())
+    {
+        Json::Value root;
+        SGSGameAttr &ga = *sga->second;
+        root["seatid"] = seat;
+        root["equipment"] = SGSCard::CARD_ZHU_GE_LIAN_LU;
+        root["type"] = 1;//装备
+        
+        if(ga.m_lstEquip.end() ==  std::find(ga.m_lstEquip.begin(), ga.m_lstEquip.end(),  SGSCard::CARD_ZHU_GE_LIAN_LU))
+        {
+            ga.m_lstEquip.push_back(SGSCard::CARD_ZHU_GE_LIAN_LU);
+            ga.m_bCanSha = true;
+        }
+
+        PPacket packet;
+        packet.body() = root.toStyledString();
+        packet.pack(GAME_EQUIP_BC);
+
+        m_pRoom->Broadcast(packet);
+        
+        PlayCardUC(seat);
+    }
+    else
+    {
+        code = 0x01;
+    }
+
+    return code;
+}
+
 int SGSGameLogic::DealCard_WuZhongSY(int seat)
 {
     int code = 0;
@@ -613,7 +720,18 @@ int SGSGameLogic::DealCard_Sha(int seat, int to_seat)
         SGSGameAttr &ga = *sga->second;
         //Player *self = sga->second->m_player;
         ga.m_nToMeCard = SGSCard::CARD_SHA;
-        tga->second->m_bCanSha = false;
+        bool cansha = false;
+        for(std::list<int>::iterator it = tga->second->m_lstEquip.begin();it!=tga->second->m_lstEquip.end();++it)//装备)
+        {
+            if(SGSCard::CARD_ZHU_GE_LIAN_LU == *it)
+            {
+                cansha = true;
+                break;
+            }
+        }
+
+        tga->second->m_bCanSha = cansha;
+        
         m_nCurrOutSeat = to_seat;
         PlayCardUC(m_nCurrOutSeat);
     }

@@ -222,15 +222,21 @@ int Game::ReqUserQuit(Player *player)
 	if(/*ST_GM_PLAYER_NONE != player->m_nGameStatus &&*/ NULL != player->m_pRoom)
 	{
 		//player->m_pRoom->QuitRoom(player);
-		code = ReqQuitRoom(player);
+		//code = ReqQuitRoom(player);
 	}
 	if(0 == code)
 	{
-		m_mPlayers.erase(player->m_iClient.m_nfd);
+		std::map<int, Player*>::iterator it = m_mPlayers.find(player->m_iClient.m_nfd);
+		if (it!=m_mPlayers.end())
+		{
+			it->second->m_nStatus = ST_PLAYER_OFFLINE;
+		}
+
+		//m_mPlayers.erase(player->m_iClient.m_nfd);
 		//if (ST_PLAYER_OFFLINE != player->m_nStatus && player->m_nID >= 0)
 		{
 		}
-		delete player;
+		//delete player;
 	}
 
 	return 0;
@@ -770,6 +776,9 @@ int Game::Do(Player *player)
 			break;
 		case PLAYER_QUIT:
 			nRet = ReqUserQuit(player);
+        case GAME_HERO_DETAIL:
+            nRet = ReqHeroDetail(player);
+            break;
 			break;
 		default:
 			break;
@@ -778,6 +787,27 @@ int Game::Do(Player *player)
 
 	sgslog.info(FFL_s_d_d, "cmd:", player->m_iClient.m_iPacket.header().cmd, nRet);
 	return nRet;
+}
+
+int Game::ReqHeroDetail(Player *player)
+{
+	int code = 0;
+
+	Json::Value root;
+	std::string err;
+
+	int i = 0;
+	for (std::vector<std::shared_ptr<Hero>>::iterator it = Hero::g_Heros.begin(); it != Hero::g_Heros.end(); ++i, ++it)
+	{
+		(*it)->Get(root["hero"][i]);
+	}
+	PPacket packet;
+	packet.body() = root.toStyledString();
+	packet.pack(GAME_HERO_DETAIL_UC);
+
+	player->Send(packet);
+
+	return code;
 }
 
 int Game::AfterDo(Player *player)
