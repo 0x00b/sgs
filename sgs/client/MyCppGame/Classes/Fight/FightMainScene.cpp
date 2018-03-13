@@ -191,6 +191,15 @@ void FightMain::InitHeroInfo() {
 			}
 
 			img_hero[0]->setScale(visibleSize.width / 8 / img_hero[0]->getContentSize().width);	//武将信息缩放到宽度1/8
+			
+			btn_skill = Button::create("Bg/btn_bg.png");
+			btn_skill->setAnchorPoint(Vec2(1,0));
+			btn_skill->setPosition(Vec2(-1,1));
+			img_hero[0]->addChild(btn_skill);
+			btn_skill->setScale(2);
+			btn_skill->setTitleText((*it).m_oGameAttr.m_pHero->skill_1_name);
+			btn_skill->setTitleFontName("fonts/FZBWKSK.TTF");
+			btn_skill->setTitleFontSize(36);
 																								//右下角我方武将e
 
 																								//我方出手定时s
