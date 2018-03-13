@@ -17,6 +17,12 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+
+public:
+	bool onTouchHandCardBegan(Touch* touch, Event* event);		//手牌的触摸事件
+	void onTouchHandCardMoved(Touch* touch, Event* event);
+	bool onTouchHandCardEnded(Touch* touch, Event* event);
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__

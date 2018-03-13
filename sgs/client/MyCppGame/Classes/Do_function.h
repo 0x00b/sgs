@@ -43,4 +43,5 @@ public:
 	static void GAME_GAME_END(Json::Value &pkt, int cmd);
 	static void GAME_CHAT_BC(Json::Value &pkt, int cmd);
 	static void GAME_EQUIP_BC(Json::Value &pkt, int cmd);
+	static void GAME_HERO_DETAIL_UC(Json::Value &pkt, int cmd);
 };

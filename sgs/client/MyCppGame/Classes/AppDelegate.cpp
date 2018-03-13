@@ -194,6 +194,9 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 	case GAME_EQUIP_BC:
 		Do_function::GAME_EQUIP_BC(pkt, cmd);
 		break;
+	case GAME_HERO_DETAIL_UC:
+		Do_function::GAME_HERO_DETAIL_UC(pkt, cmd);
+		break;
 	default:
 		break;
 	}
@@ -359,7 +362,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// create a scene. it's an autorelease object
 	auto scene = Login::createScene();
 	// run
-
+	auto a = HeroDetail::createScene();
+//	director->runWithScene(a);
 	director->runWithScene(scene);
 	return true;
 }

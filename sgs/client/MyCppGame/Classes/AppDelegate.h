@@ -3,6 +3,7 @@
 
 #include "../Classes/model/include_all.h"
 #include "Do_function.h"
+#include "../Classes/HeroDetail/HeroDetail.h"
 using boost::asio::ip::tcp;
 
 #ifdef WIN32  

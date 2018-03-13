@@ -1,6 +1,6 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
-
+#include <fstream>
 
 USING_NS_CC;
 
@@ -30,6 +30,19 @@ bool HelloWorld::init()
 		return false;
 	}
 	layer->init();
+
+	fstream _file;
+	_file.open("res/HeroDetail.txt",ios::in);
+	if (!_file)
+	{
+		Json::Value root;
+		std::shared_ptr<PPacket> p(new PPacket());
+		p->body = root.toStyledString();
+		p->pack(GAME_HERO_DETAIL);
+		g_lstWrite.push_back(p);
+		;  //不存在发送消息给服务器
+	}
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	Size mywinsize = Director::getInstance()->getWinSize();
@@ -175,9 +188,15 @@ bool HelloWorld::init()
 
 	addChild(sprite7);
 	addChild(sprite);
-	addChild(sprite1);
-	
+	addChild(sprite1);	
 
+	auto touchHandCardListener = EventListenerTouchOneByOne::create();//单指操作监听 也有多点操作
+	touchHandCardListener->setSwallowTouches(true);//设置事件吞没 事件分发机制
+	touchHandCardListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchHandCardBegan, this);
+	touchHandCardListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchHandCardMoved, this);
+	touchHandCardListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchHandCardEnded, this);
+	//将事件绑定到控件上
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchHandCardListener->clone(), sprite1);
 
 	button_all[0]->setPosition(four_position[0]);
 	button_all[1]->setPosition(four_position[2]);
@@ -226,4 +245,32 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     //_eventDispatcher->dispatchEvent(&customEndEvent);
 
 
+}
+
+
+bool HelloWorld::onTouchHandCardBegan(Touch* touch, Event* event) {
+	//被点击对象
+	auto target = (ImageView*)event->getCurrentTarget();
+	//将点击坐标转换到目标坐标系上去
+	Vec2 touchPos = touch->getLocation();
+	Vec2 locationInNode = target->convertToNodeSpace(touchPos);
+	//构建一个目标对象的矩形
+	Size s = target->getContentSize();
+	Rect rect = Rect(0, 0, s.width, s.height);
+	//判断点击是否发生在目标对象内
+	if (rect.containsPoint(locationInNode)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void HelloWorld::onTouchHandCardMoved(Touch* touch, Event* event) {
+
+}
+
+bool HelloWorld::onTouchHandCardEnded(Touch* touch, Event* event) {
+	Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, HeroDetail::createScene()));
+	return true;
 }

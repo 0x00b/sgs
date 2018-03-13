@@ -598,3 +598,70 @@ void Do_function::GAME_EQUIP_BC(Json::Value &pkt, int cmd) {
 	}
 	
 }
+
+void Do_function::GAME_HERO_DETAIL_UC(Json::Value &pkt, int cmd)
+{
+	//vector<Hero>hero_detail;
+	int i;
+	int n = pkt["hero"].size();
+	Hero new_hero;
+	ofstream in;
+	in.open("HeroDetail.txt", ios::trunc);
+	if (0 == pkt["code"].asInt())
+	{
+		for (i = 0; i < n; i++)
+		{
+			Json::Value v = pkt["hero"][i];
+			in <<  v.get("idhero", 0).asInt() <<"\n"
+				<< v["name"].asString() << "\n"
+				<< v["country"].asInt() <<"\n"
+				<< v["skill_1_name"].asString() << "\n"
+				<< v["skill_1_intro"].asString() <<"\n"
+				<< v["skill_2_name"].asString() << "\n"
+				<< v["skill_2_intro"].asString() << "\n"
+				<< v["master_skill_name"].asString() << "\n"
+				<< v["master_skill_intro"].asString() << "\n"
+				<< "\n";
+				//new_hero.name = v["name"].asString();
+				//new_hero.introduction = v["introduction"].asString();
+				//new_hero.skill_1_name = v["skill_1_name"].asString();
+				//new_hero.skill_1_intro = v["skill_1_intro"].asString();
+				//new_hero.skill_2_name = v["skill_2_name"].asString();
+				//new_hero.skill_2_intro = v["skill_2_intro"].asString();
+				//new_hero.master_skill_name = v["master_skill_name"].asString();
+				//new_hero.master_skill_intro = v["master_skill_intro"].asString();
+				//new_hero.remark = v["remark"].asString();
+				//new_hero.idhero = v.get("idhero", 0).asInt();// v["idhero"].asInt();
+				//new_hero.country = v["country"].asInt();
+				//new_hero.blood = v["blood"].asInt();
+				//new_hero.difficuty = v["difficuty"].asInt();
+				//new_hero.attack = v["attack"].asInt();
+				//new_hero.defense = v["defense"].asInt();
+				//new_hero.burst = v["burst"].asInt();
+				//new_hero.control = v["control"].asInt();
+				//new_hero.assistant = v["assistant"].asInt();
+				//new_hero.skill_1_id = v["skill_1_id"].asInt();
+				//new_hero.skill_2_id = v["skill_2_id"].asInt();
+				//new_hero.master_skill_id = v["master_skill_id"].asInt();
+		}
+
+	/*	for (i=0;i<n;i++)
+		{
+			in<<hero_detail[i].idhero<<" "
+			  <<hero_detail[i].name<<" "
+			  <<hero_detail[i].country<<" "
+			  <<hero_detail[i].skill_1_name<<" "
+			  <<hero_detail[i].skill_1_intro <<" "
+			  <<hero_detail[i].skill_2_name <<" "
+			  <<hero_detail[i].skill_2_intro <<" "
+			  <<hero_detail[i].master_skill_name << " "
+			  <<hero_detail[i].master_skill_intro << " "
+			  <<"\n";
+		}*/
+		in.close();
+	}
+	else
+	{
+		;
+	}
+}
