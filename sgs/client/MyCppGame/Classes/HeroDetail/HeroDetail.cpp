@@ -1,6 +1,6 @@
 #include "HeroDetail.h"
 #include <string>
-#include "Classes/Mode/SelectModeScene.h"
+#include "../Classes/Mode/SelectModeScene.h"
 
 USING_NS_CC;
 

@@ -36,7 +36,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp\
 				   ../../Classes/Login/RegisterScene.cpp\
 				   ../../Classes/Fight/FightEndLoseLayer.cpp\
 				   ../../Classes/Fight/FightEndWinLayer.cpp\
-
+				   ../../Classes/HeroDetail/HeroDetail.cpp
 				   
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes\
@@ -51,6 +51,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes\
 					$(LOCAL_PATH)/../../Classes/Mode\
 					$(LOCAL_PATH)/../../Classes/model\
 					$(LOCAL_PATH)/../../Classes/Pop\
+					$(LOCAL_PATH)/../../Classes/PopHeroDetail\
 					$(LOCAL_PATH)/../../Classes/SelectHero2Layer
 								   
 
