@@ -43,6 +43,20 @@ bool SGSGameLogic::HasSeat(int seatid)
     return ( it == m_mPlayer.end());
 }
 
+int SGSGameLogic::Leave(Player *player)
+{
+    int seat = player->SeatID();
+    int to_seat = (seat + 1) % m_pRoom->m_nMaxPlayerCnt;
+
+    m_mPlayer.erase(seat);
+    std::map<int, std::shared_ptr<SGSGameAttr>>::iterator it = m_mPlayer.find(to_seat);
+    if (m_pRoom->m_nStatus != ST_GM_NONE && it != m_mPlayer.end())
+    {
+        GameEnd(to_seat);
+    }
+    return 0;
+}
+
 void SGSGameLogic::Init()
 {
 }
@@ -728,6 +742,10 @@ int SGSGameLogic::DealCard_Sha(int seat, int to_seat)
                 cansha = true;
                 break;
             }
+        }
+        if(tga->second->m_pHero->idhero == HERO_ID_ZHANG_FEI)
+        {
+            cansha = true;
         }
 
         tga->second->m_bCanSha = cansha;
