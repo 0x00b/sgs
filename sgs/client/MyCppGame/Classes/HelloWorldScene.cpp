@@ -32,8 +32,8 @@ bool HelloWorld::init()
 	layer->init();
 
 	fstream _file;
-	_file.open("res/HeroDetail.txt",ios::in);
-	if (!_file)
+//	_file.open("res/HeroDetail.txt",ios::in);
+	if (u_room.hero_all_detail.empty())
 	{
 		Json::Value root;
 		std::shared_ptr<PPacket> p(new PPacket());

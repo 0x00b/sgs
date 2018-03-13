@@ -364,7 +364,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// create a scene. it's an autorelease object
 	auto scene = Login::createScene();
 	// run
-	auto a = HeroDetail::createScene();
+//	auto a = HeroDetail::createScene();
 //	director->runWithScene(a);
 	director->runWithScene(scene);
 	return true;
