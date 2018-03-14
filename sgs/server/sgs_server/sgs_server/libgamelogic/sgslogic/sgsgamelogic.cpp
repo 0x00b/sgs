@@ -22,6 +22,7 @@ SHero::SHero(const std::shared_ptr<Hero> &hero) : m_bSelected(false),
 }
 SGSGameLogic::SGSGameLogic() : m_nSelected(0),
                                m_nStatus(PLAYER_NONE),
+                               m_nFistOutCard(0),
                                play_timer_stamp(15),
                                discard_timer_stamp(15)
 {
@@ -1113,7 +1114,8 @@ int SGSGameLogic::StartDeal() //开始发牌
         m_pRoom->Unicast(ga.m_player, packet);
     }
     //开始出牌
-    m_nCurrPlayerSeat = 0;
+    m_nCurrPlayerSeat = m_nFistOutCard;
+    m_nFistOutCard = (m_nFistOutCard + 1) % m_pRoom->m_nMaxPlayerCnt;
     PlayCardUC(m_nCurrPlayerSeat, 1);
 
     return 0;

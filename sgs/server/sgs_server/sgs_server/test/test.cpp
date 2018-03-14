@@ -23,6 +23,34 @@ void* func(void* )
    return NULL;
 }
 
+#include <sys/sem.h>
+#include <sys/ipc.h>
+#include <sys/types.h>
+#include <algorithm>
+
+class MyClass
+{
+public:
+    int data;
+    MyClass(int n):data(n)
+    {
+        printf("con");
+    }
+    ~MyClass()
+    {
+        printf("de");
+    }
+
+    bool operator==(int n)
+    {
+        return data == n;
+    }
+    bool operator==(const MyClass&  mc)
+    {
+        return data == mc.data;
+    }
+};
+
 int main()
 {
 
@@ -33,6 +61,31 @@ int main()
 
     int* p = &i;
     int* pj = &j;
+
+    sembuf s;
+
+    std::list<MyClass> lll;
+
+    lll.emplace_back(111);
+
+    //lll.remove(111);
+    lll.erase(lll.end());
+
+    int llll = lll.size();
+
+    std::vector<MyClass> vvv;
+
+    vvv.push_back(1111);
+    vvv.push_back(2222);
+    vvv.push_back(1111);
+    vvv.push_back(2222);
+    vvv.push_back(2222);
+
+    std::remove(vvv.begin(), vvv.end(), 1111);
+    vvv.erase(vvv.end());
+
+    llll = vvv.size();
+    //    semget(,);
 
     srand(time(NULL));
     
