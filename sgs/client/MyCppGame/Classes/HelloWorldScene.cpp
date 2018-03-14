@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "CardInfo/CardInfoScene.h"
 #include <fstream>
 
 USING_NS_CC;
@@ -210,6 +211,15 @@ bool HelloWorld::init()
 		{
 		case ui::Widget::TouchEventType::ENDED:
 			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, SelectMode::createScene()));
+			break;
+		}
+	}));
+
+	button_all[1]->addTouchEventListener(([&](Ref* sender, ui::Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::ENDED:
+			Director::getInstance()->replaceScene(TransitionSlideInR::create(0.5f, CardInfo::createScene()));
 			break;
 		}
 	}));
