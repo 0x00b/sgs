@@ -76,7 +76,7 @@ bool HeroDetail::init()
 	addChild(btn_back);
 	btn_back->addTouchEventListener(CC_CALLBACK_2(HeroDetail::DidBack, this));
 
-	init_detail();
+	//init_detail();
 	init_country_layer();  // 层创建好之后对他们进来初始化
 	for (i = 0; i < 4; i++)
 	{
@@ -137,20 +137,57 @@ void HeroDetail::select_country_btn()
 
 void HeroDetail::init_detail()
 {
-	ifstream myfile("res/HeroDetail.txt");
-	string temp;
-	if (!myfile.is_open())
-	{
-	//	cout << "未成功打开文件" << endl;
-		log("123123123\n");
-		log("123123123\n");
-		log("123123123\n");
-	}
-	int i=0;
-	int j;
-	Hero new_hero;
-	int aaa;
-	while (getline(myfile, temp))
+	//ifstream myfile("res/HeroDetail.txt");
+	//string temp;
+	//if (!myfile.is_open())
+	//{
+	////	cout << "未成功打开文件" << endl;
+	////	log("123123123\n");T.RCE
+	//}
+//	auto fu = FileUtils::getInstance();
+//	/*log("aaaaaaaa");
+//	log("%s", fu->getWritablePath().c_str());*/
+//	Data d = fu->getDataFromFile(fu->fullPathFromRelativeFile("HeroDetail.txt", fu->getWritablePath()));
+//	//log("%s", d.getBytes());
+//	int i=0;
+//	int j;
+//	Hero new_hero;
+//	int aaa;
+//	char * a = (char *)d.getBytes();
+//	char * p;
+//	const char * split = "#"; //
+//	p = strtok(a,split);
+//	aaa = 16;
+//	p = strtok(NULL, split);
+//	////MessageBox("2", "123");
+//	while (i<aaa) {
+//
+//
+////		new_hero.idhero = atol(p);
+//		new_hero.idhero = 1;
+//		//getline(myfile, temp);
+//		p = strtok(NULL, split);
+//		new_hero.name = p;
+//		p = strtok(NULL, split);
+//	//	new_hero.country = atol(p);
+//		new_hero.country = 1;
+//		p = strtok(NULL, split);
+//		new_hero.skill_1_name = p;
+//		p = strtok(NULL, split);
+//		new_hero.skill_1_intro = p;
+//		p = strtok(NULL, split);
+//		new_hero.skill_2_name = p;
+//		p = strtok(NULL, split);
+//		new_hero.skill_2_intro = p;
+//		p = strtok(NULL, split);
+//		new_hero.master_skill_name = p;
+//		p = strtok(NULL, split);
+//		new_hero.master_skill_intro = p;
+//		p = strtok(NULL, split);
+//		hero_detail.push_back(new_hero);
+//		i++;
+//	}
+	/*while (getline(myfile, temp))
 	{
 		new_hero.idhero = strtol(temp.c_str(), NULL, 0);
 		getline(myfile, temp);
@@ -172,14 +209,13 @@ void HeroDetail::init_detail()
 		getline(myfile, temp);
 		hero_detail.push_back(new_hero);
 		i++;
-	}
-	hero_detail;
-	myfile.close();
+	}*/;
+	//myfile.close();
 }
 
 void HeroDetail::init_country_layer()  //初始化4个层
 {
-	int i = hero_detail.size();
+	int i = u_room.hero_all_detail.size();
 	int j;
 	char name_pic[50];
 	float scalex, scaley;
@@ -189,10 +225,10 @@ void HeroDetail::init_country_layer()  //初始化4个层
 	}
 	for (j = 0; j < i; j++)
 	{
-		sprintf(name_pic, "SelectHero2/%d.png", hero_detail[j].idhero);
+		sprintf(name_pic, "SelectHero2/%d.png", u_room.hero_all_detail[j].idhero);
 		cocos2d::ui::Button * btn_tim = cocos2d::ui::Button::create(name_pic, name_pic, name_pic);
 		btn_tim->setAnchorPoint(Point(0, 0));
-		btn_tim->setPosition(Point(win.width / 6.5 + num_country[hero_detail[j].country-1] % 5 * (win.width*0.15), win.height/8+ (1-num_country[hero_detail[j].country - 1] / 5) * (win.height / 2.6)));
+		btn_tim->setPosition(Point(win.width / 6.5 + num_country[u_room.hero_all_detail[j].country-1] % 5 * (win.width*0.15), win.height/8+ (1-num_country[u_room.hero_all_detail[j].country - 1] / 5) * (win.height / 2.6)));
 		Size a = btn_tim->getContentSize();
 		scalex = win.width / 7.5 / a.width;
 		scaley = win.height / 3 / a.height;
@@ -201,8 +237,8 @@ void HeroDetail::init_country_layer()  //初始化4个层
 		btn_tim->setTag(j);
 		all_hero.push_back(btn_tim);
 		btn_tim->addTouchEventListener(CC_CALLBACK_2(HeroDetail::Selet_Detail_Hero, this));
-		country[hero_detail[j].country - 1]->addChild(btn_tim);
-		num_country[hero_detail[j].country - 1]++;
+		country[u_room.hero_all_detail[j].country - 1]->addChild(btn_tim);
+		num_country[u_room.hero_all_detail[j].country - 1]++;
 	}
 }
 
@@ -296,13 +332,13 @@ void HeroDetail::Selet_Detail_Hero(Ref* sender, cocos2d::ui::Widget::TouchEventT
 			skill[i]->setVisible(true);
 		}
 		pic->setVisible(true);
-		skill[0]->setString(hero_detail[a].skill_1_name);
-		skill[1]->setString(hero_detail[a].skill_1_intro);
-		skill[2]->setString(hero_detail[a].skill_2_name);
-		skill[3]->setString(hero_detail[a].skill_2_intro);
-		skill[4]->setString(hero_detail[a].master_skill_name);
-		skill[5]->setString(hero_detail[a].master_skill_intro);
-		sprintf(name_pic, "SelectHero2/%d.png", hero_detail[a].idhero);
+		skill[0]->setString(u_room.hero_all_detail[a].skill_1_name);
+		skill[1]->setString(u_room.hero_all_detail[a].skill_1_intro);
+		skill[2]->setString(u_room.hero_all_detail[a].skill_2_name);
+		skill[3]->setString(u_room.hero_all_detail[a].skill_2_intro);
+		skill[4]->setString(u_room.hero_all_detail[a].master_skill_name);
+		skill[5]->setString(u_room.hero_all_detail[a].master_skill_intro);
+		sprintf(name_pic, "SelectHero2/%d.png", u_room.hero_all_detail[a].idhero);
 		pic->setTexture(name_pic);
 		break;
 	case ui::Widget::TouchEventType::MOVED:

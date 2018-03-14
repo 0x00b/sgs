@@ -169,6 +169,7 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 		break;
 	case GAME_OUT_CARD_BC:
 		Do_function::GAME_OUT_CARD_BC(pkt, cmd);	//点击出牌
+		break;
 	case GAME_PLAY_CARD_BC:
 		Do_function::GAME_PLAY_CARD_BC(pkt, cmd);	//轮到谁出牌
 		break;
@@ -177,6 +178,7 @@ int AppDelegate:: Do(Json::Value &pkt,int cmd)
 		break;
 	case GAME_DISCARD_BC:
 		Do_function::GAME_DISCARD_BC(pkt, cmd);
+		break;
 	case GAME_CANCEL_OUT_CARD:
 		Do_function::GAME_CANCEL_OUT_CARD_BC(pkt,cmd);
 		break;
@@ -364,7 +366,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// create a scene. it's an autorelease object
 	auto scene = Login::createScene();
 	// run
-	auto a = HeroDetail::createScene();
+//	auto a = HeroDetail::createScene();
 //	director->runWithScene(a);
 	director->runWithScene(scene);
 	return true;

@@ -21,6 +21,7 @@ void Player::Get(Json::Value& player)
 
 void Player::Set(const Json::Value& player)
 {
+	m_nID = player[SPlayer[EPlayer_id]].asInt();
 	m_stAccount = player[SPlayer[EPlayer_account]].asString();
 	m_stPasswd = player[SPlayer[EPlayer_passwd]].asString();
 	m_stName = player[SPlayer[EPlayer_name]].asString();

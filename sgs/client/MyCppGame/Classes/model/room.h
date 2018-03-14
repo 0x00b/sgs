@@ -43,7 +43,7 @@ public:
 	std::list<std::string> m_chat_message;  //chat message
 	std::string	m_stName;			//room's name
 	ERoomType m_eType;				//room type
-
+	std::vector<Hero> hero_all_detail;
 	int m_nRoomID;
 	int m_nMaxPlayerCnt;			//max player cnt
 	int m_nPlayerCnt;				//current player cnt

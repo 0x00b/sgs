@@ -53,5 +53,7 @@ bool FightEndWin::init()
 }
 
 void FightEndWin::BackToHome(float ft) {
-	Director::getInstance()->replaceScene(TransitionSlideInL::create(0.5f, ReadyHome::createScene()));
+	u_room.m_nStatus = 1;
+	u_player.MyCurrentScene = ReadyHome::createScene();
+	Director::getInstance()->replaceScene(TransitionSlideInL::create(0.5f, u_player.MyCurrentScene));
 }
