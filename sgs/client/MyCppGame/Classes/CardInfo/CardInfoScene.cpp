@@ -83,7 +83,7 @@ bool CardInfo::init()
 				else {
 					flag = true;
 				}
-				diff = Vec2(0, ((Button*)sender)->getTouchMovePosition().y - old_y);
+				diff = Vec2(0, 2*(((Button*)sender)->getTouchMovePosition().y - old_y));
 				posSrc = img_map->getPosition();
 				posDes = posSrc + diff;
 
