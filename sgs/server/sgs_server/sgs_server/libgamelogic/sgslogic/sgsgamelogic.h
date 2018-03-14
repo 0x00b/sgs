@@ -35,6 +35,7 @@ public:
 	//int m_nPlayerSeat;				
 	SGSCard m_oLastCard;			//当前回合的牌
 	int m_nStatus;					//状态是
+	int m_nFistOutCard;
 	
 	enum GM_STATUS
 	{

@@ -459,10 +459,9 @@ int Game::ReqQuitRoom(Player *player)
 	packet.body() = root.toStyledString();
 	packet.pack(PLAYER_QUIT_ROOM_BC);
 
+	player->Send(packet);
 	if (0 == code)
 	{
-		player->Send(packet);
-		room->second->Broadcast(packet);
 		//all quit room ,delete room
 		if (1 == quit_ret)
 		{
@@ -473,10 +472,10 @@ int Game::ReqQuitRoom(Player *player)
 		{
 			code = 0x08;
 		}
-	}
-	else
-	{
-		player->Send(packet);
+		else
+		{
+			room->second->Broadcast(packet);
+		}
 	}
 
 	return code;
